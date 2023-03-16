@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubfamiliaTable extends Migration
+class CreateSubfamiliasTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'subfamilia';
+    public $tableName = 'subfamilias';
 
     /**
      * Run the migrations.
@@ -28,8 +28,8 @@ class CreateSubfamiliaTable extends Migration
             $table->unsignedSmallInteger('precio_dia');
             $table->unsignedSmallInteger('fianza');
 
-            $table->foreignId('id_familia')
-                ->references('id')->on('familia')
+            $table->foreignId('familia_id')
+                ->references('id')->on('familias')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

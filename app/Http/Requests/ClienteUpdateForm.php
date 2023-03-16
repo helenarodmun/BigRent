@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClienteForm extends FormRequest
+class ClienteUpdateForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,16 @@ class ClienteForm extends FormRequest
     public function rules(): array
     {
         return [
-
             'nombre_fiscal' => 'nullable|string',
             'nif' => 'nullable|string|max:9',
-            'nombre_comercial' => 'required|string',
-            'tipo' => 'required',
-            'administrador' => 'required|string',
-            'dni_administrador' => 'required|string',
+            'nombre_comercial' => 'nullable|string',
+            'tipo' => 'nullable',
+            'administrador' => 'nullable|string',
+            'dni_administrador' => 'nullable|string',
             'url_escrituras' => 'nullable|string',
             'url_dni_administrador' => 'nullable|string',
             'url_cif' => 'nullable|string',
             'anotaciones' => 'nullable|string|max:255'
-
         ];
     }
 }

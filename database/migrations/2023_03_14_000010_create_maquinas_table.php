@@ -24,13 +24,14 @@ class CreateMaquinasTable extends Migration
             $table->id();
             $table->string('marca', 45);
             $table->text('descripcion');
-            $table->boolean('disponible')->nullable();
             $table->tinyInteger('inventario');
-            $table->string('referencia', 10);
+            $table->string('referencia', 10);            
+            $table->string('url_manual')->nullable();
+            $table->string('url_ficha')->nullable();
 
 
-            $table->foreignId('id_subfamilia')
-                ->references('id')->on('subfamilia')
+            $table->foreignId('subfamilia_id')
+                ->references('id')->on('subfamilias')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

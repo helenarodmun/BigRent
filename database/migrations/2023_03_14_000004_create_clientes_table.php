@@ -26,12 +26,13 @@ class CreateClientesTable extends Migration
             $table->string('nombre_fiscal', 75)->nullable();
             $table->string('nif', 9)->nullable();
             $table->string('nombre_comercial', 75);
-            $table->enum('tipo', ['Empresa', 'Autónomo/Particular', 'Organismo/Institución', 'Asosiación']);
+            $table->enum('tipo', ['Empresa', 'Autónomo/Particular', 'Organismo/Institución', 'Asociación']);
             $table->string('administrador', 45);
             $table->string('dni_administrador', 9);
             $table->string('url_escrituras')->nullable();
             $table->string('url_dni_administrator')->nullable();
             $table->string('url_cif')->nullable();
+            $table->text('anotaciones')->nullable();
             $table->timestamps();
         });
     }

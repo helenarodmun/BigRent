@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFamiliaTable extends Migration
+class CreateTelefonosTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'familia';
+    public $tableName = 'telefonos';
 
     /**
      * Run the migrations.
-     * @table familia
+     * @table contactos
      *
      * @return void
      */
@@ -23,7 +23,13 @@ class CreateFamiliaTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('nombre', 75);
+            $table->string('telefono', 9);
+            $table->string('email', 45);
+
+            $table->foreignId('cliente_id')
+                ->references('id')->on('clientes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

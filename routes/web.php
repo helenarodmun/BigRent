@@ -33,9 +33,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/create',function(){
     return Inertia::render('Clientes/Create');
     });
-    
-Route::post('/create',[ClienteController::class,'create']);
-Route::get('/index',[ClienteController::class,'index']);
+
+Route::get('/index',[ClienteController::class,'index']);  
+Route::post('/index',[ClienteController::class,'index']);  
+Route::get('/nuevoCliente', function () {
+    return Inertia::render('Clientes/Create');
+});
+Route::post('/nuevoCliente',[ClienteController::class,'create']);
+Route::get('/cliente/{id}',[ClienteController::class,'showClienteActual']);
+Route::get('/cliente/{id}', function () {
+    return Inertia::render('Clientes/Update');
+});
+Route::put('/clientes/{id}',[ClienteController::class,'update']);
+Route::delete('clientes/{id}',[ClienteController::class,'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

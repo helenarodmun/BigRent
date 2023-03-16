@@ -1,6 +1,5 @@
 import { usePage, Link } from "@inertiajs/react";
-import { Container, Row, Col, Button, Card } from "react-bootstrap";
-
+import { Container, Row, Col, Button, Table } from "react-bootstrap";
 
 export default function Index() {
     const { clientes } = usePage().props;
@@ -25,51 +24,46 @@ export default function Index() {
                     </div>
                 )} */}
                 <Row>
-                    <h1 className="m-5">Empresas</h1>
-                    {clientes.map((cliente) => (
-                        <Col
-                            key={cliente.id}
-                            md={6}
-                            className="mt-3 pt-3 shadow  p-3 "
-                        >
-                            <Card className="shadow">
-                                <Card.Header className="h3">
-                                    Nombre Fiscal: {cliente.nombre_fiscal}
-                                    <br />
-                                    Nombre comercial: {cliente.nombre_comercial}
-                                </Card.Header>
-                                <Card.Body>
-                                    <span>
-                                        Nif: {cliente.nif}
-                                    </span>
-                                    <br />
-                                    <span>
-                                        Aministrador: {cliente.administrador}
-                                    </span>
-                                    <br />
-                                    <span>                                       
-                                        DNI Administrador: {cliente.dni_administrador}
-                                    </span>
-                                    <br />
-                                    <Button
-                                        size="lg"
-                                        className="btn btn-success  m-3 shadow"
-                                        href={"/update/" + cliente.id}
-                                    >
-                                        Modifica el viaje
-                                    </Button>
-                                </Card.Body>
-                                <Card.Footer className="text-muted">
-                                  
-                                    Fecha de creación:{" "}
-                                   
-                                    {" - "}
-                                    {myDate(cliente.updated_at)}
-                                </Card.Footer>
-                            </Card>
-                        </Col>
-                    ))}
+                    <h1 className="m-3">Clientes</h1>
+
+                    <Col sm={12} className="mt-3 pt-3 shadow  p-2 ">
+                        <Table striped bordered hover className="shadow">
+                            <thead className="h3">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>NIF</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            {clientes.map((cliente) => (
+                                <tbody>
+                                    <tr key={cliente.id}>
+                                        <td>{cliente.id}</td>
+                                        <td>{cliente.nombre_fiscal}</td>
+                                        <td>{cliente.nif}</td>
+                                        <td>                                           
+                                            <Link
+                                                href={"/cliente/" + cliente.id}
+                                                className="shadow  bi bi-pencil-square m-1 text-success"
+                                                as="button"
+                                            />                                           
+                                            <Link
+                                            method="delete"
+                                                href={"/clientes/" + cliente.id}
+                                                className="shadow bi bi-trash m-1 text-danger"
+                                                as="button"
+                                            />                                        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            ))}
+                        </Table>
+                    </Col>
                 </Row>
+                <Button className="m-5 align-items-center justify-content-center" variant="primary"  href="/nuevoCliente" size="lg">            
+                    Crear nuevo Cliente
+                </Button>
             </Container>
         </>
     );

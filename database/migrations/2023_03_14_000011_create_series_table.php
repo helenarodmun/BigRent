@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContactosTable extends Migration
+class CreateSeriesTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'contactos';
+    public $tableName = 'series';
 
     /**
      * Run the migrations.
-     * @table contactos
+     * @table numeros_serie
      *
      * @return void
      */
@@ -23,15 +23,14 @@ class CreateContactosTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('telefono1', 9);
-            $table->string('telefono2', 9)->nullable();
-            $table->string('email_contacto1', 45);
-            $table->string('email_contacto2', 45)->nullable();
-            $table->text('anotaciones')->nullable();
+            $table->timestamp('fecha');
+            $table->boolean('horometro')->nullable();
+            $table->time('hora_inicio')->nullable();
+            $table->string('numero_serie', 45);
+            $table->boolean('disponible')->nullable();
 
-
-            $table->foreignId('id_cliente')
-                ->references('id')->on('clientes')
+            $table->foreignId('maquina_id')
+                ->references('id')->on('maquinas')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -24,15 +24,14 @@ class CreateDireccionesTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('direccion', 75);
-            $table->string('site', 75)->nullable();
             $table->string('cp', 5);
+            $table->string('localidad', 75);
             $table->string('municipio', 65);
-            $table->string('provincia', 65)->nullable();
-            $table->string('pais', 45)->nullable();
-            $table->string('prefijo', 4)->nullable();
+            $table->string('provincia', 65)->default('Las Palmas');
+            $table->boolean('predeterminada')->default(true);
 
 
-            $table->foreignId('id_cliente')
+            $table->foreignId('cliente_id')
                 ->references('id')->on('clientes')
                 ->onDelete('no action')
                 ->onUpdate('no action');

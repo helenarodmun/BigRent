@@ -3,28 +3,29 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
 
-export default function Update({children}) {
-    const { flash } = usePage().props
+export default function Update(props) {
+    const { cliente } = usePage().props;
+    console.log(props);
       // Estado local para controlar el envío del formulario
       const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
-    const { data, setData, post, processing, errors } = useForm({
-        nombre_fiscal: "",
-        nif: "",
-        nombre_comercial: "",
-        tipo: "",
-        administrador: '',
-        dni_administrador: '',
-        url_escrituras: '',
-        url_dni_administrador:'',
-        url_cif:''
+    const { data, setData, put, processing, errors } = useForm({
+        nombre_fiscal: cliente.nombre_fiscal,
+        nif: cliente.nif,
+        nombre_comercial: cliente.nombre_comercial,
+        tipo: cliente.tipo,
+        administrador:cliente.administrador,
+        dni_administrador: cliente.dni_administrador,
+        url_escrituras: cliente.url_escrituras,
+        url_dni_administrador: cliente.url_dni_administrador,
+        url_cif: cliente.url_cif
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
         setIsSubmitting(true);      
-        post(
-            "/create",
+        put(
+            "/cliente"+ cliente.id,
             {
                 onSuccess: () => {
                     console.log(data);
@@ -43,13 +44,16 @@ export default function Update({children}) {
         )}
         {children} */}
                 <Row className='shadow'>
+                <p className="h1">Modificar Cliente</p>
                     <Col sm={8} className="mt-3 pt-3 shadow p-3 " >
                         <Card className="shadow">
                             <Card.Header >
-                            <p className="h1">Crear nueva Empresa</p>
+                            <Card.Title >
+                                    <p className="h2"> Cliente {cliente.id}</p>
+                                </Card.Title>
                             </Card.Header>
                             <Card.Body >
-                                <Form  >
+                                <Form  onSubmit={handleSubmit}>
                                     <Form.Group>
                                         <Form.Label >Nombre Fiscal:</Form.Label>
                                         <Form.Control aria-label="nombre fiscal"
@@ -80,7 +84,7 @@ export default function Update({children}) {
                                             placeholder="Introduce el número de identificación fiscal"
                                             value={data.nif}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "nif",
@@ -102,7 +106,7 @@ export default function Update({children}) {
                                             placeholder="Introduce el nombre comercial"
                                             value={data.nombre_comercial}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData("nombre_comercial", e.target.value)
                                             }
@@ -121,7 +125,7 @@ export default function Update({children}) {
                                             placeholder="Introduce el nombre del administrador de la empresa"
                                             value={data.administrador}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "administrador",
@@ -143,7 +147,7 @@ export default function Update({children}) {
                                             placeholder="Introduce el DNI del administrador de la empresa"
                                             value={data.dni_administrador}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "dni_administrador",
@@ -166,7 +170,7 @@ export default function Update({children}) {
                                             name="tipo"
                                             value={data.tipo}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e
                                             ) =>
                                                 setData("tipo", e.target.value)
                                             }
@@ -178,7 +182,7 @@ export default function Update({children}) {
                                             <option value="Empresa">Empresa</option>
                                             <option value="Autónomo/Particular">Autónomo/Particular</option>
                                             <option value="Organismo/Institución">Organismo/Institución</option>
-                                            <option value="Asociación">Asosiación</option>
+                                            <option value="Asociación">Asociación</option>
                                         </Form.Select>
                                         {errors.tipo && (
                                             <div className="alert alert-danger">
@@ -195,7 +199,7 @@ export default function Update({children}) {
                                             placeholder=""
                                             value={data.url_escrituras}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "url_escrituras",
@@ -217,7 +221,7 @@ export default function Update({children}) {
                                             placeholder=""
                                             value={data.url_dni_administrador}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "url_dni_administrador",
@@ -239,7 +243,7 @@ export default function Update({children}) {
                                             placeholder=""
                                             value={data.url_cif}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "url_cif",
@@ -262,11 +266,11 @@ export default function Update({children}) {
                                         variant="primary" 
                                         disabled={isSubmitting}
                                         onClick={handleSubmit} 
-                                        aria-label="Guardar nueva empresa"
+                                        aria-label="Modificar datos del cliente"
                                         >
                                           {isSubmitting
                                                ? "Guardando..."
-                                               : "Guardar Registro"}
+                                               : "Guardar cambios"}
                                          
                                     </Button>
                             </Card.Footer>                    

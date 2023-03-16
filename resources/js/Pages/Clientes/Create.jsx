@@ -24,7 +24,7 @@ export default function Create({children}) {
         e.preventDefault();
         setIsSubmitting(true);      
         post(
-            "/create",
+            "/nuevoCliente",
             {
                 onSuccess: () => {
                     console.log(data);
@@ -46,7 +46,7 @@ export default function Create({children}) {
                     <Col sm={8} className="mt-3 pt-3 shadow p-3 " >
                         <Card className="shadow">
                             <Card.Header >
-                            <p className="h1">Crear nueva Empresa</p>
+                            <p className="h1">Crear nuevo cliente</p>
                             </Card.Header>
                             <Card.Body >
                                 <Form  >
@@ -178,7 +178,7 @@ export default function Create({children}) {
                                             <option value="Empresa">Empresa</option>
                                             <option value="Autónomo/Particular">Autónomo/Particular</option>
                                             <option value="Organismo/Institución">Organismo/Institución</option>
-                                            <option value="Asociación">Asosiación</option>
+                                            <option value="Asociación">Asociación</option>
                                         </Form.Select>
                                         {errors.tipo && (
                                             <div className="alert alert-danger">

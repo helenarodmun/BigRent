@@ -28,17 +28,23 @@ class CreateContratosTable extends Migration
             $table->date('fecha_entrega');
             $table->unsignedTinyInteger('semanas');
             $table->unsignedSmallInteger('dias');
+            $table->unsignedSmallInteger('precio');
             $table->text('notas1')->nullable();
-            $table->text('notes2')->nullable(); 
+            $table->text('notes2')->nullable();
 
 
-            $table->foreignId('id_cliente')
+            $table->foreignId('cliente_id')
                 ->references('id')->on('clientes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-            $table->foreignId('id_num_serie')
-                ->references('id')->on('numeros_serie')
+            $table->foreignId('serie_id')
+                ->references('id')->on('series')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreignId('direccion_id')
+                ->references('id')->on('direcciones')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

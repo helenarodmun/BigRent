@@ -24,10 +24,12 @@ class CreateAutorizadosTable extends Migration
             $table->id();
             $table->string('nombre_persona_autorizada', 75)->nullable();
             $table->string('dni', 9)->nullable();
-            $table->text('notas')->nullable();
+            $table->string('telefono1', 9)->nullable();
+            $table->string('telefono2', 9)->nullable();
+            $table->text('anotaciones')->nullable();
             $table->string('url_dni')->nullable();
 
-            $table->foreignId('id_cliente')
+            $table->foreignId('cliente_id')
                 ->references('id')->on('clientes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
