@@ -1,14 +1,14 @@
-import { useForm, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card, FormControl } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
 
 export default function Update(props) {
-    const { clientes } = usePage().props;
-console.log(clientes)
+    const { clientes, direcciones } = usePage().props;
+    console.log(clientes);
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, delete:destroy, processing, errors } = useForm({
+    const { data, setData, put, delete: destroy, processing, errors, } = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
@@ -18,7 +18,7 @@ console.log(clientes)
         url_escrituras: clientes.url_escrituras,
         url_dni_administrador: clientes.url_dni_administrador,
         url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones
+        anotaciones: clientes.anotaciones,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -60,7 +60,7 @@ console.log(clientes)
         {children} */}
                 <Row className="shadow">
                     <p className="h1">Modificar Cliente</p>
-                    <Col sm={8} className="mt-3 pt-3 shadow p-3 ">
+                    <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
                         <Card className="shadow">
                             <Card.Header>
                                 <Card.Title>
@@ -282,52 +282,107 @@ console.log(clientes)
                                         )}
                                     </Form.Group>
                                     <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Observaciones:
-                                        </Form.Label>
-                                        <Form.Control as='textarea' rows={5} 
-                                          aria-label=" url_cif"
-                                          name="anotaciones"
-                                          placeholder=""
-                                          value={data.anotaciones}
-                                          onChange={(e) =>
-                                              setData(
-                                                  "anotaciones",
-                                                  e.target.value
-                                              )
-                                          }
+                                        <Form.Label>Observaciones:</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={5}
+                                            aria-label=" url_cif"
+                                            name="anotaciones"
+                                            placeholder=""
+                                            value={data.anotaciones}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "anotaciones",
+                                                    e.target.value
+                                                )
+                                            }
                                         ></Form.Control>
                                     </Form.Group>
                                 </Form>
+                                <Container>
+                                    <Col
+                                        sm={12}
+                                        className="mt-3 pt-3 shadow p-3 "
+                                    >
+                                        <Table
+                                            striped
+                                            bordered
+                                            hover
+                                            className="shadow"
+                                            size="sm"
+                                            responsive
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th>Dirección</th>
+                                                    <th>Localidad</th>
+                                                    <th>Código Postal</th>
+                                                    <th>Municipio</th>
+                                                    <th>Provincia</th>
+                                                    <th>
+                                                        Dirección predeterminada
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            {direcciones.map((direcciones) => (
+                                                <tbody>
+                                                    <tr key={ direcciones.id }>
+                                                        <td>{ direcciones.direccion }</td>
+                                                        <td>{ direcciones.localidad }</td>
+                                                        <td>{ direcciones.cp }</td>
+                                                        <td>{ direcciones.municipio }</td>
+                                                        <td>{ direcciones.provincia }</td>
+                                                        { direcciones.predeterminada == 0 ? (
+                                                            <td>No</td>
+                                                        ) : (
+                                                            <td>Sí</td>
+                                                        )}
+                                                        <td>
+                                                            <Link
+                                                                href={"/editarDireccion/" + direcciones.id}
+                                                                as="button"
+                                                                class="bi bi-pencil-square text-success m-1"
+                                                            />
+                                                            <Link
+                                                            method="delete"
+                                                                href={"/eliminarDireccion/" + direcciones.id}
+                                                                as="button"
+                                                                class="bi bi-trash3 text-danger m-1"
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
+                                        </Table>
+                                    </Col>
+                                </Container>
                             </Card.Body>
                             <Card.Footer>
-                            <Button 
-                                className='m-3 shadow' 
-                                variant="primary"
-                                size='lg'
-                                 disabled={isSubmitting}
-                                 onClick={handleSubmit} 
-                                 aria-label="Modificar los datos del cliente"
-                                 >
-                                   {isSubmitting
+                                <Button
+                                    className="m-3 shadow"
+                                    variant="primary"
+                                    size="lg"
+                                    disabled={isSubmitting}
+                                    onClick={handleSubmit}
+                                    aria-label="Modificar los datos del cliente"
+                                >
+                                    {isSubmitting
                                         ? "Guardando..."
                                         : "Guardar cambios"}
-                                  
                                 </Button>
-                                <Button className="m-3 shadow"
-                                type="submit"
-                                variant="danger"
-                                size='lg'
-                                disabled={isSubmitting}
-                                aria-label="Eliminar los datos del cliente"
-                                onClick={handleSubmitDelete} 
+                                <Button
+                                    className="m-3 shadow"
+                                    type="submit"
+                                    variant="danger"
+                                    size="lg"
+                                    disabled={isSubmitting}
+                                    aria-label="Eliminar los datos del cliente"
+                                    onClick={handleSubmitDelete}
                                 >
-                                  {isSubmitting
-                                       ? "Eliminando..."
-                                       : "Eliminar registro"}
-                            
-                               
-                            </Button>
+                                    {isSubmitting
+                                        ? "Eliminando..."
+                                        : "Eliminar registro"}
+                                </Button>
                             </Card.Footer>
                         </Card>
                     </Col>

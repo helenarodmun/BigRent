@@ -1,15 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    Button,
-    Card,
-    FormControl,
-    Table,
-} from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
 
 export default function Update(props) {
     const { clientes, direcciones } = usePage().props;
@@ -29,7 +20,8 @@ export default function Update(props) {
         url_cif: clientes.url_cif,
         anotaciones: clientes.anotaciones,
     });
-
+    //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papellera
+    const [clienteId, setClienteId] = useState(null);
     return (
         <>
             <Container className="">
@@ -148,6 +140,7 @@ export default function Update(props) {
                                         ></Form.Control>
                                     </Form.Group>
                                 </Form>
+                                <Container>
                                 <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
                                     <Table
                                         striped
@@ -193,6 +186,7 @@ export default function Update(props) {
                                         ))}
                                     </Table>
                                 </Col>
+                                </Container>
                             </Card.Body>
                             <Card.Footer>
                                 <Button

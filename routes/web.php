@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Models\Direccion;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,12 @@ Route::get('/nuevoCliente', function () {
 });
 Route::post('/nuevoCliente',[ClienteController::class,'create']);
 Route::get('/cliente/{id}',[ClienteController::class,'showClienteActual']);
+
+Route::get('/nuevaDireccion', function () {
+    return Inertia::render('Clientes/Create');
+});
+Route::post('/nuevaDireccion',[DireccionController::class,'create']);
+
 // Route::get('/verCliente', function () {
 //     return Inertia::render('Clientes/Update');
 // });
@@ -44,6 +51,9 @@ Route::get('/editarCliente/{id}',[ClienteController::class,'showClienteEdicion']
 Route::put('/editarCliente/{id}',[ClienteController::class,'update']);
 
 Route::delete('/eliminarCliente/{id}',[ClienteController::class,'destroy']);
+
+Route::get('/editarDireccion/{id}', [DireccionController::class, 'update']);
+Route::delete('/eliminarDireccion/{id}', [Direccion::class, 'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
