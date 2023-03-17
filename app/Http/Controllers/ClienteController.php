@@ -51,14 +51,14 @@ class ClienteController extends Controller
         //recupera los datos del cliente a través de la id pasada por url
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
-        // $cliente_actual->load('direcciones.cliente');
+        $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
-        // $cliente_actual->load('telefonos.cliente');
+        $cliente_actual->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/Show', [
             'clientes' => $cliente_actual,
-            // 'direcciones' => $cliente_actual->direcciones,
-            // 'telefonos' => $cliente_actual->telefonos,
+            'direcciones' => $cliente_actual->direcciones,
+            'telefonos' => $cliente_actual->telefonos,
         ]);
     }
     
@@ -67,14 +67,14 @@ class ClienteController extends Controller
         //recupera los datos del cliente a través de la id pasada por url
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
-        // $cliente_actual->load('direcciones.cliente');
+        $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
-        // $cliente_actual->load('telefonos.cliente');
+        $cliente_actual->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/Update', [
             'clientes' => $cliente_actual,
-            // 'direcciones' => $cliente_actual->direcciones,
-            // 'telefonos' => $cliente_actual->telefonos,
+            'direcciones' => $cliente_actual->direcciones,
+            'telefonos' => $cliente_actual->telefonos,
         ]);
     }
 
@@ -83,7 +83,6 @@ class ClienteController extends Controller
         
         // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
         $validatedData = $request->validated();
-        dd($validatedData);
         // Busca el cliente a actualizar por su ID.
         $cliente = Cliente::findOrFail($id);
         // Actualiza los campos del cliente con los datos validados del formulario.
@@ -104,7 +103,7 @@ class ClienteController extends Controller
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado el cliente');
 
-        return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
+        return Inertia::render('Clientes/Show', ['clientes' => $clientes]);
     }
 
     public function destroy($id)

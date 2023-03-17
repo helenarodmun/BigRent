@@ -29,6 +29,7 @@ class CreateDireccionesTable extends Migration
             $table->string('municipio', 65);
             $table->string('provincia', 65)->default('Las Palmas');
             $table->boolean('predeterminada')->default(true);
+            $table->timestamps();
 
 
             $table->foreignId('cliente_id')

@@ -22,6 +22,7 @@ class Cliente extends Model
         'anotaciones'
 
     ];
+    protected $table = 'clientes';
     //relacion 1:N con la tabla direcciones
     public function direcciones()
     {

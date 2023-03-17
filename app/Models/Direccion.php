@@ -17,7 +17,7 @@ class Direccion extends Model
         'provincia',
         'predeterminada'
     ];
-    
+    protected $table = 'direcciones';
     //Relación N:1 con la tabla clientes
     public function cliente()
     {

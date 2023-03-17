@@ -28,6 +28,7 @@ class CreateAutorizadosTable extends Migration
             $table->string('telefono2', 9)->nullable();
             $table->text('anotaciones')->nullable();
             $table->string('url_dni')->nullable();
+            $table->timestamps();
 
             $table->foreignId('cliente_id')
                 ->references('id')->on('clientes')

@@ -25,10 +25,10 @@ export default function Index() {
                         {flash.cliente}
                     </div>
                 )} */}
-                <Row sm={12}> 
+                <Row> 
                     <h1 className="m-3">Clientes</h1>
-                    <Col className="mt-3 pt-3 shadow ">
-                        <Table striped bordered hover className="shadow">
+                    <Col  sm={12} className="mt-3 pt-3 shadow ">
+                        <Table striped bordered hover className="shadow" size="sm" responsive>
                             <thead >
                                 <tr>
                                     <th>Nombre fiscal</th>
@@ -44,7 +44,7 @@ export default function Index() {
                                         <td>{cliente.administrador}</td>
                                         <td>                                           
                                         <Button
-                                        className="btn btn-success  m-3 shadow"
+                                        className="btn btn-success  m-3 shadow" size="sm"
                                         href={"/verCliente/" + cliente.id}
                                     >
                                         Ver Ficha

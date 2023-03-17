@@ -25,6 +25,7 @@ class CreateTelefonosTable extends Migration
             $table->id();
             $table->string('telefono', 9);
             $table->string('email', 45);
+            $table->timestamps();
 
             $table->foreignId('cliente_id')
                 ->references('id')->on('clientes')

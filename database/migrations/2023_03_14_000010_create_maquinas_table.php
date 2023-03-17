@@ -28,6 +28,7 @@ class CreateMaquinasTable extends Migration
             $table->string('referencia', 10);            
             $table->string('url_manual')->nullable();
             $table->string('url_ficha')->nullable();
+            $table->timestamps();
 
 
             $table->foreignId('subfamilia_id')

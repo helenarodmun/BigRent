@@ -13,7 +13,7 @@ class Telefono extends Model
         'telefono',
         'email',
     ];
-    
+    protected $table = 'telefonos';
     //Relación N:1 con la tabla clientes
     public function cliente()
     {

@@ -27,6 +27,7 @@ class CreateSubfamiliasTable extends Migration
             $table->unsignedSmallInteger('precio_semana');
             $table->unsignedSmallInteger('precio_dia');
             $table->unsignedSmallInteger('fianza');
+            $table->timestamps();
 
             $table->foreignId('familia_id')
                 ->references('id')->on('familias')

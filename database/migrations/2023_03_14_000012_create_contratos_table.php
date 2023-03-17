@@ -31,6 +31,7 @@ class CreateContratosTable extends Migration
             $table->unsignedSmallInteger('precio');
             $table->text('notas1')->nullable();
             $table->text('notes2')->nullable();
+            $table->timestamps();
 
 
             $table->foreignId('cliente_id')

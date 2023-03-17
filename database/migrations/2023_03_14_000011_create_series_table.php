@@ -28,6 +28,7 @@ class CreateSeriesTable extends Migration
             $table->time('hora_inicio')->nullable();
             $table->string('numero_serie', 45);
             $table->boolean('disponible')->nullable();
+            $table->timestamps();
 
             $table->foreignId('maquina_id')
                 ->references('id')->on('maquinas')

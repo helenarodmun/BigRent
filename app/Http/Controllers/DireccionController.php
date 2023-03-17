@@ -36,6 +36,7 @@ class DireccionController extends Controller
         //recuperar el cliente por id cliente
         $cliente = Cliente::findOrFail($id);
         $direcciones = Direccion::findOrFail('cliente_id', $cliente->id);
+        return $direcciones;
     }
 
     public function update(DireccionForm $request, $id)

@@ -24,6 +24,7 @@ class CreateFamiliasTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('nombre', 75);
+            $table->timestamps();
         });
     }
 

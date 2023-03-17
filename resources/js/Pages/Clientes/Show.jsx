@@ -1,13 +1,23 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card, FormControl } from "react-bootstrap";
+import {
+    Container,
+    Row,
+    Col,
+    Form,
+    Button,
+    Card,
+    FormControl,
+    Table,
+} from "react-bootstrap";
 
 export default function Update(props) {
-    
-    const { clientes } = usePage().props;
+    const { clientes, direcciones } = usePage().props;
 
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, delete: destroy, processing, errors } = useForm({
+    const {
+        data,
+    } = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
@@ -17,18 +27,18 @@ export default function Update(props) {
         url_escrituras: clientes.url_escrituras,
         url_dni_administrador: clientes.url_dni_administrador,
         url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones
+        anotaciones: clientes.anotaciones,
     });
 
     return (
         <>
-            <Container className="align-items-center justify-content-center accesibilidad-texto">
+            <Container className="">
                 {/* {flash.message && (
           <div class="alert">{flash.message}</div>
         )}
         {children} */}
                 <Row className="shadow">
-                    <Col sm={8} className="mt-3 pt-3 shadow p-3 ">
+                    <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
                         <Card className="shadow">
                             <Card.Header>
                                 <Card.Title>
@@ -37,124 +47,165 @@ export default function Update(props) {
                             </Card.Header>
                             <Card.Body>
                                 <Form>
-
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>NIF:</Form.Label>
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
-                                            type="text"
                                             name="nif"
-                                            placeholder="Introduce el número de identificación fiscal"
                                             value={data.nif}
                                             disabled
+                                            readonly
                                         />
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             Nombre Comercial:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label="nombre comercial"
-                                            type="text"
                                             name="nombre_comercial"
-                                            placeholder="Introduce el nombre comercial"
                                             value={data.nombre_comercial}
                                             disabled
+                                            readonly
                                         />
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Administrador:</Form.Label>
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
-                                            type="text"
                                             name="administrador"
-                                            placeholder="Introduce el nombre del administrador de la empresa"
                                             value={data.administrador}
                                             disabled
+                                            readonly
                                         />
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label="dni del administrador"
-                                            type="text"
                                             name="dni_administrador"
-                                            placeholder="Introduce el DNI del administrador de la empresa"
                                             value={data.dni_administrador}
                                             disabled
+                                            readonly
                                         />
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             Tipo de cliente:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label="tipo de cliente"
-                                            type="text"
                                             name="tipo"
                                             value={data.tipo}
                                             disabled
-                                        >
-                                        </Form.Control>
+                                            readonly
+                                        ></Form.Control>
                                     </Form.Group>
                                     <p className="h3">Documentación</p>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                             aria-label="url escrituras"
-                                            type="text"
                                             name="url_escrituras"
-                                            placeholder=""
                                             value={data.url_escrituras}
                                             disabled
+                                            readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label="url dni administrador"
-                                            type="text"
                                             name="url_dni_administrador"
-                                            placeholder=""
                                             value={data.url_dni_administrador}
                                             disabled
+                                            readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group>
+                                        </Form.Group>
+                                        <Form.Group className="mb-3">
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label=" url_cif"
-                                            type="text"
                                             name="url_cif"
-                                            placeholder=""
                                             value={data.url_cif}
                                             disabled
+                                            readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>
-                                            Observaciones:
-                                        </Form.Label>
-                                        <Form.Control as='textarea' rows={5} disabled ></Form.Control>
+                                        </Form.Group>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>Observaciones:</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={5}
+                                            value={data.anotaciones}
+                                            disabled
+                                        ></Form.Control>
                                     </Form.Group>
                                 </Form>
+                                <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
+                                    <Table
+                                        striped
+                                        bordered
+                                        hover
+                                        className="shadow"
+                                        size="sm"
+                                        responsive
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>Dirección</th>
+                                                <th>Localidad</th>
+                                                <th>Código Postal</th>
+                                                <th>Municipio</th>
+                                                <th>Provincia</th>
+                                                <th>Dirección predeterminada</th>
+                                            </tr>
+                                        </thead>
+                                        {direcciones.map((direcciones) => (
+                                            <tbody>
+                                                <tr key={direcciones.id}>
+                                                <td>
+                                                        {direcciones.direccion}
+                                                    </td>
+                                                    <td>
+                                                        {direcciones.localidad}
+                                                    </td>
+                                                    <td>{direcciones.cp}</td>
+                                                    <td>
+                                                        {direcciones.municipio}
+                                                    </td>
+                                                    <td>
+                                                        {direcciones.provincia}
+                                                    </td>
+                                                    {direcciones.predeterminada == 0 ? (
+                                                        <td>No</td>
+                                                    ) : (
+                                                        <td>Sí</td>
+                                                    )}                                                    
+                                                </tr>
+                                            </tbody>
+                                        ))}
+                                    </Table>
+                                </Col>
                             </Card.Body>
                             <Card.Footer>
                                 <Button
                                     type="submit"
-                                    className='m-3 shadow'
+                                    className="m-3 shadow"
                                     variant="warning"
-                                    size='lg'
-                                    method='get'
-                                    href={"/editarCliente/"+ clientes.id}
+                                    size="lg"
+                                    method="get"
+                                    href={"/editarCliente/" + clientes.id}
                                     aria-label="Modificar los datos del cliente"
-                                > Editar cliente
+                                >
+                                    {" "}
+                                    Editar cliente
                                 </Button>
                             </Card.Footer>
                         </Card>

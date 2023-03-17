@@ -69,7 +69,7 @@ console.log(clientes)
                             </Card.Header>
                             <Card.Body>
                                 <Form onSubmit={handleSubmit}>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Nombre Fiscal:</Form.Label>
                                         <Form.Control
                                             aria-label="nombre fiscal"
@@ -92,7 +92,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group className="m-2">
+                                    <Form.Group className="mb-3">
                                         <Form.Label>NIF:</Form.Label>
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
@@ -110,7 +110,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             Nombre Comercial:
                                         </Form.Label>
@@ -133,7 +133,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Administrador:</Form.Label>
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
@@ -154,7 +154,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
@@ -177,7 +177,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             Tipo de cliente:
                                         </Form.Label>
@@ -214,7 +214,7 @@ console.log(clientes)
                                         )}
                                     </Form.Group>
                                     <p className="h3">Documentación</p>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                             aria-label="url escrituras"
@@ -235,7 +235,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
@@ -258,7 +258,7 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>
@@ -281,11 +281,22 @@ console.log(clientes)
                                             </div>
                                         )}
                                     </Form.Group>
-                                    <Form.Group>
+                                    <Form.Group className="mb-3">
                                         <Form.Label>
                                             Observaciones:
                                         </Form.Label>
-                                        <Form.Control as='textarea' rows={5} ></Form.Control>
+                                        <Form.Control as='textarea' rows={5} 
+                                          aria-label=" url_cif"
+                                          name="anotaciones"
+                                          placeholder=""
+                                          value={data.anotaciones}
+                                          onChange={(e) =>
+                                              setData(
+                                                  "anotaciones",
+                                                  e.target.value
+                                              )
+                                          }
+                                        ></Form.Control>
                                     </Form.Group>
                                 </Form>
                             </Card.Body>

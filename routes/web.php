@@ -39,7 +39,7 @@ Route::get('/cliente/{id}',[ClienteController::class,'showClienteActual']);
 // Route::get('/verCliente', function () {
 //     return Inertia::render('Clientes/Update');
 // });
-Route::get('/verCliente/{id}',[ClienteController::class,'showCliente']);
+Route::get('/verCliente/{id}',[ClienteController::class,'showCliente', DireccionController::class, 'ShowDirecciones']);
 Route::get('/editarCliente/{id}',[ClienteController::class,'showClienteEdicion']);
 Route::put('/editarCliente/{id}',[ClienteController::class,'update']);
 
