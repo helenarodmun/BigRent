@@ -30,7 +30,7 @@ class CreateClientesTable extends Migration
             $table->string('administrador', 45);
             $table->string('dni_administrador', 9);
             $table->string('url_escrituras')->nullable();
-            $table->string('url_dni_administrator')->nullable();
+            $table->string('url_dni_administrador')->nullable();
             $table->string('url_cif')->nullable();
             $table->text('anotaciones')->nullable();
             $table->timestamps();

@@ -17,7 +17,7 @@ class Cliente extends Model
         'administrador',
         'dni_administrador',
         'url_escrituras',
-        'url_dni_administrator',
+        'url_dni_administrador',
         'url_cif',
         'anotaciones'
 

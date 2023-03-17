@@ -20,11 +20,6 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/welcomereact', function () {
-    $user = new User();
-    $user->name = "Mr. Bean";
-    return Inertia::render('Welcome', ['user' => $user]);
-    });
 
 Auth::routes();
 
@@ -34,18 +29,21 @@ Route::get('/create',function(){
     return Inertia::render('Clientes/Create');
     });
 
-Route::get('/index',[ClienteController::class,'index']);  
-Route::post('/index',[ClienteController::class,'index']);  
+Route::get('/clientes',[ClienteController::class,'index']);  
+Route::post('/clientes',[ClienteController::class,'index']);  
 Route::get('/nuevoCliente', function () {
     return Inertia::render('Clientes/Create');
 });
 Route::post('/nuevoCliente',[ClienteController::class,'create']);
 Route::get('/cliente/{id}',[ClienteController::class,'showClienteActual']);
-Route::get('/cliente/{id}', function () {
-    return Inertia::render('Clientes/Update');
-});
-Route::put('/clientes/{id}',[ClienteController::class,'update']);
-Route::delete('clientes/{id}',[ClienteController::class,'destroy']);
+// Route::get('/verCliente', function () {
+//     return Inertia::render('Clientes/Update');
+// });
+Route::get('/verCliente/{id}',[ClienteController::class,'showCliente']);
+Route::get('/editarCliente/{id}',[ClienteController::class,'showClienteEdicion']);
+Route::put('/editarCliente/{id}',[ClienteController::class,'update']);
+
+Route::delete('/eliminarCliente/{id}',[ClienteController::class,'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

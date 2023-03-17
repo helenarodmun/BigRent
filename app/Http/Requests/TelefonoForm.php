@@ -21,10 +21,20 @@ class TelefonoForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'telefono' => 'required|string|max:9',
-            'email' => 'nullable|string|email|max:255',
-            'cliente_id' => 'required|exists:clientes, id'
-        ];
+        return match ($this->method()) {
+
+            'POST' => [
+
+                'telefono' => 'required|string|max:9',
+                'email' => 'nullable|string|email|max:255',
+                'cliente_id' => 'required|exists:clientes, id'
+            ],
+            
+            'PUT' => [
+                
+                'telefono' => 'nullable|string|max:9',
+                'email' => 'nullable|string|email|max:255'
+            ]
+        };
     }
 }

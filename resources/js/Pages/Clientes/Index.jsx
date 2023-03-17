@@ -2,14 +2,16 @@ import { usePage, Link } from "@inertiajs/react";
 import { Container, Row, Col, Button, Table } from "react-bootstrap";
 
 export default function Index() {
+
     const { clientes } = usePage().props;
+
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY - HH:mm:ss");
     }
 
     return (
         <>
-            <Container className="accesibilidad-texto">
+            <Container>
                 {/* {flash.viaje && (
                     <div class="alert alert-success" role={"alert"}>
                         <button
@@ -23,37 +25,30 @@ export default function Index() {
                         {flash.cliente}
                     </div>
                 )} */}
-                <Row>
+                <Row sm={12}> 
                     <h1 className="m-3">Clientes</h1>
-
-                    <Col sm={12} className="mt-3 pt-3 shadow  p-2 ">
+                    <Col className="mt-3 pt-3 shadow ">
                         <Table striped bordered hover className="shadow">
-                            <thead className="h3">
+                            <thead >
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>NIF</th>
-                                    <th></th>
+                                    <th>Nombre fiscal</th>
+                                    <th>Nombre comercial</th>
+                                    <th>Nombre administrador</th>
                                 </tr>
                             </thead>
-                            {clientes.map((cliente) => (
+                            {clientes.map((cliente) => (                                                 
                                 <tbody>
                                     <tr key={cliente.id}>
-                                        <td>{cliente.id}</td>
                                         <td>{cliente.nombre_fiscal}</td>
-                                        <td>{cliente.nif}</td>
+                                        <td>{cliente.nombre_comercial}</td>
+                                        <td>{cliente.administrador}</td>
                                         <td>                                           
-                                            <Link
-                                                href={"/cliente/" + cliente.id}
-                                                className="shadow  bi bi-pencil-square m-1 text-success"
-                                                as="button"
-                                            />                                           
-                                            <Link
-                                            method="delete"
-                                                href={"/clientes/" + cliente.id}
-                                                className="shadow bi bi-trash m-1 text-danger"
-                                                as="button"
-                                            />                                        
+                                        <Button
+                                        className="btn btn-success  m-3 shadow"
+                                        href={"/verCliente/" + cliente.id}
+                                    >
+                                        Ver Ficha
+                                    </Button>                             
                                         </td>
                                     </tr>
                                 </tbody>

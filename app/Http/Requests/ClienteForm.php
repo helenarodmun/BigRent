@@ -21,19 +21,49 @@ class ClienteForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        return match ($this->method()) {
 
-            'nombre_fiscal' => 'nullable|string',
-            'nif' => 'nullable|string|max:9',
-            'nombre_comercial' => 'required|string',
-            'tipo' => 'required',
-            'administrador' => 'required|string',
-            'dni_administrador' => 'required|string',
-            'url_escrituras' => 'nullable|string',
-            'url_dni_administrador' => 'nullable|string',
-            'url_cif' => 'nullable|string',
-            'anotaciones' => 'nullable|string|max:255'
+            'POST' => [
 
-        ];
+                'nombre_fiscal' => 'nullable|string',
+                'nif' => 'nullable|string|max:9',
+                'nombre_comercial' => 'required|string',
+                'tipo' => 'required',
+                'administrador' => 'required|string',
+                'dni_administrador' => 'required|string',
+                'url_escrituras' => 'nullable|string',
+                'url_dni_administrador' => 'nullable|string',
+                'url_cif' => 'nullable|string',
+                'anotaciones' => 'nullable|string|max:255'
+
+            ],
+
+            'PUT' => [
+
+                'nombre_fiscal' => 'nullable|string',
+                'nif' => 'nullable|string|max:9',
+                'nombre_comercial' => 'nullable|string',
+                'tipo' => 'nullable',
+                'administrador' => 'nullable|string',
+                'dni_administrador' => 'nullable|string',
+                'url_escrituras' => 'nullable|string',
+                'url_dni_administrador' => 'nullable|string',
+                'url_cif' => 'nullable|string',
+                'anotaciones' => 'nullable|string|max:255'
+            ],
+            'GET' => [
+
+                'nombre_fiscal' => 'nullable|string',
+                'nif' => 'nullable|string|max:9',
+                'nombre_comercial' => 'nullable|string',
+                'tipo' => 'nullable',
+                'administrador' => 'nullable|string',
+                'dni_administrador' => 'nullable|string',
+                'url_escrituras' => 'nullable|string',
+                'url_dni_administrador' => 'nullable|string',
+                'url_cif' => 'nullable|string',
+                'anotaciones' => 'nullable|string|max:255'
+            ]
+        };
     }
 }

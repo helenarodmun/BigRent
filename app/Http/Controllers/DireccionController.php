@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DireccionForm;
-use App\Http\Requests\DireccionUpdateForm;
 use App\Models\Cliente;
 use App\Models\Direccion;
 use Illuminate\Http\Request;
@@ -39,7 +38,7 @@ class DireccionController extends Controller
         $direcciones = Direccion::findOrFail('cliente_id', $cliente->id);
     }
 
-    public function update(DireccionUpdateForm $request, $id)
+    public function update(DireccionForm $request, $id)
     {
         // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
         $validatedData = $request->validated();

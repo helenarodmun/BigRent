@@ -21,15 +21,28 @@ class DireccionForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'direccion' => 'required|string|max:75',
-            'cp' => 'required|string|max:5',
-            'localidad' => 'required|string|max:75',
-            'municipio' => 'required|string|max:65',
-            'provincia' => 'required|string|max:65',
-            'predeterminada' => 'nullable',
-            'cliente_id' => 'required|exists:clientes,id'
+        return match ($this->method()) {
 
-        ];
+            'POST' => [
+
+                'direccion' => 'required|string|max:75',
+                'cp' => 'required|string|max:5',
+                'localidad' => 'required|string|max:75',
+                'municipio' => 'required|string|max:65',
+                'provincia' => 'required|string|max:65',
+                'predeterminada' => 'nullable',
+                'cliente_id' => 'required|exists:clientes,id'
+            ],
+
+            'PUT' => [
+                
+                'direccion' => 'nullable|string|max:75',
+                'cp' => 'nullable|string|max:5',
+                'localidad' => 'nullable|string|max:75',
+                'municipio' => 'nullable|string|max:65',
+                'provincia' => 'nullable|string|max:65',
+                'predeterminada' => 'nullable'
+            ]
+        };
     }
 }

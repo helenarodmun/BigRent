@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClienteForm;
-use App\Http\Requests\ClienteUpdateForm;
 use App\Http\Requests\DireccionForm;
 use App\Http\Requests\TelefonoForm;
 use App\Models\Cliente;
@@ -47,32 +46,46 @@ class ClienteController extends Controller
         return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
     }
 
-    public function showClienteActual($id)
+    public function showCliente($id)
     {
         //recupera los datos del cliente a través de la id pasada por url
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
-        $cliente_actual->load('direcciones.cliente');
+        // $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
-        $cliente_actual->load('telefonos.cliente');
-
+        // $cliente_actual->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
-
-        return Inertia::render('Cliente/Show', [
+        return Inertia::render('Clientes/Show', [
             'clientes' => $cliente_actual,
-            'direcciones' => $cliente_actual->direcciones,
-            'telefonos' => $cliente_actual->telefonos,
+            // 'direcciones' => $cliente_actual->direcciones,
+            // 'telefonos' => $cliente_actual->telefonos,
+        ]);
+    }
+    
+    public function showClienteEdicion($id)
+    {
+        //recupera los datos del cliente a través de la id pasada por url
+        $cliente_actual = Cliente::findOrFail($id);
+        //carga las direcciones relacionadas con el cliente actual
+        // $cliente_actual->load('direcciones.cliente');
+        //carga los telefonos relacionados con el cliente
+        // $cliente_actual->load('telefonos.cliente');
+        //renderiza la vista, pasando los datos
+        return Inertia::render('Clientes/Update', [
+            'clientes' => $cliente_actual,
+            // 'direcciones' => $cliente_actual->direcciones,
+            // 'telefonos' => $cliente_actual->telefonos,
         ]);
     }
 
-    public function update(ClienteUpdateForm $request, $id)
+    public function update(ClienteForm $request, $id)
     {
         
         // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
         $validatedData = $request->validated();
+        dd($validatedData);
         // Busca el cliente a actualizar por su ID.
         $cliente = Cliente::findOrFail($id);
-        dd($cliente);
         // Actualiza los campos del cliente con los datos validados del formulario.
         $cliente->nombre_fiscal = $validatedData['nombre_fiscal'];
         $cliente->nif = $validatedData['nif'];
@@ -81,7 +94,7 @@ class ClienteController extends Controller
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
         $cliente->url_escrituras = $validatedData['url_escrituras'];
-        $cliente->url_dni_administrator = $validatedData['url_dni_administrator'];
+        $cliente->url_dni_administrador = $validatedData['url_dni_administrador'];
         $cliente->url_cif = $validatedData['url_cif'];
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
@@ -89,7 +102,7 @@ class ClienteController extends Controller
         // Recupera todos los clientes después de guardar el cliente actualizado.
         $clientes = Cliente::latest()->get();
         // Redirige al cliente del usuario actualizado.
-        // Session::flash('edit', 'Se ha actualizado tú viaje');
+        // Session::flash('edit', 'Se ha actualizado el cliente');
 
         return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
     }
