@@ -31,12 +31,13 @@ class DireccionController extends Controller
         return $direcciones;
     }
 
-    public function showDirecciones($id)
+    public function verEdicionDireccion($id)
     {
         //recuperar el cliente por id cliente
-        $cliente = Cliente::findOrFail($id);
-        $direcciones = Direccion::findOrFail('cliente_id', $cliente->id);
-        return $direcciones;
+        $direcciones = Direccion::findOrFail($id);
+        return Inertia::render('Clientes/Update', [
+            'direcciones' => $direcciones,            
+        ]);
     }
 
     public function update(DireccionForm $request, $id)
@@ -46,16 +47,12 @@ class DireccionController extends Controller
         // Busca el regidtro a actualizar por su ID.
         $direccion = Direccion::findOrFail($id);
         // Actualiza los campos del direccion con los datos validados del formulario.
-        $direccion->nombre_fiscal = $validatedData['nombre_fiscal'];
-        $direccion->nif = $validatedData['nif'];
-        $direccion->nombre_comercial = $validatedData['nombre_comercial'];
-        $direccion->tipo = $validatedData['tipo'];
-        $direccion->administrador = $validatedData['administrador'];
-        $direccion->dni_administrador = $validatedData['dni_administrador'];
-        $direccion->url_escrituras = $validatedData['url_escrituras'];
-        $direccion->url_dni_administrator = $validatedData['url_dni_administrator'];
-        $direccion->url_cif = $validatedData['url_cif'];
-        $direccion->anotaciones = $validatedData['anotaciones'];
+        $direccion->direccion = $validatedData['direccion'];
+        $direccion->cp = $validatedData['cp'];
+        $direccion->localidad = $validatedData['localidad'];
+        $direccion->municipio = $validatedData['municipio'];
+        $direccion->provincia = $validatedData['provincia'];
+        $direccion->predeterminada = $validatedData['predeterminada'];
         // Guarda el direccion actualizado en la base de datos.
         $direccion->save();
         // Recupera todos los direccions después de guardar el direccion actualizado.

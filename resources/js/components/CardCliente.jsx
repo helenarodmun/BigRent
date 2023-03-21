@@ -1,9 +1,11 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
+import { useState } from "react";
+import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
 
-export default function Update(props) {
-    const { clientes, direcciones, telefonos } = usePage().props;
+
+
+export default function CardCliente({children} ) {
+    const { clientes, direcciones, telefonos, flash } = usePage().props;
 
     // useForm es un helper diseñado para formularios
     const {
@@ -24,11 +26,10 @@ export default function Update(props) {
     const [clienteId, setClienteId] = useState(null);
     return (
         <>
-            <Container className="">
-                {/* {flash.message && (
+               * {flash.message && (
           <div class="alert">{flash.message}</div>
         )}
-        {children} */}
+        {children} 
                 <Row className="shadow">
                     <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
                         <Card className="shadow">
@@ -235,7 +236,6 @@ export default function Update(props) {
                         </Card>
                     </Col>
                 </Row>
-            </Container>
         </>
     );
 }

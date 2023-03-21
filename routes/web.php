@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Models\Direccion;
+use App\Http\Controllers\DireccionController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,8 +52,9 @@ Route::put('/editarCliente/{id}',[ClienteController::class,'update']);
 
 Route::delete('/eliminarCliente/{id}',[ClienteController::class,'destroy']);
 
-Route::get('/editarDireccion/{id}', [DireccionController::class, 'update']);
-Route::delete('/eliminarDireccion/{id}', [Direccion::class, 'destroy']);
+Route::get('/editarDireccion/{id}', [DireccionController::class, 'verEdicionDireccion']);
+Route::put('/editarDireccion/{id}', [DireccionController::class, 'update']);
+Route::delete('/eliminarDireccion/{id}', [DireccionController::class, 'destroy']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

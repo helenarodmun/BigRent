@@ -69,7 +69,7 @@ class ClienteController extends Controller
         //carga los telefonos relacionados con el cliente
         $cliente_actual->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
-        return Inertia::render('Clientes/Show', [
+        return Inertia::render('Clientes/FichaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
@@ -121,7 +121,7 @@ class ClienteController extends Controller
         //carga los telefonos relacionados con el cliente
         $cliente->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
-        return Inertia::render('Clientes/Show', [
+        return Inertia::render('Clientes/FicheCliente', [
             'clientes' => $cliente,
             'direcciones' => $cliente->direcciones,
             'telefonos' => $cliente->telefonos,

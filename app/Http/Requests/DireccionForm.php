@@ -42,6 +42,16 @@ class DireccionForm extends FormRequest
                 'municipio' => 'nullable|string|max:65',
                 'provincia' => 'nullable|string|max:65',
                 'predeterminada' => 'nullable'
+            ],
+            
+            'GET' => [
+                
+                'direccion' => 'nullable|string|max:75',
+                'cp' => 'nullable|string|max:5',
+                'localidad' => 'nullable|string|max:75',
+                'municipio' => 'nullable|string|max:65',
+                'provincia' => 'nullable|string|max:65',
+                'predeterminada' => 'nullable'
             ]
         };
     }
