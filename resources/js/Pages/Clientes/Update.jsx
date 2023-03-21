@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
 
 export default function Update(props) {
-    const { clientes, direcciones } = usePage().props;
+    const { clientes, direcciones, telefonos } = usePage().props;
     console.log(clientes);
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,6 +19,14 @@ export default function Update(props) {
         url_dni_administrador: clientes.url_dni_administrador,
         url_cif: clientes.url_cif,
         anotaciones: clientes.anotaciones,
+        direccion: direcciones.direccion,
+        cp: direcciones.cp,
+        localidad: direcciones.localidad,
+        municipio: direcciones.municipio,
+        provincia: direcciones.provincia,
+        predeterminada: direcciones.predeterminada,
+        telefono: telefonos.telefono,
+        email: telefonos.email
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -346,6 +354,47 @@ export default function Update(props) {
                                                             <Link
                                                             method="delete"
                                                                 href={"/eliminarDireccion/" + direcciones.id}
+                                                                as="button"
+                                                                class="bi bi-trash3 text-danger m-1"
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            ))}
+                                        </Table>
+                                    </Col>
+                                    <Col
+                                        sm={12}
+                                        className="mt-3 pt-3 shadow p-3 "
+                                    >
+                                        <Table
+                                            striped
+                                            bordered
+                                            hover
+                                            className="shadow"
+                                            size="sm"
+                                            responsive
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th>Teléfono</th>
+                                                    <th>Correo electrónico</th>
+                                                </tr>
+                                            </thead>
+                                            {telefonos.map((telefonos) => (
+                                                <tbody>
+                                                    <tr key={ telefonos.id }>
+                                                        <td>{ telefonos.telefono }</td>
+                                                        <td>{ telefonos.email }</td>
+                                                        <td>
+                                                            <Link
+                                                                href={"/editarDireccion/" + telefonos.id}
+                                                                as="button"
+                                                                class="bi bi-pencil-square text-success m-1"
+                                                            />
+                                                            <Link
+                                                            method="delete"
+                                                                href={"/eliminarDireccion/" + telefonos.id}
                                                                 as="button"
                                                                 class="bi bi-trash3 text-danger m-1"
                                                             />

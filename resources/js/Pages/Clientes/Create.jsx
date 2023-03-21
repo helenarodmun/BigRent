@@ -5,15 +5,12 @@ import FormCliente from "../../components/FormCliente";
 import FormDirecciones from "../../components/FormDirecciones";
 
 export default function Create() {
-
- 
     return (
         <>
-        <Container>
-        <p className="h1">Creación de nuevo cliente</p>
-<FormCliente></FormCliente>
-<FormDirecciones></FormDirecciones>
-</Container>
+            <Container>
+                <p className="h1">Creación de nuevo cliente</p>
+                <FormCliente></FormCliente>
+            </Container>
         </>
     );
 }

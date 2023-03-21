@@ -17,15 +17,16 @@ export default function FormCliente({children}) {
         dni_administrador: '',
         url_escrituras: '',
         url_dni_administrador:'',
-        url_cif:''
-    });
-    const { direccion, setDireccion } = useForm({
+        url_cif:'',
+        anotaciones:'',
         direccion: "",
         cp: "",
         localidad: "",
         municipio: "",
         provincia: '',
         predeterminada: '',
+        telefono:'',
+        email:''
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -192,11 +193,203 @@ export default function FormCliente({children}) {
                                             </div>
                                         )}
                                         </Form.Group>
+                                        <Form.Group>
+                            <Form.Label >Dirección:</Form.Label>
+                            <Form.Control aria-label="dirección"
+                                type="text"
+                                name="direccion"
+                                placeholder="Introduce la dirección"
+                                value={data.direccion}
+                                onChange={(
+                                    e // si cambia el valor se seteara el valor nuevo en el constructor
+                                ) =>
+                                setData(
+                                        "direccion",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                            {errors.direccion && (
+                                <div className="alert alert-danger">
+                                    {errors.direccion}
+                                </div>
+                            )}
+                        </Form.Group>
+                        <Form.Group className='m-2'>
+                            <Form.Label>Código Postal:</Form.Label>
+                            <Form.Control aria-label="codigo postal"
+                                type="text"
+                                name="cp"
+                                placeholder="Introduce el códigp postal"
+                                value={data.cp}
+                                onChange={(
+                                    e 
+                                ) =>
+                                setData(
+                                        "cp",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                            {errors.cp && (
+                                <div className="alert alert-danger">
+                                    {errors.cp}
+                                </div>
+                            )}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Localidad:</Form.Label>
+                            <Form.Control aria-label="localidad"
+                                type="text"
+                                name="localidad"
+                                placeholder="Introduce la localidad"
+                                value={data.localidad}
+                                onChange={(
+                                    e 
+                                ) =>
+                                setData("localidad", e.target.value)
+                                }
+                            />
+                            {errors.localidad && (
+                                <div className="alert alert-danger">
+                                    {errors.localidad}
+                                </div>
+                            )}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Municipio:</Form.Label>
+                            <Form.Control aria-label="Municipio"
+                                type="text"
+                                name="municipio"
+                                placeholder="Introduce el municipio"
+                                value={data.municipio}
+                                onChange={(
+                                    e 
+                                ) =>
+                                setData(
+                                        "municipio",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                            {errors.municipio && (
+                                <div className="alert alert-danger">
+                                    {errors.municipio}
+                                </div>
+                            )}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Provincia:</Form.Label>
+                            <Form.Control aria-label="provincia"
+                                type="text"
+                                name="provincia"
+                                placeholder="Introduce la provincia"
+                                value={data.provincia}
+                                onChange={(
+                                    e 
+                                ) =>
+                                setData(
+                                        "provincia",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                            {errors.provincia && (
+                                <div className="alert alert-danger">
+                                    {errors.provincia}
+                                </div>
+                            )}
+                        </Form.Group>
+                        <Form.Group>
+                                        <Form.Label>
+                                            Tipo de dirección:
+                                        </Form.Label>
+                                        <Form.Select aria-label="tipo de dirección"
+                                            as="select"
+                                            name="predeterminada"
+                                            value={data.predeterminada}
+                                            onChange={(e) =>  setData("predeterminada", e.target.value)
+                                            }
+                                        >
+                                            <option disabled>
+                                                Escoja el tipo de dirección...
+                                            </option>
+                                            <option value=""></option>
+                                            <option value='1'>Dirección de la empresa</option>
+                                            <option value='0'>Dirección del alquiler</option>
+                                        </Form.Select>
+                                        {errors.predeterminada && (
+                                            <div className="alert alert-danger">
+                                                {errors.predeterminada}
+                                            </div>
+                                        )}
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Form.Label>Teléfono:</Form.Label>
+                                            <Form.Control 
+                                            aria-label='telefono de contacto'
+                                            type='text'
+                                            name='telefono'
+                                            value={data.telefono}
+                                            onChange={(
+                                                e 
+                                            ) =>
+                                            setData(
+                                                    "telefono",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.telefono && (
+                                            <div className="alert alert-danger">
+                                                {errors.telefono}
+                                            </div>
+                                        )}
+                                        </Form.Group>
+                                        <Form.Group>
+                                            <Form.Label>Email:</Form.Label>
+                                            <Form.Control 
+                                            aria-label='email de contacto'
+                                            type='text'
+                                            name='email'
+                                            value={data.email}
+                                            onChange={(
+                                                e 
+                                            ) =>
+                                            setData(
+                                                    "email",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.email && (
+                                            <div className="alert alert-danger">
+                                                {errors.email}
+                                            </div>
+                                        )}
+                                        </Form.Group>
+                                        <Form.Group
+                                        className="mb-3">
+                                            <Form.Label>Observaciones:</Form.Label>
+                                            <Form.Control
+                                            as='textarea'
+                                            rows={3}
+                                            name='anotaciones'
+                                            value={data.anotaciones}
+                                            onChange={(e) => setData('anotaciones', e.target.value)}>
+
+                                            </Form.Control>
+                                            {errors.anotaciones && (
+                                            <div className="alert alert-danger">
+                                                {errors.anotaciones}
+                                            </div>
+                                        )}
+                                        </Form.Group>
                                         <p className="h3">Documentación</p>  
                                     <Form.Group >                                       
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control aria-label="url escrituras"
-                                            type="text"
+                                            type="file"
                                             name="url_escrituras"
                                             placeholder=""
                                             value={data.url_escrituras}
@@ -218,7 +411,7 @@ export default function FormCliente({children}) {
                                     <Form.Group >                                       
                                         <Form.Label>DNI Administrador:</Form.Label>
                                         <Form.Control aria-label="url dni administrador"
-                                            type="text"
+                                            type="file"
                                             name="url_dni_administrador"
                                             placeholder=""
                                             value={data.url_dni_administrador}
@@ -240,7 +433,7 @@ export default function FormCliente({children}) {
                                     <Form.Group >                                       
                                         <Form.Label>CIF de la empresa:</Form.Label>
                                         <Form.Control aria-label=" url_cif" 
-                                            type="text"
+                                            type="file"
                                             name="url_cif"
                                             placeholder=""
                                             value={data.url_cif}

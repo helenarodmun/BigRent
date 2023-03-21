@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
 
 export default function Update(props) {
-    const { clientes, direcciones } = usePage().props;
+    const { clientes, direcciones, telefonos } = usePage().props;
 
     // useForm es un helper diseñado para formularios
     const {
@@ -181,6 +181,36 @@ export default function Update(props) {
                                                     ) : (
                                                         <td>Sí</td>
                                                     )}                                                    
+                                                </tr>
+                                            </tbody>
+                                        ))}
+                                    </Table>
+                                </Col>
+                                <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
+                                    <Table
+                                        striped
+                                        bordered
+                                        hover
+                                        className="shadow"
+                                        size="sm"
+                                        responsive
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>Telefono</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        {telefonos.map((telefonos) => (
+                                            <tbody>
+                                                <tr key={telefonos.id}>
+                                                <td>
+                                                        {telefonos.telefono}
+                                                    </td>
+                                                    <td>
+                                                        {telefonos.email}
+                                                    </td>
+                                                                                             
                                                 </tr>
                                             </tbody>
                                         ))}

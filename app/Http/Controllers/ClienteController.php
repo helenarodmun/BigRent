@@ -10,6 +10,7 @@ use App\Models\Direccion;
 use App\Models\Telefono;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
@@ -25,24 +26,37 @@ class ClienteController extends Controller
         ]);
     }
 
-    public function create(ClienteForm $requestCliente)
+    public function create(ClienteForm $request)
     {
-        $requestCliente->validated();
-        // $requestDireccion->validated();
-        // $requestTelf->validated();
-        $requestCliente->merge(['user_id' => Auth::id()]);
-        //crea un nuevo registro, el método create recibe un array con todos los datos de la solicitud
-        $nuevo_cliente = Cliente::create($requestCliente->all());
-        //nueva instancia del controlador de direcciones, para acceder al metodo de creación
-        // $direccion_cliente = new DireccionController();
-        // $direccion_cliente->create($requestDireccion, $nuevo_cliente->id);
+        $request->validated();
 
-        // $telefono_cliente = new TelefonoController();
-        // $telefono_cliente->create($requestTelf, $nuevo_cliente->id);
-        //obtiene todas las empresas de la base de datos, incluyendo la información del autorizado
-        // Las empresas se ordenan por fecha de creación, de forma descendente (los más recientes primero).
+        DB::transaction(function ()  use ($request) {
+            $cliente = Cliente::create([
+                'nombre_fiscal' => $request->nombre_fiscal,
+                'nif' => $request->nif,
+                'nombre_comercial' => $request->nombre_comercial,
+                'tipo' => $request->tipo,
+                'administrador' => $request->administrador,
+                'dni_administrador' => $request->dni_administrador,
+                'url_escrituras' => $request->url_escrituras,
+                'url_dni_administrador' => $request->url_dni_administrador,
+                'url_cif' => $request->url_cif,
+                'anotaciones' => $request->anotaciones
+            ]);
+            $cliente->direcciones()->create([
+                'direccion' => $request->direccion,
+                'cp' => $request->cp,
+                'localidad' => $request->localidad,
+                'municipio' => $request->municipio,
+                'provincia' => $request->provincia,
+                'predeterminada' => $request->predeterminada
+            ]);
+            $cliente->telefonos()->create([
+                'telefono' => $request->telefono,
+                'email' => $request->email
+            ]);
+        });
         $clientes = Cliente::latest()->get();
-        // Session::flash('', '');
         return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
     }
 
@@ -61,7 +75,7 @@ class ClienteController extends Controller
             'telefonos' => $cliente_actual->telefonos,
         ]);
     }
-    
+
     public function showClienteEdicion($id)
     {
         //recupera los datos del cliente a través de la id pasada por url
@@ -80,7 +94,7 @@ class ClienteController extends Controller
 
     public function update(ClienteForm $request, $id)
     {
-        
+
         // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
         $validatedData = $request->validated();
         // Busca el cliente a actualizar por su ID.
@@ -102,9 +116,66 @@ class ClienteController extends Controller
         $clientes = Cliente::latest()->get();
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado el cliente');
-
-        return Inertia::render('Clientes/Show', ['clientes' => $clientes]);
+        //carga las direcciones relacionadas con el cliente actual
+        $cliente->load('direcciones.cliente');
+        //carga los telefonos relacionados con el cliente
+        $cliente->load('telefonos.cliente');
+        //renderiza la vista, pasando los datos
+        return Inertia::render('Clientes/Show', [
+            'clientes' => $cliente,
+            'direcciones' => $cliente->direcciones,
+            'telefonos' => $cliente->telefonos,
+        ]);
     }
+
+    // public function update(ClienteForm $request, $id){
+
+    //     $request->validated();
+
+    //     DB::beginTransaction();
+
+    //     try {
+
+    //         $cliente = Cliente::findOrFail($id);
+    //             $cliente->nombre_fiscal = $request->input('nombre_fiscal');
+    //             $cliente->nif = $request->input('nif');
+    //             $cliente->nombre_comercial = $request->input('nombre_comercial');
+    //             $cliente->tipo = $request->input('tipo');
+    //             $cliente->administrador = $request->input('administrador');
+    //             $cliente->dni_administrador = $request->input('dni_administrador');
+    //             $cliente->url_escrituras = $request->input('url_escrituras');
+    //             $cliente->url_dni_administrador = $request->input('url_dni_administrador');
+    //             $cliente->url_cif = $request->input('url_cif');
+    //             $cliente->anotaciones = $request->input('anotaciones');
+    //             $cliente->save();
+
+    //             $direccion = Direccion::where('cliente_id', $cliente->id)->firstOrFail();
+    //             $direccion->direccion = $request->input('direccion');
+    //             $direccion->cp = $request->input('cp');
+    //             $direccion->localidad = $request->input('localidad');
+    //             $direccion->municipio = $request->input('municipio');
+    //             $direccion->provincia = $request->input('provincia');
+    //             $direccion->predeterminada = $request->input('predeterminada');
+    //             $direccion->save();
+
+    //             $telefono = Telefono::where('cliente_id', $cliente->id)->firstOrFail();
+    //             $telefono->telefono = $request->input('telefono');
+    //             $telefono->email = $request->input('email');
+    //             $telefono->save();
+
+    //         DB::commit();
+    //         return Inertia::render('Clientes/Show', [
+    //             'clientes' => $cliente,
+    //             'direcciones' => $cliente->direcciones,
+    //             'telefonos' => $cliente->telefonos,
+    //         ]);
+    //     }catch (\Exception $e) {
+    //         dd($e);
+    //         DB::rollBack();
+    //         return back();
+    //     }
+
+    // }
 
     public function destroy($id)
     {
