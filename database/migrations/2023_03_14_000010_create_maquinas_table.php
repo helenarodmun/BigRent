@@ -32,9 +32,9 @@ class CreateMaquinasTable extends Migration
 
 
             $table->foreignId('subfamilia_id')
-                ->references('id')->on('subfamilias')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->constrained('subfamilias')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 

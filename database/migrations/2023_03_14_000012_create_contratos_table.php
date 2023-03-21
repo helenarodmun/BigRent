@@ -35,17 +35,17 @@ class CreateContratosTable extends Migration
 
 
             $table->foreignId('cliente_id')
-                ->references('id')->on('clientes')
+                ->constrained('clientes')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
             $table->foreignId('serie_id')
-                ->references('id')->on('series')
+                ->constrained('series')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
             $table->foreignId('direccion_id')
-                ->references('id')->on('direcciones')
+                ->constrained('direcciones')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

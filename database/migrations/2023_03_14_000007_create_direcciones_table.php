@@ -33,9 +33,9 @@ class CreateDireccionesTable extends Migration
 
 
             $table->foreignId('cliente_id')
-                ->references('id')->on('clientes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->constrained('clientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

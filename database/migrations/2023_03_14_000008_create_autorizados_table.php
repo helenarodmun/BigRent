@@ -31,9 +31,9 @@ class CreateAutorizadosTable extends Migration
             $table->timestamps();
 
             $table->foreignId('cliente_id')
-                ->references('id')->on('clientes')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->constrained('clientes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

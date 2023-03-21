@@ -4,7 +4,6 @@ import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "rea
 
 export default function Update(props) {
     const { clientes, direcciones, telefonos } = usePage().props;
-    console.log(clientes);
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
@@ -18,15 +17,7 @@ export default function Update(props) {
         url_escrituras: clientes.url_escrituras,
         url_dni_administrador: clientes.url_dni_administrador,
         url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones,
-        direccion: direcciones.direccion,
-        cp: direcciones.cp,
-        localidad: direcciones.localidad,
-        municipio: direcciones.municipio,
-        provincia: direcciones.provincia,
-        predeterminada: direcciones.predeterminada,
-        telefono: telefonos.telefono,
-        email: telefonos.email
+        anotaciones: clientes.anotaciones
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {

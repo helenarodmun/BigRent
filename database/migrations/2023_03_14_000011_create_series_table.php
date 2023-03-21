@@ -31,9 +31,9 @@ class CreateSeriesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('maquina_id')
-                ->references('id')->on('maquinas')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->constrained('maquinas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

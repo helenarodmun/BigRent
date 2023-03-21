@@ -30,9 +30,9 @@ class CreateSubfamiliasTable extends Migration
             $table->timestamps();
 
             $table->foreignId('familia_id')
-                ->references('id')->on('familias')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                ->constrained('familias')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
         });
     }
 
