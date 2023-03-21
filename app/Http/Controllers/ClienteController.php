@@ -11,6 +11,7 @@ use App\Models\Telefono;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
@@ -112,16 +113,15 @@ class ClienteController extends Controller
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
         $cliente->save();
-        // Recupera todos los clientes después de guardar el cliente actualizado.
-        $clientes = Cliente::latest()->get();
+    
         // Redirige al cliente del usuario actualizado.
-        // Session::flash('edit', 'Se ha actualizado el cliente');
+       Session::flash('edit', 'Se ha actualizado el cliente');
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
         $cliente->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
-        return Inertia::render('Clientes/FicheCliente', [
+        return Inertia::render('Clientes/FichaCliente', [
             'clientes' => $cliente,
             'direcciones' => $cliente->direcciones,
             'telefonos' => $cliente->telefonos,

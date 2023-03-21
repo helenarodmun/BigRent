@@ -47,10 +47,10 @@ export default function FormCliente({children}) {
     return (
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
-            {/* {flash.message && (
+            {flash.message && (
           <div class="alert">{flash.message}</div>
         )}
-        {children} */}
+        {children} 
                 <Row >
                     <Col  className="" >
                         <Card className="shadow">
@@ -456,7 +456,6 @@ export default function FormCliente({children}) {
                                     </Card.Body>
                                     <Card.Footer>
                                     <Button 
-                                        size="lg" 
                                         clasName='m-3 shadow'
                                         variant="primary" 
                                         disabled={isSubmitting}

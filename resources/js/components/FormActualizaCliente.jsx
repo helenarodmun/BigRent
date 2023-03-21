@@ -1,9 +1,9 @@
-import { Link, useForm, usePage } from "@inertiajs/react";
+import {  useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card, FormControl, Table,} from "react-bootstrap";
+import {  Row, Col, Form, Button, Card } from "react-bootstrap";
 
 export default function FormActualizaCliente({children}) {
-    const { clientes, direcciones, telefonos, flash } = usePage().props;
+    const { clientes, flash } = usePage().props;
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
@@ -53,7 +53,7 @@ export default function FormActualizaCliente({children}) {
     return (
         <>
               {flash.message && (
-          <div class="alert">{flash.message}</div>
+          <div className="alert">{flash.message}</div>
         )}
         {children} 
                 <Row className="shadow">
@@ -191,7 +191,7 @@ export default function FormActualizaCliente({children}) {
                                             <option disabled>
                                                 Escoja el tipo de cliente ...
                                             </option>
-                                            <option value=""></option>
+                                            <option ></option>
                                             <option value="Empresa">
                                                 Empresa
                                             </option>
@@ -297,112 +297,12 @@ export default function FormActualizaCliente({children}) {
                                         ></Form.Control>
                                     </Form.Group>
                                 </Form>
-                                <Container>
-                                    <Col
-                                        sm={12}
-                                        className="mt-3 pt-3 shadow p-3 "
-                                    >
-                                        <Table
-                                            striped
-                                            bordered
-                                            hover
-                                            className="shadow"
-                                            size="sm"
-                                            responsive
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>Dirección</th>
-                                                    <th>Localidad</th>
-                                                    <th>Código Postal</th>
-                                                    <th>Municipio</th>
-                                                    <th>Provincia</th>
-                                                    <th>
-                                                        Dirección predeterminada
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            {direcciones.map((direcciones) => (
-                                                <tbody>
-                                                    <tr key={ direcciones.id }>
-                                                        <td>{ direcciones.direccion }</td>
-                                                        <td>{ direcciones.localidad }</td>
-                                                        <td>{ direcciones.cp }</td>
-                                                        <td>{ direcciones.municipio }</td>
-                                                        <td>{ direcciones.provincia }</td>
-                                                        { direcciones.predeterminada == 0 ? (
-                                                            <td>No</td>
-                                                        ) : (
-                                                            <td>Sí</td>
-                                                        )}
-                                                        <td>
-                                                            
-                                                            <Link
-                                                                method="get"
-                                                                href={"/editarDireccion/" + direcciones.id}
-                                                                as="button"
-                                                                class="bi bi-pencil-square text-success m-1"
-                                                            />
-                                                            <Link
-                                                            method="delete"
-                                                                href={"/eliminarDireccion/" + direcciones.id}
-                                                                as="button"
-                                                                class="bi bi-trash3 text-danger m-1"
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            ))}
-                                        </Table>
-                                    </Col>
-                                    <Col
-                                        sm={12}
-                                        className="mt-3 pt-3 shadow p-3 "
-                                    >
-                                        <Table
-                                            striped
-                                            bordered
-                                            hover
-                                            className="shadow"
-                                            size="sm"
-                                            responsive
-                                        >
-                                            <thead>
-                                                <tr>
-                                                    <th>Teléfono</th>
-                                                    <th>Correo electrónico</th>
-                                                </tr>
-                                            </thead>
-                                            {telefonos.map((telefonos) => (
-                                                <tbody>
-                                                    <tr key={ telefonos.id }>
-                                                        <td>{ telefonos.telefono }</td>
-                                                        <td>{ telefonos.email }</td>
-                                                        <td>
-                                                            <Link
-                                                                href={"/editarDireccion/" + telefonos.id}
-                                                                as="button"
-                                                                class="bi bi-pencil-square text-success m-1"
-                                                            />
-                                                            <Link
-                                                            method="delete"
-                                                                href={"/eliminarDireccion/" + telefonos.id}
-                                                                as="button"
-                                                                class="bi bi-trash3 text-danger m-1"
-                                                            />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            ))}
-                                        </Table>
-                                    </Col>
-                                </Container>
+                               
                             </Card.Body>
                             <Card.Footer>
                                 <Button
                                     className="m-3 shadow"
                                     variant="primary"
-                                    size="lg"
                                     disabled={isSubmitting}
                                     onClick={handleSubmit}
                                     aria-label="Modificar los datos del cliente"
@@ -415,7 +315,6 @@ export default function FormActualizaCliente({children}) {
                                     className="m-3 shadow"
                                     type="submit"
                                     variant="danger"
-                                    size="lg"
                                     disabled={isSubmitting}
                                     aria-label="Eliminar los datos del cliente"
                                     onClick={handleSubmitDelete}

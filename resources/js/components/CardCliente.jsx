@@ -193,7 +193,6 @@ export default function CardCliente({children} ) {
                                         bordered
                                         hover
                                         className="shadow"
-                                        size="sm"
                                         responsive
                                     >
                                         <thead>
@@ -224,7 +223,6 @@ export default function CardCliente({children} ) {
                                     type="submit"
                                     className="m-3 shadow"
                                     variant="warning"
-                                    size="lg"
                                     method="get"
                                     href={"/editarCliente/" + clientes.id}
                                     aria-label="Modificar los datos del cliente"

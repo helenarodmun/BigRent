@@ -49,7 +49,6 @@ export default function TablaClientes() {
                 className="m-5 align-items-center justify-content-center"
                 variant="primary"
                 href="/nuevoCliente"
-                size="lg"
             >
                 Crear nuevo Cliente
             </Button>

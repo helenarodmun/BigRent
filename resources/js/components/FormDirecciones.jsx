@@ -4,24 +4,24 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 
 
 export default function FormDirecciones({children}) {
-    const { flash } = usePage().props
+    const { flash, direcciones } = usePage().props
       // Estado local para controlar el envío del formulario
       const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
-    const { data, setData, post, processing, errors } = useForm({
-        direccion: "",
-        cp: "",
-        localidad: "",
-        municipio: "",
-        provincia: '',
-        predeterminada: '',
+    const { data, setData, put, processing, errors } = useForm({
+        direccion: direcciones.direccion,
+        cp: direcciones.cp,
+        localidad: direcciones.localidad,
+        municipio: direcciones.municipio,
+        provincia: direcciones.provincia,
+        predeterminada: direcciones.predeterminada,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
         setIsSubmitting(true);      
-        post(
-            "/nuevaDireccion",
+        put(
+            `/editarDireccion/${direcciones.id}`,
             {
                 onSuccess: () => {
                     console.log(data);
@@ -35,10 +35,10 @@ export default function FormDirecciones({children}) {
     return (
         <>
 <div className="align-items-center justify-content-center accesibilidad-texto">
-{/* {flash.message && (
+ {flash.message && (
 <div class="alert">{flash.message}</div>
 )}
-{children} */}
+{children} 
     <Row >
         <Col >
             <Card className="shadow">
@@ -46,17 +46,14 @@ export default function FormDirecciones({children}) {
                 <p className="h1">Direcciones</p>
                 </Card.Header>
                 <Card.Body >
-                    <Form  >
+                    <Form  onSubmit={handleSubmit}>
                         <Form.Group>
                             <Form.Label >Dirección:</Form.Label>
                             <Form.Control aria-label="dirección"
                                 type="text"
                                 name="direccion"
-                                placeholder="Introduce la dirección"
                                 value={data.direccion}
-                                onChange={(
-                                    e // si cambia el valor se seteara el valor nuevo en el constructor
-                                ) =>
+                                onChange={(e) =>
                                 setData(
                                         "direccion",
                                         e.target.value
@@ -74,11 +71,8 @@ export default function FormDirecciones({children}) {
                             <Form.Control aria-label="codigo postal"
                                 type="text"
                                 name="cp"
-                                placeholder="Introduce el códigp postal"
                                 value={data.cp}
-                                onChange={(
-                                    e 
-                                ) =>
+                                onChange={(e) =>
                                 setData(
                                         "cp",
                                         e.target.value
@@ -96,11 +90,8 @@ export default function FormDirecciones({children}) {
                             <Form.Control aria-label="localidad"
                                 type="text"
                                 name="localidad"
-                                placeholder="Introduce la localidad"
                                 value={data.localidad}
-                                onChange={(
-                                    e 
-                                ) =>
+                                onChange={(e) =>
                                 setData("localidad", e.target.value)
                                 }
                             />
@@ -115,11 +106,8 @@ export default function FormDirecciones({children}) {
                             <Form.Control aria-label="Municipio"
                                 type="text"
                                 name="municipio"
-                                placeholder="Introduce el municipio"
                                 value={data.municipio}
-                                onChange={(
-                                    e 
-                                ) =>
+                                onChange={(e) =>
                                 setData(
                                         "municipio",
                                         e.target.value
@@ -137,11 +125,8 @@ export default function FormDirecciones({children}) {
                             <Form.Control aria-label="provincia"
                                 type="text"
                                 name="provincia"
-                                placeholder="Introduce la provincia"
                                 value={data.provincia}
-                                onChange={(
-                                    e 
-                                ) =>
+                                onChange={(e) =>
                                 setData(
                                         "provincia",
                                         e.target.value
@@ -155,37 +140,34 @@ export default function FormDirecciones({children}) {
                             )}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>
-                                Tipo de dirección:
-                            </Form.Label>
-                            <Form.Check 
-        type="radio"
-        label="Dirección del cliente"
-        name="predeterminada"
-        value="true"
-        checked={data.predeterminada === 'true'}
-        onChange={(e) => setData(e.target.value)}
-      />
+                                        <Form.Label>
+                                            Tipo de dirección:
+                                        </Form.Label>
+                                        <Form.Select aria-label="tipo de dirección"
+                                            as="select"
+                                            name="predeterminada"
+                                            value={data.predeterminada}
+                                            onChange={(e) =>  setData("predeterminada", e.target.value)
+                                            }
+                                        >
+                                            <option disabled>
+                                                Escoja el tipo de dirección...
+                                            </option>
+                                            <option value=""></option>
+                                            <option value='1'>Dirección de la empresa</option>
+                                            <option value='0'>Dirección del alquiler</option>
+                                        </Form.Select>
+                                        {errors.predeterminada && (
+                                            <div className="alert alert-danger">
+                                                {errors.predeterminada}
+                                            </div>
+                                        )}
+                                        </Form.Group>
 
-      <Form.Check 
-        type="radio"
-        label="Dirección del alquiler"
-        name="predeterminada"
-        value="false"
-        checked={data.predeterminada === 'false'}
-        onChange={(e) => setData(e.target.value)}/>
-                            {errors.predeterminada && (
-                                <div className="alert alert-danger">
-                                    {errors.predeterminada}
-                                </div>
-                            )}
-                            </Form.Group>
-            
                         </Form>
                         </Card.Body>
                         <Card.Footer>
                         <Button 
-                            size="lg" 
                             clasName='m-3 shadow'
                             variant="primary" 
                             disabled={isSubmitting}
