@@ -1,6 +1,6 @@
 import {  useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import {  Row, Col, Form, Button, Card } from "react-bootstrap";
+import {  Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
 export default function FormActualizaCliente({children}) {
     const { clientes, flash } = usePage().props;
@@ -55,10 +55,8 @@ export default function FormActualizaCliente({children}) {
               {flash.message && (
           <div className="alert">{flash.message}</div>
         )}
-        {children} 
-                <Row className="shadow">
-                    <p className="h1">Modificar Cliente</p>
-                    <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
+        {children}                 
+                    <Col>
                         <Card className="shadow">
                             <Card.Header>
                                 <Card.Title>
@@ -67,8 +65,11 @@ export default function FormActualizaCliente({children}) {
                             </Card.Header>
                             <Card.Body>
                                 <Form onSubmit={handleSubmit}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Nombre Fiscal:</Form.Label>
+                                <Row className="align-items-center">
+                                <Col sm={12}>
+                                        <FloatingLabel 
+                                        label="NOMBRE FISCAL"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="nombre fiscal"
                                             type="text"
@@ -89,9 +90,12 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nombre_fiscal}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>NIF:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={4}>
+                                    <FloatingLabel 
+                                        label="NUM IDENTIFICACIÓN FISCAL"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
                                             type="text"
@@ -107,11 +111,12 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nif}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Nombre Comercial:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={8}>
+                                    <FloatingLabel 
+                                        label="NOMBRE COMERCIAL"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="nombre comercial"
                                             type="text"
@@ -130,9 +135,12 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nombre_comercial}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Administrador:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={9}>
+                                    <FloatingLabel 
+                                        label="ADMINISTRADOR"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
                                             type="text"
@@ -151,11 +159,12 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            DNI Administrador:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                    <FloatingLabel 
+                                        label="NIF"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="dni del administrador"
                                             type="text"
@@ -174,11 +183,12 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.dni_administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Tipo de cliente:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={5}>
+                                    <FloatingLabel 
+                                        label="TIPO"
+                                        className="mb-3">
                                         <Form.Select
                                             aria-label="tipo de cliente"
                                             as="select"
@@ -210,13 +220,35 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.tipo}
                                             </div>
                                         )}
-                                    </Form.Group>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={12}>
+                                        <FloatingLabel 
+                                        label="OBSERVACIONES"
+                                        className="mb-3">
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={5}
+                                            aria-label=" url_cif"
+                                            name="anotaciones"
+                                            placeholder=""
+                                            value={data.anotaciones}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "anotaciones",
+                                                    e.target.value
+                                                )
+                                            }
+                                        ></Form.Control>
+                                        </FloatingLabel>
+                                    </Col>
                                     <p className="h3">Documentación</p>
-                                    <Form.Group className="mb-3">
+                                    <Col sm={6}>                                      
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                             aria-label="url escrituras"
-                                            type="text"
+                                            type="file"
+                                            size="sm"
                                             name="url_escrituras"
                                             placeholder=""
                                             value={data.url_escrituras}
@@ -232,14 +264,15 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.url_escrituras}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
+                                    </Col>
+                                    <Col sm={6}>      
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label="url dni administrador"
-                                            type="text"
+                                            type="file"
+                                            size="sm"
                                             name="url_dni_administrador"
                                             placeholder=""
                                             value={data.url_dni_administrador}
@@ -255,14 +288,15 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.url_dni_administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
+                                    </Col>
+                                    <Col sm={6}>      
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>
                                         <Form.Control
                                             aria-label=" url_cif"
-                                            type="text"
+                                            type="file"
+                                            size="sm"
                                             name="url_cif"
                                             placeholder=""
                                             value={data.url_cif}
@@ -278,26 +312,10 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.url_cif}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Observaciones:</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={5}
-                                            aria-label=" url_cif"
-                                            name="anotaciones"
-                                            placeholder=""
-                                            value={data.anotaciones}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "anotaciones",
-                                                    e.target.value
-                                                )
-                                            }
-                                        ></Form.Control>
-                                    </Form.Group>
-                                </Form>
-                               
+                                    </Col>
+                                  
+                                    </Row>
+                                </Form>                               
                             </Card.Body>
                             <Card.Footer>
                                 <Button
@@ -326,7 +344,6 @@ export default function FormActualizaCliente({children}) {
                             </Card.Footer>
                         </Card>
                     </Col>
-                </Row>
         </>
     );
 }

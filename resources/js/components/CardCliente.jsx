@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Button, Card, Col, Container, Form, Row, Table } from "react-bootstrap";
+import { Button, Card, Col, Container, FloatingLabel, Form, Row, Table } from "react-bootstrap";
 
 
 
@@ -30,18 +30,21 @@ export default function CardCliente({children} ) {
           <div class="alert">{flash.message}</div>
         )}
         {children} 
-                <Row className="shadow">
-                    <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
+                <Row>
+                    <Col sm={10} className="shadow">
                         <Card className="shadow">
                             <Card.Header>
                                 <Card.Title>
-                                    <p className="h2">{data.nombre_fiscal}</p>
+                                    <p className="h1">{data.nombre_fiscal}</p>
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Form>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>NIF:</Form.Label>
+                                <Row className="align-items-center">
+                                <Col sm={3}>
+                                        <FloatingLabel 
+                                        label="número de identificación fiscal"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
                                             name="nif"
@@ -49,11 +52,12 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Nombre Comercial:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={9}>
+                                    <FloatingLabel 
+                                        label="NOMBRE COMERCIAL"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="nombre comercial"
                                             name="nombre_comercial"
@@ -61,9 +65,12 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Administrador:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={9}>
+                                    <FloatingLabel 
+                                        label="ADMINISTRADOR"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
                                             name="administrador"
@@ -71,11 +78,12 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            DNI Administrador:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                    <FloatingLabel 
+                                        label="NIF"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="dni del administrador"
                                             name="dni_administrador"
@@ -83,11 +91,12 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>
-                                            Tipo de cliente:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                    <FloatingLabel 
+                                        label="TIPO"
+                                        className="mb-3">
                                         <Form.Control
                                             aria-label="tipo de cliente"
                                             name="tipo"
@@ -95,9 +104,22 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         ></Form.Control>
-                                    </Form.Group>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={12}>
+                                        <FloatingLabel 
+                                        label="OBSERVACIONES"
+                                        className="mb-3">
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={5}
+                                            value={data.anotaciones}
+                                            disabled
+                                        ></Form.Control>
+                                        </FloatingLabel>
+                                    </Col>
                                     <p className="h3">Documentación</p>
-                                    <Form.Group className="mb-3">
+                                    <Col sm={4}>
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                             aria-label="url escrituras"
@@ -106,8 +128,8 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3">
+                                        </Col>
+                                        <Col sm={4}>
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
@@ -118,8 +140,8 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                        </Form.Group>
-                                        <Form.Group className="mb-3">
+                                        </Col>
+                                        <Col sm={4}>
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>
@@ -130,16 +152,9 @@ export default function CardCliente({children} ) {
                                             disabled
                                             readonly
                                         />
-                                        </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Observaciones:</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={5}
-                                            value={data.anotaciones}
-                                            disabled
-                                        ></Form.Control>
-                                    </Form.Group>
+                                        </Col>
+                                     
+                                    </Row>
                                 </Form>
                                 <Container>
                                 <Col sm={12} className="mt-3 pt-3 shadow p-3 ">

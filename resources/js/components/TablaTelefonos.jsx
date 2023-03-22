@@ -9,8 +9,7 @@ export default function TablaTelefonos(){
     return(
         <div>                                  
         <Col
-            sm={12}
-            className="mt-3 pt-3 shadow p-3 "
+            className="shadow"
         >
             <Table
                 striped
@@ -33,13 +32,13 @@ export default function TablaTelefonos(){
                             <td>{ telefonos.email }</td>
                             <td>
                                 <Link
-                                    href={"/editarDireccion/" + telefonos.id}
+                                    href={"/editarTelefono/" + telefonos.id}
                                     as="button"
                                     className="bi bi-pencil-square text-success m-1"
                                 />
                                 <Link
                                 method="delete"
-                                    href={"/eliminarDireccion/" + telefonos.id}
+                                    href={"/eliminarTelefono/" + telefonos.id}
                                     as="button"
                                     className="bi bi-trash3 text-danger m-1"
                                 />

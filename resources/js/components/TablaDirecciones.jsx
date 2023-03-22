@@ -5,17 +5,11 @@ import FormDirecciones from "./FormDirecciones";
 
 export default function TablaDirecciones() {
     const { direcciones } = usePage().props;
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [editingDireccion, setEditingDireccion] = useState(null);
-    const handleEdit = (id) => {
-        const direccion = direcciones.find((d) => d.id === id);
-        setEditingDireccion(direccion);
-        setShowEditModal(true);
-    };
+
 
     return (
-        <div>
-            <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
+        <>
+            <Col className="shadow">
                 <Table
                     striped
                     bordered
@@ -28,14 +22,14 @@ export default function TablaDirecciones() {
                         <tr>
                             <th>Dirección</th>
                             <th>Localidad</th>
-                            <th>Código Postal</th>
+                            <th>CP</th>
                             <th>Municipio</th>
                             <th>Provincia</th>
-                            <th>Dirección predeterminada</th>
+                            <th>Dirección pred.</th>
                         </tr>
                     </thead>
                     {direcciones.map((direcciones) => (
-                        <tbody>
+                        <tbody className="">
                             <tr key={direcciones.id}>
                                 <td>{direcciones.direccion}</td>
                                 <td>{direcciones.localidad}</td>
@@ -71,23 +65,6 @@ export default function TablaDirecciones() {
                     ))}
                 </Table>
             </Col>
-
-            <>
-                <Modal
-                    show={showEditModal}
-                    onHide={() => setShowEditModal(false)}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Editar dirección</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <FormDirecciones
-                            direccion={editingDireccion}
-                            onSuccess={() => setShowEditModal(false)}
-                        />
-                    </Modal.Body>
-                </Modal>
-            </>
-        </div>
+        </>
     );
 }

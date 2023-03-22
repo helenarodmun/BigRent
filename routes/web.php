@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\TelefonoController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,11 @@ Route::delete('/eliminarCliente/{id}',[ClienteController::class,'destroy']);
 Route::get('/editarDireccion/{id}', [DireccionController::class, 'verEdicionDireccion']);
 Route::put('/editarDireccion/{id}', [DireccionController::class, 'update']);
 Route::delete('/eliminarDireccion/{id}', [DireccionController::class, 'destroy']);
+
+Route::get('/editarTelefono/{id}', [TelefonoController::class, 'verEdicionTelefono']);
+Route::put('/editarTelefono/{id}', [TelefonoController::class, 'update']);
+Route::delete('/eliminarTelefono/{id}', [TelefonoController::class, 'destroy']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

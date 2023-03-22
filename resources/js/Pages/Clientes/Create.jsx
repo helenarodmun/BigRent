@@ -8,7 +8,7 @@ export default function Create() {
     return (
         <>
             <Container>
-                <p className="h1">Creación de nuevo cliente</p>
+                <p className="h2 mt-4">Creación de nuevo cliente</p>
                 <FormCliente></FormCliente>
             </Container>
         </>

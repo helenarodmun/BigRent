@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DireccionForm;
 use App\Models\Cliente;
 use App\Models\Direccion;
+use App\Models\Telefono;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -16,8 +17,10 @@ class DireccionController extends Controller
     {
         //recuperar el cliente por id cliente
         $direccion = Direccion::findOrFail($id);
-        return Inertia::render('Clientes/Update', [
-            'direcciones' => $direccion,            
+        $cliente = $direccion->cliente;
+        return Inertia::render('Clientes/ActualizaDireccion', [
+            'direcciones' => $direccion,  
+            'clientes' => $cliente->nombre_fiscal          
         ]);
     }
 
@@ -36,12 +39,20 @@ class DireccionController extends Controller
         $direccion->predeterminada = $validatedData['predeterminada'];
         // Guarda el direccion actualizado en la base de datos.
         $direccion->save();
-        // Recupera todos los direccions después de guardar el direccion actualizado.
-        $direcciones = Direccion::latest()->get();
+        // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
+        $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        //recupera los datos del cliente
+        $cliente = $direccion->cliente;
+         // Recupera todos los telefonos del cliente 
+        $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
 
-        return Inertia::render('Clientes/Show', ['direcciones' => $direcciones]);
+        return Inertia::render('Clientes/Update', [
+            'direcciones' => $direcciones,
+            'clientes' => $cliente,
+            'telefonos' => $telefonos
+        ]);
     }
 
     public function destroy($id)

@@ -3,73 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TelefonoForm;
+use App\Models\Direccion;
 use App\Models\Telefono;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TelefonoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function verEdicionTelefono($id)
     {
-        //
+        //recuperar el cliente por id cliente
+        $telefono = Telefono::findOrFail($id);
+        $cliente = $telefono->cliente;
+        return Inertia::render('Clientes/ActualizaTelefono', [
+            'telefonos' => $telefono,  
+            'clientes' => $cliente->nombre_fiscal          
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(TelefonoForm $request, $id)
+    public function update(TelefonoForm $request, $id)
     {
-        $request->validated();
-          //crea un nuevo registro, recibe un array con todos los datos de la solicitud
-          $nuevo_telefono = Telefono::create($request->all());
-          //Establece el atributo cliente_id con el id del cliente actual
-          $nuevo_telefono->cliente_id = $id;
-          //obtiene todas las direcciones de la base de datos, pertenecientes al cliente
-          // Las direcciones se ordenan por fecha de creación, de forma descendente (los más recientes primero).
-          $telefono = Telefono::where('cliente_id', $id)->latest()->get();
-  
-          return $telefono;
+        // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
+        $validatedData = $request->validated();
+        // Busca el regidtro a actualizar por su ID.
+        $telefono = Telefono::findOrFail($id);
+        // Actualiza los campos del direccion con los datos validados del formulario.
+        $telefono->telefono = $validatedData['telefono'];
+        $telefono->email = $validatedData['email'];
+        // Guarda el direccion actualizado en la base de datos.
+        $telefono->save();
+        // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
+        $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
+        //recupera los datos del cliente
+        $cliente = $telefono->cliente;
+         // Recupera todos los telefonos del cliente 
+        $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
+        // Redirige al cliente del usuario actualizado.
+        // Session::flash('edit', 'Se ha actualizado tú viaje');
+
+        return Inertia::render('Clientes/Update', [
+            'direcciones' => $direcciones,
+            'clientes' => $cliente,
+            'telefonos' => $telefonos
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function destroy($id)
     {
-        //
-    }
+        //Busca el registro por la id
+        $telefono = Telefono::findOrFail($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Telefono $telefono)
-    {
-        //
-    }
+        $telefono->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Telefono $telefono)
-    {
-        //
-    }
+        $telefonos = Telefono::latest()->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Telefono $telefono)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Telefono $telefono)
-    {
-        //
+        return Inertia::render('Clientes/Show', ['telefonos' => $telefonos]);
     }
 }
+
+

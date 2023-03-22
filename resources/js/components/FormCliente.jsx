@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
 
 export default function FormCliente({children}) {
@@ -51,14 +51,15 @@ export default function FormCliente({children}) {
           <div class="alert">{flash.message}</div>
         )}
         {children} 
-                <Row >
                     <Col  className="" >
-                        <Card className="shadow">
-                      
+                        <Card className="shadow">                      
                             <Card.Body >
                                 <Form  >
-                                    <Form.Group>
-                                        <Form.Label >Nombre Fiscal:</Form.Label>
+                                <Row className="align-items-center">
+                                <Col sm={9}>
+                                        <FloatingLabel 
+                                        label="NOMBRE FISCAL"
+                                        className="mb-3">
                                         <Form.Control aria-label="nombre fiscal"
                                             type="text"
                                             name="nombre_fiscal"
@@ -78,9 +79,12 @@ export default function FormCliente({children}) {
                                                 {errors.nombre_fiscal}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group className='m-2'>
-                                        <Form.Label>NIF:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                    <FloatingLabel 
+                                        label="NUM IDENTIFICACIÓN FISCAL"
+                                        className="mb-3">
                                         <Form.Control aria-label="numero de identificación fiscal"
                                             type="text"
                                             name="nif"
@@ -100,9 +104,12 @@ export default function FormCliente({children}) {
                                                 {errors.nif}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Nombre Comercial:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={9}>
+                                    <FloatingLabel 
+                                        label="NOMBRE COMERCIAL"
+                                        className="mb-3">
                                         <Form.Control aria-label="nombre comercial"
                                             type="text"
                                             name="nombre_comercial"
@@ -119,9 +126,12 @@ export default function FormCliente({children}) {
                                                 {errors.nombre_comercial}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>Administrador:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={9}>
+                                    <FloatingLabel 
+                                        label="ADMINISTRADOR"
+                                        className="mb-3">
                                         <Form.Control aria-label="Administrador de la empresa"
                                             type="text"
                                             name="administrador"
@@ -141,9 +151,12 @@ export default function FormCliente({children}) {
                                                 {errors.administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>DNI Administrador:</Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                    <FloatingLabel 
+                                        label="NIF"
+                                        className="mb-3">
                                         <Form.Control aria-label="dni del administrador"
                                             type="text"
                                             name="dni_administrador"
@@ -163,11 +176,12 @@ export default function FormCliente({children}) {
                                                 {errors.dni_administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label>
-                                            Tipo de cliente:
-                                        </Form.Label>
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={2}>
+                                    <FloatingLabel 
+                                        label="TIPO"
+                                        className="mb-3">
                                         <Form.Select aria-label="tipo de cliente"
                                             as="select"
                                             name="tipo"
@@ -178,10 +192,9 @@ export default function FormCliente({children}) {
                                                 setData("tipo", e.target.value)
                                             }
                                         >
-                                            <option disabled>
-                                                Escoja el tipo de cliente ...
+                                            <option >
+                                                Seleccione tipo cliente...
                                             </option>
-                                            <option value=""></option>
                                             <option value="Empresa">Empresa</option>
                                             <option value="Autónomo/Particular">Autónomo/Particular</option>
                                             <option value="Organismo/Institución">Organismo/Institución</option>
@@ -192,9 +205,12 @@ export default function FormCliente({children}) {
                                                 {errors.tipo}
                                             </div>
                                         )}
-                                        </Form.Group>
-                                        <Form.Group>
-                            <Form.Label >Dirección:</Form.Label>
+                                        </FloatingLabel>
+                                        </Col>
+                                        <Col sm={9}>
+                                        <FloatingLabel 
+                                        label="DIRECCIÓN"
+                                        className="mb-3">
                             <Form.Control aria-label="dirección"
                                 type="text"
                                 name="direccion"
@@ -214,9 +230,12 @@ export default function FormCliente({children}) {
                                     {errors.direccion}
                                 </div>
                             )}
-                        </Form.Group>
-                        <Form.Group className='m-2'>
-                            <Form.Label>Código Postal:</Form.Label>
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm={2}>
+                        <FloatingLabel 
+                                        label="CÓDIGO POSTAL"
+                                        className="mb-3">
                             <Form.Control aria-label="codigo postal"
                                 type="text"
                                 name="cp"
@@ -236,9 +255,12 @@ export default function FormCliente({children}) {
                                     {errors.cp}
                                 </div>
                             )}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Localidad:</Form.Label>
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm={6}>
+                        <FloatingLabel 
+                                        label="LOCALIDAD"
+                                        className="mb-3">
                             <Form.Control aria-label="localidad"
                                 type="text"
                                 name="localidad"
@@ -255,9 +277,12 @@ export default function FormCliente({children}) {
                                     {errors.localidad}
                                 </div>
                             )}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Municipio:</Form.Label>
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm={4}>
+                        <FloatingLabel 
+                                        label="MUNICIPIO"
+                                        className="mb-3">
                             <Form.Control aria-label="Municipio"
                                 type="text"
                                 name="municipio"
@@ -277,9 +302,12 @@ export default function FormCliente({children}) {
                                     {errors.municipio}
                                 </div>
                             )}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Provincia:</Form.Label>
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm={3}>
+                        <FloatingLabel 
+                                        label="PROVINCIA"
+                                        className="mb-3">
                             <Form.Control aria-label="provincia"
                                 type="text"
                                 name="provincia"
@@ -299,11 +327,12 @@ export default function FormCliente({children}) {
                                     {errors.provincia}
                                 </div>
                             )}
-                        </Form.Group>
-                        <Form.Group>
-                                        <Form.Label>
-                                            Tipo de dirección:
-                                        </Form.Label>
+                            </FloatingLabel>
+                        </Col>
+                        <Col sm={3}>
+                        <FloatingLabel 
+                                        label="TIPO DIRECCIÓN"
+                                        className="mb-3">
                                         <Form.Select aria-label="tipo de dirección"
                                             as="select"
                                             name="predeterminada"
@@ -311,10 +340,9 @@ export default function FormCliente({children}) {
                                             onChange={(e) =>  setData("predeterminada", e.target.value)
                                             }
                                         >
-                                            <option disabled>
-                                                Escoja el tipo de dirección...
+                                            <option>
+                                                Seleccione tipo de dirección...
                                             </option>
-                                            <option value=""></option>
                                             <option value='1'>Dirección de la empresa</option>
                                             <option value='0'>Dirección del alquiler</option>
                                         </Form.Select>
@@ -323,9 +351,13 @@ export default function FormCliente({children}) {
                                                 {errors.predeterminada}
                                             </div>
                                         )}
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Teléfono:</Form.Label>
+                                        </FloatingLabel>
+                                        </Col>
+                                        <Row>
+                                        <Col sm={3}>
+                                        <FloatingLabel 
+                                        label="TELÉFONO"
+                                        className="mb-3">
                                             <Form.Control 
                                             aria-label='telefono de contacto'
                                             type='text'
@@ -345,9 +377,12 @@ export default function FormCliente({children}) {
                                                 {errors.telefono}
                                             </div>
                                         )}
-                                        </Form.Group>
-                                        <Form.Group>
-                                            <Form.Label>Email:</Form.Label>
+                                        </FloatingLabel>
+                                        </Col>
+                                        <Col sm={6}>
+                                        <FloatingLabel 
+                                        label="CORREO ELECTRÓNICO"
+                                        className="mb-3">
                                             <Form.Control 
                                             aria-label='email de contacto'
                                             type='text'
@@ -367,10 +402,13 @@ export default function FormCliente({children}) {
                                                 {errors.email}
                                             </div>
                                         )}
-                                        </Form.Group>
-                                        <Form.Group
+                                        </FloatingLabel>
+                                        </Col>
+                                        </Row>
+                                        <Col sm={12}>
+                                        <FloatingLabel 
+                                        label="OBSERVACIONES"
                                         className="mb-3">
-                                            <Form.Label>Observaciones:</Form.Label>
                                             <Form.Control
                                             as='textarea'
                                             rows={3}
@@ -384,12 +422,14 @@ export default function FormCliente({children}) {
                                                 {errors.anotaciones}
                                             </div>
                                         )}
-                                        </Form.Group>
+                                        </FloatingLabel>
+                                        </Col>
                                         <p className="h3">Documentación</p>  
-                                    <Form.Group >                                       
+                                        <Col sm={4}>                                      
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control aria-label="url escrituras"
                                             type="file"
+                                            size="sm"
                                             name="url_escrituras"
                                             placeholder=""
                                             value={data.url_escrituras}
@@ -407,11 +447,12 @@ export default function FormCliente({children}) {
                                                 {errors.url_escrituras}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group >                                       
+                                    </Col>
+                                    <Col sm={4}>                                     
                                         <Form.Label>DNI Administrador:</Form.Label>
                                         <Form.Control aria-label="url dni administrador"
                                             type="file"
+                                            size="sm"
                                             name="url_dni_administrador"
                                             placeholder=""
                                             value={data.url_dni_administrador}
@@ -429,11 +470,12 @@ export default function FormCliente({children}) {
                                                 {errors.url_dni_administrador}
                                             </div>
                                         )}
-                                    </Form.Group>
-                                    <Form.Group >                                       
+                                    </Col>
+                                    <Col sm={4}>                                      
                                         <Form.Label>CIF de la empresa:</Form.Label>
                                         <Form.Control aria-label=" url_cif" 
                                             type="file"
+                                            size="sm"
                                             name="url_cif"
                                             placeholder=""
                                             value={data.url_cif}
@@ -451,7 +493,8 @@ export default function FormCliente({children}) {
                                                 {errors.url_cif}
                                             </div>
                                         )}
-                                    </Form.Group>
+                                    </Col>
+                                    </Row>
                                     </Form>
                                     </Card.Body>
                                     <Card.Footer>
@@ -470,7 +513,6 @@ export default function FormCliente({children}) {
                             </Card.Footer>                    
                         </Card>
                     </Col>
-                </Row>
             </div>
     
         </>

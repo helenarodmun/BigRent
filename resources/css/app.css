@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 1rem;
+  }
+  
+  @include media-breakpoint-up(sm) {
+    html {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @include media-breakpoint-up(md) {
+    html {
+      font-size: 1.4rem;
+    }
+  }
+  
+  @include media-breakpoint-up(lg) {
+    html {
+      font-size: 1.6rem;
+    }
+  }
+.update-container {
+    width: 100%;
+  }
+  
+  .form-container {
+    display: inline-block;
+    width: 40%;
+    float: left;
+  }
+  
+  .tables-container {
+    display: inline-block;
+    width: 59%;
+    float: right;
+    margin-top: 9.5vh;
+  }
+  
+  .table-container {
+    margin-bottom: 20px;
+  }
+
+  

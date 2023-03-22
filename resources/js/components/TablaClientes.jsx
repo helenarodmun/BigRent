@@ -32,7 +32,7 @@ export default function TablaClientes() {
                                     <td>{cliente.administrador}</td>
                                     <td>
                                         <Button
-                                            className="btn btn-success  m-3 shadow"
+                                            className="btn btn-success m-1 shadow"
                                             size="sm"
                                             href={"/verCliente/" + cliente.id}
                                         >

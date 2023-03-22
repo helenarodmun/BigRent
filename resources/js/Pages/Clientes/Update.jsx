@@ -10,11 +10,22 @@ export default function Update() {
 
     return (
         <>
-            <Container className="align-items-center justify-content-center accesibilidad-texto">
-              <FormActualizaCliente/>
-              <TablaDirecciones/>
-              <TablaTelefonos/>
-            </Container>
+            <Container>
+        <p className="h1 mt-3">Modificar Cliente</p>
+        <div className="update-container">
+          <div className="form-container">
+            <FormActualizaCliente />
+          </div>
+          <div className="tables-container">
+            <div className="table-container">
+              <TablaDirecciones />
+            </div>
+            <div className="table-container">
+              <TablaTelefonos />
+            </div>
+          </div>
+        </div>
+      </Container>
         </>
     );
 }
