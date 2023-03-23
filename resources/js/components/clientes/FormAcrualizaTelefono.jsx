@@ -4,8 +4,6 @@ import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
 export default function FormActualizaTelefono({ children }) {
     const { flash, telefonos, clientes } = usePage().props;
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
         telefono: telefonos.telefono,
@@ -14,7 +12,6 @@ export default function FormActualizaTelefono({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
         put(
             `/editarTelefono/${telefonos.id}`,
             {
@@ -24,7 +21,6 @@ export default function FormActualizaTelefono({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
     }
 
     return (
@@ -36,7 +32,7 @@ export default function FormActualizaTelefono({ children }) {
                     <Card className="shadow">
                         <Card.Header>
                             <Card.Title>
-                                <p className="h2"> Cliente {clientes}</p>
+                                <p className="h2"> Cliente {clientes.nombre_fiscal}</p>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -97,15 +93,18 @@ export default function FormActualizaTelefono({ children }) {
                         </Card.Body>
                         <Card.Footer>
                             <Button
-                                clasName="m-3 shadow"
-                                variant="primary"
-                                disabled={isSubmitting}
+                                className="m-3 shadow"
+                                variant="success"
                                 onClick={handleSubmit}
-                                aria-label="Guardar nueva empresa"
-                            >
-                                {isSubmitting
-                                    ? "Guardando..."
-                                    : "Guardar Registro"}
+                                aria-label="Guardar nuevo contacto"
+                            >Guardar registro
+                            </Button>
+                            <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/editarCliente/' + telefonos.cliente_id}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

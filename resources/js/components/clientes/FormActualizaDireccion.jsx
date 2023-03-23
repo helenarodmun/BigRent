@@ -5,8 +5,6 @@ import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 export default function FormActualizaDireccion({ children }) {
     const { flash, direccion, cliente } = usePage().props;
     console.log(direccion);
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
         direccion: direccion.direccion,
@@ -19,7 +17,6 @@ export default function FormActualizaDireccion({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
         put(
             `/editarDireccion/${direccion.id}`,
             {
@@ -29,7 +26,6 @@ export default function FormActualizaDireccion({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
     }
 
     return (
@@ -210,17 +206,20 @@ export default function FormActualizaDireccion({ children }) {
                                 </Row>
                             </Form>
                         </Card.Body>
-                        <Card.Footer>
+                        <Card.Footer >
                             <Button
-                                clasName="m-3 shadow"
-                                variant="primary"
-                                disabled={isSubmitting}
+                                className="m-3 shadow"
+                                variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva empresa"
-                            >
-                                {isSubmitting
-                                    ? "Guardando..."
-                                    : "Guardar Registro"}
+                            >Guardar registro
+                            </Button>
+                            <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/editarCliente/' + cliente.id}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

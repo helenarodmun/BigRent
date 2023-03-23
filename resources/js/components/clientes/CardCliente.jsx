@@ -245,13 +245,20 @@ export default function CardCliente({ children }) {
                             <Button
                                 type="submit"
                                 className="m-3 shadow"
-                                variant="warning"
+                                variant="primary"
                                 method="get"
                                 href={"/editarCliente/" + clientes.id}
                                 aria-label="Modificar los datos del cliente"
                             >
                                 {" "}
                                 Editar cliente
+                            </Button>
+                            <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/clientes'}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

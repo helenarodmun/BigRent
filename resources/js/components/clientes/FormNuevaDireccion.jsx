@@ -5,8 +5,6 @@ import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 export default function FormActualizaDireccion({ children }) {
     const { flash, cliente } = usePage().props;
     console.log(cliente);
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         direccion: "",
@@ -19,7 +17,6 @@ export default function FormActualizaDireccion({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
         post(
             "/nuevaDireccion/" + cliente.id,
             {
@@ -29,7 +26,6 @@ export default function FormActualizaDireccion({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
     }
 
     return (
@@ -212,14 +208,17 @@ export default function FormActualizaDireccion({ children }) {
                         <Card.Footer>
                             <Button
                                 clasName="m-3 shadow"
-                                variant="primary"
-                                disabled={isSubmitting}
+                                variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva direccion"
-                            >
-                                {isSubmitting
-                                    ? "Guardando..."
-                                    : "Guardar dirección"}
+                            >Guardar registro
+                            </Button>
+                              <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/editarCliente/' + cliente.id}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

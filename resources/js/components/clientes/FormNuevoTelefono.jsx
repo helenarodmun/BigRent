@@ -5,8 +5,6 @@ import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 export default function FormActualizaDireccion({ children }) {
     const { flash, cliente } = usePage().props;
     console.log(cliente);
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         telefono: "",
@@ -15,7 +13,6 @@ export default function FormActualizaDireccion({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
         post(
             "/nuevoTelefono/" + cliente.id,
             {
@@ -25,7 +22,6 @@ export default function FormActualizaDireccion({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
     }
 
     return (
@@ -98,15 +94,18 @@ export default function FormActualizaDireccion({ children }) {
                         </Card.Body>
                         <Card.Footer>
                             <Button
-                                clasName="m-3 shadow"
-                                variant="primary"
-                                disabled={isSubmitting}
+                                className="m-3 shadow"
+                                variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva teléfono"
-                            >
-                                {isSubmitting
-                                    ? "Guardando..."
-                                    : "Guardar contacto"}
+                            >Guardar registro
+                            </Button>
+                            <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/editarCliente/' + cliente.id}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

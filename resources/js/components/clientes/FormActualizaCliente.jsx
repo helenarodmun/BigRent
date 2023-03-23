@@ -319,7 +319,7 @@ export default function FormActualizaCliente({ children }) {
                     <Card.Footer>
                         <Button
                             className="m-3 shadow"
-                            variant="primary"
+                            variant="success"
                             onClick={handleSubmit}
                             aria-label="Modificar los datos del cliente"
                         >Guardar registro
@@ -371,6 +371,13 @@ export default function FormActualizaCliente({ children }) {
                                             </Button>
                                         </Modal.Footer>
                                     </Modal>
+                                    <Button
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/verCliente/' + clientes.id}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
+                            </Button>
                     </Card.Footer>
                 </Card>
             </Col>
