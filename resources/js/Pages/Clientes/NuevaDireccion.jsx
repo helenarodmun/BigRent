@@ -8,6 +8,7 @@ export default function NuevaDireccion() {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto mt-5">
+            <p className="h1 mt-3">Nueva dirección</p>
                 <FormNuevaDireccion />
             </Container>
         </>

@@ -6,6 +6,7 @@ export default function FichaCliente(props) {
     return (
         <>
             <Container>
+            <p className="h1 mt-3">Ficha cliente</p>
                 <CardCliente />
             </Container>
         </>

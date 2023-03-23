@@ -1,4 +1,4 @@
-import { Link, usePage } from "@inertiajs/react";
+import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import {
     Button,
@@ -13,6 +13,7 @@ import FormDirecciones from "./FormDirecciones";
 
 export default function TablaDirecciones() {
     const { direcciones, clientes } = usePage().props;
+    const { delete: destroy } = useForm();
     // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
     const renderTooltipAdd = (props) => (
         <Tooltip id="button-tooltip" {...props}>
@@ -29,6 +30,25 @@ export default function TablaDirecciones() {
             Borrar dirección
         </Tooltip>
     );
+    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+//función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
+    const handleDeleteClick = () => {
+        setShowConfirmDeleteModal(true);
+    };
+    // Esta función es llamada cuando se confirma la eliminación. Hace una petición al servidor para eliminar el registro y cierra el Modal de confirmación.
+    const handleDelete = (id) => {
+        destroy(
+            `/eliminarDireccion/${id}`,
+            {
+                onSuccess: () => {
+                    console.log("registro eliminado");
+                },
+            },
+            id
+        );
+        setShowConfirmDeleteModal(false);
+    };
     return (
         <>
             <Col className="shadow">
@@ -98,16 +118,53 @@ export default function TablaDirecciones() {
                                             delay={{ show: 250, hide: 400 }}
                                             overlay={renderTooltipDelete}
                                         >
-                                            <Link
-                                                method="delete"
-                                                href={
-                                                    "/eliminarDireccion/" +
-                                                    direcciones.id
-                                                }
+                                            <button
+                                                onClick={handleDeleteClick}
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
                                         </OverlayTrigger>
+                                        <Modal
+                                            show={showConfirmDeleteModal}
+                                            onHide={() =>
+                                                setShowConfirmDeleteModal(false)
+                                            }
+                                        >
+                                            <Modal.Header closeButton>
+                                                <Modal.Title>
+                                                    ¡ADVERTENCIA!
+                                                </Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                Se va a proceder a eliminar los
+                                                datos de forma definitiva.
+                                                <br />
+                                                ¿Está seguro que desea
+                                                continuar?
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button
+                                                    className="btn btn-secondary"
+                                                    onClick={() =>
+                                                        setShowConfirmDeleteModal(
+                                                            false
+                                                        )
+                                                    }
+                                                >
+                                                    Cancelar
+                                                </Button>
+                                                <Button
+                                                    variant="danger"
+                                                    onClick={() => {
+                                                        handleDelete(
+                                                            direcciones.id
+                                                        );
+                                                    }}
+                                                >
+                                                    Eliminar
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </td>
                                 </tr>
                             </tbody>

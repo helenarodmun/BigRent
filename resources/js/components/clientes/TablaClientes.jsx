@@ -7,7 +7,6 @@ export default function TablaClientes() {
     return (
         <>
             <Row>
-                <h1 className="m-3">Clientes</h1>
                 <Col sm={12} className="mt-3 pt-3 shadow ">
                     <Table
                         striped

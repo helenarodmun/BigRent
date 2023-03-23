@@ -1,11 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, Modal } from "react-bootstrap";
 
 export default function FormActualizaCliente({ children }) {
     const { clientes, flash } = usePage().props;
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
     const {
         data,
@@ -29,7 +27,6 @@ export default function FormActualizaCliente({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        setIsSubmitting(true);
         put(
             `/editarCliente/${clientes.id}`,
             {
@@ -39,15 +36,16 @@ export default function FormActualizaCliente({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
     }
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+    const handleDeleteClick = () => {
+        setShowConfirmDeleteModal(true);
+    };
     // Función para manejar la eliminación del cliente
-    function handleSubmitDelete(e) {
-        e.preventDefault();
-        setIsSubmitting(true);
+    function handleDelete(id) {
         // Llamar a la función delete() para enviar una solicitud DELETE al servidor y eliminar el cliente
         destroy(
-            `/eliminarCliente/${clientes.id}`,
+            `/eliminarCliente/${id}`,
             {
                 onSuccess: () => {
                     console.log(data);
@@ -55,7 +53,7 @@ export default function FormActualizaCliente({ children }) {
             },
             data
         );
-        setIsSubmitting(false);
+        setShowConfirmDeleteModal(false);
     }
     return (
         <>
@@ -322,24 +320,57 @@ export default function FormActualizaCliente({ children }) {
                         <Button
                             className="m-3 shadow"
                             variant="primary"
-                            disabled={isSubmitting}
                             onClick={handleSubmit}
                             aria-label="Modificar los datos del cliente"
-                        >
-                            {isSubmitting ? "Guardando..." : "Guardar cambios"}
+                        >Guardar registro
                         </Button>
                         <Button
                             className="m-3 shadow"
                             type="submit"
                             variant="danger"
-                            disabled={isSubmitting}
                             aria-label="Eliminar los datos del cliente"
-                            onClick={handleSubmitDelete}
-                        >
-                            {isSubmitting
-                                ? "Eliminando..."
-                                : "Eliminar registro"}
+                            onClick={handleDeleteClick}
+                        >Eliminar
                         </Button>
+                        <Modal
+                                        show={showConfirmDeleteModal}
+                                        onHide={() =>
+                                            setShowConfirmDeleteModal(false)
+                                        }
+                                    >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>
+                                                ¡ADVERTENCIA!
+                                            </Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            Se va a proceder a eliminar los
+                                            datos de forma definitiva.
+                                            <br />
+                                            ¿Está seguro que desea continuar?
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button
+                                                className="btn btn-secondary"
+                                                onClick={() =>
+                                                    setShowConfirmDeleteModal(
+                                                        false
+                                                    )
+                                                }
+                                            >
+                                                Cancelar
+                                            </Button>
+                                            <Button
+                                                variant="danger"
+                                                onClick={() => {
+                                                    handleDelete(clientes.id);
+                                                   
+                                                }}
+                                            >
+                                                Eliminar
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal>
                     </Card.Footer>
                 </Card>
             </Col>

@@ -7,7 +7,7 @@ import TablaTelefonos from "../../components/clientes/TablaTelefonos";
 export default function Update() {
     return (
         <>
-            <p className="h1 mt-3">Modificar Cliente</p>
+            <p className="h1 mt-3">Modificación Cliente</p>
             <div className="update-container">
                 <div className="form-container">
                     <FormActualizaCliente />
