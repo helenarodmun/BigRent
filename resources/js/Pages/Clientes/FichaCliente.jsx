@@ -1,14 +1,15 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import CardCliente from "../../components/clientes/CardCliente";
+import NavBar from "../../components/partials/NavBar";
 
 export default function FichaCliente(props) {
     return (
         <>
-            <Container>
-            <p className="h1 mt-3">Ficha cliente</p>
+            <div>
+                <NavBar></NavBar>
                 <CardCliente />
-            </Container>
+            </div>
         </>
     );
 }

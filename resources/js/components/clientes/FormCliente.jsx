@@ -53,9 +53,12 @@ export default function FormCliente({ children }) {
 
     return (
         <>
-            <div className="align-items-center justify-content-center accesibilidad-texto">
+            <Container className="align-items-center justify-content-center accesibilidad-texto">
                 {flash.message && <div class="alert">{flash.message}</div>}
                 {children}
+                
+                <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo cliente</p>
+                <Row>
                 <Col className="">
                     <Card className="shadow">
                         <Card.Body>
@@ -64,9 +67,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="NOMBRE FISCAL"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                                size="sm"
                                                 aria-label="nombre fiscal"
                                                 type="text"
                                                 name="nombre_fiscal"
@@ -91,9 +95,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="NUM IDENTIFICACIÓN FISCAL"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                                size="sm"
                                                 aria-label="numero de identificación fiscal"
                                                 type="text"
                                                 name="nif"
@@ -116,9 +121,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="NOMBRE COMERCIAL"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="nombre comercial"
                                                 type="text"
                                                 name="nombre_comercial"
@@ -141,9 +147,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="ADMINISTRADOR"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="Administrador de la empresa"
                                                 type="text"
                                                 name="administrador"
@@ -166,9 +173,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="NIF"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="dni del administrador"
                                                 type="text"
                                                 name="dni_administrador"
@@ -191,9 +199,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={2}>
                                         <FloatingLabel
                                             label="TIPO"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Select
+                                            size="sm"
                                                 aria-label="tipo de cliente"
                                                 as="select"
                                                 name="tipo"
@@ -231,9 +240,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="DIRECCIÓN"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="dirección"
                                                 type="text"
                                                 name="direccion"
@@ -256,9 +266,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={2}>
                                         <FloatingLabel
                                             label="CÓDIGO POSTAL"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="codigo postal"
                                                 type="text"
                                                 name="cp"
@@ -281,9 +292,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={6}>
                                         <FloatingLabel
                                             label="LOCALIDAD"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="localidad"
                                                 type="text"
                                                 name="localidad"
@@ -306,9 +318,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={4}>
                                         <FloatingLabel
                                             label="MUNICIPIO"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="Municipio"
                                                 type="text"
                                                 name="municipio"
@@ -331,9 +344,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="PROVINCIA"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 aria-label="provincia"
                                                 type="text"
                                                 name="provincia"
@@ -356,9 +370,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="TIPO DIRECCIÓN"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Select
+                                            size="sm"
                                                 aria-label="tipo de dirección"
                                                 as="select"
                                                 name="predeterminada"
@@ -392,9 +407,10 @@ export default function FormCliente({ children }) {
                                         <Col sm={3}>
                                             <FloatingLabel
                                                 label="TELÉFONO"
-                                                className="mb-3"
+                                                className="mb-2"
                                             >
                                                 <Form.Control
+                                                size="sm"
                                                     aria-label="telefono de contacto"
                                                     type="text"
                                                     name="telefono"
@@ -416,9 +432,10 @@ export default function FormCliente({ children }) {
                                         <Col sm={6}>
                                             <FloatingLabel
                                                 label="CORREO ELECTRÓNICO"
-                                                className="mb-3"
+                                                className="mb-2"
                                             >
                                                 <Form.Control
+                                                size="sm"
                                                     aria-label="email de contacto"
                                                     type="text"
                                                     name="email"
@@ -441,9 +458,10 @@ export default function FormCliente({ children }) {
                                     <Col sm={12}>
                                         <FloatingLabel
                                             label="OBSERVACIONES"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
+                                            size="sm"
                                                 as="textarea"
                                                 rows={3}
                                                 name="anotaciones"
@@ -466,9 +484,9 @@ export default function FormCliente({ children }) {
                                     <Col sm={4}>
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
+                                        size="sm"
                                             aria-label="url escrituras"
                                             type="file"
-                                            size="sm"
                                             name="url_escrituras"
                                             placeholder=""
                                             value={data.url_escrituras}
@@ -492,9 +510,9 @@ export default function FormCliente({ children }) {
                                             DNI Administrador:
                                         </Form.Label>
                                         <Form.Control
+                                        size="sm"
                                             aria-label="url dni administrador"
                                             type="file"
-                                            size="sm"
                                             name="url_dni_administrador"
                                             placeholder=""
                                             value={data.url_dni_administrador}
@@ -518,9 +536,9 @@ export default function FormCliente({ children }) {
                                             CIF de la empresa:
                                         </Form.Label>
                                         <Form.Control
+                                        size="sm"
                                             aria-label=" url_cif"
                                             type="file"
-                                            size="sm"
                                             name="url_cif"
                                             placeholder=""
                                             value={data.url_cif}
@@ -544,6 +562,7 @@ export default function FormCliente({ children }) {
                         </Card.Body>
                         <Card.Footer>
                             <Button
+                            size='lg'
                                 clasName="m-3 shadow"
                                 variant="primary"
                                 disabled={isSubmitting}
@@ -557,7 +576,8 @@ export default function FormCliente({ children }) {
                         </Card.Footer>
                     </Card>
                 </Col>
-            </div>
+                </Row>
+            </Container>
         </>
     );
 }

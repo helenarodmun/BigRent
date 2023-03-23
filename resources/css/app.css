@@ -45,5 +45,7 @@ html {
   .table-container {
     margin-bottom: 20px;
   }
-
+label {
+  font-size: 0.9em;
+}
   

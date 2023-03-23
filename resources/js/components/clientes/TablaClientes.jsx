@@ -1,11 +1,14 @@
 import { usePage } from "@inertiajs/react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
 
 export default function TablaClientes() {
     const { clientes } = usePage().props;
 
     return (
         <>
+        <Container>
+            
+        <p className="h3 m-3">Listado clientes</p>
             <Row>
                 <Col sm={12} className="mt-3 pt-3 shadow ">
                     <Table
@@ -51,6 +54,8 @@ export default function TablaClientes() {
             >
                 Crear nuevo Cliente
             </Button>
+            </Container>
         </>
+        
     );
 }

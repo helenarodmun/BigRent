@@ -1,16 +1,15 @@
-import { useForm, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+
+import React from "react";
 import FormCliente from "../../components/clientes/FormCliente";
-import FormDirecciones from "../../components/clientes/FormDirecciones";
+import NavBar from "../../components/partials/NavBar";
 
 export default function Create() {
     return (
         <>
-            <Container>
-                <p className="h2 mt-4">Creación de nuevo cliente</p>
+            <div>
+                <NavBar></NavBar>
                 <FormCliente></FormCliente>
-            </Container>
+            </div>
         </>
     );
 }

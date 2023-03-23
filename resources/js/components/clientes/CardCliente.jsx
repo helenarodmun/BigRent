@@ -30,15 +30,17 @@ export default function CardCliente({ children }) {
     //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papellera
     const [clienteId, setClienteId] = useState(null);
     return (
-        <>
+        <Container>
             {flash.message && <div class="alert">{flash.message}</div>}
             {children}
+            
+            <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
-                <Col sm={10} className="shadow">
+                <Col sm={10} >
                     <Card className="shadow">
                         <Card.Header>
                             <Card.Title>
-                                <p className="h1">{data.nombre_fiscal}</p>
+                                <p className="h3 m-0" ><small className="ms-2"><small>{clientes.id} - </small></small>{data.nombre_fiscal}</p>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -47,7 +49,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="número de identificación fiscal"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 aria-label="numero de identificación fiscal"
@@ -61,7 +63,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="NOMBRE COMERCIAL"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 aria-label="nombre comercial"
@@ -75,7 +77,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={9}>
                                         <FloatingLabel
                                             label="ADMINISTRADOR"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 aria-label="Administrador de la empresa"
@@ -89,7 +91,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="NIF"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 aria-label="dni del administrador"
@@ -103,7 +105,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="TIPO"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 aria-label="tipo de cliente"
@@ -117,7 +119,7 @@ export default function CardCliente({ children }) {
                                     <Col sm={12}>
                                         <FloatingLabel
                                             label="OBSERVACIONES"
-                                            className="mb-3"
+                                            className="mb-2"
                                         >
                                             <Form.Control
                                                 as="textarea"
@@ -127,7 +129,7 @@ export default function CardCliente({ children }) {
                                             ></Form.Control>
                                         </FloatingLabel>
                                     </Col>
-                                    <p className="h3">Documentación</p>
+                                    <p className="h4">Documentación</p>
                                     <Col sm={4}>
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
@@ -243,6 +245,7 @@ export default function CardCliente({ children }) {
                         </Card.Body>
                         <Card.Footer>
                             <Button
+                            size='lg'
                                 type="submit"
                                 className="m-3 shadow"
                                 variant="primary"
@@ -254,6 +257,7 @@ export default function CardCliente({ children }) {
                                 Editar cliente
                             </Button>
                             <Button
+                            size='lg'
                                 className="m-3 shadow"
                                 variant="secondary"
                                 href={'/clientes'}
@@ -264,6 +268,6 @@ export default function CardCliente({ children }) {
                     </Card>
                 </Col>
             </Row>
-        </>
+        </Container>
     );
 }
