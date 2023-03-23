@@ -1,13 +1,20 @@
-import {  useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import {  Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
-export default function FormActualizaCliente({children}) {
+export default function FormActualizaCliente({ children }) {
     const { clientes, flash } = usePage().props;
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, delete: destroy, processing, errors, } = useForm({
+    const {
+        data,
+        setData,
+        put,
+        delete: destroy,
+        processing,
+        errors,
+    } = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
@@ -17,7 +24,7 @@ export default function FormActualizaCliente({children}) {
         url_escrituras: clientes.url_escrituras,
         url_dni_administrador: clientes.url_dni_administrador,
         url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones
+        anotaciones: clientes.anotaciones,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -52,24 +59,23 @@ export default function FormActualizaCliente({children}) {
     }
     return (
         <>
-              {flash.message && (
-          <div className="alert">{flash.message}</div>
-        )}
-        {children}                 
-                    <Col>
-                        <Card className="shadow">
-                            <Card.Header>
-                                <Card.Title>
-                                    <p className="h2"> Cliente {clientes.id}</p>
-                                </Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <Form onSubmit={handleSubmit}>
-                                <Row className="align-items-center">
+            {flash.message && <div className="alert">{flash.message}</div>}
+            {children}
+            <Col>
+                <Card className="shadow">
+                    <Card.Header>
+                        <Card.Title>
+                            <p className="h2"> Cliente {clientes.id}</p>
+                        </Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <Row className="align-items-center">
                                 <Col sm={12}>
-                                        <FloatingLabel 
+                                    <FloatingLabel
                                         label="NOMBRE FISCAL"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Control
                                             aria-label="nombre fiscal"
                                             type="text"
@@ -90,12 +96,13 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nombre_fiscal}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={4}>
-                                    <FloatingLabel 
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={4}>
+                                    <FloatingLabel
                                         label="NUM IDENTIFICACIÓN FISCAL"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
                                             type="text"
@@ -111,12 +118,13 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nif}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={8}>
-                                    <FloatingLabel 
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={8}>
+                                    <FloatingLabel
                                         label="NOMBRE COMERCIAL"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Control
                                             aria-label="nombre comercial"
                                             type="text"
@@ -135,12 +143,13 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.nombre_comercial}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={9}>
-                                    <FloatingLabel 
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={9}>
+                                    <FloatingLabel
                                         label="ADMINISTRADOR"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
                                             type="text"
@@ -159,12 +168,10 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.administrador}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={3}>
-                                    <FloatingLabel 
-                                        label="NIF"
-                                        className="mb-3">
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={3}>
+                                    <FloatingLabel label="NIF" className="mb-3">
                                         <Form.Control
                                             aria-label="dni del administrador"
                                             type="text"
@@ -183,12 +190,13 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.dni_administrador}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={5}>
-                                    <FloatingLabel 
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={5}>
+                                    <FloatingLabel
                                         label="TIPO"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Select
                                             aria-label="tipo de cliente"
                                             as="select"
@@ -201,7 +209,7 @@ export default function FormActualizaCliente({children}) {
                                             <option disabled>
                                                 Escoja el tipo de cliente ...
                                             </option>
-                                            <option ></option>
+                                            <option></option>
                                             <option value="Empresa">
                                                 Empresa
                                             </option>
@@ -220,12 +228,13 @@ export default function FormActualizaCliente({children}) {
                                                 {errors.tipo}
                                             </div>
                                         )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={12}>
-                                        <FloatingLabel 
+                                    </FloatingLabel>
+                                </Col>
+                                <Col sm={12}>
+                                    <FloatingLabel
                                         label="OBSERVACIONES"
-                                        className="mb-3">
+                                        className="mb-3"
+                                    >
                                         <Form.Control
                                             as="textarea"
                                             rows={5}
@@ -240,110 +249,100 @@ export default function FormActualizaCliente({children}) {
                                                 )
                                             }
                                         ></Form.Control>
-                                        </FloatingLabel>
-                                    </Col>
-                                    <p className="h3">Documentación</p>
-                                    <Col sm={6}>                                      
-                                        <Form.Label>Escrituras:</Form.Label>
-                                        <Form.Control
-                                            aria-label="url escrituras"
-                                            type="file"
-                                            size="sm"
-                                            name="url_escrituras"
-                                            placeholder=""
-                                            value={data.url_escrituras}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "url_escrituras",
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                        {errors.url_escrituras && (
-                                            <div className="alert alert-danger">
-                                                {errors.url_escrituras}
-                                            </div>
-                                        )}
-                                    </Col>
-                                    <Col sm={6}>      
-                                        <Form.Label>
-                                            DNI Administrador:
-                                        </Form.Label>
-                                        <Form.Control
-                                            aria-label="url dni administrador"
-                                            type="file"
-                                            size="sm"
-                                            name="url_dni_administrador"
-                                            placeholder=""
-                                            value={data.url_dni_administrador}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "url_dni_administrador",
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                        {errors.url_dni_administrador && (
-                                            <div className="alert alert-danger">
-                                                {errors.url_dni_administrador}
-                                            </div>
-                                        )}
-                                    </Col>
-                                    <Col sm={6}>      
-                                        <Form.Label>
-                                            CIF de la empresa:
-                                        </Form.Label>
-                                        <Form.Control
-                                            aria-label=" url_cif"
-                                            type="file"
-                                            size="sm"
-                                            name="url_cif"
-                                            placeholder=""
-                                            value={data.url_cif}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "url_cif",
-                                                    e.target.value
-                                                )
-                                            }
-                                        />
-                                        {errors.url_cif && (
-                                            <div className="alert alert-danger">
-                                                {errors.url_cif}
-                                            </div>
-                                        )}
-                                    </Col>
-                                  
-                                    </Row>
-                                </Form>                               
-                            </Card.Body>
-                            <Card.Footer>
-                                <Button
-                                    className="m-3 shadow"
-                                    variant="primary"
-                                    disabled={isSubmitting}
-                                    onClick={handleSubmit}
-                                    aria-label="Modificar los datos del cliente"
-                                >
-                                    {isSubmitting
-                                        ? "Guardando..."
-                                        : "Guardar cambios"}
-                                </Button>
-                                <Button
-                                    className="m-3 shadow"
-                                    type="submit"
-                                    variant="danger"
-                                    disabled={isSubmitting}
-                                    aria-label="Eliminar los datos del cliente"
-                                    onClick={handleSubmitDelete}
-                                >
-                                    {isSubmitting
-                                        ? "Eliminando..."
-                                        : "Eliminar registro"}
-                                </Button>
-                            </Card.Footer>
-                        </Card>
-                    </Col>
+                                    </FloatingLabel>
+                                </Col>
+                                <p className="h3">Documentación</p>
+                                <Col sm={6}>
+                                    <Form.Label>Escrituras:</Form.Label>
+                                    <Form.Control
+                                        aria-label="url escrituras"
+                                        type="file"
+                                        size="sm"
+                                        name="url_escrituras"
+                                        placeholder=""
+                                        value={data.url_escrituras}
+                                        onChange={(e) =>
+                                            setData(
+                                                "url_escrituras",
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                    {errors.url_escrituras && (
+                                        <div className="alert alert-danger">
+                                            {errors.url_escrituras}
+                                        </div>
+                                    )}
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Label>DNI Administrador:</Form.Label>
+                                    <Form.Control
+                                        aria-label="url dni administrador"
+                                        type="file"
+                                        size="sm"
+                                        name="url_dni_administrador"
+                                        placeholder=""
+                                        value={data.url_dni_administrador}
+                                        onChange={(e) =>
+                                            setData(
+                                                "url_dni_administrador",
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                    {errors.url_dni_administrador && (
+                                        <div className="alert alert-danger">
+                                            {errors.url_dni_administrador}
+                                        </div>
+                                    )}
+                                </Col>
+                                <Col sm={6}>
+                                    <Form.Label>CIF de la empresa:</Form.Label>
+                                    <Form.Control
+                                        aria-label=" url_cif"
+                                        type="file"
+                                        size="sm"
+                                        name="url_cif"
+                                        placeholder=""
+                                        value={data.url_cif}
+                                        onChange={(e) =>
+                                            setData("url_cif", e.target.value)
+                                        }
+                                    />
+                                    {errors.url_cif && (
+                                        <div className="alert alert-danger">
+                                            {errors.url_cif}
+                                        </div>
+                                    )}
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Button
+                            className="m-3 shadow"
+                            variant="primary"
+                            disabled={isSubmitting}
+                            onClick={handleSubmit}
+                            aria-label="Modificar los datos del cliente"
+                        >
+                            {isSubmitting ? "Guardando..." : "Guardar cambios"}
+                        </Button>
+                        <Button
+                            className="m-3 shadow"
+                            type="submit"
+                            variant="danger"
+                            disabled={isSubmitting}
+                            aria-label="Eliminar los datos del cliente"
+                            onClick={handleSubmitDelete}
+                        >
+                            {isSubmitting
+                                ? "Eliminando..."
+                                : "Eliminar registro"}
+                        </Button>
+                    </Card.Footer>
+                </Card>
+            </Col>
         </>
     );
 }

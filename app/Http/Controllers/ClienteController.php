@@ -128,54 +128,6 @@ class ClienteController extends Controller
         ]);
     }
 
-    // public function update(ClienteForm $request, $id){
-
-    //     $request->validated();
-
-    //     DB::beginTransaction();
-
-    //     try {
-
-    //         $cliente = Cliente::findOrFail($id);
-    //             $cliente->nombre_fiscal = $request->input('nombre_fiscal');
-    //             $cliente->nif = $request->input('nif');
-    //             $cliente->nombre_comercial = $request->input('nombre_comercial');
-    //             $cliente->tipo = $request->input('tipo');
-    //             $cliente->administrador = $request->input('administrador');
-    //             $cliente->dni_administrador = $request->input('dni_administrador');
-    //             $cliente->url_escrituras = $request->input('url_escrituras');
-    //             $cliente->url_dni_administrador = $request->input('url_dni_administrador');
-    //             $cliente->url_cif = $request->input('url_cif');
-    //             $cliente->anotaciones = $request->input('anotaciones');
-    //             $cliente->save();
-
-    //             $direccion = Direccion::where('cliente_id', $cliente->id)->firstOrFail();
-    //             $direccion->direccion = $request->input('direccion');
-    //             $direccion->cp = $request->input('cp');
-    //             $direccion->localidad = $request->input('localidad');
-    //             $direccion->municipio = $request->input('municipio');
-    //             $direccion->provincia = $request->input('provincia');
-    //             $direccion->predeterminada = $request->input('predeterminada');
-    //             $direccion->save();
-
-    //             $telefono = Telefono::where('cliente_id', $cliente->id)->firstOrFail();
-    //             $telefono->telefono = $request->input('telefono');
-    //             $telefono->email = $request->input('email');
-    //             $telefono->save();
-
-    //         DB::commit();
-    //         return Inertia::render('Clientes/Show', [
-    //             'clientes' => $cliente,
-    //             'direcciones' => $cliente->direcciones,
-    //             'telefonos' => $cliente->telefonos,
-    //         ]);
-    //     }catch (\Exception $e) {
-    //         dd($e);
-    //         DB::rollBack();
-    //         return back();
-    //     }
-
-    // }
 
     public function destroy($id)
     {

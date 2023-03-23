@@ -30,8 +30,7 @@ class DireccionForm extends FormRequest
                 'localidad' => 'required|string|max:75',
                 'municipio' => 'required|string|max:65',
                 'provincia' => 'required|string|max:65',
-                'predeterminada' => 'nullable',
-                'cliente_id' => 'required|exists:clientes,id'
+                'predeterminada' => 'nullable'
             ],
 
             'PUT' => [

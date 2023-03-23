@@ -12,15 +12,45 @@ use Inertia\Inertia;
 
 class DireccionController extends Controller
 {
-  
-    public function verEdicionDireccion($id)
+    public function create(DireccionForm $request, $id)
     {
-        //recuperar el cliente por id cliente
-        $direccion = Direccion::findOrFail($id);
+        
+        $request->validated();
+        $cliente = Cliente::findOrFail($id);
+        $direccion = $cliente->direcciones()->create($request->all());
+        // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
+        $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        //recupera los datos del cliente
         $cliente = $direccion->cliente;
+        // Recupera todos los telefonos del cliente 
+        $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        // Redirige al cliente del usuario actualizado.
+        // Session::flash('edit', 'Se ha actualizado tú viaje');
+
+        return Inertia::render('Clientes/Update', [
+            'direcciones' => $direcciones,
+            'clientes' => $cliente,
+            'telefonos' => $telefonos
+        ]);
+    }
+
+
+    public function verEdicionDireccion($id)
+    {     
+        //recupera los datos de la dirección a través de la id pasada por url   
+        $direccion_actual = Direccion::findOrFail($id);
+        //carga el cliente relacionado con la direccion actual
+        $direccion_actual->load('cliente.direcciones');
         return Inertia::render('Clientes/ActualizaDireccion', [
-            'direcciones' => $direccion,  
-            'clientes' => $cliente->nombre_fiscal          
+            'direccion' => $direccion_actual,
+            'cliente' => $direccion_actual->cliente
+        ]);
+    }
+    public function verFormDireccion($id)
+    {   
+        $cliente = Cliente::findOrFail($id);       
+        return Inertia::render('Clientes/NuevaDireccion', [
+            'cliente' => $cliente
         ]);
     }
 
@@ -43,7 +73,7 @@ class DireccionController extends Controller
         $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
         //recupera los datos del cliente
         $cliente = $direccion->cliente;
-         // Recupera todos los telefonos del cliente 
+        // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
@@ -62,8 +92,15 @@ class DireccionController extends Controller
 
         $direccion->delete();
 
-        $direcciones = Direccion::latest()->get();
+        $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        $cliente = $direccion->cliente;
+        // Recupera todos los telefonos del cliente 
+        $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
 
-        return Inertia::render('Clientes/Show', ['direcciones' => $direcciones]);
+         return Inertia::render('Clientes/Update', [
+            'direcciones' => $direcciones,
+            'clientes' => $cliente,
+            'telefonos' => $telefonos
+        ]);
     }
 }

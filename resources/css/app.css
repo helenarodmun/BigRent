@@ -4,6 +4,8 @@
 }
 html {
     font-size: 1rem;
+    margin: 0;
+    padding: 0;
   }
   
   @include media-breakpoint-up(sm) {
@@ -37,7 +39,7 @@ html {
     display: inline-block;
     width: 59%;
     float: right;
-    margin-top: 9.5vh;
+    margin-top: 3vh;
   }
   
   .table-container {

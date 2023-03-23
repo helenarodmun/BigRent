@@ -27,7 +27,6 @@ class TelefonoForm extends FormRequest
 
                 'telefono' => 'required|string|max:9',
                 'email' => 'nullable|string|email|max:255',
-                'cliente_id' => 'required|exists:clientes, id'
             ],
             
             'PUT' => [

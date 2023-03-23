@@ -1,12 +1,14 @@
+import { usePage } from "@inertiajs/react";
 import React from "react";
 import { Container } from "react-bootstrap";
-import FormActualizaTelefono from "../../components/clientes/FormAcrualizaTelefono";
+import FormNuevoTelefono from "../../components/clientes/FormNuevoTelefono";
 
-export default function ActualizaTelefono() {
+export default function NuevaDireccion() {
+    const { telefonos } = usePage().props;
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto mt-5">
-                <FormActualizaTelefono />
+                <FormNuevoTelefono />
             </Container>
         </>
     );

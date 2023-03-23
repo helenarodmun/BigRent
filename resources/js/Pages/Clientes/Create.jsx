@@ -1,8 +1,8 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-import FormCliente from "../../components/FormCliente";
-import FormDirecciones from "../../components/FormDirecciones";
+import FormCliente from "../../components/clientes/FormCliente";
+import FormDirecciones from "../../components/clientes/FormDirecciones";
 
 export default function Create() {
     return (
