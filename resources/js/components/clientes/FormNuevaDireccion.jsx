@@ -31,8 +31,19 @@ export default function FormActualizaDireccion({ children }) {
     return (
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
-                {flash.message && <div class="alert">{flash.message}</div>}
-                {children}
+            {flash.mensaje && (
+                        <div class="alert alert-success" role={"alert"}>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {flash.mensaje}
+                        </div>
+                    )}
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>

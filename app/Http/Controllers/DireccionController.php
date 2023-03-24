@@ -8,6 +8,7 @@ use App\Models\Direccion;
 use App\Models\Telefono;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class DireccionController extends Controller
@@ -25,7 +26,7 @@ class DireccionController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
-        // Session::flash('edit', 'Se ha actualizado tú viaje');
+        Session::flash('mensaje', 'Se ha creado la dirección de forma correcta');
 
         return Inertia::render('Clientes/Update', [
             'direcciones' => $direcciones,

@@ -2,7 +2,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Modal } from "react-bootstrap";
 
-export default function FormActualizaCliente({ children }) {
+export default function FormActualizaCliente() {
     const { clientes, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const {
@@ -57,8 +57,7 @@ export default function FormActualizaCliente({ children }) {
     }
     return (
         <div className="m-3">
-            {flash.message && <div className="alert">{flash.message}</div>}
-            {children}
+          
             <Col>
             
             <p className="h1 mt-3">Modificación Cliente</p>
