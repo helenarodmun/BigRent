@@ -113,9 +113,9 @@ class ClienteController extends Controller
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
         $cliente->save();
-    
+
         // Redirige al cliente del usuario actualizado.
-       Session::flash('edit', 'Se ha actualizado el cliente');
+        Session::flash('edit', 'Se ha actualizado el cliente');
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente

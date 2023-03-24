@@ -6,7 +6,7 @@ import { Link } from "@inertiajs/react";
 function NavBar() {
     // Se obtiene la autenticación del usuario de las props de la página
     const { auth } = usePage().props;
-console.log(auth.user.name)
+console.log(auth.user.username)
     return (
         <Navbar  bg="light" expand="lg" className="p-3 accesibilidad-texto">
             <Navbar.Brand className='ms-5 h1' href="/clientes">BigRent</Navbar.Brand>

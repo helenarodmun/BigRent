@@ -10,7 +10,10 @@ use Inertia\Inertia;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/welcome', function(){
+    $user = Auth::user();
+    return Inertia::render('Welcome', ['user'=> $user]);
+});
 //////////////////////////// RUTAS CLIENTES ///////////////////////////////////////
 Route::get('/clientes',[ClienteController::class,'index'])->middleware('auth');  
 Route::post('/clientes',[ClienteController::class,'index'])->middleware('auth');  

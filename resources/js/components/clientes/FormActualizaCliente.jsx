@@ -56,10 +56,12 @@ export default function FormActualizaCliente({ children }) {
         setShowConfirmDeleteModal(false);
     }
     return (
-        <>
+        <div className="m-3">
             {flash.message && <div className="alert">{flash.message}</div>}
             {children}
             <Col>
+            
+            <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">
                     <Card.Header>
                         <Card.Title>
@@ -72,7 +74,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={12}>
                                     <FloatingLabel
                                         label="NOMBRE FISCAL"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Control
                                             aria-label="nombre fiscal"
@@ -99,7 +101,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={4}>
                                     <FloatingLabel
                                         label="NUM IDENTIFICACIÓN FISCAL"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Control
                                             aria-label="numero de identificación fiscal"
@@ -121,7 +123,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={8}>
                                     <FloatingLabel
                                         label="NOMBRE COMERCIAL"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Control
                                             aria-label="nombre comercial"
@@ -146,7 +148,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={9}>
                                     <FloatingLabel
                                         label="ADMINISTRADOR"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Control
                                             aria-label="Administrador de la empresa"
@@ -169,7 +171,7 @@ export default function FormActualizaCliente({ children }) {
                                     </FloatingLabel>
                                 </Col>
                                 <Col sm={3}>
-                                    <FloatingLabel label="NIF" className="mb-3">
+                                    <FloatingLabel label="NIF" className="mb-2">
                                         <Form.Control
                                             aria-label="dni del administrador"
                                             type="text"
@@ -193,7 +195,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={5}>
                                     <FloatingLabel
                                         label="TIPO"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Select
                                             aria-label="tipo de cliente"
@@ -231,7 +233,7 @@ export default function FormActualizaCliente({ children }) {
                                 <Col sm={12}>
                                     <FloatingLabel
                                         label="OBSERVACIONES"
-                                        className="mb-3"
+                                        className="mb-2"
                                     >
                                         <Form.Control
                                             as="textarea"
@@ -249,9 +251,10 @@ export default function FormActualizaCliente({ children }) {
                                         ></Form.Control>
                                     </FloatingLabel>
                                 </Col>
-                                <p className="h3">Documentación</p>
+                                <hr></hr>
+                                <p className="h4 mb-1">Documentación</p>
                                 <Col sm={6}>
-                                    <Form.Label>Escrituras:</Form.Label>
+                                    <Form.Label className="mb-1">Escrituras:</Form.Label>
                                     <Form.Control
                                         aria-label="url escrituras"
                                         type="file"
@@ -273,7 +276,7 @@ export default function FormActualizaCliente({ children }) {
                                     )}
                                 </Col>
                                 <Col sm={6}>
-                                    <Form.Label>DNI Administrador:</Form.Label>
+                                    <Form.Label className="mb-1">DNI Administrador:</Form.Label>
                                     <Form.Control
                                         aria-label="url dni administrador"
                                         type="file"
@@ -295,7 +298,7 @@ export default function FormActualizaCliente({ children }) {
                                     )}
                                 </Col>
                                 <Col sm={6}>
-                                    <Form.Label>CIF de la empresa:</Form.Label>
+                                    <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
                                     <Form.Control
                                         aria-label=" url_cif"
                                         type="file"
@@ -318,7 +321,7 @@ export default function FormActualizaCliente({ children }) {
                     </Card.Body>
                     <Card.Footer>
                         <Button
-                            className="m-3 shadow"
+                            className="m-2 shadow"
                             variant="success"
                             onClick={handleSubmit}
                             aria-label="Modificar los datos del cliente"
@@ -381,6 +384,6 @@ export default function FormActualizaCliente({ children }) {
                     </Card.Footer>
                 </Card>
             </Col>
-        </>
+        </div>
     );
 }

@@ -31,15 +31,17 @@ html {
   
   .form-container {
     display: inline-block;
-    width: 40%;
+    width: 46%;
     float: left;
   }
   
   .tables-container {
     display: inline-block;
-    width: 59%;
+    width: 53%;
     float: right;
-    margin-top: 3vh;
+    margin-top: 10vh;
+    margin-right: 1vh;
+    
   }
   
   .table-container {

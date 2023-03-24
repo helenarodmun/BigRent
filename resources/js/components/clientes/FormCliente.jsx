@@ -12,8 +12,7 @@ import {
 
 export default function FormCliente({ children }) {
     const { flash } = usePage().props;
-    // Estado local para controlar el envío del formulario
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         nombre_fiscal: "",
@@ -37,8 +36,7 @@ export default function FormCliente({ children }) {
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
-        e.preventDefault();
-        setIsSubmitting(true);
+        e.preventDefault();        
         post(
             "/nuevoCliente",
             {
@@ -47,16 +45,14 @@ export default function FormCliente({ children }) {
                 },
             },
             data
-        );
-        setIsSubmitting(false);
+        );                
     }
 
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
                 {flash.message && <div class="alert">{flash.message}</div>}
-                {children}
-                
+                {children}                
                 <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo cliente</p>
                 <Row>
                 <Col className="">
@@ -565,13 +561,17 @@ export default function FormCliente({ children }) {
                             size='lg'
                                 clasName="m-3 shadow"
                                 variant="primary"
-                                disabled={isSubmitting}
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva empresa"
-                            >
-                                {isSubmitting
-                                    ? "Guardando..."
-                                    : "Guardar Registro"}
+                            >Guardar registro
+                            </Button>
+                            <Button
+                            size='lg'
+                                className="m-3 shadow"
+                                variant="secondary"
+                                href={'/clientes'}
+                                aria-label="Volver a la vista anterior"
+                            >Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

@@ -3,11 +3,11 @@ import { Container } from "react-bootstrap";
 import FormActualizaCliente from "../../components/clientes/FormActualizaCliente";
 import TablaDirecciones from "../../components/clientes/TablaDirecciones";
 import TablaTelefonos from "../../components/clientes/TablaTelefonos";
-
+import NavBar from "../../components/partials/NavBar"
 export default function Update() {
     return (
         <>
-            <p className="h1 mt-3">Modificación Cliente</p>
+        <NavBar></NavBar>
             <div className="update-container">
                 <div className="form-container">
                     <FormActualizaCliente />

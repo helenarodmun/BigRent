@@ -51,7 +51,7 @@ export default function TablaDirecciones() {
     };
     return (
         <>
-            <Col className="shadow">
+            <Col sm={12} className="shadow">
                 {direcciones.length === 0 ? (
                     <div className="d-flex justify-content-center align-items-center">
                         <p className="me-4">No existen direcciones asociadas a este cliente </p>

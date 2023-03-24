@@ -42,8 +42,7 @@ class ClienteForm extends FormRequest
                 'provincia' => 'required|string|max:65',
                 'predeterminada' => 'nullable',
                 'telefono' => 'required|string|max:9',
-                'email' => 'nullable|string|email|max:255',
-
+                'email' => 'nullable|string|email|max:255'
             ],
 
             'PUT' => [

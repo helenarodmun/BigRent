@@ -33,4 +33,8 @@ class Cliente extends Model
     {
         return $this->hasMany(Telefono::class);
     }
+    public function autorizados()
+    {
+        return $this->hasMany(Autorizado::class);
+    }
 }
