@@ -1,13 +1,10 @@
-import SidebarMenu from "react-bootstrap-sidebar-menu";
+import NavBar from '../components/partials/NavBar'
 
 export default function Welcome() {
     return (
         <>
-        <SidebarMenu>
-            BigRent
-        </SidebarMenu>
-            <h1>Welcome</h1>
-            <p>Hello , welcome to your first Inertia app!</p>
+      <NavBar></NavBar>
+            <p className='h1'>App de maquinaria</p>
         </>
     );
 }

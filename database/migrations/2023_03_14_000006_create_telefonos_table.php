@@ -24,7 +24,7 @@ class CreateTelefonosTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('telefono', 9);
-            $table->string('email', 45);
+            $table->string('email', 45)->nullable();
             $table->timestamps();
 
             $table->foreignId('cliente_id')

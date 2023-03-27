@@ -50,4 +50,6 @@ html {
 label {
   font-size: 0.9em;
 }
-  
+#autorizados {
+  float: right;
+} 

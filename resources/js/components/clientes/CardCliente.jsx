@@ -41,6 +41,10 @@ export default function CardCliente({ children }) {
                         <Card.Header>
                             <Card.Title>
                                 <p className="h3 m-0" ><small className="ms-2"><small>{clientes.id} - </small></small>{data.nombre_fiscal}</p>
+                                <Button id='boton_autorizados'
+                                className="m-3 shadow"
+                                variant='warning'
+                                href={'/autorizados/' + clientes.id}>Autorizados</Button>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>

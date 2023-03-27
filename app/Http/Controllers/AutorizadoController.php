@@ -20,13 +20,13 @@ class AutorizadoController extends Controller
         $autorizado = $cliente->autorizados()->create($request->all());
         $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         $cliente = $autorizado->cliente;
-        $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
-        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        return Inertia::render('Clientes/Update', [
+        // $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
+        // $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        return Inertia::render('Clientes/Autorizados', [
             'autorizados' => $autorizados,
-            'clientes' => $cliente,
-            'direcciones' => $direcciones,
-            'telefonos' => $telefonos
+            'cliente' => $cliente,
+            // 'direcciones' => $direcciones,
+            // 'telefonos' => $telefonos
         ]);
     }
 
@@ -40,9 +40,18 @@ class AutorizadoController extends Controller
         ]);
     }
 
-    public function verFormAutorizado($id)
+    public function verAutorizados($id)
     {
         $cliente = Cliente::findOrFail($id);
+        $autorizados = $cliente->autorizados;
+        return Inertia::render('Clientes/Autorizados', [
+            'cliente' => $cliente,
+            'autorizados' => $autorizados
+        ]);
+    }
+    public function verFormAutorizado($id)
+    {   
+        $cliente = Cliente::findOrFail($id);       
         return Inertia::render('Clientes/NuevoAutorizado', [
             'cliente' => $cliente
         ]);
@@ -67,17 +76,17 @@ class AutorizadoController extends Controller
         //recupera los datos del cliente
         $cliente = $autorizado->cliente;
         // Recupera todos las direcciones del cliente 
-        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        // Recupera todos los telefonos del cliente 
-        $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        // $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        // // Recupera todos los telefonos del cliente 
+        // $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/Autorizados', [
             'autorizados' => $autorizados,
-            'clientes' => $cliente,
-            'direcciones' => $direcciones,
-            'telefonos' => $telefonos
+            'cliente' => $cliente,
+            // 'direcciones' => $direcciones,
+            // 'telefonos' => $telefonos
         ]);
     }
 
@@ -95,7 +104,7 @@ class AutorizadoController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/Autorizados', [
             'autorizados' => $autorizados,
             'clientes' => $cliente,
             'direcciones' => $direcciones,

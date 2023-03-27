@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutorizadoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\TelefonoController;
@@ -10,7 +11,7 @@ use Inertia\Inertia;
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/welcome', function(){
+Route::get('/', function(){
     $user = Auth::user();
     return Inertia::render('Welcome', ['user'=> $user]);
 });
@@ -40,6 +41,10 @@ Route::delete('/eliminarTelefono/{id}', [TelefonoController::class, 'destroy']);
 Route::get('/nuevoTelefono/{id}', [TelefonoController::class, 'verFormTelefono']);
 Route::post('/nuevoTelefono/{id}', [TelefonoController::class, 'create']);
 
+////////////////////////// RUTAS AUTORIZADOS //////////////////////////////////////
+Route::get('/autorizados/{id}', [AutorizadoController::class, 'verAutorizados']);
+Route::get('/nuevoAutorizado/{id}', [AutorizadoController::class, 'verFormAutorizado']);
+Route::post('/nuevoAutorizado/{id}', [AutorizadoController::class, 'create']);
 
 
 
