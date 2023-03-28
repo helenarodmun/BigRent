@@ -40,56 +40,104 @@ export default function FormActualizaDireccion({ children }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                                <Row className="align-items-center">
-                                    <Col sm={2}>
+                            <Row>
+                                        <Col sm={3}>
+                                            <FloatingLabel
+                                                label="CONTACTO"
+                                                className="mb-2"
+                                            >
+                                                <Form.Control
+                                                size="sm"
+                                                    aria-label="datos de contacto"
+                                                    type="text"
+                                                    name="contacto"
+                                                    value={data.contacto}
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "contacto",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                />
+                                                {errors.contacto && (
+                                                    <div className="alert alert-danger">
+                                                        {errors.contacto}
+                                                    </div>
+                                                )}
+                                            </FloatingLabel>
+                                        </Col>
+                                        <Col sm={3}>
                                         <FloatingLabel
-                                            label="TELÉFONO"
-                                            className="mb-3"
+                                            label="TIPO DE CONTACTO"
+                                            className="mb-2"
                                         >
-                                            <Form.Control
-                                                aria-label="teléfono"
-                                                type="text"
-                                                name="telefono"
-                                                value={data.telefono}
+                                            <Form.Select
+                                            size="sm"
+                                                aria-label="vía de comunicación"
+                                                as="select"
+                                                name="via_comunicacion"
+                                                value={data.via_comunicacion}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "telefono",
+                                                        "via_comunicacion",
                                                         e.target.value
                                                     )
                                                 }
-                                            />
-                                            {errors.telefono && (
+                                            >
+                                                <option>
+                                                    Seleccione tipo de
+                                                    contacto...
+                                                </option>
+                                                <option value="T">
+                                                    Teléfono
+                                                </option>
+                                                <option value="C">
+                                                    Correo electrónico
+                                                </option>
+                                            </Form.Select>
+                                            {errors.via_comunicacion && (
                                                 <div className="alert alert-danger">
-                                                    {errors.telefono}
+                                                    {errors.via_comunicacion}
                                                 </div>
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={9}>
+                                    <Col sm={3}>
                                         <FloatingLabel
-                                            label="CORREO ELECTRÓNICO"
-                                            className="mb-3"
+                                            label="PERSONA DE CONTACTO"
+                                            className="mb-2"
                                         >
-                                            <Form.Control
-                                                aria-label="correo electrónico"
-                                                type="text"
-                                                name="email"
-                                                value={data.email}
+                                            <Form.Select
+                                            size="sm"
+                                                aria-label="persona de contacto"
+                                                as="select"
+                                                name="tipo"
+                                                value={data.tipo}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "email",
+                                                        "tipo",
                                                         e.target.value
                                                     )
                                                 }
-                                            />
-                                            {errors.email && (
+                                            >
+                                                <option>
+                                                    Seleccione la persona de contacto...
+                                                </option>
+                                                <option value="T">
+                                                    Titular
+                                                </option>
+                                                <option value="A">
+                                                    Autorizado
+                                                </option>
+                                            </Form.Select>
+                                            {errors.tipo && (
                                                 <div className="alert alert-danger">
-                                                    {errors.email}
+                                                    {errors.tipo}
                                                 </div>
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                </Row>
+                                    </Row>
                             </Form>
                         </Card.Body>
                         <Card.Footer>

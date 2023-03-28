@@ -18,7 +18,7 @@ export default function FormCliente({ children }) {
         nombre_fiscal: "",
         nif: "",
         nombre_comercial: "",
-        tipo: "",
+        tipo_cliente: "",
         administrador: "",
         dni_administrador: "",
         url_escrituras: "",
@@ -31,8 +31,9 @@ export default function FormCliente({ children }) {
         municipio: "",
         provincia: "",
         predeterminada: "",
-        telefono: "",
-        email: "",
+        contacto: "",
+        via_comunicacion: "",
+        tipo:""
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -201,11 +202,11 @@ export default function FormCliente({ children }) {
                                             size="sm"
                                                 aria-label="tipo de cliente"
                                                 as="select"
-                                                name="tipo"
-                                                value={data.tipo}
+                                                name="tipo_cliente"
+                                                value={data.tipo_cliente}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "tipo",
+                                                        "tipo_cliente",
                                                         e.target.value
                                                     )
                                                 }
@@ -226,9 +227,9 @@ export default function FormCliente({ children }) {
                                                     Asociación
                                                 </option>
                                             </Form.Select>
-                                            {errors.tipo && (
+                                            {errors.tipo_cliente && (
                                                 <div className="alert alert-danger">
-                                                    {errors.tipo}
+                                                    {errors.tipo_cliente}
                                                 </div>
                                             )}
                                         </FloatingLabel>
@@ -402,54 +403,100 @@ export default function FormCliente({ children }) {
                                     <Row>
                                         <Col sm={3}>
                                             <FloatingLabel
-                                                label="TELÉFONO"
+                                                label="CONTACTO"
                                                 className="mb-2"
                                             >
                                                 <Form.Control
                                                 size="sm"
-                                                    aria-label="telefono de contacto"
+                                                    aria-label="datos de contacto"
                                                     type="text"
-                                                    name="telefono"
-                                                    value={data.telefono}
+                                                    name="contacto"
+                                                    value={data.contacto}
                                                     onChange={(e) =>
                                                         setData(
-                                                            "telefono",
+                                                            "contacto",
                                                             e.target.value
                                                         )
                                                     }
                                                 />
-                                                {errors.telefono && (
+                                                {errors.contacto && (
                                                     <div className="alert alert-danger">
-                                                        {errors.telefono}
+                                                        {errors.contacto}
                                                     </div>
                                                 )}
                                             </FloatingLabel>
                                         </Col>
-                                        <Col sm={6}>
-                                            <FloatingLabel
-                                                label="CORREO ELECTRÓNICO"
-                                                className="mb-2"
+                                        <Col sm={3}>
+                                        <FloatingLabel
+                                            label="TIPO DE CONTACTO"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                            size="sm"
+                                                aria-label="vía de comunicación"
+                                                as="select"
+                                                name="via_comunicacion"
+                                                value={data.via_comunicacion}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "via_comunicacion",
+                                                        e.target.value
+                                                    )
+                                                }
                                             >
-                                                <Form.Control
-                                                size="sm"
-                                                    aria-label="email de contacto"
-                                                    type="text"
-                                                    name="email"
-                                                    value={data.email}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "email",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                                {errors.email && (
-                                                    <div className="alert alert-danger">
-                                                        {errors.email}
-                                                    </div>
-                                                )}
-                                            </FloatingLabel>
-                                        </Col>
+                                                <option>
+                                                    Seleccione tipo de
+                                                    contacto...
+                                                </option>
+                                                <option value="T">
+                                                    Teléfono
+                                                </option>
+                                                <option value="C">
+                                                    Correo electrónico
+                                                </option>
+                                            </Form.Select>
+                                            {errors.via_comunicacion && (
+                                                <div className="alert alert-danger">
+                                                    {errors.via_comunicacion}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
+                                        <FloatingLabel
+                                            label="PERSONA DE CONTACTO"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                            size="sm"
+                                                aria-label="persona de contacto"
+                                                as="select"
+                                                name="tipo"
+                                                value={data.tipo}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "tipo",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option>
+                                                    Seleccione la persona de contacto...
+                                                </option>
+                                                <option value="T">
+                                                    Titular
+                                                </option>
+                                                <option value="A">
+                                                    Autorizado
+                                                </option>
+                                            </Form.Select>
+                                            {errors.tipo && (
+                                                <div className="alert alert-danger">
+                                                    {errors.tipo}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
                                     </Row>
                                     <Col sm={12}>
                                         <FloatingLabel

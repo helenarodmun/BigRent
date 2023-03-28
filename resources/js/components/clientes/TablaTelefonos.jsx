@@ -61,15 +61,17 @@ export default function TablaTelefonos() {
                 >
                     <thead>
                         <tr>
-                            <th>Teléfono</th>
-                            <th>Correo electrónico</th>
+                            <th>Vía de comunicación</th>
+                            <th>Contacto</th>
+                            <th>Persona de contacto</th>
                         </tr>
                     </thead>
                     {telefonos.map((telefonos) => (
                         <tbody>
                             <tr key={telefonos.id}>
-                                <td>{telefonos.telefono}</td>
-                                <td>{telefonos.email}</td>
+                                <td>{telefonos.via_comunicacion}</td>
+                                <td>{telefonos.contacto}</td>
+                                <td>{telefonos.tipo}</td>
                                 <td>
                                     <OverlayTrigger
                                         placement="bottom"

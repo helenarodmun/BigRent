@@ -13,7 +13,7 @@ class Cliente extends Model
         'nombre_fiscal',
         'nif',
         'nombre_comercial',
-        'tipo',
+        'tipo_cliente',
         'administrador',
         'dni_administrador',
         'url_escrituras',

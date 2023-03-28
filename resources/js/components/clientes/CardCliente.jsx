@@ -52,7 +52,7 @@ export default function CardCliente({ children }) {
                                 <Row className="align-items-center">
                                     <Col sm={3}>
                                         <FloatingLabel
-                                            label="número de identificación fiscal"
+                                            label="NUMERO DE IDENTIFICACIÓN FISCAL"
                                             className="mb-2"
                                         >
                                             <Form.Control
@@ -113,8 +113,8 @@ export default function CardCliente({ children }) {
                                         >
                                             <Form.Control
                                                 aria-label="tipo de cliente"
-                                                name="tipo"
-                                                value={data.tipo}
+                                                name="tipo_cliente"
+                                                value={data.tipo_cliente}
                                                 disabled
                                                 readonly
                                             ></Form.Control>
@@ -229,17 +229,19 @@ export default function CardCliente({ children }) {
                                     >
                                         <thead>
                                             <tr>
-                                                <th>Telefono</th>
-                                                <th>Email</th>
+                                                <th>Vía de comunicación</th>
+                                                <th>Contacto</th>
+                                                <th>Persona de contacto</th>
                                             </tr>
                                         </thead>
                                         {telefonos.map((telefonos) => (
                                             <tbody>
                                                 <tr key={telefonos.id}>
                                                     <td>
-                                                        {telefonos.telefono}
+                                                        {telefonos.contacto}
                                                     </td>
-                                                    <td>{telefonos.email}</td>
+                                                    <td>{telefonos.via_comunicacion}</td>
+                                                    <td>{telefonos.tipo}</td>
                                                 </tr>
                                             </tbody>
                                         ))}

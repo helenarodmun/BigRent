@@ -10,8 +10,9 @@ class Telefono extends Model
     use HasFactory;
 
     protected $fillable = [
-        'telefono',
-        'email',
+        'contacto',
+        'via_comunicacion',
+        'tipo'
     ];
     protected $table = 'telefonos';
     //Relación N:1 con la tabla clientes

@@ -22,10 +22,8 @@ class CreateAutorizadosTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('nombre_persona_autorizada', 75)->nullable();
-            $table->string('dni', 9)->nullable();
-            $table->string('telefono1', 9)->nullable();
-            $table->string('telefono2', 9)->nullable();
+            $table->string('nombre_persona_autorizada', 150)->nullable();
+            $table->string('dni', 15)->nullable();
             $table->text('anotaciones')->nullable();
             $table->string('url_dni')->nullable();
             $table->timestamps();

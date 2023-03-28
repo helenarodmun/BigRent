@@ -56,8 +56,9 @@ class TelefonoController extends Controller
         // Busca el regidtro a actualizar por su ID.
         $telefono = Telefono::findOrFail($id);
         // Actualiza los campos del direccion con los datos validados del formulario.
-        $telefono->telefono = $validatedData['telefono'];
-        $telefono->email = $validatedData['email'];
+        $telefono->contacto = $validatedData['contacto'];
+        $telefono->via_comunicacion = $validatedData['via_comunicacion'];
+        $telefono->tipo = $validatedData['tipo'];
         // Guarda el direccion actualizado en la base de datos.
         $telefono->save();
         // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.

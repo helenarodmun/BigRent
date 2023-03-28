@@ -22,7 +22,7 @@ class CreateMaquinasTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('marca', 45);
+            $table->string('marca', 100);
             $table->text('descripcion');
             $table->tinyInteger('inventario');
             $table->string('referencia', 10);            

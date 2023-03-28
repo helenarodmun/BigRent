@@ -23,12 +23,12 @@ class CreateClientesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('nombre_fiscal', 75)->nullable();
-            $table->string('nif', 9)->nullable();
-            $table->string('nombre_comercial', 75);
-            $table->enum('tipo', ['Empresa', 'Autónomo/Particular', 'Organismo/Institución', 'Asociación']);
-            $table->string('administrador', 45);
-            $table->string('dni_administrador', 9);
+            $table->string('nombre_fiscal', 100)->nullable();
+            $table->string('nif', 15)->nullable();
+            $table->string('nombre_comercial', 100);
+            $table->enum('tipo_cliente', ['Empresa', 'Autónomo/Particular', 'Organismo/Institución', 'Asociación']);
+            $table->string('administrador', 75);
+            $table->string('dni_administrador', 15);
             $table->string('url_escrituras')->nullable();
             $table->string('url_dni_administrador')->nullable();
             $table->string('url_cif')->nullable();

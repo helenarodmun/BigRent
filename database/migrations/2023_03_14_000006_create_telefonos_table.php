@@ -23,8 +23,9 @@ class CreateTelefonosTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('telefono', 9);
-            $table->string('email', 45)->nullable();
+            $table->string('contacto', 255);
+            $table->enum('via_comunicacion', ['T', 'C']);//teléfono o correo
+            $table->enum('tipo', ['T', 'A']);//titular o autorizado
             $table->timestamps();
 
             $table->foreignId('cliente_id')

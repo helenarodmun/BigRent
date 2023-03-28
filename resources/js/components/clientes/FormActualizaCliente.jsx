@@ -16,7 +16,7 @@ export default function FormActualizaCliente() {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        tipo: clientes.tipo,
+        tipo_cliente: clientes.tipo,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
         url_escrituras: clientes.url_escrituras,
@@ -199,10 +199,10 @@ export default function FormActualizaCliente() {
                                         <Form.Select
                                             aria-label="tipo de cliente"
                                             as="select"
-                                            name="tipo"
-                                            value={data.tipo}
+                                            name="tipo_cliente"
+                                            value={data.tipo_cliente}
                                             onChange={(e) =>
-                                                setData("tipo", e.target.value)
+                                                setData("tipo_cliente", e.target.value)
                                             }
                                         >
                                             <option disabled>
@@ -222,9 +222,9 @@ export default function FormActualizaCliente() {
                                                 Asociación
                                             </option>
                                         </Form.Select>
-                                        {errors.tipo && (
+                                        {errors.tipo_cliente && (
                                             <div className="alert alert-danger">
-                                                {errors.tipo}
+                                                {errors.tipo_cliente}
                                             </div>
                                         )}
                                     </FloatingLabel>

@@ -23,11 +23,11 @@ class CreateDireccionesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('direccion', 75);
-            $table->string('cp', 5);
-            $table->string('localidad', 75);
-            $table->string('municipio', 65);
-            $table->string('provincia', 65)->default('Las Palmas');
+            $table->string('direccion', 255);
+            $table->string('cp', 15);
+            $table->string('localidad', 150);
+            $table->string('municipio', 150);
+            $table->string('provincia', 150)->default('Las Palmas');
             $table->boolean('predeterminada')->default(true);
             $table->timestamps();
 

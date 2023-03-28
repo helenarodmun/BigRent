@@ -23,7 +23,7 @@ class CreateFamiliasTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('nombre', 75);
+            $table->string('nombre', 255);
             $table->timestamps();
         });
     }

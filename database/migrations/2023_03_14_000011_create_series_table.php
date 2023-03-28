@@ -26,7 +26,7 @@ class CreateSeriesTable extends Migration
             $table->timestamp('fecha');
             $table->boolean('horometro')->nullable();
             $table->time('hora_inicio')->nullable();
-            $table->string('numero_serie', 45);
+            $table->string('numero_serie', 100);
             $table->boolean('disponible')->nullable();
             $table->timestamps();
 

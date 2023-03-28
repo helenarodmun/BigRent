@@ -36,7 +36,7 @@ class ClienteController extends Controller
                 'nombre_fiscal' => $request->nombre_fiscal,
                 'nif' => $request->nif,
                 'nombre_comercial' => $request->nombre_comercial,
-                'tipo' => $request->tipo,
+                'tipo_cliente' => $request->tipo_cliente,
                 'administrador' => $request->administrador,
                 'dni_administrador' => $request->dni_administrador,
                 'url_escrituras' => $request->url_escrituras,
@@ -53,8 +53,9 @@ class ClienteController extends Controller
                 'predeterminada' => $request->predeterminada
             ]);
             $cliente->telefonos()->create([
-                'telefono' => $request->telefono,
-                'email' => $request->email
+                'contacto' => $request->contacto,
+                'via_comunicacion' => $request->via_comunicacion,
+                'tipo' => $request->tipo
             ]);
         });
         $clientes = Cliente::latest()->get();
@@ -104,7 +105,7 @@ class ClienteController extends Controller
         $cliente->nombre_fiscal = $validatedData['nombre_fiscal'];
         $cliente->nif = $validatedData['nif'];
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
-        $cliente->tipo = $validatedData['tipo'];
+        $cliente->tipo_cliente = $validatedData['tipo_cliente'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
         $cliente->url_escrituras = $validatedData['url_escrituras'];

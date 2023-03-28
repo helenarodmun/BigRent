@@ -28,7 +28,7 @@ class ClienteForm extends FormRequest
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'required|string',
-                'tipo' => 'required|string',
+                'tipo_cliente' => 'required|string',
                 'administrador' => 'required|string',
                 'dni_administrador' => 'required|string',
                 'url_escrituras' => 'nullable|string',
@@ -41,8 +41,9 @@ class ClienteForm extends FormRequest
                 'municipio' => 'required|string|max:65',
                 'provincia' => 'required|string|max:65',
                 'predeterminada' => 'nullable',
-                'telefono' => 'required|string|max:9',
-                'email' => 'nullable|string|email|max:255'
+                'contacto' => 'required|string|max:255',
+                'via_comunicacion' => 'required|string',
+                'tipo' => 'required|string'
             ],
 
             'PUT' => [
@@ -50,7 +51,7 @@ class ClienteForm extends FormRequest
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'nullable|string',
-                'tipo' => 'nullable',
+                'tipo_cliente' => 'nullable',
                 'administrador' => 'nullable|string',
                 'dni_administrador' => 'nullable|string',
                 'url_escrituras' => 'nullable|string',
@@ -63,15 +64,16 @@ class ClienteForm extends FormRequest
                 'municipio' => 'nullable|string|max:65',
                 'provincia' => 'nullable|string|max:65',
                 'predeterminada' => 'nullable',
-                'telefono' => 'nullable|string|max:9',
-                'email' => 'nullable|string|email|max:255'
+                'contacto' => 'nullable|string|max:255',
+                'via_comunicacion' => 'nullable|string',
+                'tipo' => 'nullable|string'
             ],
             'GET' => [
 
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'nullable|string',
-                'tipo' => 'nullable',
+                'tipo_cliente' => 'nullable',
                 'administrador' => 'nullable|string',
                 'dni_administrador' => 'nullable|string',
                 'url_escrituras' => 'nullable|string',
@@ -84,8 +86,9 @@ class ClienteForm extends FormRequest
                 'municipio' => 'nullable|string|max:65',
                 'provincia' => 'nullable|string|max:65',
                 'predeterminada' => 'nullable',
-                'telefono' => 'nullable|string|max:9',
-                'email' => 'nullable|string|email|max:255'
+                'contacto' => 'nullable|string|max:255',
+                'via_comunicacion' => 'nullable|string',
+                'tipo' => 'nullable|string'
             ]
         };
     }

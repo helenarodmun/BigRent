@@ -30,7 +30,7 @@ class CreateContratosTable extends Migration
             $table->unsignedSmallInteger('dias');
             $table->unsignedSmallInteger('precio');
             $table->text('notas1')->nullable();
-            $table->text('notes2')->nullable();
+            $table->text('notas2')->nullable();
             $table->timestamps();
 
 

@@ -25,14 +25,16 @@ class TelefonoForm extends FormRequest
 
             'POST' => [
 
-                'telefono' => 'required|string|max:9',
-                'email' => 'nullable|string|email|max:255',
+                'contacto' => 'required|string|max:255',
+                'via_comunicacion' => 'required|string',
+                'tipo' => 'required|string'
             ],
             
             'PUT' => [
                 
-                'telefono' => 'nullable|string|max:9',
-                'email' => 'nullable|string|email|max:255'
+                'contacto' => 'nullable|string|max:255',
+                'via_comunicacion' => 'nullable|string',
+                'tipo' => 'nullable|string'
             ]
         };
     }
