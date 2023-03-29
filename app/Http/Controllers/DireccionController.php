@@ -28,7 +28,7 @@ class DireccionController extends Controller
         // Redirige al cliente del usuario actualizado.
         Session::flash('mensaje', 'Se ha creado la dirección de forma correcta');
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos
@@ -79,7 +79,7 @@ class DireccionController extends Controller
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos
@@ -98,7 +98,7 @@ class DireccionController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
 
-         return Inertia::render('Clientes/Update', [
+         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos

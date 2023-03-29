@@ -23,4 +23,13 @@ class Direccion extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+    //Método para comprobar si existe una dirección predeterminada
+    public function compruebaDireccion($direccion)
+    {
+        if($direccion->predeterminada === 1) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

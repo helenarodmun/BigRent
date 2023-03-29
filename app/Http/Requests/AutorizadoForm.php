@@ -27,9 +27,7 @@ class AutorizadoForm extends FormRequest
 
                 'nombre_persona_autorizada' => 'required|string|max:75',
                 'dni' => 'required|string|max:9',
-                'telefono1' => 'required|string|max:9',
-                'telefono2' => 'required|string|max:9',
-                'anotaciones' => 'required|string|max:150',
+                'anotaciones' => 'nullable|string|max:150',
                 'url_dni' => 'nullable'
             ],
 

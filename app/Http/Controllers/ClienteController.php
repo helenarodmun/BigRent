@@ -22,7 +22,7 @@ class ClienteController extends Controller
         //Recuperar todos los clientes de la base de datos
         $clientes = Cliente::latest()->get();
 
-        return Inertia::render('Clientes/Index', [
+        return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,
         ]);
     }
@@ -59,7 +59,7 @@ class ClienteController extends Controller
             ]);
         });
         $clientes = Cliente::latest()->get();
-        return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
+        return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
     }
 
     public function showCliente($id)
@@ -87,7 +87,7 @@ class ClienteController extends Controller
         //carga los telefonos relacionados con el cliente
         $cliente_actual->load('telefonos.cliente');
         //renderiza la vista, pasando los datos
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
@@ -140,6 +140,6 @@ class ClienteController extends Controller
         //recuperación de los clientes después dela eliminación
         $clientes = Cliente::latest()->get();
 
-        return Inertia::render('Clientes/Index', ['clientes' => $clientes]);
+        return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
     }
 }

@@ -25,7 +25,7 @@ class TelefonoController extends Controller
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos
@@ -70,7 +70,7 @@ class TelefonoController extends Controller
         // Redirige al cliente del usuario actualizado.
         // Session::flash('edit', 'Se ha actualizado tú viaje');
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos
@@ -89,7 +89,7 @@ class TelefonoController extends Controller
         $cliente = $telefono->cliente;
 
 
-        return Inertia::render('Clientes/Update', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
             'telefonos' => $telefonos

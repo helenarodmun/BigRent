@@ -19,7 +19,7 @@ export default function CardCliente({ children }) {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        tipo: clientes.tipo,
+        tipo_cliente: clientes.tipo_cliente,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
         url_escrituras: clientes.url_escrituras,
@@ -30,21 +30,22 @@ export default function CardCliente({ children }) {
     //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papellera
     const [clienteId, setClienteId] = useState(null);
     return (
-        <Container>
+        <div>
             {flash.message && <div class="alert">{flash.message}</div>}
             {children}
-            
+
             <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
-                <Col sm={10} >
+                <Col>
                     <Card className="shadow">
-                        <Card.Header>
+                        <Card.Header className="bg-warning">
                             <Card.Title>
-                                <p className="h3 m-0" ><small className="ms-2"><small>{clientes.id} - </small></small>{data.nombre_fiscal}</p>
-                                <Button id='boton_autorizados'
-                                className="m-3 shadow"
-                                variant='warning'
-                                href={'/autorizados/' + clientes.id}>Autorizados</Button>
+                                <p className="h3 m-0">
+                                    <small className="ms-2">
+                                        <small>{clientes.id} - </small>
+                                    </small>
+                                    {data.nombre_fiscal}
+                                </p>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -52,7 +53,7 @@ export default function CardCliente({ children }) {
                                 <Row className="align-items-center">
                                     <Col sm={3}>
                                         <FloatingLabel
-                                            label="NUMERO DE IDENTIFICACIÓN FISCAL"
+                                            label="NIF"
                                             className="mb-2"
                                         >
                                             <Form.Control
@@ -106,7 +107,7 @@ export default function CardCliente({ children }) {
                                             />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col sm={4}>
                                         <FloatingLabel
                                             label="TIPO"
                                             className="mb-2"
@@ -170,88 +171,10 @@ export default function CardCliente({ children }) {
                                     </Col>
                                 </Row>
                             </Form>
-                            <Container>
-                                <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
-                                    <Table
-                                        striped
-                                        bordered
-                                        hover
-                                        className="shadow"
-                                        size="sm"
-                                        responsive
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th>Dirección</th>
-                                                <th>Localidad</th>
-                                                <th>Código Postal</th>
-                                                <th>Municipio</th>
-                                                <th>Provincia</th>
-                                                <th>
-                                                    Dirección predeterminada
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        {direcciones.map((direcciones) => (
-                                            <tbody>
-                                                <tr key={direcciones.id}>
-                                                    <td>
-                                                        {direcciones.direccion}
-                                                    </td>
-                                                    <td>
-                                                        {direcciones.localidad}
-                                                    </td>
-                                                    <td>{direcciones.cp}</td>
-                                                    <td>
-                                                        {direcciones.municipio}
-                                                    </td>
-                                                    <td>
-                                                        {direcciones.provincia}
-                                                    </td>
-                                                    {direcciones.predeterminada ==
-                                                    0 ? (
-                                                        <td>No</td>
-                                                    ) : (
-                                                        <td>Sí</td>
-                                                    )}
-                                                </tr>
-                                            </tbody>
-                                        ))}
-                                    </Table>
-                                </Col>
-                                <Col sm={12} className="mt-3 pt-3 shadow p-3 ">
-                                    <Table
-                                        striped
-                                        bordered
-                                        hover
-                                        className="shadow"
-                                        responsive
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th>Vía de comunicación</th>
-                                                <th>Contacto</th>
-                                                <th>Persona de contacto</th>
-                                            </tr>
-                                        </thead>
-                                        {telefonos.map((telefonos) => (
-                                            <tbody>
-                                                <tr key={telefonos.id}>
-                                                    <td>
-                                                        {telefonos.contacto}
-                                                    </td>
-                                                    <td>{telefonos.via_comunicacion}</td>
-                                                    <td>{telefonos.tipo}</td>
-                                                </tr>
-                                            </tbody>
-                                        ))}
-                                    </Table>
-                                </Col>
-                            </Container>
                         </Card.Body>
                         <Card.Footer>
                             <Button
-                            size='lg'
+                                size="lg"
                                 type="submit"
                                 className="m-3 shadow"
                                 variant="primary"
@@ -263,17 +186,18 @@ export default function CardCliente({ children }) {
                                 Editar cliente
                             </Button>
                             <Button
-                            size='lg'
+                                size="lg"
                                 className="m-3 shadow"
                                 variant="secondary"
-                                href={'/clientes'}
+                                href={"/clientes"}
                                 aria-label="Volver a la vista anterior"
-                            >Cancelar
+                            >
+                                Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>
                 </Col>
             </Row>
-        </Container>
+        </div>
     );
 }

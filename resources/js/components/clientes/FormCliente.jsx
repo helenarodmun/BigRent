@@ -387,7 +387,7 @@ export default function FormCliente({ children }) {
                                                     dirección...
                                                 </option>
                                                 <option value="1">
-                                                    Dirección de la empresa
+                                                    Dirección predeterminada
                                                 </option>
                                                 <option value="0">
                                                     Dirección del alquiler
@@ -606,7 +606,7 @@ export default function FormCliente({ children }) {
                         <Card.Footer>
                             <Button
                             size='lg'
-                                clasName="m-3 shadow"
+                                className="m-3 shadow"
                                 variant="primary"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva empresa"

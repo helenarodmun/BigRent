@@ -20,7 +20,7 @@ Route::get('/clientes',[ClienteController::class,'index'])->middleware('auth');
 Route::post('/clientes',[ClienteController::class,'index'])->middleware('auth');  
 Route::get('/verCliente/{id}',[ClienteController::class,'showCliente']);
 Route::get('/nuevoCliente', function () {
-    return Inertia::render('Clientes/Create');
+    return Inertia::render('Clientes/NuevoCliente');
 });
 Route::post('/nuevoCliente',[ClienteController::class,'create']);
 Route::get('/editarCliente/{id}',[ClienteController::class,'showClienteEdicion']);
