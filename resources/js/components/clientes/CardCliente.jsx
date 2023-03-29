@@ -4,15 +4,13 @@ import {
     Button,
     Card,
     Col,
-    Container,
     FloatingLabel,
     Form,
     Row,
-    Table,
 } from "react-bootstrap";
 
 export default function CardCliente({ children }) {
-    const { clientes, direcciones, telefonos, flash } = usePage().props;
+    const { clientes, } = usePage().props;
 
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
@@ -31,9 +29,6 @@ export default function CardCliente({ children }) {
     const [clienteId, setClienteId] = useState(null);
     return (
         <div>
-            {flash.message && <div class="alert">{flash.message}</div>}
-            {children}
-
             <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
                 <Col>

@@ -30,36 +30,45 @@ class ClienteController extends Controller
     public function create(ClienteForm $request)
     {
         $request->validated();
+        $predeterminada = $request->predeterminada;
 
-        DB::transaction(function ()  use ($request) {
-            $cliente = Cliente::create([
-                'nombre_fiscal' => $request->nombre_fiscal,
-                'nif' => $request->nif,
-                'nombre_comercial' => $request->nombre_comercial,
-                'tipo_cliente' => $request->tipo_cliente,
-                'administrador' => $request->administrador,
-                'dni_administrador' => $request->dni_administrador,
-                'url_escrituras' => $request->url_escrituras,
-                'url_dni_administrador' => $request->url_dni_administrador,
-                'url_cif' => $request->url_cif,
-                'anotaciones' => $request->anotaciones
-            ]);
-            $cliente->direcciones()->create([
-                'direccion' => $request->direccion,
-                'cp' => $request->cp,
-                'localidad' => $request->localidad,
-                'municipio' => $request->municipio,
-                'provincia' => $request->provincia,
-                'predeterminada' => $request->predeterminada
-            ]);
-            $cliente->telefonos()->create([
-                'contacto' => $request->contacto,
-                'via_comunicacion' => $request->via_comunicacion,
-                'tipo' => $request->tipo
-            ]);
-        });
-        $clientes = Cliente::latest()->get();
-        return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+        if(Direccion::compruebaDireccion($predeterminada)) {
+
+            DB::transaction(function ()  use ($request) {
+                $cliente = Cliente::create([
+                    'nombre_fiscal' => $request->nombre_fiscal,
+                    'nif' => $request->nif,
+                    'nombre_comercial' => $request->nombre_comercial,
+                    'tipo_cliente' => $request->tipo_cliente,
+                    'administrador' => $request->administrador,
+                    'dni_administrador' => $request->dni_administrador,
+                    'url_escrituras' => $request->url_escrituras,
+                    'url_dni_administrador' => $request->url_dni_administrador,
+                    'url_cif' => $request->url_cif,
+                    'anotaciones' => $request->anotaciones
+                ]);
+                $cliente->direcciones()->create([
+                    'direccion' => $request->direccion,
+                    'cp' => $request->cp,
+                    'localidad' => $request->localidad,
+                    'municipio' => $request->municipio,
+                    'provincia' => $request->provincia,
+                    'predeterminada' => $request->predeterminada
+                ]);
+                $cliente->telefonos()->create([
+                    'contacto' => $request->contacto,
+                    'via_comunicacion' => $request->via_comunicacion,
+                    'tipo' => $request->tipo
+                ]);
+            });
+            
+            $clientes = Cliente::latest()->get();
+            Session::flash('mensaje', 'Datos guardados con éxito');
+            return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+        } else {
+            Session::flash('error', 'La dirección principal del cliente debe ser la predeterminada');
+            return back();
+        }
     }
 
     public function showCliente($id)
