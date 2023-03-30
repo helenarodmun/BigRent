@@ -37,4 +37,8 @@ class Cliente extends Model
     {
         return $this->hasMany(Autorizado::class);
     }
+    public function contratos()
+    {
+        return $this->hasMany(Contrato::class);
+    }
 }

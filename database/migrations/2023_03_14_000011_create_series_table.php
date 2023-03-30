@@ -23,7 +23,6 @@ class CreateSeriesTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->timestamp('fecha');
             $table->boolean('horometro')->nullable();
             $table->time('hora_inicio')->nullable();
             $table->string('numero_serie', 100);
