@@ -41,10 +41,14 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 ],
             'flash' => [
-                'mensaje' => fn () => $request->session()->get('mensaje'),
+                'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
-                'cliente' => fn () => $request->session()->get('cliente'),
-                'editar' => fn () => $request->session()->get('editar')
+                'creacion' => fn () => $request->session()->get('creacion'),
+                'errorCreacion' => fn () => $request->session()->get('errorCreacion'),
+                'edicion' => fn () => $request->session()->get('edicion'),
+                'errorEdicion' => fn () => $request->session()->get('errorEdicion'),
+                'borrar' => fn () => $request->session()->get('borrar'),
+                'errorBorrado' => fn () => $request->session()->get('errorBorrado')
             ],
         ]);
     }

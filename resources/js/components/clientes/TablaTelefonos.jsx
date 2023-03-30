@@ -1,18 +1,8 @@
 import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
-import {
-    Button,
-    Card,
-    Col,
-    Container,
-    FloatingLabel,
-    Form,
-    Row,
-    Table,
-} from "react-bootstrap";
+import { Col, Table } from "react-bootstrap";
 
 export default function CardCliente({ children }) {
-    const { flash, telefonos, cliente } = usePage().props;
+    const { telefonos, cliente } = usePage().props;
 
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
@@ -22,10 +12,8 @@ export default function CardCliente({ children }) {
     });
     return (
         <div>
-            {flash.message && <div class="alert">{flash.message}</div>}
-            {children}
             <div>
-                <Col  className="mt-3 pt-3 shadow p-3 ">
+                <Col className="mt-3 pt-3 shadow p-3 ">
                     <Table striped bordered hover className="shadow" responsive>
                         <thead>
                             <tr>

@@ -31,21 +31,23 @@ export default function TablaTelefonos() {
         </Tooltip>
     );
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-
-    const handleDeleteClick = () => {
+    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
+    const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
+        setIdToDelete(id); // Se establece la id del registro a eliminar
     };
-    const handleDelete = (id) => {
-        destroy(
-            `/eliminarTelefono/${id}`,
-            {
+    // Esta función es llamada cuando se confirma la eliminación. Hace una petición al servidor para eliminar el registro y cierra el Modal de confirmación.
+    const handleDelete = () => {
+        if (idToDelete !== null) {
+            destroy(`/eliminarTelefono/${idToDelete}`, {
                 onSuccess: () => {
                     console.log("registro eliminado");
                 },
-            },
-            id
-        );
-        setShowConfirmDeleteModal(false);
+            });
+            setIdToDelete(null); // Resetea el valor de idToDelete después de eliminar el registro
+            setShowConfirmDeleteModal(false);
+        }
     };
     return (
         <div>
@@ -63,6 +65,7 @@ export default function TablaTelefonos() {
                             <th>Vía de comunicación</th>
                             <th>Contacto</th>
                             <th>Persona de contacto</th>
+                            <th></th>
                         </tr>
                     </thead>
                     {telefonos.map((telefonos) => (
@@ -100,16 +103,19 @@ export default function TablaTelefonos() {
                                         overlay={renderTooltipDelete}
                                     >
                                         <button
-                                            onClick={handleDeleteClick}
+                                           onClick={() => handleDeleteClick(telefonos.id)}
                                             as="button"
                                             className="h5 border-0 bi bi-trash3 text-danger m-1"
                                         />
                                     </OverlayTrigger>
                                     <Modal
                                         show={showConfirmDeleteModal}
-                                        onHide={() =>
-                                            setShowConfirmDeleteModal(false)
-                                        }
+                                        onHide={() => {
+                                            setIdToDelete(null); // Resetea el valor de idToDelete si se cierra el Modal
+                                            setShowConfirmDeleteModal(
+                                                false
+                                            );
+                                        }}
                                     >
                                         <Modal.Header closeButton>
                                             <Modal.Title>
@@ -125,19 +131,18 @@ export default function TablaTelefonos() {
                                         <Modal.Footer>
                                             <Button
                                                 className="btn btn-secondary"
-                                                onClick={() =>
+                                                onClick={() => {
+                                                    setIdToDelete(null); // Resetea el valor de idToDelete si se cancela la eliminación
                                                     setShowConfirmDeleteModal(
                                                         false
-                                                    )
-                                                }
+                                                    );
+                                                }}
                                             >
                                                 Cancelar
                                             </Button>
                                             <Button
                                                 variant="danger"
-                                                onClick={() => {
-                                                    handleDelete(telefonos.id);
-                                                }}
+                                                onClick={handleDelete}
                                             >
                                                 Eliminar
                                             </Button>

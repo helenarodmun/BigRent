@@ -8,6 +8,7 @@ use App\Models\Cliente;
 use App\Models\Direccion;
 use App\Models\Telefono;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class AutorizadoController extends Controller
@@ -20,13 +21,13 @@ class AutorizadoController extends Controller
         $autorizado = $cliente->autorizados()->create($request->all());
         $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         $cliente = $autorizado->cliente;
-        // $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
-        // $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        return Inertia::render('Clientes/Autorizados', [
+        $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
+        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        return Inertia::render('Clientes/ActualizaCliente', [
             'autorizados' => $autorizados,
-            'cliente' => $cliente,
-            // 'direcciones' => $direcciones,
-            // 'telefonos' => $telefonos
+            'clientes' => $cliente,
+            'direcciones' => $direcciones,
+            'telefonos' => $telefonos
         ]);
     }
 
@@ -65,9 +66,7 @@ class AutorizadoController extends Controller
         // Actualiza los campos del autorizado con los datos validados del formulario.
         $autorizado->nombre_persona_autorizada = $validatedData['nombre_persona_autorizada'];
         $autorizado->dni = $validatedData['dni'];
-        $autorizado->telefono1 = $validatedData['telefono1'];
-        $autorizado->telefono2 = $validatedData['telefono2'];
-        $autorizado->anotaciones = $validatedData['anotaciones'];
+        $autorizado->notas = $validatedData['notas'];
         $autorizado->url_dni = $validatedData['url_dni'];
         // Guarda el autorizado actualizado en la base de datos.
         $autorizado->save();
@@ -76,17 +75,17 @@ class AutorizadoController extends Controller
         //recupera los datos del cliente
         $cliente = $autorizado->cliente;
         // Recupera todos las direcciones del cliente 
-        // $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        // // Recupera todos los telefonos del cliente 
-        // $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+         // Recupera todos los telefonos del cliente 
+         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
-        // Session::flash('edit', 'Se ha actualizado tú viaje');
+        Session::flash('edicion', 'Se ha actualizado el registro');
 
-        return Inertia::render('Clientes/Autorizados', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'autorizados' => $autorizados,
-            'cliente' => $cliente,
-            // 'direcciones' => $direcciones,
-            // 'telefonos' => $telefonos
+            'clientes' => $cliente,
+            'direcciones' => $direcciones,
+            'telefonos' => $telefonos
         ]);
     }
 
@@ -94,7 +93,6 @@ class AutorizadoController extends Controller
     {
         //Busca el registro por la id
         $autorizado = Autorizado::findOrFail($id);
-
         $autorizado->delete();
 
         $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
@@ -104,7 +102,7 @@ class AutorizadoController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
 
-        return Inertia::render('Clientes/Autorizados', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'autorizados' => $autorizados,
             'clientes' => $cliente,
             'direcciones' => $direcciones,

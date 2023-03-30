@@ -1,19 +1,15 @@
-import { usePage } from "@inertiajs/react";
 import React from "react";
-import { Col, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import CardCliente from "../../components/clientes/CardCliente";
+import TablaAutorizados from "../../components/clientes/TablaAutorizados";
 import TablaDirecciones from "../../components/clientes/TablaDirecciones";
 import TablaTelefonos from "../../components/clientes/TablaTelefonos";
-import MensajesFlash from "../../components/partials/MensajesFlash";
 import NavBar from "../../components/partials/NavBar";
 
 export default function FichaCliente() {
-    const { flash } = usePage().props;
-
     return (
         <>
             <NavBar></NavBar>
-            <MensajesFlash></MensajesFlash>
             <div className="update-container">
                 <Container fluid className="form-container">
                     <CardCliente />
@@ -24,6 +20,10 @@ export default function FichaCliente() {
                     </div>
                     <div className="table-container">
                         <TablaTelefonos></TablaTelefonos>
+                    </div>
+
+                    <div className="table-container">
+                        <TablaAutorizados></TablaAutorizados>
                     </div>
                 </Container>
             </div>

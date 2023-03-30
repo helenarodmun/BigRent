@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 
 export default function CardCliente({ children }) {
-    const { clientes, } = usePage().props;
+    const { clientes, flash } = usePage().props;
 
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
@@ -25,15 +25,32 @@ export default function CardCliente({ children }) {
         url_cif: clientes.url_cif,
         anotaciones: clientes.anotaciones,
     });
-    //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papellera
+    //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papelera
     const [clienteId, setClienteId] = useState(null);
     return (
         <div>
+              <div align="center">
+            <Col sm={10}>
+                {flash.creacion && (
+                    <div class="alert alert-success" role={"alert"}>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {flash.creacion}
+                    </div>
+                )}
+            </Col>
+        </div>
             <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
                 <Col>
                     <Card className="shadow">
-                        <Card.Header className="bg-warning">
+                        <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
                                 <p className="h3 m-0">
                                     <small className="ms-2">

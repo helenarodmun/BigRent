@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DireccionForm;
+use App\Models\Autorizado;
 use App\Models\Cliente;
 use App\Models\Direccion;
 use App\Models\Telefono;
@@ -15,7 +16,7 @@ class DireccionController extends Controller
 {
     public function create(DireccionForm $request, $id)
     {
-        
+
         $request->validated();
         $cliente = Cliente::findOrFail($id);
         $direccion = $cliente->direcciones()->create($request->all());
@@ -25,19 +26,21 @@ class DireccionController extends Controller
         $cliente = $direccion->cliente;
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
-        Session::flash('mensaje', 'Se ha creado la dirección de forma correcta');
+        Session::flash('edicion', 'Se ha creado la dirección de forma correcta');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
-            'telefonos' => $telefonos
+            'telefonos' => $telefonos,
+            'autorizados' => $autorizados
         ]);
     }
 
 
     public function verEdicionDireccion($id)
-    {     
+    {
         //recupera los datos de la dirección a través de la id pasada por url   
         $direccion_actual = Direccion::findOrFail($id);
         //carga el cliente relacionado con la direccion actual
@@ -48,8 +51,8 @@ class DireccionController extends Controller
         ]);
     }
     public function verFormDireccion($id)
-    {   
-        $cliente = Cliente::findOrFail($id);       
+    {
+        $cliente = Cliente::findOrFail($id);
         return Inertia::render('Clientes/NuevaDireccion', [
             'cliente' => $cliente
         ]);
@@ -76,13 +79,14 @@ class DireccionController extends Controller
         $cliente = $direccion->cliente;
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
-        // Session::flash('edit', 'Se ha actualizado tú viaje');
-
+        Session::flash('edicion', 'Se ha creado la dirección de forma correcta');
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
-            'telefonos' => $telefonos
+            'telefonos' => $telefonos,
+            'autorizados' => $autorizados
         ]);
     }
 
@@ -90,18 +94,25 @@ class DireccionController extends Controller
     {
         //Busca el registro por la id
         $direccion = Direccion::findOrFail($id);
-
-        $direccion->delete();
-
+        // Comprueba si se puede eliminar la dirección
+        if ($direccion->compruebaDireccion($direccion->predeterminada)) {
+            Session::flash('errorBorrado', 'No se puede eliminar la dirección predeterminada');
+           
+        }else{
+            $direccion->delete();         
+        }
+      
         $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
         $cliente = $direccion->cliente;
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
-
-         return Inertia::render('Clientes/ActualizaCliente', [
+        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        Session::flash('borrado', 'Se ha eliminado la dirección de forma correcta');
+        return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
             'clientes' => $cliente,
-            'telefonos' => $telefonos
+            'telefonos' => $telefonos,
+            'autorizados' => $autorizados
         ]);
     }
 }

@@ -27,7 +27,7 @@ class AutorizadoForm extends FormRequest
 
                 'nombre_persona_autorizada' => 'required|string|max:75',
                 'dni' => 'required|string|max:9',
-                'anotaciones' => 'nullable|string|max:150',
+                'notas' => 'nullable|string|max:150',
                 'url_dni' => 'nullable'
             ],
 
@@ -35,9 +35,7 @@ class AutorizadoForm extends FormRequest
                 
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
-                'telefono1' => 'nullable|string|max:9',
-                'telefono2' => 'nullable|string|max:9',
-                'anotaciones' => 'nullable|string|max:150',
+                'notas' => 'nullable|string|max:150',
                 'url_dni' => 'nullable'
             ],
             
@@ -45,9 +43,7 @@ class AutorizadoForm extends FormRequest
                 
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
-                'telefono1' => 'nullable|string|max:9',
-                'telefono2' => 'nullable|string|max:9',
-                'anotaciones' => 'nullable|string|max:150',
+                'notas' => 'nullable|string|max:150',
                 'url_dni' => 'nullable'
             ]
         };

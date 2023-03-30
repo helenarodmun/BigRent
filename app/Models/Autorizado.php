@@ -12,9 +12,7 @@ class Autorizado extends Model
     protected $fillable = [
         'nombre_persona_autorizada',
         'dni',
-        'telefono1',
-        'telefono2',
-        'anotaciones',
+        'notas',
         'url_dni'
     ];
     protected $table = 'autorizados';

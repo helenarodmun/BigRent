@@ -1,9 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
 export default function FormActualizaDireccion({ children }) {
-    const { flash, cliente } = usePage().props;
+    const { cliente } = usePage().props;
     console.log(cliente);
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
@@ -27,8 +27,6 @@ export default function FormActualizaDireccion({ children }) {
     return (
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
-                {flash.message && <div class="alert">{flash.message}</div>}
-                {children}
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>
@@ -40,39 +38,39 @@ export default function FormActualizaDireccion({ children }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                            <Row>
-                                        <Col sm={3}>
-                                            <FloatingLabel
-                                                label="CONTACTO"
-                                                className="mb-2"
-                                            >
-                                                <Form.Control
+                                <Row>
+                                    <Col sm={3}>
+                                        <FloatingLabel
+                                            label="CONTACTO"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
                                                 size="sm"
-                                                    aria-label="datos de contacto"
-                                                    type="text"
-                                                    name="contacto"
-                                                    value={data.contacto}
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "contacto",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                />
-                                                {errors.contacto && (
-                                                    <div className="alert alert-danger">
-                                                        {errors.contacto}
-                                                    </div>
-                                                )}
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col sm={3}>
+                                                aria-label="datos de contacto"
+                                                type="text"
+                                                name="contacto"
+                                                value={data.contacto}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "contacto",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.contacto && (
+                                                <div className="alert alert-danger">
+                                                    {errors.contacto}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col sm={3}>
                                         <FloatingLabel
                                             label="TIPO DE CONTACTO"
                                             className="mb-2"
                                         >
                                             <Form.Select
-                                            size="sm"
+                                                size="sm"
                                                 aria-label="vía de comunicación"
                                                 as="select"
                                                 name="via_comunicacion"
@@ -108,7 +106,7 @@ export default function FormActualizaDireccion({ children }) {
                                             className="mb-2"
                                         >
                                             <Form.Select
-                                            size="sm"
+                                                size="sm"
                                                 aria-label="persona de contacto"
                                                 as="select"
                                                 name="tipo"
@@ -121,7 +119,8 @@ export default function FormActualizaDireccion({ children }) {
                                                 }
                                             >
                                                 <option>
-                                                    Seleccione la persona de contacto...
+                                                    Seleccione la persona de
+                                                    contacto...
                                                 </option>
                                                 <option value="T">
                                                     Titular
@@ -137,7 +136,7 @@ export default function FormActualizaDireccion({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    </Row>
+                                </Row>
                             </Form>
                         </Card.Body>
                         <Card.Footer>
@@ -146,14 +145,16 @@ export default function FormActualizaDireccion({ children }) {
                                 variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva teléfono"
-                            >Guardar registro
+                            >
+                                Guardar registro
                             </Button>
                             <Button
                                 className="m-3 shadow"
                                 variant="secondary"
-                                href={'/editarCliente/' + cliente.id}
+                                href={"/editarCliente/" + cliente.id}
                                 aria-label="Volver a la vista anterior"
-                            >Cancelar
+                            >
+                                Cancelar
                             </Button>
                         </Card.Footer>
                     </Card>

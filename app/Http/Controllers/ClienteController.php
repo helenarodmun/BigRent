@@ -60,13 +60,19 @@ class ClienteController extends Controller
                     'via_comunicacion' => $request->via_comunicacion,
                     'tipo' => $request->tipo
                 ]);
+                $cliente->autorizados()->create([
+                    'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
+                    'dni' => $request->dni,
+                    'notas' => $request->notas,
+                    'url_dni' => $request->url_dni
+                ]);
             });
-            
+
             $clientes = Cliente::latest()->get();
-            Session::flash('mensaje', 'Datos guardados con éxito');
+            Session::flash('creacion', 'Datos guardados con éxito');
             return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
         } else {
-            Session::flash('error', 'La dirección principal del cliente debe ser la predeterminada');
+            Session::flash('errorCreacion', 'La dirección principal del cliente debe ser la predeterminada');
             return back();
         }
     }
@@ -79,11 +85,14 @@ class ClienteController extends Controller
         $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
         $cliente_actual->load('telefonos.cliente');
+         //carga los autorizados relacionados con el cliente
+         $cliente_actual->load('autorizados.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
+            'autorizados' => $cliente_actual->autorizados,
         ]);
     }
 
@@ -95,11 +104,13 @@ class ClienteController extends Controller
         $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
         $cliente_actual->load('telefonos.cliente');
+        $cliente_actual->load('autorizados.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/ActualizaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
+            'autorizados' => $cliente_actual->autorizados,
         ]);
     }
 
@@ -125,16 +136,18 @@ class ClienteController extends Controller
         $cliente->save();
 
         // Redirige al cliente del usuario actualizado.
-        Session::flash('edit', 'Se ha actualizado el cliente');
+        Session::flash('edicion', 'Se ha actualizado el cliente');
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
         $cliente->load('telefonos.cliente');
+        $cliente->load('autorizados.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
             'clientes' => $cliente,
             'direcciones' => $cliente->direcciones,
             'telefonos' => $cliente->telefonos,
+            'autorizados' => $cliente->autorizados
         ]);
     }
 
@@ -148,7 +161,7 @@ class ClienteController extends Controller
         $cliente->delete();
         //recuperación de los clientes después dela eliminación
         $clientes = Cliente::latest()->get();
-
+        Session::flash('borrado', 'Se ha eliminado el cliente de forma definitiva');
         return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
     }
 }

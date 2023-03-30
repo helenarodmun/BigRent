@@ -1,6 +1,14 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Row, Col, Form, Button, Card, FloatingLabel, Modal } from "react-bootstrap";
+import {
+    Row,
+    Col,
+    Form,
+    Button,
+    Card,
+    FloatingLabel,
+    Modal,
+} from "react-bootstrap";
 
 export default function FormActualizaCliente() {
     const { clientes, flash } = usePage().props;
@@ -16,7 +24,7 @@ export default function FormActualizaCliente() {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        tipo_cliente: clientes.tipo,
+        tipo_cliente: clientes.tipo_cliente,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
         url_escrituras: clientes.url_escrituras,
@@ -57,12 +65,40 @@ export default function FormActualizaCliente() {
     }
     return (
         <div className="m-3">
-          
+             <div align="center">
+            <Col sm={10}>
+                {flash.edicion && (
+                    <div class="alert alert-success" role={"alert"}>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {flash.edicion}
+                    </div>
+                )}
+                {flash.errorEdicion && (
+                    <div class="alert alert-danger" role={"alert"}>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {flash.errorEdicion}
+                    </div>
+                )}
+            </Col>
+        </div>
             <Col>
-            
-            <p className="h1 mt-3">Modificación Cliente</p>
+                <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">
-                    <Card.Header>
+                    <Card.Header className="bg-warning bg-opacity-50">
                         <Card.Title>
                             <p className="h2"> Cliente {clientes.id}</p>
                         </Card.Title>
@@ -202,7 +238,10 @@ export default function FormActualizaCliente() {
                                             name="tipo_cliente"
                                             value={data.tipo_cliente}
                                             onChange={(e) =>
-                                                setData("tipo_cliente", e.target.value)
+                                                setData(
+                                                    "tipo_cliente",
+                                                    e.target.value
+                                                )
                                             }
                                         >
                                             <option disabled>
@@ -253,7 +292,9 @@ export default function FormActualizaCliente() {
                                 <hr></hr>
                                 <p className="h4 mb-1">Documentación</p>
                                 <Col sm={6}>
-                                    <Form.Label className="mb-1">Escrituras:</Form.Label>
+                                    <Form.Label className="mb-1">
+                                        Escrituras:
+                                    </Form.Label>
                                     <Form.Control
                                         aria-label="url escrituras"
                                         type="file"
@@ -275,7 +316,9 @@ export default function FormActualizaCliente() {
                                     )}
                                 </Col>
                                 <Col sm={6}>
-                                    <Form.Label className="mb-1">DNI Administrador:</Form.Label>
+                                    <Form.Label className="mb-1">
+                                        DNI Administrador:
+                                    </Form.Label>
                                     <Form.Control
                                         aria-label="url dni administrador"
                                         type="file"
@@ -297,7 +340,9 @@ export default function FormActualizaCliente() {
                                     )}
                                 </Col>
                                 <Col sm={6}>
-                                    <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
+                                    <Form.Label className="mb-1">
+                                        CIF de la empresa:
+                                    </Form.Label>
                                     <Form.Control
                                         aria-label=" url_cif"
                                         type="file"
@@ -324,7 +369,8 @@ export default function FormActualizaCliente() {
                             variant="success"
                             onClick={handleSubmit}
                             aria-label="Modificar los datos del cliente"
-                        >Guardar registro
+                        >
+                            Guardar registro
                         </Button>
                         <Button
                             className="m-3 shadow"
@@ -332,54 +378,49 @@ export default function FormActualizaCliente() {
                             variant="danger"
                             aria-label="Eliminar los datos del cliente"
                             onClick={handleDeleteClick}
-                        >Eliminar
+                        >
+                            Eliminar
                         </Button>
                         <Modal
-                                        show={showConfirmDeleteModal}
-                                        onHide={() =>
-                                            setShowConfirmDeleteModal(false)
-                                        }
-                                    >
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>
-                                                ¡ADVERTENCIA!
-                                            </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            Se va a proceder a eliminar los
-                                            datos de forma definitiva.
-                                            <br />
-                                            ¿Está seguro que desea continuar?
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button
-                                                className="btn btn-secondary"
-                                                onClick={() =>
-                                                    setShowConfirmDeleteModal(
-                                                        false
-                                                    )
-                                                }
-                                            >
-                                                Cancelar
-                                            </Button>
-                                            <Button
-                                                variant="danger"
-                                                onClick={() => {
-                                                    handleDelete(clientes.id);
-                                                   
-                                                }}
-                                            >
-                                                Eliminar
-                                            </Button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                    <Button
-                                className="m-3 shadow"
-                                variant="secondary"
-                                href={'/verCliente/' + clientes.id}
-                                aria-label="Volver a la vista anterior"
-                            >Cancelar
-                            </Button>
+                            show={showConfirmDeleteModal}
+                            onHide={() => setShowConfirmDeleteModal(false)}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>¡ADVERTENCIA!</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                Se va a proceder a eliminar los datos de forma
+                                definitiva.
+                                <br />
+                                ¿Está seguro que desea continuar?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button
+                                    className="btn btn-secondary"
+                                    onClick={() =>
+                                        setShowConfirmDeleteModal(false)
+                                    }
+                                >
+                                    Cancelar
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={() => {
+                                        handleDelete(clientes.id);
+                                    }}
+                                >
+                                    Eliminar
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        <Button
+                            className="m-3 shadow"
+                            variant="secondary"
+                            href={"/verCliente/" + clientes.id}
+                            aria-label="Volver a la vista anterior"
+                        >
+                            Cancelar
+                        </Button>
                     </Card.Footer>
                 </Card>
             </Col>

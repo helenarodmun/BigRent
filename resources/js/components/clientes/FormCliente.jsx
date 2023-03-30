@@ -1,5 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
+import React from "react";
 import {
     Container,
     Row,
@@ -10,9 +10,9 @@ import {
     FloatingLabel,
 } from "react-bootstrap";
 
-export default function FormCliente({ children }) {
-    const { flash } = usePage().props;
+export default function FormCliente() {
     
+    const { flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         nombre_fiscal: "",
@@ -51,17 +51,58 @@ export default function FormCliente({ children }) {
 
     return (
         <>
-            <Container className="align-items-center justify-content-center accesibilidad-texto">
-                {flash.message && <div class="alert">{flash.message}</div>}
-                {children}                
+            <Container className="align-items-center justify-content-center accesibilidad-texto">  
+            <div align="center">
+            <Col sm={10}>
+                {flash.errorCreacion && (
+                    <div class="alert alert-danger" role={"alert"}>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="alert"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {flash.errorCreacion}
+                    </div>
+                )}
+            </Col>
+        </div>              
                 <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo cliente</p>
                 <Row>
-                <Col className="">
+                <Col xs="12" sm="10" md="12">
                     <Card className="shadow">
                         <Card.Body>
                             <Form>
                                 <Row className="align-items-center">
-                                    <Col sm={9}>
+                                <Col  xs="12" sm="6" md="6">
+                                        <FloatingLabel
+                                            label="NOMBRE COMERCIAL"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                            size="sm"
+                                                aria-label="nombre comercial"
+                                                type="text"
+                                                name="nombre_comercial"
+                                                placeholder="Introduce el nombre comercial"
+                                                value={data.nombre_comercial}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "nombre_comercial",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.nombre_comercial && (
+                                                <div className="alert alert-danger">
+                                                    {errors.nombre_comercial}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="6">
                                         <FloatingLabel
                                             label="NOMBRE FISCAL"
                                             className="mb-2"
@@ -89,7 +130,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="NUM IDENTIFICACIÓN FISCAL"
                                             className="mb-2"
@@ -115,33 +156,8 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={9}>
-                                        <FloatingLabel
-                                            label="NOMBRE COMERCIAL"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                            size="sm"
-                                                aria-label="nombre comercial"
-                                                type="text"
-                                                name="nombre_comercial"
-                                                placeholder="Introduce el nombre comercial"
-                                                value={data.nombre_comercial}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "nombre_comercial",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.nombre_comercial && (
-                                                <div className="alert alert-danger">
-                                                    {errors.nombre_comercial}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={9}>
+                                   
+                                    <Col xs="12" sm="6" md="5">
                                         <FloatingLabel
                                             label="ADMINISTRADOR"
                                             className="mb-2"
@@ -167,7 +183,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
                                             label="NIF"
                                             className="mb-2"
@@ -193,7 +209,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={2}>
+                                    <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
                                             label="TIPO"
                                             className="mb-2"
@@ -234,7 +250,34 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={9}>
+                                    <Col xs="12" sm="6" md="12">
+                                        <FloatingLabel
+                                            label="OBSERVACIONES"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                            size="sm"
+                                                as="textarea"
+                                                rows={3}
+                                                name="anotaciones"
+                                                value={data.anotaciones}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "anotaciones",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            ></Form.Control>
+                                            {errors.anotaciones && (
+                                                <div className="alert alert-danger">
+                                                    {errors.anotaciones}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <hr />
+                                    <p className="h3">Direcciones</p>
+                                    <Col xs="12" sm="6" md="6">
                                         <FloatingLabel
                                             label="DIRECCIÓN"
                                             className="mb-2"
@@ -260,7 +303,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={2}>
+                                    <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
                                             label="CÓDIGO POSTAL"
                                             className="mb-2"
@@ -286,7 +329,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={6}>
+                                    <Col xs="12" sm="6" md="4">
                                         <FloatingLabel
                                             label="LOCALIDAD"
                                             className="mb-2"
@@ -312,7 +355,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={4}>
+                                    <Col xs="12" sm="6" md="5">
                                         <FloatingLabel
                                             label="MUNICIPIO"
                                             className="mb-2"
@@ -338,7 +381,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="4">
                                         <FloatingLabel
                                             label="PROVINCIA"
                                             className="mb-2"
@@ -364,7 +407,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="TIPO DIRECCIÓN"
                                             className="mb-2"
@@ -401,9 +444,11 @@ export default function FormCliente({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     <Row>
-                                        <Col sm={3}>
+                                    <hr/>
+                                    <p className="h3">Datos de contacto</p>
+                                        <Col xs="12" sm="6" md="3">
                                             <FloatingLabel
-                                                label="CONTACTO"
+                                                label="TELÉFONO / EMAIL"
                                                 className="mb-2"
                                             >
                                                 <Form.Control
@@ -426,7 +471,7 @@ export default function FormCliente({ children }) {
                                                 )}
                                             </FloatingLabel>
                                         </Col>
-                                        <Col sm={3}>
+                                        <Col xs="12" sm="7¡6" md="3">
                                         <FloatingLabel
                                             label="TIPO DE CONTACTO"
                                             className="mb-2"
@@ -462,7 +507,7 @@ export default function FormCliente({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="PERSONA DE CONTACTO"
                                             className="mb-2"
@@ -498,7 +543,77 @@ export default function FormCliente({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     </Row>
-                                    <Col sm={12}>
+                                  
+                                    <hr/>
+                                    <p className="h3">Personas Autorizadas</p>
+                                    <Col xs="12" sm="6" md="5">
+                                        <FloatingLabel 
+                                         label="NOMBRE PERSONA AUTORIZADA"
+                                         className="mb-2">
+                                            <Form.Control
+                                            size="sm"
+                                            aria-label="nombre persona autorizada"
+                                            type="text"
+                                            name="nombre_persona_autorizada"
+                                            value={data.nombre_persona_autorizada}
+                                            onChange={(e)=> setData(
+                                                'nombre_persona_autorizada',
+                                                e.target.value
+                                            )}/>
+                                            {errors.nombre_persona_autorizada && (
+                                            <div className="alert alert-danger">
+                                                {errors.nombre_persona_autorizada}
+                                            </div>
+                                        )}
+                                         </FloatingLabel>
+                                         </Col>
+                                         <Col xs="12" sm="6" md="2">
+                                         <FloatingLabel
+                                         label="DNI"
+                                         className="mb-2">
+                                            <Form.Control
+                                            size="sm"
+                                            aria-label="dni persona autorizada"
+                                            type="text"
+                                            name="dni"
+                                            value={data.dni}
+                                            onChange={(e) => setData(
+                                                'dni',
+                                                e.target.value
+                                            )}/>
+                                             {errors.dni && (
+                                            <div className="alert alert-danger">
+                                                {errors.dni}
+                                            </div>
+                                        )}
+                                         </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="4">
+                                        <Form.Label>DNI:</Form.Label>
+                                        <Form.Control
+                                         className="mb-2"
+                                        size="sm"
+                                            aria-label="dni persona autorizada"
+                                            type="file"
+                                            name="url_dni"
+                                            placeholder=""
+                                            value={data.url_dni}
+                                            onChange={(
+                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                            ) =>
+                                                setData(
+                                                    "url_dni",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.url_dni && (
+                                            <div className="alert alert-danger">
+                                                {errors.url_dni}
+                                            </div>
+                                        )}
+                                    </Col>
+                                    <Col xs="12" sm="6" md="12">
                                         <FloatingLabel
                                             label="OBSERVACIONES"
                                             className="mb-2"
@@ -507,24 +622,25 @@ export default function FormCliente({ children }) {
                                             size="sm"
                                                 as="textarea"
                                                 rows={3}
-                                                name="anotaciones"
-                                                value={data.anotaciones}
+                                                name="notas"
+                                                value={data.anotacionotasnes}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "anotaciones",
+                                                        "notas",
                                                         e.target.value
                                                     )
                                                 }
                                             ></Form.Control>
-                                            {errors.anotaciones && (
+                                            {errors.notas && (
                                                 <div className="alert alert-danger">
-                                                    {errors.anotaciones}
+                                                    {errors.notas}
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>
+                                    </Col>                                   
+                                    <hr/>
                                     <p className="h3">Documentación</p>
-                                    <Col sm={4}>
+                                    <Col xs="12" sm="6" md="6">
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                         size="sm"
@@ -548,7 +664,7 @@ export default function FormCliente({ children }) {
                                             </div>
                                         )}
                                     </Col>
-                                    <Col sm={4}>
+                                    <Col xs="12" sm="6" md="6">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
@@ -574,7 +690,7 @@ export default function FormCliente({ children }) {
                                             </div>
                                         )}
                                     </Col>
-                                    <Col sm={4}>
+                                    <Col xs="12" sm="6" md="6">
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>

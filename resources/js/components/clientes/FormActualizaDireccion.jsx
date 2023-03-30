@@ -1,9 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
 export default function FormActualizaDireccion({ children }) {
-    const { flash, direccion, cliente } = usePage().props;
+    const { direccion, cliente } = usePage().props;
     console.log(direccion);
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
@@ -31,8 +31,6 @@ export default function FormActualizaDireccion({ children }) {
     return (
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
-                {flash.message && <div class="alert">{flash.message}</div>}
-                {children}
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>

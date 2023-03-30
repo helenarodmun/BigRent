@@ -1,9 +1,8 @@
 import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
 import { Col, Table } from "react-bootstrap";
 
 export default function TablaDirecciones({ children }) {
-    const { direcciones, clientes, flash } = usePage().props;
+    const { direcciones, clientes } = usePage().props;
     console.log(direcciones);
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
@@ -16,11 +15,8 @@ export default function TablaDirecciones({ children }) {
     });
     return (
         <div>
-            {flash.message && <div class="alert">{flash.message}</div>}
-            {children}
-
             <div>
-                <Col className="mt-3 pt-3 shadow p-3 ">
+                <Col className="pt-3 shadow p-3 ">
                     <Table
                         striped
                         bordered

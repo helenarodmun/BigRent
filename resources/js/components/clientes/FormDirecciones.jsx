@@ -1,9 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
+import {  Row, Col, Form, Button, Card } from "react-bootstrap";
 
 export default function FormDirecciones({ children }) {
-    const { flash, direcciones } = usePage().props;
+    const {  direcciones } = usePage().props;
     // Estado local para controlar el envío del formulario
     const [isSubmitting, setIsSubmitting] = useState(false);
     // useForm es un helper diseñado para formularios
@@ -34,8 +34,6 @@ export default function FormDirecciones({ children }) {
     return (
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
-                {flash.message && <div class="alert">{flash.message}</div>}
-                {children}
                 <Row>
                     <Col>
                         <Card className="shadow">

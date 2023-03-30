@@ -24,7 +24,7 @@ class CreateAutorizadosTable extends Migration
             $table->id();
             $table->string('nombre_persona_autorizada', 150);
             $table->string('dni', 15);
-            $table->text('anotaciones')->nullable();
+            $table->text('notas')->nullable();
             $table->string('url_dni')->nullable();
             $table->timestamps();
 

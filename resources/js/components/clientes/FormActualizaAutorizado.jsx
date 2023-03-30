@@ -1,59 +1,56 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
-import {
-    Container,
-    Row,
-    Col,
-    Form,
-    Button,
-    Card,
-    FloatingLabel,
-} from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
-export default function FormAutorizado() {
-    const { cliente } = usePage().props;    
+export default function FormActualizaAutorizado({ children }) {
+    const { autorizado, cliente } = usePage().props;
+    console.log(autorizado);
     // useForm es un helper diseñado para formularios
-    const { data, setData, post, processing, errors } = useForm({
-        nombre_persona_autorizada: "",
-        dni: "",
-        notas: "",
-        url_dni: ""     
+    const { data, setData, put, processing, errors } = useForm({
+        nombre_persona_autorizada: autorizado.nombre_persona_autorizada,
+        dni: autorizado.dni,
+        notas: autorizado.notas,
+        url_dni: autorizado.url_dni,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
-        e.preventDefault();        
-        post(
-            "/nuevoAutorizado/"+ cliente.id,
+        e.preventDefault();
+        put(
+            `/editarAutorizado/${autorizado.id}`,
             {
                 onSuccess: () => {
                     console.log(data);
                 },
             },
             data
-        );                
+        );
     }
 
     return (
         <>
-            <Container className="align-items-center justify-content-center accesibilidad-texto">              
-                <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo autorizado de {cliente.nombre_fiscal}</p>
-                <Row>
+            <div className="align-items-center justify-content-center accesibilidad-texto">
                 <Col className="">
                     <Card className="shadow">
+                        <Card.Header>
+                            <Card.Title>
+                                <p className="h2">
+                                    {" "}
+                                    Cliente {cliente.nombre_fiscal}
+                                </p>
+                            </Card.Title>
+                        </Card.Header>
                         <Card.Body>
                             <Form>
                                 <Row className="align-items-center">
                                     <Col sm={9}>
                                         <FloatingLabel
-                                            label="NOMBRE COMPLETO"
-                                            className="mb-2"
+                                            label="NOMBRE PERSONA AUTORIZADA"
+                                            className="mb-3"
                                         >
                                             <Form.Control
-                                                size="sm"
-                                                aria-label="nombre_persona_autorizada"
+                                                aria-label="Nombre persona autorizada"
                                                 type="text"
                                                 name="nombre_persona_autorizada"
-                                                placeholder="Introduce el nombre de la persona autorizada"
                                                 value={data.nombre_persona_autorizada}
                                                 onChange={(
                                                     e // si cambia el valor se seteara el valor nuevo en el constructor
@@ -74,14 +71,12 @@ export default function FormAutorizado() {
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="DNI"
-                                            className="mb-2"
+                                            className="mb-3"
                                         >
                                             <Form.Control
-                                                size="sm"
-                                                aria-label="documento nacional de identidad"
+                                                aria-label="dni persona autorizada"
                                                 type="text"
                                                 name="dni"
-                                                placeholder="Introduce el número de DNI"
                                                 value={data.dni}
                                                 onChange={(e) =>
                                                     setData(
@@ -96,41 +91,38 @@ export default function FormAutorizado() {
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>                                  
+                                    </Col>
                                     <Col sm={12}>
                                         <FloatingLabel
                                             label="OBSERVACIONES"
-                                            className="mb-2"
+                                            className="mb-3"
                                         >
                                             <Form.Control
-                                            size="sm"
-                                                as="textarea"
-                                                rows={3}
-                                                name="anotaciones"
-                                                value={data.anotaciones}
+                                                aria-label="dnobservaciones"
+                                                type="text"
+                                                name="notas"
+                                                value={data.notas}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "anotaciones",
+                                                        "notas",
                                                         e.target.value
                                                     )
                                                 }
-                                            ></Form.Control>
-                                            {errors.anotaciones && (
+                                            />
+                                            {errors.notas && (
                                                 <div className="alert alert-danger">
-                                                    {errors.anotaciones}
+                                                    {errors.notas}
                                                 </div>
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <p className="h3">Documentación</p>
-                                    <Col sm={4}>
-                                        <Form.Label>DNI:</Form.Label>
+                                    <Col xs="12" sm="6" md="6">
+                                        <Form.Label>Archivo DNI:</Form.Label>
                                         <Form.Control
                                         size="sm"
-                                            aria-label="documento Nacional de identidad"
+                                            aria-label="url dni"
                                             type="file"
                                             name="url_dni"
-                                            placeholder=""
                                             value={data.url_dni}
                                             onChange={(
                                                 e // si cambia el valor se seteara el valor nuevo en el constructor
@@ -146,21 +138,19 @@ export default function FormAutorizado() {
                                                 {errors.url_dni}
                                             </div>
                                         )}
-                                    </Col>                                   
+                                    </Col>
                                 </Row>
                             </Form>
                         </Card.Body>
-                        <Card.Footer>
+                        <Card.Footer >
                             <Button
-                            size='lg'
-                                clasName="m-3 shadow"
-                                variant="primary"
+                                className="m-3 shadow"
+                                variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nuevo autorizado"
                             >Guardar registro
                             </Button>
                             <Button
-                            size='lg'
                                 className="m-3 shadow"
                                 variant="secondary"
                                 href={'/editarCliente/' + cliente.id}
@@ -170,8 +160,7 @@ export default function FormAutorizado() {
                         </Card.Footer>
                     </Card>
                 </Col>
-                </Row>
-            </Container>
+            </div>
         </>
     );
 }

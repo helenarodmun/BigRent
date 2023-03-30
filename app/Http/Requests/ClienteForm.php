@@ -43,7 +43,11 @@ class ClienteForm extends FormRequest
                 'predeterminada' => 'nullable',
                 'contacto' => 'required|string|max:255',
                 'via_comunicacion' => 'required|string',
-                'tipo' => 'required|string'
+                'tipo' => 'required|string',
+                'nombre_persona_autorizada' => 'required|string',
+                'dni' => 'required|string|max:15',
+                'notas' => 'nullable|string|max:255',
+                'url_dni' => 'nullable|string|max:255'
             ],
 
             'PUT' => [
@@ -57,16 +61,7 @@ class ClienteForm extends FormRequest
                 'url_escrituras' => 'nullable|string',
                 'url_dni_administrador' => 'nullable|string',
                 'url_cif' => 'nullable|string',
-                'anotaciones' => 'nullable|string|max:255',
-                'direccion' => 'nullable|string|max:75',
-                'cp' => 'nullable|string|max:5',
-                'localidad' => 'nullable|string|max:75',
-                'municipio' => 'nullable|string|max:65',
-                'provincia' => 'nullable|string|max:65',
-                'predeterminada' => 'nullable',
-                'contacto' => 'nullable|string|max:255',
-                'via_comunicacion' => 'nullable|string',
-                'tipo' => 'nullable|string'
+                'anotaciones' => 'nullable|string|max:255'
             ],
             'GET' => [
 
