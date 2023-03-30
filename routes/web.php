@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutorizadoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -50,3 +51,12 @@ Route::get('/editarAutorizado/{id}', [AutorizadoController::class, 'verEdicionAu
 Route::delete('/eliminarAutorizado/{id}', [AutorizadoController::class, 'destroy']);
 
 
+////////////////////////// RUTAS FAMILIAS //////////////////////////////////////
+Route::get('/familias', [FamiliaController::class, 'index']);
+Route::get('/nuevaFamilia', function () {
+    return Inertia::render('Familias/NuevaFamilia');
+});
+Route::post('/nuevaFamilia',[FamiliaController::class,'create']);
+Route::get('/editarFamilia/{id}',[FamiliaController::class,'verEdicionFamilia']);
+Route::put('/editarFamilia/{id}',[FamiliaController::class,'update']);
+Route::delete('/eliminarFamilia/{id}',[FamiliaControllerr::class,'destroy']);

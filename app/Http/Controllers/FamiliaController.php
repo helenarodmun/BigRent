@@ -2,64 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FamiliaForm;
 use App\Models\Familia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 
 class FamiliaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+         //Recuperar todos las familias de la base de datos
+         $familias = Familia::latest()->get();
+
+         return Inertia::render('Familias/Listado', [
+             'familias' => $familias,
+         ]);
+    }
+    
+    public function create(FamiliaForm $request)
+    {
+        $request->validate();
+        $familia = Familia::create($request->all());
+        $familias = Familia::latest()->get();
+        Session::flash('edicion', 'Se ha creado la familia de forma correcta');
+
+        return Inertia::render('Familias/Listado', [
+            'familias' => $familias,
+        ]);
+
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    
+    public function verEdicionFamilia($id)
     {
-        //
+        $familia_actual = Familia::findOrrFail($id);
+        return Inertia::render('Familias/Actualiza', [
+            'familia' => $familia_actual
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(FamiliaForm $request, $id)
     {
-        //
+        $validatedData = $request->validated();
+        $familia = Familia::findOrFail($id);
+        $familia->nombre = $validatedData['nombre'];
+
+        $familia->save();
+
+        $familias = Familia::latest()->get();
+        Session::flash('creacion', 'Se ha actualizado la familia de forma correcta');
+         return Inertia::render('Familias/Listado', [
+             'familias' => $familias,
+         ]);
+
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Familia $familia)
+    
+    public function destroy($id)
     {
-        //
+        $familia = Familia::findOrFail($id);
+        $familia->delete();
+        $familias = Familia::latest()->get();
+        Session::flash('borrado', 'Se ha eliminado la família de froma correcta');
+        return Inertia::render('Familias/Listado', ['familias'=> $familias]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Familia $familia)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Familia $familia)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Familia $familia)
-    {
-        //
-    }
+    
 }

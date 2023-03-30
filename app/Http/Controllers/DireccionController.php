@@ -50,6 +50,7 @@ class DireccionController extends Controller
             'cliente' => $direccion_actual->cliente
         ]);
     }
+    
     public function verFormDireccion($id)
     {
         $cliente = Cliente::findOrFail($id);
