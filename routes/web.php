@@ -54,7 +54,7 @@ Route::delete('/eliminarAutorizado/{id}', [AutorizadoController::class, 'destroy
 ////////////////////////// RUTAS FAMILIAS //////////////////////////////////////
 Route::get('/familias', [FamiliaController::class, 'index']);
 Route::get('/nuevaFamilia', function () {
-    return Inertia::render('Familias/NuevaFamilia');
+    return Inertia::render('Familias/Nueva');
 });
 Route::post('/nuevaFamilia',[FamiliaController::class,'create']);
 Route::get('/editarFamilia/{id}',[FamiliaController::class,'verEdicionFamilia']);

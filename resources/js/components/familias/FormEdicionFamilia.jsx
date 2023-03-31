@@ -48,7 +48,7 @@ export default function FormNuevaFamilia({ children }) {
                         <Card.Header>
                             <Card.Title>
                                 <p className="h3 mt-3 ms-3 mb-0">
-                                    Creación de nueva familia
+                                    Editar familia
                                 </p>
                             </Card.Title>
                         </Card.Header>
