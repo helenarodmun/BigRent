@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubFamilia extends Model
+class Subfamilia extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,8 @@ class SubFamilia extends Model
         'descripcion',
         'precio_semana',
         'precio_dia',
-        'fianza'
+        'fianza',
+        'familia_id'
     ];
 protected $table = 'subfamilias';
     //Relación de N:1 con la tabla familias

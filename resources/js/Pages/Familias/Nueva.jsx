@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import FormNuevaFamilia from "../../components/familias/FormNuevaFamilia";
 import NavBar from "../../components/partials/NavBar";
 
-export default function NuevaFamilia() {
+export default function Nueva() {
     const { familias } = usePage().props;
     return (
         <>

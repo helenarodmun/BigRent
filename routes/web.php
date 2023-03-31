@@ -4,7 +4,9 @@ use App\Http\Controllers\AutorizadoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
+use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
+use App\Models\Familia;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -60,3 +62,16 @@ Route::post('/nuevaFamilia',[FamiliaController::class,'create']);
 Route::get('/editarFamilia/{id}',[FamiliaController::class,'verEdicionFamilia']);
 Route::put('/editarFamilia/{id}',[FamiliaController::class,'update']);
 Route::delete('/eliminarFamilia/{id}',[FamiliaController::class,'destroy']);
+
+////////////////////////// RUTAS SUBFAMILIAS //////////////////////////////////////
+Route::get('/subfamilias', [SubfamiliaController::class, 'index']);
+Route::get('/nuevaSubfamilia', function () {
+    $familias = Familia::orderBy('id', 'asc')->get();
+    return Inertia::render('Subfamilias/Nueva', [
+        'familias' => $familias
+    ]);
+});
+Route::post('/nuevaSubfamilia',[SubfamiliaController::class,'create']);
+Route::get('/editarSubfamilia/{id}',[SubfamiliaController::class,'verEdicionSubfamilia']);
+Route::put('/editarSubfamilia/{id}',[SubfamiliaController::class,'update']);
+Route::delete('/eliminarSubfamilia/{id}',[SubfamiliaController::class,'destroy']);

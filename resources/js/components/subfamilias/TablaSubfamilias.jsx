@@ -9,23 +9,23 @@ import {
     Tooltip,
 } from "react-bootstrap";
 
-export default function TablaFamilias() {
-    const { familias,  flash } = usePage().props;
+export default function TablaSubFamilias() {
+    const { subfamilias,  flash } = usePage().props;
     const { delete: destroy } = useForm();
     // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
     const renderTooltipAdd = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            Añadir nueva familia
+            Añadir nueva subfamilia
         </Tooltip>
     );
     const renderTooltipEdit = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            Modificar familia
+            Modificar subfamilia
         </Tooltip>
     );
     const renderTooltipDelete = (props) => (
         <Tooltip id="button-tooltip" {...props}>
-            Borrar familia
+            Borrar subfamilia
         </Tooltip>
     );
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
@@ -40,7 +40,7 @@ export default function TablaFamilias() {
     const handleDelete = () => {
          if (idToDelete !== null) {
         destroy(
-            `/eliminarFamilia/${idToDelete}`,
+            `/eliminarSubfamilia/${idToDelete}`,
             {
                 onSuccess: () => {
                     console.log("registro eliminado");
@@ -64,16 +64,24 @@ export default function TablaFamilias() {
                     >
                         <thead>
                             <tr>
+                                <th>Familia</th>
                                 <th>Id</th>
-                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Precio / semana</th>
+                                <th>Precio /día</th>
+                                <th>Importe fianza</th>
                                 <th></th>
                             </tr>
                         </thead>
-                        {familias.map((familia) => (
+                        {subfamilias.map((subfamilia) => (
                             <tbody className="">
-                                <tr key={familia.id}>
-                                    <td>{familia.id}</td>
-                                    <td>{familia.nombre}</td>
+                                <tr key={subfamilia.id}>
+                                    <td>{subfamilia.familia.nombre}</td>
+                                    <td>{subfamilia.id}</td> 
+                                    <td>{subfamilia.descripcion}</td>
+                                    <td>{subfamilia.precio_semana}</td>
+                                    <td>{subfamilia.precio_dia}</td>
+                                    <td>{subfamilia.fianza}</td>
                                     <td>
                                         {/* OverlayTrigger envuelve el botón y la herramienta de información sobre herramientas y 
                             muestra la herramienta de información cuando el usuario pasa el cursor sobre el botón */}
@@ -85,7 +93,7 @@ export default function TablaFamilias() {
                                             <Link
                                                 method="get"
                                                 href={
-                                                    "/editarFamilia/" +  familia.id
+                                                    "/editarSubfamilia/" +  subfamilia.id
                                                 }
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"
@@ -97,7 +105,7 @@ export default function TablaFamilias() {
                                             overlay={renderTooltipDelete}
                                         >
                                             <button
-                                                onClick={() => handleDeleteClick(familia.id)}
+                                                onClick={() => handleDeleteClick(subfamilia.id)}
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
@@ -156,7 +164,7 @@ export default function TablaFamilias() {
             >
                 <Link
                     method="get"
-                    href="/nuevaFamilia"
+                    href="/nuevaSubfamilia"
                     as="button"
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />

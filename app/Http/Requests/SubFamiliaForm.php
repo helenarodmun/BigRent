@@ -11,7 +11,7 @@ class SubFamiliaForm extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,28 @@ class SubFamiliaForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return match ($this->method()) {
+            'POST' => [
+                'descripcion' => 'required|string|max:150',
+                'precio_semana' => 'required',
+                'precio_dia' => 'required',
+                'fianza' => 'required',
+                'familia_id' => 'required'
+            ],
+            'PUT' => [
+                'descripcion' => 'nullable|string|max:150',
+                'precio_semana' => 'nullable',
+                'precio_dia' => 'nullable',
+                'fianza' => 'nullable',
+                'familia_id' => 'nullable'
+            ],
+            'GET' => [
+                'descripcion' => 'nullable|string|max:150',
+                'precio_semana' => 'nullable',
+                'precio_dia' => 'nullable',
+                'fianza' => 'nullable',
+                'familia_id' => 'nullable'
+            ]
+        }; 
     }
 }

@@ -24,9 +24,9 @@ class CreateSubfamiliasTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('descripcion');
-            $table->unsignedSmallInteger('precio_semana');
-            $table->unsignedSmallInteger('precio_dia');
-            $table->unsignedSmallInteger('fianza');
+            $table->decimal('precio_semana');
+            $table->decimal('precio_dia');
+            $table->decimal('fianza');
             $table->timestamps();
 
             $table->foreignId('familia_id')

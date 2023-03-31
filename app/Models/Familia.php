@@ -17,6 +17,6 @@ class Familia extends Model
     //Relación 1:N con subfamilias
     public function subfamilias()
     {
-        return $this->hasMany(SubFamilia::class);
+        return $this->hasMany(Subfamilia::class);
     }
 }
