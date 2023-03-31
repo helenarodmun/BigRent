@@ -13,7 +13,7 @@ class FamiliaController extends Controller
     public function index()
     {
          //Recuperar todos las familias de la base de datos
-         $familias = Familia::latest()->get();
+         $familias = Familia::orderBy('id', 'asc')->get();
 
          return Inertia::render('Familias/Listado', [
              'familias' => $familias,
@@ -22,7 +22,8 @@ class FamiliaController extends Controller
     
     public function create(FamiliaForm $request)
     {
-        $request->validate();
+        $request->validated();
+        
         $familia = Familia::create($request->all());
         $familias = Familia::latest()->get();
         Session::flash('edicion', 'Se ha creado la familia de forma correcta');
@@ -37,8 +38,8 @@ class FamiliaController extends Controller
     
     public function verEdicionFamilia($id)
     {
-        $familia_actual = Familia::findOrrFail($id);
-        return Inertia::render('Familias/Actualiza', [
+        $familia_actual = Familia::findOrFail($id);
+        return Inertia::render('Familias/ActualizaFamilia', [
             'familia' => $familia_actual
         ]);
     }

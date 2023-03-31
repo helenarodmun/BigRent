@@ -10,7 +10,7 @@ import {
     FloatingLabel,
 } from "react-bootstrap";
 
-export default function FormAutorizado() {
+export default function FormNuevoAutorizado() {
     const { cliente } = usePage().props;    
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({

@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Col, Table } from "react-bootstrap";
 
-export default function CardCliente({ children }) {
+export default function TablaTelefonos({ children }) {
     const { telefonos, cliente } = usePage().props;
 
     // useForm es un helper diseñado para formularios

@@ -9,7 +9,7 @@ import {
     Tooltip,
 } from "react-bootstrap";
 
-export default function TablaDirecciones() {
+export default function TablaEdicionDirecciones() {
     const { direcciones, clientes, flash } = usePage().props;
     const { delete: destroy } = useForm();
     // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón

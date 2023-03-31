@@ -59,4 +59,4 @@ Route::get('/nuevaFamilia', function () {
 Route::post('/nuevaFamilia',[FamiliaController::class,'create']);
 Route::get('/editarFamilia/{id}',[FamiliaController::class,'verEdicionFamilia']);
 Route::put('/editarFamilia/{id}',[FamiliaController::class,'update']);
-Route::delete('/eliminarFamilia/{id}',[FamiliaControllerr::class,'destroy']);
+Route::delete('/eliminarFamilia/{id}',[FamiliaController::class,'destroy']);

@@ -7,7 +7,7 @@ import TablaEdicionTelefonos from "../../components/clientes/TablaEdicionTelefon
 import TablaEdicionAutorizados from "../../components/clientes/TablaEdicionAutorizados";
 import NavBar from "../../components/partials/NavBar";
 
-export default function Update() {
+export default function ActualizaCliente() {
 const { flash } = usePage().props;
     return (
         <>

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
+            $table->boolean('rol')->default(0);//true rol administrador
             $table->rememberToken();
             $table->timestamps();
         });

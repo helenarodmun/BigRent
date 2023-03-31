@@ -2,7 +2,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
 
-export default function FormActualizaDireccion({ children }) {
+export default function FormNuevoTelefono({ children }) {
     const { cliente } = usePage().props;
     console.log(cliente);
     // useForm es un helper diseñado para formularios

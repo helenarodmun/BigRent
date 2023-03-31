@@ -85,8 +85,7 @@ export default function TablaDirecciones() {
                                             <Link
                                                 method="get"
                                                 href={
-                                                    "/editaFamilia/" +
-                                                    familia.id
+                                                    "/editarFamilia/" +  familia.id
                                                 }
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"

@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import FormActualizaAutorizado from "../../components/clientes/FormActualizaAutorizado";
 import NavBar from "../../components/partials/NavBar";
 
-export default function ActualizaDireccion() {
+export default function ActualizaAutorizado() {
     const { autorizados, clientes } = usePage().props;
     return (
         <>

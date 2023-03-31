@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 
-export default function TablaTelefonos() {
+export default function TablaEdicionTelefonos() {
     const { telefonos, clientes } = usePage().props;
 
     const { delete: destroy } = useForm();

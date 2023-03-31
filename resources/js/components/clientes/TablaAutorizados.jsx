@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Card, Modal, Table } from "react-bootstrap
 import React, { useState } from "react";
 
 
-export default function FichaAutorizados() {
+export default function TablaAutorizados() {
     const { clientes, autorizados } = usePage().props;
     console.log(clientes)
       //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.

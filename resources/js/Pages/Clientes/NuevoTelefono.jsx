@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import FormNuevoTelefono from "../../components/clientes/FormNuevoTelefono";
 import NavBar from "../../components/partials/NavBar";
 
-export default function NuevaDireccion() {
+export default function NuevaTelefono() {
     const { telefonos } = usePage().props;
     return (
         <>

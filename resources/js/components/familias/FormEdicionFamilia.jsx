@@ -3,16 +3,17 @@ import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormNuevaFamilia({ children }) {
-    const { flash } = usePage().props;
+    const { familia, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
-    const { data, setData, post, processing, errors } = useForm({
-        nombre: "",
+    const { data, setData, put, processing, errors } = useForm({
+        id: familia.id,
+        nombre: familia.nombre,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        post(
-            "/nuevaFamilia",
+        put(
+            "/editarFamilia/" + familia.id,
             {
                 onSuccess: () => {
                     console.log(data);
@@ -53,7 +54,27 @@ export default function FormNuevaFamilia({ children }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                                <Row>                                    
+                                <Row> 
+                                <Col sm={3}>
+                                        <FloatingLabel
+                                            label="ID"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                                size="sm"
+                                                aria-label="id de la familia"
+                                                type="text"
+                                                name="id"
+                                                value={data.id}
+                                                disabled
+                                            />
+                                            {errors.nombre && (
+                                                <div className="alert alert-danger">
+                                                    {errors.nombre}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>                                   
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="NOMBRE"
@@ -87,7 +108,7 @@ export default function FormNuevaFamilia({ children }) {
                                 className="m-3 shadow"
                                 variant="success"
                                 onClick={handleSubmit}
-                                aria-label="Guardar nueva familia"
+                                aria-label="Guardar registro"
                             >
                                 Guardar registro
                             </Button>

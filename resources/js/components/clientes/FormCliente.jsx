@@ -640,7 +640,7 @@ export default function FormCliente() {
                                     </Col>                                   
                                     <hr/>
                                     <p className="h3">Documentación</p>
-                                    <Col xs="12" sm="6" md="6">
+                                    <Col xs="12" sm="6" md="4">
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control
                                         size="sm"
@@ -664,7 +664,7 @@ export default function FormCliente() {
                                             </div>
                                         )}
                                     </Col>
-                                    <Col xs="12" sm="6" md="6">
+                                    <Col xs="12" sm="6" md="4">
                                         <Form.Label>
                                             DNI Administrador:
                                         </Form.Label>
@@ -690,7 +690,7 @@ export default function FormCliente() {
                                             </div>
                                         )}
                                     </Col>
-                                    <Col xs="12" sm="6" md="6">
+                                    <Col xs="12" sm="6" md="4">
                                         <Form.Label>
                                             CIF de la empresa:
                                         </Form.Label>
