@@ -4,9 +4,11 @@ use App\Http\Controllers\AutorizadoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
+use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
+use App\Models\Subfamilia;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -75,3 +77,16 @@ Route::post('/nuevaSubfamilia',[SubfamiliaController::class,'create']);
 Route::get('/editarSubfamilia/{id}',[SubfamiliaController::class,'verEdicionSubfamilia']);
 Route::put('/editarSubfamilia/{id}',[SubfamiliaController::class,'update']);
 Route::delete('/eliminarSubfamilia/{id}',[SubfamiliaController::class,'destroy']);
+
+////////////////////////// RUTAS MÁQUINAS //////////////////////////////////////
+Route::get('/maquinas', [MaquinaController::class, 'index']);
+Route::get('/nuevaMaquina', function () {
+    $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
+    return Inertia::render('Maquinaria/Nueva', [
+        'subfamilias' => $subfamilias
+    ]);
+});
+Route::post('/nuevaMaquina',[MaquinaController::class,'create']);
+Route::get('/editarMaquina/{id}',[MaquinaController::class,'verEdicionMaquina']);
+Route::put('/editarMaquina/{id}',[MaquinaController::class,'update']);
+Route::delete('/eliminarMaquina/{id}',[MaquinaController::class,'destroy']);

@@ -21,8 +21,40 @@ class MaquinaForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return match ($this->method()) {
+
+            'POST' => [
+
+                'marca' => 'required|string|max:75',
+                'descripcion' => 'required|string|max:150',
+                'inventario' => 'required',
+                'referencia' => 'required|string|max:10',
+                'url_manual' => 'nullable|string',
+                'url_ficha' => 'nullable|string',
+                'subfamilia_id' => 'required'
+            ],
+
+            'PUT' => [
+                
+                'marca' => 'nullable|string|max:75',
+                'descripcion' => 'nullable|string|max:150',
+                'inventario' => 'nullable',
+                'referencia' => 'nullable|string|max:10',
+                'url_manual' => 'nullable|string',
+                'url_ficha' => 'nullable|string',
+                'subfamilia_id' => 'nullable'
+            ],
+            
+            'GET' => [
+                
+                'marca' => 'nullable|string|max:75',
+                'descripcion' => 'nullable|string|max:150',
+                'inventario' => 'nullable',
+                'referencia' => 'nullable|string|max:10',
+                'url_manual' => 'nullable|string',
+                'url_ficha' => 'nullable|string',
+                'subfamilia_id' => 'nullable'
+            ]
+        };
     }
 }

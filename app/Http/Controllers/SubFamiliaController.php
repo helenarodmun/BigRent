@@ -16,7 +16,7 @@ class SubfamiliaController extends Controller
         //Recuperar todos las familias de la base de datos
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
-            ->orderBY('descripcion', 'asc')
+            ->orderBy('descripcion', 'asc')
             ->get();
         return Inertia::render('Subfamilias/Listado', [
             'subfamilias' => $subfamilias,

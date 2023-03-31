@@ -23,8 +23,8 @@ class FamiliaController extends Controller
     public function create(FamiliaForm $request)
     {
         $request->validated();
-        
-        $familia = Familia::create($request->all());
+        $familia = Familia::create($request->all());        
+        $familia->save();
         $familias = Familia::orderBy('id', 'asc')->get();
         Session::flash('edicion', 'Se ha creado la familia de forma correcta');
 
@@ -48,8 +48,8 @@ class FamiliaController extends Controller
     {
         $validatedData = $request->validated();
         $familia = Familia::findOrFail($id);
-        $familia->nombre = $validatedData['nombre'];
-
+        $familia->nombre =strtoupper($validatedData['nombre']);
+        
         $familia->save();
 
         $familias = Familia::orderBy('id', 'asc')->get();

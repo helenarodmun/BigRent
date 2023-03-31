@@ -2,64 +2,88 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MaquinaForm;
 use App\Models\Maquina;
+use App\Models\Subfamilia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Inertia\Inertia;
 
 class MaquinaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        //Recuperar todos las familias de la base de datos
+        $maquinas = Maquina::with('subfamilia')
+            ->orderBy('subfamilia_id', 'asc')
+            ->orderBy('marca', 'asc')
+            ->get();
+        return Inertia::render('Maquinaria/Listado', [
+            'maquinas' => $maquinas,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(MaquinaForm $request)
     {
-        //
+        $request->validated();
+        $maquina = Maquina::create($request->all());
+        $maquinas = Maquina::with('subfamilia')
+            ->orderBy('subfamilia_id', 'asc')
+            ->orderBY('marca', 'asc')
+            ->get();
+        Session::flash('edicion', 'Se ha creado la máquina de forma correcta');
+
+        return Inertia::render('Maquinaria/Listado', [
+            'maquinas' => $maquinas,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function verEdicionMaquina($id)
     {
-        //
+        $maquina_actual = Maquina::findOrFail($id);
+        $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
+        return Inertia::render('Maquinaria/Actualiza', [
+            'maquina' => $maquina_actual,
+            'subfamilias' => $subfamilias
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Maquina $maquina)
+    public function update(MaquinaForm $request, $id)
     {
-        //
+        $validatedData = $request->validated();
+        $maquina = Maquina::findOrFail($id);
+        $maquina->marca = $validatedData['marca'];
+        $maquina->descripcion = $validatedData['descripcion'];
+        $maquina->inventario = $validatedData['inventario'];
+        $maquina->referencia = $validatedData['referencia'];
+        $maquina->url_manual = $validatedData['url_manual'];
+        $maquina->url_ficha = $validatedData['url_ficha'];
+
+        $maquina->save();
+
+        $maquinas = Maquina::with('subfamilia')
+        ->orderBy('subfamilia_id', 'asc')
+        ->orderBY('marca', 'asc')
+        ->get();
+        Session::flash('creacion', 'Se ha actualizado la máquina de forma correcta');
+        return Inertia::render('Maquinaria/Listado', [
+            'maquinas' => $maquinas,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Maquina $maquina)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Maquina $maquina)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Maquina $maquina)
-    {
-        //
+        $maquina = Maquina::findOrFail($id);
+        $maquina->delete();
+        $maquinas = Maquina::with('subfamilia')
+            ->orderBy('subfamilia_id', 'asc')
+            ->orderBY('marca', 'asc')
+            ->get();
+        Session::flash('borrado', 'Se ha eliminado la máquina de forma correcta');
+        return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
     }
 }
+
+

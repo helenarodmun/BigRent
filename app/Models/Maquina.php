@@ -15,7 +15,8 @@ class Maquina extends Model
         'inventario',
         'referencia',
         'url_manual',
-        'url_ficha'
+        'url_ficha',
+        'subfamilia_id'
     ];
 
     protected $table = 'maquinas';

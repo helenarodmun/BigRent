@@ -10,21 +10,23 @@ import {
     Container,
 } from "react-bootstrap";
 
-export default function FormNuevaSubFamilia({ children }) {
-    const { flash, familias } = usePage().props;
+export default function FormNuevaMaquina({ children }) {
+    const { flash, subfamilias } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
+        marca: "",
         descripcion: "",
-        precio_semana: "",
-        precio_dia: "",
-        fianza: "",
-        familia_id: ""
+        referencia: "",
+        inventario: "",
+        url_manual: "",
+        url_ficha: "",
+        subfamilia_id: ""
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
         post(
-            "/nuevaSubfamilia",
+            "/nuevaMaquina",
             {
                 onSuccess: () => {
                     console.log(data);
@@ -59,7 +61,7 @@ export default function FormNuevaSubFamilia({ children }) {
                         <Card.Header>
                             <Card.Title>
                                 <p className="h3 mt-3 ms-3 mb-0">
-                                    Creación de nueva subfamilia
+                                    Creación de nueva máquina
                                 </p>
                             </Card.Title>
                         </Card.Header>
@@ -68,47 +70,122 @@ export default function FormNuevaSubFamilia({ children }) {
                                 <Row>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
-                                            label="FAMILIA"
+                                            label="SUBFAMILIA"
                                             className="mb-2"
                                         >
                                             <Form.Select
                                                 size="sm"
-                                                aria-label="familia"
+                                                aria-label="subfamilia"
                                                 as="select"
-                                                name="familia_id"
-                                                value={data.familia_id}
+                                                name="subfamilia_id"
+                                                value={data.subfamilia_id}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "familia_id",
+                                                        "subfamilia_id",
                                                         e.target.value
                                                     )
                                                 }
                                             >
                                                 <option>
-                                                    Seleccione la familia...
+                                                    Seleccione la subfamilia...
                                                 </option>
-                                                {familias.map((familia) => (
+                                                {subfamilias.map((subfamilia) => (
                                               
-                                                    <option value={familia.id}>
-                                                        {familia.nombre}
+                                                    <option value={subfamilia.id}>
+                                                        {subfamilia.descripcion}
                                                     </option>
                                                 ))}
                                             </Form.Select>
-                                            {errors.familia_id && (
+                                            {errors.subfamilia_id && (
                                                 <div className="alert alert-danger">
-                                                    {errors.familia_id}
+                                                    {errors.subfamilia_id}
                                                 </div>
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="9">
+                                    <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
-                                            label="DESCRIPCIÓN"
+                                            label="REFERENCIA"
                                             className="mb-2"
                                         >
                                             <Form.Control
                                                 size="sm"
                                                 aria-label="descripción de la subfamilia"
+                                                type="text"
+                                                name="referencia"
+                                                value={data.referencia}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "referencia",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.referencia && (
+                                                <div className="alert alert-danger">
+                                                    {errors.referencia}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="4">
+                                        <FloatingLabel
+                                            label="MARCA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                                size="sm"
+                                                aria-label="marca de la máquina"
+                                                type="text"
+                                                name="marca"
+                                                value={data.marca}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "marca",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.marca && (
+                                                <div className="alert alert-danger">
+                                                    {errors.marca}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="1">
+                                        <FloatingLabel
+                                            label="STOCK"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                                size="sm"
+                                                aria-label="inventario"
+                                                type="number"
+                                                name="inventario"
+                                                value={data.inventario}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "inventario",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.inventario && (
+                                                <div className="alert alert-danger">
+                                                    {errors.inventario}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="10">
+                                        <FloatingLabel
+                                            label="ARTÍCULO"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                                size="sm"
+                                                aria-label="descripción de la máquina"
                                                 type="text"
                                                 name="descripcion"
                                                 value={data.descripcion}
@@ -126,80 +203,56 @@ export default function FormNuevaSubFamilia({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel
-                                            label="PRECIO / SEMANA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="precio por semana"
-                                                type="number"
-                                                name="precio_semana"
-                                                value={data.nombprecio_semanare}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "precio_semana",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.precio_semana && (
-                                                <div className="alert alert-danger">
-                                                    {errors.precio_semana}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
+                              
+                                    <Col xs="12" sm="6" md="4">
+                                        <Form.Label>Manual:</Form.Label>
+                                        <Form.Control
+                                         className="mb-2"
+                                        size="sm"
+                                            aria-label="manual de la máquina"
+                                            type="file"
+                                            name="url_manual"
+                                            placeholder=""
+                                            value={data.url_manual}
+                                            onChange={(
+                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                            ) =>
+                                                setData(
+                                                    "url_manual",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.url_manual && (
+                                            <div className="alert alert-danger">
+                                                {errors.url_manual}
+                                            </div>
+                                        )}
                                     </Col>
-                                    <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel
-                                            label="PRECIO / DÍA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="precio por día"
-                                                type="number"
-                                                name="precio_dia"
-                                                value={data.precio_dia}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "precio_dia",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.precio_dia && (
-                                                <div className="alert alert-danger">
-                                                    {errors.precio_dia}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel
-                                            label="IMPORTE FIANZA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="importe fianza"
-                                                type="number"
-                                                name="fianza"
-                                                value={data.fianza}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "fianza",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.fianza && (
-                                                <div className="alert alert-danger">
-                                                    {errors.fianza}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
+                                    <Col xs="12" sm="6" md="4">
+                                        <Form.Label>Ficha:</Form.Label>
+                                        <Form.Control
+                                         className="mb-2"
+                                        size="sm"
+                                            aria-label="ficha de la máquina"
+                                            type="file"
+                                            name="url_ficha"
+                                            placeholder=""
+                                            value={data.url_ficha}
+                                            onChange={(
+                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                            ) =>
+                                                setData(
+                                                    "url_ficha",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.url_ficha && (
+                                            <div className="alert alert-danger">
+                                                {errors.url_ficha}
+                                            </div>
+                                        )}
                                     </Col>
                                 </Row>
                             </Form>
@@ -209,14 +262,14 @@ export default function FormNuevaSubFamilia({ children }) {
                                 className="m-3 shadow"
                                 variant="success"
                                 onClick={handleSubmit}
-                                aria-label="Guardar nueva familia"
+                                aria-label="Guardar nueva maquina"
                             >
                                 Guardar registro
                             </Button>
                             <Button
                                 className="m-3 shadow"
                                 variant="secondary"
-                                href={"/subfamilias"}
+                                href={"/maquinas"}
                                 aria-label="Volver a la vista anterior"
                             >
                                 Cancelar
