@@ -3,7 +3,8 @@ import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormEdicionMaquina({ children }) {
-    const { serie, flash } = usePage().props;
+    const { serie, maquina, flash } = usePage().props;
+    console.log(maquina)
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
         id: serie.id,
@@ -51,7 +52,7 @@ export default function FormEdicionMaquina({ children }) {
                         <Card.Header>
                             <Card.Title>
                                 <p className="h3 mt-3 ms-3 mb-0">
-                                    Editar serie
+                                    Editar serie {maquina.descripcion}
                                 </p>
                             </Card.Title>
                         </Card.Header>
@@ -78,7 +79,7 @@ export default function FormEdicionMaquina({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>                                   
-                                    <Col xs="12" sm="6" md="2">
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="NUMERO SERIE"
                                             className="mb-2"
@@ -103,7 +104,7 @@ export default function FormEdicionMaquina({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="4">
+                                    <Col xs="12" sm="6" md="3">
                                     <FloatingLabel
                                             label="HOROMETRO"
                                             className="mb-3"
@@ -137,7 +138,32 @@ export default function FormEdicionMaquina({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="4">
+                                    <Col xs="12" sm="6" md="1">
+                                        <FloatingLabel
+                                            label="HORA INICIO"
+                                            className="mb-2"
+                                        >
+                                            <Form.Control
+                                                size="sm"
+                                                aria-label="inventario"
+                                                type="time"
+                                                name="hora_inicio"
+                                                value={data.hora_inicio}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "hora_inicio",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                            {errors.hora_inicio && (
+                                                <div className="alert alert-danger">
+                                                    {errors.hora_inicio}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="3">
                                     <FloatingLabel
                                             label="DISPONIBILIDAD"
                                             className="mb-3"

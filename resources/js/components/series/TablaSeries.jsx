@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
     Button,
     Col,
+    Container,
     Modal,
     OverlayTrigger,
     Table,
@@ -52,7 +53,7 @@ export default function TablaSubFamilias() {
         }
     };
     return (
-        <>       
+        <Container>       
             <Col className="shadow">               
                     <Table
                         striped
@@ -77,7 +78,11 @@ export default function TablaSubFamilias() {
                                 <tr key={serie.id}>
                                     <td>{serie.maquina.descripcion}</td>
                                     <td>{serie.numero_serie}</td> 
-                                    <td>{serie.horometro}</td>
+                                    {series.horometro == 0 ? (
+                                        <td>NO</td>
+                                    ) : (
+                                        <td>SÍ</td>
+                                    )}
                                     <td>{serie.hora_inicio}</td>
                                     <td>{serie.disponible}</td>
                                     <td>
@@ -167,6 +172,6 @@ export default function TablaSubFamilias() {
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
             </OverlayTrigger>
-        </>
+        </Container>
     );
 }

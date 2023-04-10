@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
     Button,
     Col,
+    Container,
     Modal,
     OverlayTrigger,
     Table,
@@ -52,7 +53,7 @@ export default function TablaFamilias() {
         }
     };
     return (
-        <>       
+        <Container>       
             <Col className="shadow">               
                     <Table
                         striped
@@ -161,6 +162,6 @@ export default function TablaFamilias() {
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
             </OverlayTrigger>
-        </>
+        </Container>
     );
 }

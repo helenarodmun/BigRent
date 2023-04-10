@@ -18,7 +18,7 @@ class SerieController extends Controller
             ->orderBy('maquina_id', 'asc')
             ->orderBy('numero_serie', 'asc')
             ->get();
-        return Inertia::render('Maquinaria/Listado', [
+        return Inertia::render('Series/Listado', [
             'series' => $series,
         ]);
     }
@@ -39,13 +39,13 @@ class SerieController extends Controller
     }
 
 
-    public function verEdicionSeries($id)
+    public function verEdicionSerie($id)
     {
         $serie_actual = Serie::findOrFail($id);
-        $maquinas = Maquina::orderBy('id', 'asc')->get();
+        $maquina = $serie_actual->maquina;
         return Inertia::render('Series/Actualiza', [
             'serie' => $serie_actual,
-            'maquinas' => $maquinas
+            'maquina' => $maquina
         ]);
     }
 

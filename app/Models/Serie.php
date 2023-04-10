@@ -13,13 +13,14 @@ class Serie extends Model
         'horometro',
         'hora_inicio',
         'numero_serie',
-        'disponible'
+        'disponible',
+        'maquina_id'
     ];
 
     protected $tabla = 'series';
 
     //Relacion N:1 con tabla maquinas
-    public function maquinas()
+    public function maquina()
     {
         return $this->belongsTo(Maquina::class);
     }

@@ -1,5 +1,5 @@
 
-import FichaAutorizados from "../../components/clientes/FichaAutorizados"
+import FormActualizaAutorizado from "../../components/clientes/FormActualizaAutorizado"
 import NavBar from "../../components/partials/NavBar";
 
 
@@ -8,7 +8,7 @@ export default function Autorizados() {
         <>
             <div>
                 <NavBar></NavBar>
-                <FichaAutorizados></FichaAutorizados>
+                <FormActualizaAutorizado></FormActualizaAutorizado>
             </div>
         </>
     );

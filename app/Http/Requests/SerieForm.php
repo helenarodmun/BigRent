@@ -26,7 +26,7 @@ class SerieForm extends FormRequest
             'POST' => [
 
                 'horometro' => 'required',
-                'hora_inicio' => 'required|time',
+                'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'required',
                 'disponible' => 'required',
                 'maquina_id' => 'required'

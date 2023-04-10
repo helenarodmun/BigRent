@@ -5,9 +5,12 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\SerieController;
 use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
+use App\Models\Maquina;
+use App\Models\Serie;
 use App\Models\Subfamilia;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -90,3 +93,16 @@ Route::post('/nuevaMaquina',[MaquinaController::class,'create']);
 Route::get('/editarMaquina/{id}',[MaquinaController::class,'verEdicionMaquina']);
 Route::put('/editarMaquina/{id}',[MaquinaController::class,'update']);
 Route::delete('/eliminarMaquina/{id}',[MaquinaController::class,'destroy']);
+
+////////////////////////// RUTAS SERIES //////////////////////////////////////
+Route::get('/series', [SerieController::class, 'index']);
+Route::get('/nuevaSerie', function () {
+    $maquinas = Maquina::orderBy('id', 'asc')->get();
+    return Inertia::render('Series/Nueva', [
+        'maquinas' => $maquinas
+    ]);
+});
+Route::post('/nuevaSerie',[SerieController::class,'create']);
+Route::get('/editarSerie/{id}',[SerieController::class,'verEdicionSerie']);
+Route::put('/editarSerie/{id}',[SerieController::class,'update']);
+Route::delete('/eliminarSerie/{id}',[SerieController::class,'destroy']);
