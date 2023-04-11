@@ -6,15 +6,20 @@ import { Link } from "@inertiajs/react";
 function NavBar() {
     // Se obtiene la autenticación del usuario de las props de la página
     const { auth } = usePage().props;
-console.log(auth)
+    console.log(auth);
     return (
-        <Navbar  bg="light" expand="lg" className="p-3 accesibilidad-texto">
-            <Navbar.Brand className='ms-5 h1' href="/clientes">BigRent</Navbar.Brand>
+        <Navbar bg="light" expand="lg" className="p-3 accesibilidad-texto">
+            <Navbar.Brand className="ms-5 h1" href="/clientes">
+                BigRent
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarNavDropdown" />
             <Navbar.Collapse id="navbarNavDropdown">
                 <Nav className="ms-auto">
                     <Nav.Item>
-                        <Nav.Link href="/clientes" className="mx-2 active bi bi-house">
+                        <Nav.Link
+                            href="/clientes"
+                            className="mx-2 active bi bi-house"
+                        >
                             Inicio
                         </Nav.Link>
                     </Nav.Item>
@@ -39,7 +44,7 @@ console.log(auth)
                             </Nav.Item>
                         </>
                     ) : null}
-                     {/* Si el usuario ha iniciado sesión, se muestra el menú desplegable con opciones */}
+                    {/* Si el usuario ha iniciado sesión, se muestra el menú desplegable con opciones */}
                     {auth.user != null && (
                         <NavDropdown
                             title={auth.user.username}
@@ -51,7 +56,7 @@ console.log(auth)
                             <NavDropdown.Item>
                                 <Link
                                     href="/logout"
-                                    as='button'
+                                    as="button"
                                     method="post"
                                     className="border-0 bi bi-door-closed"
                                 >

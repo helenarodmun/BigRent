@@ -89,7 +89,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 <option>
                                                     Seleccione la subfamilia...
                                                 </option>
-                                                {subfamilias.map((subfamilia) => (
+                                                {subfamilias.sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
                                               
                                                     <option value={subfamilia.id}>
                                                         {subfamilia.descripcion}

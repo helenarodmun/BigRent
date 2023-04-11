@@ -78,7 +78,7 @@ thead {
   color: #ffffff;
   text-decoration: none;
   font-weight: bolder;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 
@@ -93,8 +93,8 @@ thead {
 }
 
 .sidebar .sub-menu a {
-  color: #778ea1;
-  font-size: 1.2em;
+  color: #6786a0;
+  font-size: 1em;
 }
 
 .sidebar .sub-menu a:hover {

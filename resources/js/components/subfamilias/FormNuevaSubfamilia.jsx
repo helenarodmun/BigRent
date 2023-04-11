@@ -87,7 +87,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                                 <option>
                                                     Seleccione la familia...
                                                 </option>
-                                                {familias.map((familia) => (
+                                                {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
                                               
                                                     <option value={familia.id}>
                                                         {familia.nombre}

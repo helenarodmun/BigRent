@@ -114,6 +114,19 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function buscar(Request $request)
+    {
+        $query = $request->get('q');
+        $clientes = Cliente::where('nombre_fiscal', 'like', '%'.$query.'%')
+                            ->orWhere('nif', 'like', '%'.$query.'%')
+                            ->get();
+
+        return Inertia::render('Clientes/Busqueda', [
+            'clientes' => $clientes,
+            'resultado' => $query
+        ]);
+    }
+
     public function update(ClienteForm $request, $id)
     {
 

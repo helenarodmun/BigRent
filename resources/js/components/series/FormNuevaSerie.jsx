@@ -87,7 +87,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 <option>
                                                     Seleccione la máquina...
                                                 </option>
-                                                {maquinas.map((maquina) => (
+                                                {maquinas.sort((a,b)=> a.descripcion.localeCompare(b.descripcion)).map((maquina) => (
                                               
                                                     <option value={maquina.id}>
                                                         {maquina.descripcion}

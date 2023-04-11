@@ -1,4 +1,4 @@
-import TablaClientes from "../../components/clientes/TablaClientes";
+import BuscaCliente from "../../components/clientes/BuscaCliente";
 import NavBar from "../../components/partials/NavBar";
 import Sidebar from "../../components/partials/Sidebar";
 
@@ -8,7 +8,7 @@ export default function Listado() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
-                <TablaClientes></TablaClientes>
+                <BuscaCliente></BuscaCliente>
             </div>
         </div>
     );
