@@ -1,5 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import React, { useState } from "react";
 import {
     Row,
     Col,
@@ -11,7 +11,11 @@ import {
 } from "react-bootstrap";
 
 export default function FormNuevaMaquina({ children }) {
-    const { flash, subfamilias } = usePage().props;
+    const { flash, subfamilias, familias } = usePage().props;    
+    console.log(subfamilias)
+    const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada
+  
+    const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         marca: "",
@@ -35,7 +39,6 @@ export default function FormNuevaMaquina({ children }) {
             data
         );
     }
-
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
@@ -68,6 +71,39 @@ export default function FormNuevaMaquina({ children }) {
                         <Card.Body>
                             <Form>
                                 <Row>
+                                <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel
+                                            label="FAMILIA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                                size="sm"
+                                                aria-label="familia"
+                                                as="select"
+                                                name="familia_id"
+                                                value={selectedFamiliaId} // actualizado con el nuevo estado
+                                                onChange={(e) => {
+                                                    setData("familia_id", e.target.value);
+                                                    setSelectedFamiliaId(parseInt(e.target.value)); // actualiza el nuevo estado
+                                                  }}
+                                                >
+                                                <option>
+                                                    Seleccione la familia...
+                                                </option>
+                                                {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
+                                              
+                                                    <option value={familia.id}>
+                                                        {familia.nombre}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                            {errors.familia_id && (
+                                                <div className="alert alert-danger">
+                                                    {errors.familia_id}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="SUBFAMILIA"
@@ -89,7 +125,8 @@ export default function FormNuevaMaquina({ children }) {
                                                 <option>
                                                     Seleccione la subfamilia...
                                                 </option>
-                                                {subfamilias.sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
+                                                {subfamiliasFiltradas // muestra solo las subfamilias filtradas
+                                                .sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
                                               
                                                     <option value={subfamilia.id}>
                                                         {subfamilia.descripcion}

@@ -86,8 +86,10 @@ Route::delete('/eliminarSubfamilia/{id}',[SubfamiliaController::class,'destroy']
 Route::get('/maquinas', [MaquinaController::class, 'index']);
 Route::get('/nuevaMaquina', function () {
     $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
+    $familias = Familia::orderBy('id', 'asc')->get();
     return Inertia::render('Maquinaria/Nueva', [
-        'subfamilias' => $subfamilias
+        'subfamilias' => $subfamilias,
+        'familias' => $familias
     ]);
 });
 Route::post('/nuevaMaquina',[MaquinaController::class,'create']);

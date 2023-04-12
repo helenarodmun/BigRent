@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MaquinaForm;
+use App\Models\Familia;
 use App\Models\Maquina;
 use App\Models\Subfamilia;
 use Illuminate\Http\Request;
