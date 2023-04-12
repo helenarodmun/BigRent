@@ -12,6 +12,7 @@ use App\Models\Familia;
 use App\Models\Maquina;
 use App\Models\Serie;
 use App\Models\Subfamilia;
+use App\Models\Tienda;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -103,10 +104,12 @@ Route::get('/nuevaSerie', function () {
     $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
     $familias = Familia::orderBy('id', 'asc')->get();
     $maquinas = Maquina::orderBy('id', 'asc')->get();
+    $tiendas = Tienda::orderBy('id', 'asc')->get();
     return Inertia::render('Series/Nueva', [
         'maquinas' => $maquinas,
         'subfamilias' => $subfamilias,
-        'familias' => $familias
+        'familias' => $familias,
+        'tiendas' => $tiendas
     ]);
 });
 Route::post('/nuevaSerie',[SerieController::class,'create']);

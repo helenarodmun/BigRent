@@ -11,18 +11,20 @@ import {
 } from "react-bootstrap";
 
 export default function FormNuevaMaquina({ children }) {
-    const { flash, maquinas, familias, subfamilias } = usePage().props;
+    const { flash, maquinas, familias, subfamilias, tiendas } = usePage().props;
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada  
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
     const [selectedSubfamiliaId, setSelectedSubfamiliaId] = useState(null); // nuevo estado para la subfamilia seleccionada  
     const maquinasFiltradas = maquinas.filter(maquinas => maquinas.subfamilia_id === selectedSubfamiliaId); // maquinas filtradas por la subfamilia seleccionada
+    const [selectedTienda, setSelectedTienda] = useState(null); // nuevo estado para la subfamilia seleccionada  
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         horometro: "",
         hora_inicio: "",
         numero_serie: "",
         disponible: "",
-        maquina_id: ""
+        maquina_id: "",
+        tienda_id:""
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -69,7 +71,42 @@ export default function FormNuevaMaquina({ children }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                                <Row>
+                                <Row> 
+                                <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel
+                                            label="TIENDA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                                size="sm"
+                                                aria-label="tienda"
+                                                as="select"
+                                                name="tienda_id"
+                                                value={data.tienda_id}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "tienda_id",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option>
+                                                    Seleccione la tienda...
+                                                </option>
+                                                {tiendas.sort((a,b)=> a.nombre.localeCompare(b.nombre)).map((tienda) => (
+                                              
+                                                    <option value={tienda.id}>
+                                                        {tienda.nombre}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                            {errors.tienda_id && (
+                                                <div className="alert alert-danger">
+                                                    {errors.tienda_id}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>      
                                 <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="FAMILIA"

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SerieForm;
 use App\Models\Maquina;
 use App\Models\Serie;
+use App\Models\Tienda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
@@ -29,12 +30,14 @@ class SerieController extends Controller
         $serie = Serie::create($request->all());
         $series = Serie::with('maquina')
             ->orderBy('maquina_id', 'asc')
-            ->orderBY('numero_serie', 'asc')
+            ->orderBy('numero_serie', 'asc')
             ->get();
+        $tiendas = Tienda::get();
         Session::flash('edicion', 'Se ha creado la serie de forma correcta');
 
         return Inertia::render('Series/Listado', [
             'series' => $series,
+            'tiendas' => $tiendas
         ]);
     }
 

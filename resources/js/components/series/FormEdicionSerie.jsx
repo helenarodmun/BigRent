@@ -58,7 +58,7 @@ export default function FormEdicionMaquina({ children }) {
                         </Card.Header>
                         <Card.Body>
                             <Form>
-                                <Row> 
+                                <Row>                                     
                                 <Col xs="12" sm="6" md="1">
                                         <FloatingLabel
                                             label="ID"

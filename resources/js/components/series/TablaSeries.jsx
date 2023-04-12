@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 
 export default function TablaSubFamilias() {
-    const { series,  flash } = usePage().props;
+    const { series, tiendas, flash } = usePage().props;
     const { delete: destroy } = useForm();
     // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
     const renderTooltipAdd = (props) => (
@@ -31,7 +31,7 @@ export default function TablaSubFamilias() {
     );
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
- const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
     //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
     const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
@@ -73,7 +73,7 @@ export default function TablaSubFamilias() {
                                 <th></th>
                             </tr>
                         </thead>
-                        {series.map((serie) => (
+                        {series.map((serie) => (                           
                             <tbody className="">
                                 <tr key={serie.id}>
                                     <td>{serie.maquina.descripcion}</td>

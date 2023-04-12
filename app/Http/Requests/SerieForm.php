@@ -29,7 +29,8 @@ class SerieForm extends FormRequest
                 'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'required',
                 'disponible' => 'required',
-                'maquina_id' => 'required'
+                'maquina_id' => 'required',
+                'tienda_id' => 'required'
             ],
 
             'PUT' => [
@@ -38,7 +39,8 @@ class SerieForm extends FormRequest
                 'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'nullable',
                 'disponible' => 'nullable',
-                'maquina_id' => 'nullable'
+                'maquina_id' => 'nullable',
+                'tienda_id' => 'nullable'
             ],
             
             'GET' => [
@@ -47,7 +49,8 @@ class SerieForm extends FormRequest
                 'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'nullable',
                 'disponible' => 'nullable',
-                'maquina_id' => 'nullable'
+                'maquina_id' => 'nullable',
+                'tienda_id' => 'nullable'
             ]
         };
     }

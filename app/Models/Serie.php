@@ -15,6 +15,7 @@ class Serie extends Model
         'numero_serie',
         'disponible',
         'maquina_id',
+        'tienda_id'
     ];
 
     protected $tabla = 'series';
