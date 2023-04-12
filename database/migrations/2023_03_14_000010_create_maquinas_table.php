@@ -24,7 +24,6 @@ class CreateMaquinasTable extends Migration
             $table->id();
             $table->string('marca', 100);
             $table->text('descripcion');
-            $table->tinyInteger('inventario');
             $table->string('referencia', 10);            
             $table->string('url_manual')->nullable();
             $table->string('url_ficha')->nullable();
