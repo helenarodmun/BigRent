@@ -27,7 +27,6 @@ class MaquinaForm extends FormRequest
 
                 'marca' => 'required|string|max:75',
                 'descripcion' => 'required|string|max:150',
-                'inventario' => 'required',
                 'referencia' => 'required|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',
@@ -39,7 +38,6 @@ class MaquinaForm extends FormRequest
                 
                 'marca' => 'nullable|string|max:75',
                 'descripcion' => 'nullable|string|max:150',
-                'inventario' => 'nullable',
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',
@@ -51,7 +49,6 @@ class MaquinaForm extends FormRequest
                 
                 'marca' => 'nullable|string|max:75',
                 'descripcion' => 'nullable|string|max:150',
-                'inventario' => 'nullable',
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',

@@ -56,7 +56,6 @@ class MaquinaController extends Controller
         $maquina = Maquina::findOrFail($id);
         $maquina->marca = $validatedData['marca'];
         $maquina->descripcion = $validatedData['descripcion'];
-        $maquina->inventario = $validatedData['inventario'];
         $maquina->referencia = $validatedData['referencia'];
         $maquina->url_manual = $validatedData['url_manual'];
         $maquina->url_ficha = $validatedData['url_ficha'];

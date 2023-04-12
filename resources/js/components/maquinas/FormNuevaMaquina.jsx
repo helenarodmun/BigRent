@@ -20,7 +20,6 @@ export default function FormNuevaMaquina({ children }) {
         marca: "",
         descripcion: "",
         referencia: "",
-        inventario: "",
         url_manual: "",
         url_ficha: "",
         url_imagen:"",
@@ -186,31 +185,6 @@ export default function FormNuevaMaquina({ children }) {
                                             {errors.marca && (
                                                 <div className="alert alert-danger">
                                                     {errors.marca}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="1">
-                                        <FloatingLabel
-                                            label="STOCK"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="inventario"
-                                                type="number"
-                                                name="inventario"
-                                                value={data.inventario}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "inventario",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.inventario && (
-                                                <div className="alert alert-danger">
-                                                    {errors.inventario}
                                                 </div>
                                             )}
                                         </FloatingLabel>

@@ -14,7 +14,7 @@ class Serie extends Model
         'hora_inicio',
         'numero_serie',
         'disponible',
-        'maquina_id'
+        'maquina_id',
     ];
 
     protected $tabla = 'series';

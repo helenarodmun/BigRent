@@ -12,7 +12,6 @@ class Maquina extends Model
     protected $fillable = [
         'marca',
         'descripcion',
-        'inventario',
         'referencia',
         'url_manual',
         'url_ficha',

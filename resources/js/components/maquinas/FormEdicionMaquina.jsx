@@ -9,7 +9,6 @@ export default function FormEdicionMaquina({ children }) {
         id: maquina.id,
         marca: maquina.marca,
         descripcion: maquina.descripcion,
-        inventario: maquina.inventario,
         referencia: maquina.referencia,
         url_manual: maquina.url_manual,
         url_ficha: maquina.url_ficha,
@@ -155,33 +154,7 @@ export default function FormEdicionMaquina({ children }) {
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="1">
-                                        <FloatingLabel
-                                            label="STOCK"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="numero máquinas en stock"
-                                                type="number"
-                                                name="inventario"
-                                                value={data.inventario}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "inventario",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.inventario && (
-                                                <div className="alert alert-danger">
-                                                    {errors.inventario}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                           
+                                    </Col>     
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Manual:</Form.Label>
                                         <Form.Control

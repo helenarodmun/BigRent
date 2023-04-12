@@ -69,7 +69,6 @@ export default function TablaSubFamilias() {
                                 <th>Referencia</th>
                                 <th>Marca</th>
                                 <th>Artículo</th>
-                                <th>Stock</th>
                                 <th>Manual</th>
                                 <th>Ficha</th>
                                 <th></th>
@@ -82,7 +81,6 @@ export default function TablaSubFamilias() {
                                     <td>{maquina.referencia}</td> 
                                     <td>{maquina.marca}</td>
                                     <td>{maquina.descripcion}</td>
-                                    <td>{maquina.inventario}</td>
                                     <td>{maquina.url_manual}</td>
                                     <td>{maquina.ur_ficha}</td>
                                     <td>
