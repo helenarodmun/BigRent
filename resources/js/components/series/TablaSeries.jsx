@@ -78,13 +78,17 @@ export default function TablaSubFamilias() {
                                 <tr key={serie.id}>
                                     <td>{serie.maquina.descripcion}</td>
                                     <td>{serie.numero_serie}</td> 
-                                    {series.horometro == 0 ? (
-                                        <td>NO</td>
+                                    {serie.horometro === 0 ? (
+                                        <td><strong>NO</strong></td>
                                     ) : (
-                                        <td>SÍ</td>
+                                        <td><strong>SÍ</strong></td>
                                     )}
                                     <td>{serie.hora_inicio}</td>
-                                    <td>{serie.disponible}</td>
+                                    {serie.disponible === 0 ? (
+                                        <td className="text-danger"><strong>NO</strong></td>
+                                    ) : (
+                                        <td className="text-success"><strong>SÍ</strong></td>
+                                    )}
                                     <td>
                                         {/* OverlayTrigger envuelve el botón y la herramienta de información sobre herramientas y 
                             muestra la herramienta de información cuando el usuario pasa el cursor sobre el botón */}

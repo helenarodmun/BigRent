@@ -57,7 +57,6 @@ class SerieController extends Controller
         $serie->hora_inicio = $validatedData['hora_inicio'];
         $serie->numero_serie = $validatedData['numero_serie'];
         $serie->disponible = $validatedData['disponible'];
-        $serie->maquina_id = $validatedData['maquina_id'];
 
         $serie->save();
 
