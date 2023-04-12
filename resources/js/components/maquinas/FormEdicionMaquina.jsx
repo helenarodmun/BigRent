@@ -218,7 +218,7 @@ export default function FormEdicionMaquina({ children }) {
                                             placeholder=""
                                             value={data.url_ficha}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "url_ficha",
@@ -243,7 +243,7 @@ export default function FormEdicionMaquina({ children }) {
                                             placeholder=""
                                             value={data.url_imagen}
                                             onChange={(
-                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                                e 
                                             ) =>
                                                 setData(
                                                     "url_imagen",
