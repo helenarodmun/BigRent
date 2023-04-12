@@ -14,7 +14,6 @@ export default function FormNuevaMaquina({ children }) {
     const { flash, subfamilias, familias } = usePage().props;    
     console.log(subfamilias)
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada
-  
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({

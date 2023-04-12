@@ -100,9 +100,13 @@ Route::delete('/eliminarMaquina/{id}',[MaquinaController::class,'destroy']);
 ////////////////////////// RUTAS SERIES //////////////////////////////////////
 Route::get('/series', [SerieController::class, 'index']);
 Route::get('/nuevaSerie', function () {
+    $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
+    $familias = Familia::orderBy('id', 'asc')->get();
     $maquinas = Maquina::orderBy('id', 'asc')->get();
     return Inertia::render('Series/Nueva', [
-        'maquinas' => $maquinas
+        'maquinas' => $maquinas,
+        'subfamilias' => $subfamilias,
+        'familias' => $familias
     ]);
 });
 Route::post('/nuevaSerie',[SerieController::class,'create']);

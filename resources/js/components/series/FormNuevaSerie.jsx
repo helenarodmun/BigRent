@@ -1,5 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
-import React from "react";
+import React, { useState } from "react";
 import {
     Row,
     Col,
@@ -11,7 +11,11 @@ import {
 } from "react-bootstrap";
 
 export default function FormNuevaMaquina({ children }) {
-    const { flash, maquinas } = usePage().props;
+    const { flash, maquinas, familias, subfamilias } = usePage().props;
+    const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada  
+    const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
+    const [selectedSubfamiliaId, setSelectedSubfamiliaId] = useState(null); // nuevo estado para la subfamilia seleccionada  
+    const maquinasFiltradas = maquinas.filter(maquinas => maquinas.subfamilia_id === selectedSubfamiliaId); // maquinas filtradas por la subfamilia seleccionada
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         horometro: "",
@@ -66,6 +70,73 @@ export default function FormNuevaMaquina({ children }) {
                         <Card.Body>
                             <Form>
                                 <Row>
+                                <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel
+                                            label="FAMILIA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                                size="sm"
+                                                aria-label="familia"
+                                                as="select"
+                                                name="familia_id"
+                                                value={selectedFamiliaId} // actualizado con el nuevo estado
+                                                onChange={(e) => {
+                                                    setData("familia_id", e.target.value);
+                                                    setSelectedFamiliaId(parseInt(e.target.value)); // actualiza el nuevo estado
+                                                  }}
+                                                >
+                                                <option>
+                                                    Seleccione la familia...
+                                                </option>
+                                                {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
+                                              
+                                                    <option value={familia.id}>
+                                                        {familia.nombre}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                            {errors.familia_id && (
+                                                <div className="alert alert-danger">
+                                                    {errors.familia_id}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel
+                                            label="SUBFAMILIA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                                size="sm"
+                                                aria-label="subfamilia"
+                                                as="select"
+                                                name="subfamilia_id"
+                                                value={data.subfamilia_id}
+                                                onChange={(e) => {
+                                                    setData("subfamilia_id", e.target.value);
+                                                    setSelectedSubfamiliaId(parseInt(e.target.value)); // actualiza el nuevo estado
+                                                  }}
+                                                >
+                                                <option>
+                                                    Seleccione la subfamilia...
+                                                </option>
+                                                {subfamiliasFiltradas // muestra solo las subfamilias filtradas
+                                                .sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
+                                              
+                                                    <option value={subfamilia.id}>
+                                                        {subfamilia.descripcion}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                            {errors.subfamilia_id && (
+                                                <div className="alert alert-danger">
+                                                    {errors.subfamilia_id}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel
                                             label="MÁQUINA"
@@ -87,7 +158,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 <option>
                                                     Seleccione la máquina...
                                                 </option>
-                                                {maquinas.sort((a,b)=> a.descripcion.localeCompare(b.descripcion)).map((maquina) => (
+                                                {maquinasFiltradas.sort((a,b)=> a.descripcion.localeCompare(b.descripcion)).map((maquina) => (
                                               
                                                     <option value={maquina.id}>
                                                         {maquina.descripcion}
