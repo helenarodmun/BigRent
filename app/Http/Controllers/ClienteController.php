@@ -114,7 +114,7 @@ class ClienteController extends Controller
         ]);
     }
 
-    public function buscar(Request $request)
+    public function search(Request $request)
     {
         $query = $request->get('q');
         $clientes = Cliente::where('nombre_fiscal', 'like', '%'.$query.'%')
