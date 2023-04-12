@@ -208,6 +208,9 @@ export default function CardCliente({ children }) {
                             </Button>
                         </Card.Footer>
                     </Card>
+                    <div class="d-grid gap-2">  
+            <Button variant="btn btn-outline-warning btn-lg m-5" method='get' href={"/nuevoContrato/" + clientes.id}><strong>Contratar alquiler</strong></Button>
+            </div>
                 </Col>
             </Row>
         </div>

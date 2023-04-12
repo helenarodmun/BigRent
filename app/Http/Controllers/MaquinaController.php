@@ -60,6 +60,7 @@ class MaquinaController extends Controller
         $maquina->referencia = $validatedData['referencia'];
         $maquina->url_manual = $validatedData['url_manual'];
         $maquina->url_ficha = $validatedData['url_ficha'];
+        $maquina->url_imagen = $validatedData['url_imagen'];
 
         $maquina->save();
 

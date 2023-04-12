@@ -113,3 +113,8 @@ Route::post('/nuevaSerie',[SerieController::class,'create']);
 Route::get('/editarSerie/{id}',[SerieController::class,'verEdicionSerie']);
 Route::put('/editarSerie/{id}',[SerieController::class,'update']);
 Route::delete('/eliminarSerie/{id}',[SerieController::class,'destroy']);
+
+//////////////////////// RUTAS CONTRATOS /////////////////////////////////////
+Route::get('/nuevoContrato/{id}', function () {
+    return Inertia::render('Contratos/NuevoContrato');
+});

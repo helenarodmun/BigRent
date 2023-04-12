@@ -45,7 +45,7 @@ const TablaClientes = () => {
                                     <td>{cliente.administrador}</td>
                                     <td>
                                         <Button className="btn btn-success m-1 shadow" size="sm" href={"/verCliente/" + cliente.id} >
-                                            Ver Ficha
+                                            Seleccionar
                                         </Button>
                                     </td>
                                 </tr>

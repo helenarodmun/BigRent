@@ -31,6 +31,7 @@ class MaquinaForm extends FormRequest
                 'referencia' => 'required|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',
+                'url_imagen' => 'nullable|string',
                 'subfamilia_id' => 'required'
             ],
 
@@ -42,6 +43,7 @@ class MaquinaForm extends FormRequest
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',
+                'url_imagen' => 'nullable|string',
                 'subfamilia_id' => 'nullable'
             ],
             
@@ -53,6 +55,7 @@ class MaquinaForm extends FormRequest
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|string',
                 'url_ficha' => 'nullable|string',
+                'url_imagen' => 'nullable|string',
                 'subfamilia_id' => 'nullable'
             ]
         };

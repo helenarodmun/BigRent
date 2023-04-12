@@ -23,6 +23,7 @@ export default function FormNuevaMaquina({ children }) {
         inventario: "",
         url_manual: "",
         url_ficha: "",
+        url_imagen:"",
         subfamilia_id: ""
     });
     // Función que se ejecuta cuando se envía el formulario
@@ -287,6 +288,31 @@ export default function FormNuevaMaquina({ children }) {
                                         {errors.url_ficha && (
                                             <div className="alert alert-danger">
                                                 {errors.url_ficha}
+                                            </div>
+                                        )}
+                                    </Col>
+                                    <Col xs="12" sm="6" md="4">
+                                        <Form.Label>Imagen:</Form.Label>
+                                        <Form.Control
+                                         className="mb-2"
+                                        size="sm"
+                                            aria-label="imagen"
+                                            type="file"
+                                            name="url_imagen"
+                                            placeholder=""
+                                            value={data.url_imagen}
+                                            onChange={(
+                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                            ) =>
+                                                setData(
+                                                    "url_imagen",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.url_ficha && (
+                                            <div className="alert alert-danger">
+                                                {errors.url_imagen}
                                             </div>
                                         )}
                                     </Col>

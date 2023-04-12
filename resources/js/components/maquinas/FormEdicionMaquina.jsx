@@ -13,6 +13,7 @@ export default function FormEdicionMaquina({ children }) {
         referencia: maquina.referencia,
         url_manual: maquina.url_manual,
         url_ficha: maquina.url_ficha,
+        url_imagen: maquina.url_imagen,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -228,6 +229,31 @@ export default function FormEdicionMaquina({ children }) {
                                         {errors.url_ficha && (
                                             <div className="alert alert-danger">
                                                 {errors.url_ficha}
+                                            </div>
+                                        )}
+                                    </Col>
+                                    <Col xs="12" sm="6" md="4">
+                                        <Form.Label>Imagen:</Form.Label>
+                                        <Form.Control
+                                         className="mb-2"
+                                        size="sm"
+                                            aria-label="imagen de la máquina"
+                                            type="file"
+                                            name="url_imagen"
+                                            placeholder=""
+                                            value={data.url_imagen}
+                                            onChange={(
+                                                e // si cambia el valor se seteara el valor nuevo en el constructor
+                                            ) =>
+                                                setData(
+                                                    "url_imagen",
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                        {errors.url_imagen && (
+                                            <div className="alert alert-danger">
+                                                {errors.url_imagen}
                                             </div>
                                         )}
                                     </Col>

@@ -121,7 +121,7 @@ class ClienteController extends Controller
                             ->orWhere('nif', 'like', '%'.$query.'%')
                             ->get();
 
-        return Inertia::render('Clientes/Busqueda', [
+        return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,
             'resultado' => $query
         ]);
