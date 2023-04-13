@@ -1,36 +1,14 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {
-    Button,
-    Col,
-    Modal,
-    OverlayTrigger,
-    Table,
-    Tooltip,
-} from "react-bootstrap";
-
+import { Button, Col, Modal, Table } from "react-bootstrap";
+import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionDirecciones() {
     const { direcciones, clientes, flash } = usePage().props;
     const { delete: destroy } = useForm();
-    // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
-    const renderTooltipAdd = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Añadir nueva direción
-        </Tooltip>
-    );
-    const renderTooltipEdit = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Modificar dirección
-        </Tooltip>
-    );
-    const renderTooltipDelete = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Borrar dirección
-        </Tooltip>
-    );
+
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
- const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
     //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
     const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
@@ -38,26 +16,24 @@ export default function TablaEdicionDirecciones() {
     };
     // Esta función es llamada cuando se confirma la eliminación. Hace una petición al servidor para eliminar el registro y cierra el Modal de confirmación.
     const handleDelete = () => {
-         if (idToDelete !== null) {
-        destroy(
-            `/eliminarDireccion/${idToDelete}`,
-            {
+        if (idToDelete !== null) {
+            destroy(`/eliminarDireccion/${idToDelete}`, {
                 onSuccess: () => {
                     console.log("registro eliminado");
                 },
-            },
-        );
-        setIdToDelete(null); // Resetea el valor de idToDelete después de eliminar el registro
+            });
+            setIdToDelete(null); // Resetea el valor de idToDelete después de eliminar el registro
             setShowConfirmDeleteModal(false);
         }
     };
     return (
-        <>       
+        <>
             <Col className="shadow">
                 {direcciones.length === 0 ? (
                     <div className="d-flex justify-content-center align-items-center">
-                        <p className="me-4">No existen direcciones asociadas a este cliente </p>
-                      
+                        <p className="me-4">
+                            No existen direcciones asociadas a este cliente{" "}
+                        </p>
                     </div>
                 ) : (
                     <Table
@@ -93,12 +69,9 @@ export default function TablaEdicionDirecciones() {
                                         <td>Sí</td>
                                     )}
                                     <td>
-                                        {/* OverlayTrigger envuelve el botón y la herramienta de información sobre herramientas y 
-                            muestra la herramienta de información cuando el usuario pasa el cursor sobre el botón */}
-                                        <OverlayTrigger
-                                            placement="bottom" // coloca la herramienta de información sobre herramientas debajo del botón
-                                            delay={{ show: 250, hide: 400 }} // establece un retraso antes de que se muestre la herramienta de información sobre herramientas
-                                            overlay={renderTooltipEdit} // especifica qué función se usa para renderizar la herramienta de información sobre herramientas
+                                        <TipInfo
+                                            content="Modificar dirección"
+                                            direction="left"
                                         >
                                             <Link
                                                 method="get"
@@ -109,18 +82,21 @@ export default function TablaEdicionDirecciones() {
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"
                                             />
-                                        </OverlayTrigger>
-                                        <OverlayTrigger
-                                            placement="bottom"
-                                            delay={{ show: 250, hide: 400 }}
-                                            overlay={renderTooltipDelete}
+                                        </TipInfo>
+                                        <TipInfo
+                                            content="Borrar dirección"
+                                            direction="left"
                                         >
                                             <button
-                                                onClick={() => handleDeleteClick(direcciones.id)}
+                                                onClick={() =>
+                                                    handleDeleteClick(
+                                                        direcciones.id
+                                                    )
+                                                }
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
-                                        </OverlayTrigger>
+                                        </TipInfo>
                                         <Modal
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
@@ -169,18 +145,14 @@ export default function TablaEdicionDirecciones() {
                     </Table>
                 )}
             </Col>
-            <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltipAdd}
-            >
+            <TipInfo content="Añadir nueva dirección" direction="right">
                 <Link
                     method="get"
                     href={"/nuevaDireccion/" + clientes.id}
                     as="button"
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
-            </OverlayTrigger>
+            </TipInfo>
         </>
     );
 }

@@ -9,26 +9,11 @@ import {
     Table,
     Tooltip,
 } from "react-bootstrap";
+import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
     const { subfamilias,  flash } = usePage().props;
     const { delete: destroy } = useForm();
-    // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
-    const renderTooltipAdd = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Añadir nueva subfamilia
-        </Tooltip>
-    );
-    const renderTooltipEdit = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Modificar subfamilia
-        </Tooltip>
-    );
-    const renderTooltipDelete = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Borrar subfamilia
-        </Tooltip>
-    );
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
  const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -84,13 +69,7 @@ export default function TablaSubFamilias() {
                                     <td>{subfamilia.precio_dia}</td>
                                     <td>{subfamilia.fianza}</td>
                                     <td>
-                                        {/* OverlayTrigger envuelve el botón y la herramienta de información sobre herramientas y 
-                            muestra la herramienta de información cuando el usuario pasa el cursor sobre el botón */}
-                                        <OverlayTrigger
-                                            placement="bottom" // coloca la herramienta de información sobre herramientas debajo del botón
-                                            delay={{ show: 250, hide: 400 }} // establece un retraso antes de que se muestre la herramienta de información sobre herramientas
-                                            overlay={renderTooltipEdit} // especifica qué función se usa para renderizar la herramienta de información sobre herramientas
-                                        >
+                                       <TipInfo content='Modificar subfamilia' direction='left'>
                                             <Link
                                                 method="get"
                                                 href={
@@ -99,18 +78,14 @@ export default function TablaSubFamilias() {
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"
                                             />
-                                        </OverlayTrigger>
-                                        <OverlayTrigger
-                                            placement="bottom"
-                                            delay={{ show: 250, hide: 400 }}
-                                            overlay={renderTooltipDelete}
-                                        >
+                                        </TipInfo>
+                                        <TipInfo content='Borrar subfamilia' direction='left'>
                                             <button
                                                 onClick={() => handleDeleteClick(subfamilia.id)}
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
-                                        </OverlayTrigger>
+                                        </TipInfo>
                                         <Modal
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
@@ -158,18 +133,14 @@ export default function TablaSubFamilias() {
                         ))}
                     </Table>
             </Col>
-            <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltipAdd}
-            >
+            <TipInfo content='Añadir nueva subfamilia' direction='right'>
                 <Link
                     method="get"
                     href="/nuevaSubfamilia"
                     as="button"
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
-            </OverlayTrigger>
+            </TipInfo>
         </Container>
     );
 }

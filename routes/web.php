@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutorizadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\MaquinaController;
@@ -10,10 +11,8 @@ use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
 use App\Models\Maquina;
-use App\Models\Serie;
 use App\Models\Subfamilia;
 use App\Models\Tienda;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -118,6 +117,4 @@ Route::put('/editarSerie/{id}',[SerieController::class,'update']);
 Route::delete('/eliminarSerie/{id}',[SerieController::class,'destroy']);
 
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
-Route::get('/nuevoContrato/{id}', function () {
-    return Inertia::render('Contratos/NuevoContrato');
-});
+Route::get('/nuevoContrato/{id}', [ContratoController::class, 'create']);

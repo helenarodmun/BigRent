@@ -1,35 +1,12 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {
-    Button,
-    Col,
-    OverlayTrigger,
-    Table,
-    Tooltip,
-} from "react-bootstrap";
+import { Button, Col, Table } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-
+import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionTelefonos() {
     const { telefonos, clientes } = usePage().props;
-
     const { delete: destroy } = useForm();
-    console.log(clientes);
-    // retorna un componente "Tooltip" de Bootstrap que muestra el mensaje  cuando el usuario coloca el cursor sobre un botón
-    const renderTooltipAdd = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Añadir nuevo contacto
-        </Tooltip>
-    );
-    const renderTooltipEdit = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Modificar contacto
-        </Tooltip>
-    );
-    const renderTooltipDelete = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-            Borrar contacto
-        </Tooltip>
-    );
+
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
     //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
@@ -71,22 +48,21 @@ export default function TablaEdicionTelefonos() {
                     {telefonos.map((telefonos) => (
                         <tbody>
                             <tr key={telefonos.id}>
-                                {telefonos.via_comunicacion == 'T' ? (
+                                {telefonos.via_comunicacion == "T" ? (
                                     <td>Teléfono</td>
-                                ):(
+                                ) : (
                                     <td>Email</td>
                                 )}
                                 <td>{telefonos.contacto}</td>
-                                {telefonos.tipo == 'T' ? (
+                                {telefonos.tipo == "T" ? (
                                     <td>Titular</td>
-                                ):(
+                                ) : (
                                     <td>Autorizado</td>
                                 )}
                                 <td>
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 250, hide: 400 }}
-                                        overlay={renderTooltipEdit}
+                                    <TipInfo
+                                        content="Modificar contacto"
+                                        direction="left"
                                     >
                                         <Link
                                             href={
@@ -96,25 +72,24 @@ export default function TablaEdicionTelefonos() {
                                             as="button"
                                             className="h5 border-0 bi bi-pencil-square text-primary m-1"
                                         />
-                                    </OverlayTrigger>
-                                    <OverlayTrigger
-                                        placement="bottom"
-                                        delay={{ show: 250, hide: 400 }}
-                                        overlay={renderTooltipDelete}
+                                    </TipInfo>
+                                    <TipInfo
+                                        content="Borrar contacto"
+                                        direction="left"
                                     >
                                         <button
-                                           onClick={() => handleDeleteClick(telefonos.id)}
+                                            onClick={() =>
+                                                handleDeleteClick(telefonos.id)
+                                            }
                                             as="button"
                                             className="h5 border-0 bi bi-trash3 text-danger m-1"
                                         />
-                                    </OverlayTrigger>
+                                    </TipInfo>
                                     <Modal
                                         show={showConfirmDeleteModal}
                                         onHide={() => {
                                             setIdToDelete(null); // Resetea el valor de idToDelete si se cierra el Modal
-                                            setShowConfirmDeleteModal(
-                                                false
-                                            );
+                                            setShowConfirmDeleteModal(false);
                                         }}
                                     >
                                         <Modal.Header closeButton>
@@ -154,18 +129,14 @@ export default function TablaEdicionTelefonos() {
                     ))}
                 </Table>
             </Col>
-            <OverlayTrigger
-                placement="bottom"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltipAdd}
-            >
+            <TipInfo content="Añadir nuevo contacto" direction="right">
                 <Link
                     method="get"
                     href={"/nuevoTelefono/" + clientes.id}
                     as="button"
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
-            </OverlayTrigger>
+            </TipInfo>
         </div>
     );
 }
