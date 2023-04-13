@@ -4,15 +4,15 @@ import "../../../css/tooltip.css";
 const TipInfo = (props) => {
   let timeout;
   const [active, setActive] = useState(false);
-
+// Función para mostrar el tooltip
   const showTip = () => {
-    timeout = setTimeout(() => {
+    timeout = setTimeout(() => {// Definir un timeout para mostrar el tooltip
       setActive(true);
-    }, props.delay || 400);
+    }, props.delay || 400);// El timeout se define con el valor proporcionado en 'props.delay', o en su defecto, con un valor de 400
   };
-
+// Función para ocultar el tooltip
   const hideTip = () => {
-    clearInterval(timeout);
+    clearInterval(timeout);// Limpiar el timeout
     setActive(false);
   };
 
@@ -23,12 +23,10 @@ const TipInfo = (props) => {
       onMouseEnter={showTip}
       onMouseLeave={hideTip}
     >
-      {/* Wrapping */}
-      {props.children}
-      {active && (
-        <div className={`Tooltip-Tip ${props.direction || "top"}`}>
-          {/* Content */}
-          {props.content}
+        {props.children} {/* Renderizar el contenido que se va a envolver con el tooltip */}
+      {active && ( // Si el estado 'active' es verdadero, mostrar el tooltip
+        <div className={`Tooltip-Tip ${props.direction || "top"}`}> {/* Clase CSS para el tooltip y dirección en la que se va a mostrar */}
+          {props.content} {/* Renderizar el contenido del tooltip */}
         </div>
       )}
     </div>

@@ -2,11 +2,12 @@ import { Link } from "@inertiajs/react";
 import { Col, Table } from "react-bootstrap";
 import TipInfo from "../partials/TipInfo";
 export default function DireccionContrato(cliente){
-   const direcciones = cliente.setDireccion;
-    console.log(direcciones)
+   const cliente_actual = cliente.setDireccion;
+    console.log(cliente)
     return(
+        <>
         <Col className="shadow">
-        {direcciones.direcciones.length === 0 ? (
+        {cliente_actual.direcciones.length === 0 ? (
             <div className="d-flex justify-content-center align-items-center">
                 <p className="me-4">No existen direcciones asociadas a este cliente </p>
               
@@ -31,7 +32,7 @@ export default function DireccionContrato(cliente){
                         <th></th>
                     </tr>
                 </thead>
-                {direcciones.direcciones.map((direccion) => (
+                {cliente_actual.direcciones.map((direccion) => (
                     <tbody className="">
                         <tr key={direccion.id}>
                             <td>{direccion.direccion}</td>
@@ -45,7 +46,7 @@ export default function DireccionContrato(cliente){
                                 <td>Sí</td>
                             )}
                             <td>
-                               <TipInfo content='Seleccionar dirección' direction='top' >
+                               <TipInfo content='Seleccionar dirección' direction='left' >
                                     <Link
                                         method="get"
                                         href=''
@@ -60,5 +61,6 @@ export default function DireccionContrato(cliente){
             </Table>
         )}
     </Col>
+ </>
     )
 }

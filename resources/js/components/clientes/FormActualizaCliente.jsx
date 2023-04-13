@@ -1,26 +1,12 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import {
-    Row,
-    Col,
-    Form,
-    Button,
-    Card,
-    FloatingLabel,
-    Modal,
-} from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, } from "react-bootstrap";
+import ModalEliminacion from "../partials/ModalEliminacion";
 
 export default function FormActualizaCliente() {
     const { clientes, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
-    const {
-        data,
-        setData,
-        put,
-        delete: destroy,
-        processing,
-        errors,
-    } = useForm({
+    const { data, setData, put, delete: destroy, processing, errors,} = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
@@ -45,56 +31,46 @@ export default function FormActualizaCliente() {
             data
         );
     }
+    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-    const handleDeleteClick = () => {
+    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
+    const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
+        setIdToDelete(id); // Se establece la id del registro a eliminar
     };
-    // Función para manejar la eliminación del cliente
-    function handleDelete(id) {
-        // Llamar a la función delete() para enviar una solicitud DELETE al servidor y eliminar el cliente
-        destroy(
-            `/eliminarCliente/${id}`,
-            {
-                onSuccess: () => {
-                    console.log(data);
-                },
-            },
-            data
-        );
-        setShowConfirmDeleteModal(false);
-    }
     return (
         <div className="m-3">
-             <div align="center">
-            <Col sm={10}>
-                {flash.edicion && (
-                    <div class="alert alert-success" role={"alert"}>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="alert"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {flash.edicion}
-                    </div>
-                )}
-                {flash.errorEdicion && (
-                    <div class="alert alert-danger" role={"alert"}>
-                        <button
-                            type="button"
-                            class="close"
-                            data-dismiss="alert"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        {flash.errorEdicion}
-                    </div>
-                )}
-            </Col>
-        </div>
+            <div align="center">
+                <Col sm={10}>
+                    {flash.edicion && (
+                        <div class="alert alert-success" role={"alert"}>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {flash.edicion}
+                        </div>
+                    )}
+                    {flash.errorEdicion && (
+                        <div class="alert alert-danger" role={"alert"}>
+                            <button
+                                type="button"
+                                class="close"
+                                data-dismiss="alert"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            {flash.errorEdicion}
+                        </div>
+                    )}
+                </Col>
+            </div>
             <Col>
                 <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">
@@ -377,42 +353,28 @@ export default function FormActualizaCliente() {
                             type="submit"
                             variant="danger"
                             aria-label="Eliminar los datos del cliente"
-                            onClick={handleDeleteClick}
+                            onClick={() => handleDeleteClick(clientes.id)}
                         >
                             Eliminar
                         </Button>
-                        <Modal
+                        <ModalEliminacion
                             show={showConfirmDeleteModal}
-                            onHide={() => setShowConfirmDeleteModal(false)}
-                        >
-                            <Modal.Header closeButton>
-                                <Modal.Title>¡ADVERTENCIA!</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                Se va a proceder a eliminar los datos de forma
-                                definitiva.
-                                <br />
-                                ¿Está seguro que desea continuar?
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button
-                                    className="btn btn-secondary"
-                                    onClick={() =>
-                                        setShowConfirmDeleteModal(false)
-                                    }
-                                >
-                                    Cancelar
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={() => {
-                                        handleDelete(clientes.id);
-                                    }}
-                                >
-                                    Eliminar
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
+                            onHide={() => {
+                                setIdToDelete(null);
+                                setShowConfirmDeleteModal(false);
+                            }}
+                            onConfirm={(urlEliminar, idRegistro) => {
+                                destroy(`${urlEliminar}/${idRegistro}`, {
+                                    onSuccess: () => {
+                                        console.log("registro eliminado");
+                                    },
+                                });
+                            }}
+                            title="¡ADVERTENCIA!"
+                            message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                            urlEliminar="/eliminarCliente"
+                            idRegistro={idToDelete}
+                        />
                         <Button
                             className="m-3 shadow"
                             variant="secondary"

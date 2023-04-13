@@ -1,11 +1,11 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, Col, Modal, Table } from "react-bootstrap";
-import TipInfo from "../partials/TipInfo";
+import ModalEliminacion from "../partials/ModalEliminacion";
+import Tooltip from "../partials/TipInfo";
 export default function TablaEdicionDirecciones() {
     const { direcciones, clientes, flash } = usePage().props;
     const { delete: destroy } = useForm();
-
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -13,18 +13,6 @@ export default function TablaEdicionDirecciones() {
     const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
         setIdToDelete(id); // Se establece la id del registro a eliminar
-    };
-    // Esta función es llamada cuando se confirma la eliminación. Hace una petición al servidor para eliminar el registro y cierra el Modal de confirmación.
-    const handleDelete = () => {
-        if (idToDelete !== null) {
-            destroy(`/eliminarDireccion/${idToDelete}`, {
-                onSuccess: () => {
-                    console.log("registro eliminado");
-                },
-            });
-            setIdToDelete(null); // Resetea el valor de idToDelete después de eliminar el registro
-            setShowConfirmDeleteModal(false);
-        }
     };
     return (
         <>
@@ -69,7 +57,7 @@ export default function TablaEdicionDirecciones() {
                                         <td>Sí</td>
                                     )}
                                     <td>
-                                        <TipInfo
+                                        <Tooltip
                                             content="Modificar dirección"
                                             direction="left"
                                         >
@@ -82,8 +70,8 @@ export default function TablaEdicionDirecciones() {
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"
                                             />
-                                        </TipInfo>
-                                        <TipInfo
+                                        </Tooltip>
+                                        <Tooltip
                                             content="Borrar dirección"
                                             direction="left"
                                         >
@@ -96,48 +84,28 @@ export default function TablaEdicionDirecciones() {
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
-                                        </TipInfo>
-                                        <Modal
+                                        </Tooltip>
+                                        <ModalEliminacion
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
-                                                setIdToDelete(null); // Resetea el valor de idToDelete si se cierra el Modal
-                                                setShowConfirmDeleteModal(
-                                                    false
+                                                setIdToDelete(null);
+                                                setShowConfirmDeleteModal(false);
+                                            }}
+                                            onConfirm={(urlEliminar,idRegistro) => {
+                                                destroy(
+                                                    `${urlEliminar}/${idRegistro}`,
+                                                    {
+                                                        onSuccess: () => {
+                                                            console.log( "registro eliminado");
+                                                        },
+                                                    }
                                                 );
                                             }}
-                                        >
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>
-                                                    ¡ADVERTENCIA!
-                                                </Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                Se va a proceder a eliminar los
-                                                datos de forma definitiva.
-                                                <br />
-                                                ¿Está seguro que desea
-                                                continuar?
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button
-                                                    className="btn btn-secondary"
-                                                    onClick={() => {
-                                                        setIdToDelete(null); // Resetea el valor de idToDelete si se cancela la eliminación
-                                                        setShowConfirmDeleteModal(
-                                                            false
-                                                        );
-                                                    }}
-                                                >
-                                                    Cancelar
-                                                </Button>
-                                                <Button
-                                                    variant="danger"
-                                                    onClick={handleDelete}
-                                                >
-                                                    Eliminar
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
+                                            title="¡ADVERTENCIA!"
+                                            message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                            urlEliminar="/eliminarDireccion"
+                                            idRegistro={idToDelete}
+                                        />
                                     </td>
                                 </tr>
                             </tbody>
@@ -145,14 +113,14 @@ export default function TablaEdicionDirecciones() {
                     </Table>
                 )}
             </Col>
-            <TipInfo content="Añadir nueva dirección" direction="right">
+            <Tooltip content="Añadir nueva dirección" direction="right">
                 <Link
                     method="get"
                     href={"/nuevaDireccion/" + clientes.id}
                     as="button"
                     className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
                 />
-            </TipInfo>
+            </Tooltip>
         </>
     );
 }

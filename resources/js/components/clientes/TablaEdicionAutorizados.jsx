@@ -1,6 +1,7 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Button, Col, Modal, Table } from "react-bootstrap";
+import {  Col, Table } from "react-bootstrap";
+import ModalEliminacion from "../partials/ModalEliminacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionAutorizados() {
     const { autorizados, clientes, flash } = usePage().props;
@@ -12,18 +13,6 @@ export default function TablaEdicionAutorizados() {
     const handleDeleteClick = (id) => {
         setShowConfirmDeleteModal(true);
         setIdToDelete(id); // Se establece la id del registro a eliminar
-    };
-    // Esta función es llamada cuando se confirma la eliminación. Hace una petición al servidor para eliminar el registro y cierra el Modal de confirmación.
-    const handleDelete = () => {
-        if (idToDelete !== null) {
-            destroy(`/eliminarAutorizado/${idToDelete}`, {
-                onSuccess: () => {
-                    console.log("registro eliminado");
-                },
-            });
-            setIdToDelete(null); // Resetea el valor de idToDelete después de eliminar el registro
-            setShowConfirmDeleteModal(false);
-        }
     };
     return (
         <>
@@ -91,48 +80,28 @@ export default function TablaEdicionAutorizados() {
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
-                                        </TipInfo>
-                                        <Modal
+                                        </TipInfo>                                      
+                                          <ModalEliminacion
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
-                                                setIdToDelete(null); // Resetea el valor de idToDelete si se cierra el Modal
-                                                setShowConfirmDeleteModal(
-                                                    false
+                                                setIdToDelete(null);
+                                                setShowConfirmDeleteModal(false);
+                                            }}
+                                            onConfirm={(urlEliminar,idRegistro) => {
+                                                destroy(
+                                                    `${urlEliminar}/${idRegistro}`,
+                                                    {
+                                                        onSuccess: () => {
+                                                            console.log( "registro eliminado");
+                                                        },
+                                                    }
                                                 );
                                             }}
-                                        >
-                                            <Modal.Header closeButton>
-                                                <Modal.Title>
-                                                    ¡ADVERTENCIA!
-                                                </Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                Se va a proceder a eliminar los
-                                                datos de forma definitiva.
-                                                <br />
-                                                ¿Está seguro que desea
-                                                continuar?
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button
-                                                    className="btn btn-secondary"
-                                                    onClick={() => {
-                                                        setIdToDelete(null); // Resetea el valor de idToDelete si se cancela la eliminación
-                                                        setShowConfirmDeleteModal(
-                                                            false
-                                                        );
-                                                    }}
-                                                >
-                                                    Cancelar
-                                                </Button>
-                                                <Button
-                                                    variant="danger"
-                                                    onClick={handleDelete}
-                                                >
-                                                    Eliminar
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
+                                            title="¡ADVERTENCIA!"
+                                            message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                            urlEliminar="/eliminarAutorizado"
+                                            idRegistro={idToDelete}
+                                        />
                                     </td>
                                 </tr>
                             </tbody>
