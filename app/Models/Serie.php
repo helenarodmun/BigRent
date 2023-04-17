@@ -18,7 +18,7 @@ class Serie extends Model
         'tienda_id'
     ];
 
-    protected $tabla = 'series';
+    protected $table = 'series';
 
     //Relacion N:1 con tabla maquinas
     public function maquina()

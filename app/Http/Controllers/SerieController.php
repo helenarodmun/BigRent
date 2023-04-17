@@ -64,9 +64,9 @@ class SerieController extends Controller
         $serie->save();
 
         $series = Serie::with('maquina')
-        ->orderBy('maquina_id', 'asc')
-        ->orderBY('numero_serie', 'asc')
-        ->get();
+            ->orderBy('maquina_id', 'asc')
+            ->orderBY('numero_serie', 'asc')
+            ->get();
         Session::flash('creacion', 'Se ha actualizado la serie de forma correcta');
         return Inertia::render('Series/Listado', [
             'series' => $series,
@@ -74,29 +74,33 @@ class SerieController extends Controller
     }
     public function search(Request $request)
     {
-        $query = $request->get('consulta');
-        $series = Serie::where('maquina.descripcion', 'like', '%'.$query.'%')
-                            ->orWhere('numero_serie', 'like', '%'.$query.'%')
-                            ->get();
-
-        return Inertia::render('Consulta/nuevoContrato', [
+        // solo devolverá resultados si la longitud de la consulta es mayor o igual a tres caracteres
+        $query = $request->input('consulta');
+        if (strlen($query) < 3) {
+            return Inertia::render('Series/Listado', [
+                'series' => [],
+                'resultado' => null
+            ]);
+        }
+        $series = Serie::with('maquina')
+            ->whereHas('maquina', function ($queryBuilder) use ($query) {
+                $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
+            })
+            ->orWhere('numero_serie', 'like', '%' . $query . '%')
+            ->get();
+        return Inertia::render('Series/Listado', [
             'series' => $series,
             'resultado' => $query
         ]);
-    }
-    public function seriesPorTienda($tienda_id)
-    {
-        $series = Serie::where('tienda_id', $tienda_id)->get();
-        return $series;
     }
     public function destroy($id)
     {
         $serie = Serie::findOrFail($id);
         $serie->delete();
         $series = Serie::with('maquina')
-        ->orderBy('maquina_id', 'asc')
-        ->orderBY('numero_serie', 'asc')
-        ->get();
+            ->orderBy('maquina_id', 'asc')
+            ->orderBY('numero_serie', 'asc')
+            ->get();
         Session::flash('borrado', 'Se ha eliminado la serie de forma correcta');
         return Inertia::render('Series/Listado', ['series' => $series]);
     }

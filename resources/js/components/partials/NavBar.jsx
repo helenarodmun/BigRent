@@ -6,11 +6,10 @@ import { Link } from "@inertiajs/react";
 function NavBar() {
     // Se obtiene la autenticación del usuario de las props de la página
     const { auth } = usePage().props;
-    console.log(auth);
     return (
         <Navbar bg="light" expand="lg" className="p-3 accesibilidad-texto">
             <Navbar.Brand className="ms-5 h1" href="/clientes">
-                BigRent
+                BigRent {auth.user.tienda.nombre}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarNavDropdown" />
             <Navbar.Collapse id="navbarNavDropdown">

@@ -129,6 +129,8 @@ Route::post('/nuevaSerie',[SerieController::class,'create']);
 Route::get('/editarSerie/{id}',[SerieController::class,'verEdicionSerie']);
 Route::put('/editarSerie/{id}',[SerieController::class,'update']);
 Route::delete('/eliminarSerie/{id}',[SerieController::class,'destroy']);
+Route::get('/series/buscar', [SerieController::class, 'search']);
 
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
-Route::get('/nuevoContrato/{id}', [ContratoController::class, 'create']);
+Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']);
+Route::post('/nuevoContrato/{id}', [ContratoController::class, 'create']);

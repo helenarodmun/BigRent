@@ -7,6 +7,7 @@ export default function DireccionContrato(cliente){
     return(
         <>
         <Col className="shadow">
+            <p className="h4 m-3">Dirección del contrato</p>
         {cliente_actual.direcciones.length === 0 ? (
             <div className="d-flex justify-content-center align-items-center">
                 <p className="me-4">No existen direcciones asociadas a este cliente </p>

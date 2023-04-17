@@ -7,12 +7,12 @@ import {
     Card,
 } from "react-bootstrap";
 import DireccionContrato from "./DireccionContrato";
-import TiendaContrato from "./TiendaContrato";
+import SerieContrato from "./SerieContrato";
 export default function FormNuevoContrato() {
     const { cliente, tiendas, series, flash } = usePage().props;  
-    console.log(tiendas)
+    console.log(series)
     const [direccion, setDireccion] = useState('');
-    const [tienda, setTienda] = useState('');
+    const [serie, setSerie] = useState('');
    
     return (
         <div>
@@ -49,7 +49,7 @@ export default function FormNuevoContrato() {
                         </Card.Header>
                         <Card.Body>      
                             <DireccionContrato setDireccion={cliente} ></DireccionContrato>
-                        <TiendaContrato tiendas={tiendas}></TiendaContrato>
+                            <SerieContrato setSerie={series}></SerieContrato>
                         </Card.Body>
                         <Card.Footer>
                         <Button variant="btn btn-info btn-lg m-5" method='get' href={"/nuevoContrato/" + cliente.id}><strong>Validar contrato</strong></Button>

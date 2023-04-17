@@ -4,13 +4,24 @@ import {
     Col,
     Container,
     Table,
+    Row
 } from "react-bootstrap";
 import ModalEliminacion from "../partials/ModalEliminacion";
 import TipInfo from "../partials/TipInfo";
 
-export default function TablaSubFamilias() {
-    const { series, tiendas, flash } = usePage().props;
+const TablaSeries = () => {
+    const { series, resultado } = usePage().props;
+    console.log(series)
     const { delete: destroy } = useForm();
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
+    const [query, setQuery] = useState(resultado || '');
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+    const handleSearch = (event) => { setQuery(event.target.value); }
+    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+    const resultadosBusqueda = series.filter((serie) =>
+        serie.maquina.descripcion.toLowerCase().includes(query.toLowerCase())
+        || serie.numero_serie.toLowerCase().includes(query.toLowerCase())       
+    );
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -20,7 +31,15 @@ export default function TablaSubFamilias() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <Container>       
+        <Container>   
+             <div class="container mt-5">
+                <form action="/series/buscar" method="get" class="d-flex" role="search">
+                    <input name="consulta" value={query} onChange={handleSearch} class="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>      
+            </div>  
+            <p className="h3 m-3">Listado series</p>
+            <Row>  
             <Col className="shadow">               
                     <Table
                         striped
@@ -40,7 +59,7 @@ export default function TablaSubFamilias() {
                                 <th></th>
                             </tr>
                         </thead>
-                        {series.map((serie) => (                           
+                        {resultadosBusqueda.map((serie) => (                           
                             <tbody className="">
                                 <tr key={serie.id}>
                                     <td>{serie.maquina.descripcion}</td>
@@ -101,6 +120,7 @@ export default function TablaSubFamilias() {
                         ))}
                     </Table>
             </Col>
+            </Row>
             <TipInfo content='Añadir nueva serie' direction='right'>
                 <Link
                     method="get"
@@ -110,5 +130,6 @@ export default function TablaSubFamilias() {
                 />
             </TipInfo>
         </Container>
-    );
+    )
 }
+export default TablaSeries;
