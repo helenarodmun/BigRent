@@ -9,7 +9,10 @@ function NavBar() {
     return (
         <Navbar bg="light" expand="lg" className="p-3 accesibilidad-texto">
             <Navbar.Brand className="ms-5 h1" href="/clientes">
-                BigRent {auth.user.tienda.nombre}
+                {/* El operador ? (operador de encadnamiento opcional). en esta línea de código ese usa para evitar que se produzca un error cuando se intenta acceder a la propiedad tienda de auth.user,
+                y esta propiedad es nula o indefinida. Si auth.user es nulo o indefinido, entonces la expresión completa devolverá undefined en lugar de producir un error.
+                Si auth.user existe y tiene una propiedad tienda que también existe, entonces se accederá a la propiedad nombre de tienda. Si tienda no tiene una propiedad nombre, entonces se devolverá una cadena vacía ''. */}
+                BigRent {auth.user?.tienda?.nombre || ""}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarNavDropdown" />
             <Navbar.Collapse id="navbarNavDropdown">

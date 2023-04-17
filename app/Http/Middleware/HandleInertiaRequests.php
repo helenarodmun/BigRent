@@ -36,8 +36,11 @@ class HandleInertiaRequests extends Middleware
      * @return array
      */
     public function share(Request $request): array
-    {
-        $tienda = Auth::user()->tienda;
+    {        
+        // comprueba si $authUser es null antes de acceder a su propiedad "tienda".
+        // Si $authUser es null, entonces $tienda se establece como null. De esta manera, evito el error de intentar leer una propiedad en null
+        $authUser = $request->user();
+        $tienda = $authUser ? $authUser->tienda : null;
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
