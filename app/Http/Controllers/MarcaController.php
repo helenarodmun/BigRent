@@ -13,7 +13,7 @@ class MarcaController extends Controller
     public function index()
     {
         //Recuperar todos las marcas de la base de datos
-        $marcas = Marca::orderBy('id', 'asc')->get();
+        $marcas = Marca::orderBy('denominacion', 'asc')->get();
 
         return Inertia::render('Marcas/Listado', [
             'marcas' => $marcas,
@@ -45,7 +45,7 @@ class MarcaController extends Controller
     {
         $validatedData = $request->validated();
         $marca = marca::findOrFail($id);
-        $marca->denominacion = strtoupper($validatedData['nombre']);
+        $marca->denominacion = strtoupper($validatedData['denominacion']);
 
         $marca->save();
 

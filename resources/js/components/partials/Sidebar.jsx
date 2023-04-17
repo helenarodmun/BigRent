@@ -38,6 +38,10 @@ const Sidebar = () => {
                     link: "/subfamilias",
                 },
                 {
+                    label: "Marcas",
+                    link: "/marcas",
+                },
+                {
                     label: "Máquinas",
                     link: "/maquinas",
                 },

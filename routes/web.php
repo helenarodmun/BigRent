@@ -6,6 +6,7 @@ use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\MaquinaController;
+use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
@@ -81,6 +82,16 @@ Route::post('/nuevaSubfamilia',[SubfamiliaController::class,'create']);
 Route::get('/editarSubfamilia/{id}',[SubfamiliaController::class,'verEdicionSubfamilia']);
 Route::put('/editarSubfamilia/{id}',[SubfamiliaController::class,'update']);
 Route::delete('/eliminarSubfamilia/{id}',[SubfamiliaController::class,'destroy']);
+
+////////////////////////// RUTAS MARCAS //////////////////////////////////////
+Route::get('/marcas', [MarcaController::class, 'index']);
+Route::get('/nuevaMarca', function () {
+    return Inertia::render('Marcas/Nueva');
+});
+Route::post('/nuevaMarca',[MarcaController::class,'create']);
+Route::get('/editarMarca/{id}',[MarcaController::class,'verEdicionMarca']);
+Route::put('/editarMarca/{id}',[MarcaController::class,'update']);
+Route::delete('/eliminarMarca/{id}',[MarcaController::class,'destroy']);
 
 ////////////////////////// RUTAS MÁQUINAS //////////////////////////////////////
 Route::get('/maquinas', [MaquinaController::class, 'index']);
