@@ -32,9 +32,11 @@ class CreateSeriesTable extends Migration
             $table->foreignId('maquina_id')
                 ->constrained('maquinas')
                 ->onDelete('cascade')
-                ->onUpdate('cascade');
-
-          
+                ->onUpdate('cascade');     
+            $table->foreignId('tienda_id')
+                ->constrained('tiendas')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');      
         });
     }
 

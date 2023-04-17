@@ -15,8 +15,13 @@ class Tienda extends Model
 
     protected $tabla = 'tiendas';
 
-    //Relación 1:N con la tabla tiendas
+    //Relación 1:N con la tabla users
     public function empleados()
+    {
+        return $this->hasMany(User::class);
+    }
+    //Relación 1:N con la tabla series
+    public function series()
     {
         return $this->hasMany(User::class);
     }

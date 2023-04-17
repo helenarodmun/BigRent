@@ -31,5 +31,11 @@ class Serie extends Model
     {
         return $this->hasMany(Contrato::class);
     }
+
+    //Relacion N:1 con tabla maquinas
+    public function tienda()
+    {
+        return $this->belongsTo(Tienda::class);
+    }
     
 }
