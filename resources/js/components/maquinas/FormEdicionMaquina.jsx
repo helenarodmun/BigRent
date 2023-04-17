@@ -3,11 +3,10 @@ import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormEdicionMaquina({ children }) {
-    const { maquina, flash } = usePage().props;
+    const { maquina, subfamilias, marcas, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
         id: maquina.id,
-        marca: maquina.marca,
         descripcion: maquina.descripcion,
         referencia: maquina.referencia,
         url_manual: maquina.url_manual,
@@ -104,33 +103,8 @@ export default function FormEdicionMaquina({ children }) {
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="3">
-                                        <FloatingLabel
-                                            label="MARCA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="marca de la máquina"
-                                                type="text"
-                                                name="marca"
-                                                value={data.marca}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "marca",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.marca && (
-                                                <div className="alert alert-danger">
-                                                    {errors.marca}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="5">
+                                    </Col>                                
+                                    <Col xs="12" sm="6" md="9">
                                         <FloatingLabel
                                             label="ARTÍCULO"
                                             className="mb-2"

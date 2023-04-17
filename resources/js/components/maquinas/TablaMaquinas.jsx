@@ -10,6 +10,7 @@ import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
     const { maquinas,  flash } = usePage().props;
+    console.log(maquinas)
     const { delete: destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -46,7 +47,7 @@ export default function TablaSubFamilias() {
                                 <tr key={maquina.id}>
                                     <td>{maquina.subfamilia.descripcion}</td>
                                     <td>{maquina.referencia}</td> 
-                                    <td>{maquina.marca}</td>
+                                    <td>{maquina.marca.denominacion}</td>
                                     <td>{maquina.descripcion}</td>
                                     <td>{maquina.url_manual}</td>
                                     <td>{maquina.ur_ficha}</td>

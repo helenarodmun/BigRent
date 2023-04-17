@@ -11,8 +11,8 @@ import {
 } from "react-bootstrap";
 
 export default function FormNuevaMaquina({ children }) {
-    const { flash, subfamilias, familias } = usePage().props;    
-    console.log(subfamilias)
+    const { flash, subfamilias, familias, marcas } = usePage().props;    
+    console.log(marcas)
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
     // useForm es un helper diseñado para formularios
@@ -23,7 +23,8 @@ export default function FormNuevaMaquina({ children }) {
         url_manual: "",
         url_ficha: "",
         url_imagen:"",
-        subfamilia_id: ""
+        subfamilia_id: "",
+        marca_id: ""
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -139,6 +140,41 @@ export default function FormNuevaMaquina({ children }) {
                                             )}
                                         </FloatingLabel>
                                     </Col>
+                                    <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel
+                                            label="MARCA"
+                                            className="mb-2"
+                                        >
+                                            <Form.Select
+                                                size="sm"
+                                                aria-label="marca"
+                                                as="select"
+                                                name="marca_id"
+                                                value={data.marca_id}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "marca_id",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            >
+                                                <option>
+                                                    Seleccione la marca...
+                                                </option>
+                                                {marcas.sort((a, b) => a.denominacion.localeCompare(b.denominacion)).map((marca) => (
+                                              
+                                                    <option value={marca.id}>
+                                                        {marca.denominacion}
+                                                    </option>
+                                                ))}
+                                            </Form.Select>
+                                            {errors.marca_id && (
+                                                <div className="alert alert-danger">
+                                                    {errors.marca_id}
+                                                </div>
+                                            )}
+                                        </FloatingLabel>
+                                    </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
                                             label="REFERENCIA"
@@ -160,31 +196,6 @@ export default function FormNuevaMaquina({ children }) {
                                             {errors.referencia && (
                                                 <div className="alert alert-danger">
                                                     {errors.referencia}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="4">
-                                        <FloatingLabel
-                                            label="MARCA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="marca de la máquina"
-                                                type="text"
-                                                name="marca"
-                                                value={data.marca}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "marca",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.marca && (
-                                                <div className="alert alert-danger">
-                                                    {errors.marca}
                                                 </div>
                                             )}
                                         </FloatingLabel>

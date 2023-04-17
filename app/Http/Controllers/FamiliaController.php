@@ -13,7 +13,7 @@ class FamiliaController extends Controller
     public function index()
     {
         //Recuperar todos las familias de la base de datos
-        $familias = Familia::orderBy('id', 'asc')->get();
+        $familias = Familia::orderBy('nombre', 'asc')->get();
 
         return Inertia::render('Familias/Listado', [
             'familias' => $familias,

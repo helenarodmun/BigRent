@@ -12,6 +12,7 @@ use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
 use App\Models\Maquina;
+use App\Models\Marca;
 use App\Models\Subfamilia;
 use App\Models\Tienda;
 use Illuminate\Support\Facades\Auth;
@@ -96,11 +97,13 @@ Route::delete('/eliminarMarca/{id}',[MarcaController::class,'destroy']);
 ////////////////////////// RUTAS MÁQUINAS //////////////////////////////////////
 Route::get('/maquinas', [MaquinaController::class, 'index']);
 Route::get('/nuevaMaquina', function () {
-    $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
-    $familias = Familia::orderBy('id', 'asc')->get();
+    $subfamilias = Subfamilia::orderBy('descripcion', 'asc')->get();
+    $familias = Familia::orderBy('nombre', 'asc')->get();
+    $marcas = Marca::orderBy('denominacion', 'asc')->get();
     return Inertia::render('Maquinaria/Nueva', [
         'subfamilias' => $subfamilias,
-        'familias' => $familias
+        'familias' => $familias,
+        'marcas' => $marcas
     ]);
 });
 Route::post('/nuevaMaquina',[MaquinaController::class,'create']);
