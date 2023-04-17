@@ -10,12 +10,12 @@ class Maquina extends Model
     use HasFactory;
 
     protected $fillable = [
-        'marca',
         'descripcion',
         'referencia',
         'url_manual',
         'url_ficha',
-        'subfamilia_id'
+        'subfamilia_id',
+        'marca_id'
     ];
 
     protected $table = 'maquinas';
@@ -24,6 +24,11 @@ class Maquina extends Model
     public function subfamilia()
     {
         return $this-> belongsTo(SubFamilia::class);
+    }
+    //Relacion N:1 con la tabla marcas
+    public function marca()
+    {
+        return $this-> belongsTo(Marca::class);
     }
 
     //Relación 1:N con la tabla series

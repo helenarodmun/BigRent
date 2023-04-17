@@ -116,7 +116,7 @@ class ClienteController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->get('q');
+        $query = $request->get('consulta');
         $clientes = Cliente::where('nombre_fiscal', 'like', '%'.$query.'%')
                             ->orWhere('nif', 'like', '%'.$query.'%')
                             ->get();

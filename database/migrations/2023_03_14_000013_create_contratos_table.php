@@ -26,9 +26,7 @@ class CreateContratosTable extends Migration
             $table->timestamp('fecha');
             $table->date('fecha_retirada');
             $table->date('fecha_entrega');
-            $table->unsignedTinyInteger('semanas');
-            $table->unsignedSmallInteger('dias');
-            $table->unsignedSmallInteger('precio');
+            $table->unsignedSmallInteger('importe_total');
             $table->text('notas1')->nullable();
             $table->text('notas2')->nullable();
             $table->timestamps();
@@ -46,6 +44,11 @@ class CreateContratosTable extends Migration
 
             $table->foreignId('direccion_id')
                 ->constrained('direcciones')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+            $table->foreignId('autorizado_id')
+                ->constrained('autorizados')
                 ->onDelete('no action')
                 ->onUpdate('no action');
         });

@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->boolean('rol')->default(0);//true rol administrador
+            $table->string('rol')->default(0);//true rol administrador
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreignId('tienda_id')->default(1)
+            ->constrained('tiendas')
+            ->onDelete('no action')
+            ->onUpdate('no action');
         });
     }
 

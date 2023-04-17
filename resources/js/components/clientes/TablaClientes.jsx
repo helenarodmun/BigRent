@@ -20,7 +20,7 @@ const TablaClientes = () => {
         <Container>
             <div class="container mt-5">
                 <form action="/clientes/buscar" method="get" class="d-flex" role="search">
-                    <input name="q" value={query} onChange={handleSearch} class="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
+                    <input name="consulta" value={query} onChange={handleSearch} class="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>      
             </div>

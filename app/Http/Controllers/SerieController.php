@@ -72,7 +72,23 @@ class SerieController extends Controller
             'series' => $series,
         ]);
     }
+    public function search(Request $request)
+    {
+        $query = $request->get('consulta');
+        $series = Serie::where('maquina.descripcion', 'like', '%'.$query.'%')
+                            ->orWhere('numero_serie', 'like', '%'.$query.'%')
+                            ->get();
 
+        return Inertia::render('Consulta/nuevoContrato', [
+            'series' => $series,
+            'resultado' => $query
+        ]);
+    }
+    public function seriesPorTienda($tienda_id)
+    {
+        $series = Serie::where('tienda_id', $tienda_id)->get();
+        return $series;
+    }
     public function destroy($id)
     {
         $serie = Serie::findOrFail($id);

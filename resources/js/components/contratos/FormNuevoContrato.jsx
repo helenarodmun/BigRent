@@ -1,18 +1,18 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import React, {useState} from "react";
 import {
-    Table,
     Row,
     Col,
-    Form,
     Button,
     Card,
-    FloatingLabel,
 } from "react-bootstrap";
 import DireccionContrato from "./DireccionContrato";
+import TiendaContrato from "./TiendaContrato";
 export default function FormNuevoContrato() {
     const { cliente, tiendas, series, flash } = usePage().props;  
+    console.log(tiendas)
     const [direccion, setDireccion] = useState('');
+    const [tienda, setTienda] = useState('');
    
     return (
         <div>
@@ -49,6 +49,7 @@ export default function FormNuevoContrato() {
                         </Card.Header>
                         <Card.Body>      
                             <DireccionContrato setDireccion={cliente} ></DireccionContrato>
+                        <TiendaContrato tiendas={tiendas}></TiendaContrato>
                         </Card.Body>
                         <Card.Footer>
                         <Button variant="btn btn-info btn-lg m-5" method='get' href={"/nuevoContrato/" + cliente.id}><strong>Validar contrato</strong></Button>

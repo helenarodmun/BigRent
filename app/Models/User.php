@@ -39,4 +39,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    //Relacion N:1 con tabla tiendas
+    public function tienda()
+    {
+        return $this->belongsTo(Tienda::class);
+    }
 }

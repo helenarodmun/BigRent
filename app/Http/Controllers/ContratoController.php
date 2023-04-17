@@ -22,7 +22,7 @@ class ContratoController extends Controller
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
         $cliente_actual->load('direcciones.cliente');
-        $tiendas = Tienda::orderBy('nombre', 'asc');
+        $tiendas = Tienda::orderBy('nombre', 'asc')->get();
         $series = Serie::with('maquina')
             ->orderBy('descripcion', 'asc');
         //renderiza la vista, pasando los datos

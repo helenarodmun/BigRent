@@ -17,7 +17,7 @@ class MaquinaController extends Controller
         //Recuperar todos las familias de la base de datos
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
-            ->orderBy('marca', 'asc')
+            ->orderBy('descripcion', 'asc')
             ->get();
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
@@ -30,7 +30,7 @@ class MaquinaController extends Controller
         $maquina = Maquina::create($request->all());
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
-            ->orderBY('marca', 'asc')
+            ->orderBY('descripcion', 'asc')
             ->get();
         Session::flash('edicion', 'Se ha creado la máquina de forma correcta');
 
@@ -54,7 +54,6 @@ class MaquinaController extends Controller
     {
         $validatedData = $request->validated();
         $maquina = Maquina::findOrFail($id);
-        $maquina->marca = $validatedData['marca'];
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
         $maquina->url_manual = $validatedData['url_manual'];
@@ -63,9 +62,13 @@ class MaquinaController extends Controller
 
         $maquina->save();
 
+        $maquinas = Maquina::with('marca')
+        ->orderBy('marca_id', 'asc')
+        ->orderBY('denominacion', 'asc')
+        ->get();
         $maquinas = Maquina::with('subfamilia')
         ->orderBy('subfamilia_id', 'asc')
-        ->orderBY('marca', 'asc')
+        ->orderBY('descripcion', 'asc')
         ->get();
         Session::flash('creacion', 'Se ha actualizado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
@@ -78,9 +81,13 @@ class MaquinaController extends Controller
     {
         $maquina = Maquina::findOrFail($id);
         $maquina->delete();
+        $maquinas = Maquina::with('marca')
+            ->orderBy('marca_id', 'asc')
+            ->orderBY('desnominacion', 'asc')
+            ->get();
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
-            ->orderBY('marca', 'asc')
+            ->orderBY('descripcion', 'asc')
             ->get();
         Session::flash('borrado', 'Se ha eliminado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);

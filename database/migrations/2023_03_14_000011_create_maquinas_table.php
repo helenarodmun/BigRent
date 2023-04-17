@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,9 +23,8 @@ class CreateMaquinasTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('marca', 100);
             $table->text('descripcion');
-            $table->string('referencia', 10);            
+            $table->string('referencia', 10);
             $table->string('url_manual')->nullable();
             $table->string('url_ficha')->nullable();
             $table->string('url_imagen')->nullable();
@@ -33,6 +33,11 @@ class CreateMaquinasTable extends Migration
 
             $table->foreignId('subfamilia_id')
                 ->constrained('subfamilias')
+                ->onDelete('restrict')
+                ->onUpdate('cascade');
+
+            $table->foreignId('marca_id')
+                ->constrained('marcas')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
         });

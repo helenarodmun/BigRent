@@ -34,10 +34,7 @@ class CreateSeriesTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreignId('tienda_id')
-                ->constrained('tiendas')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+          
         });
     }
 
