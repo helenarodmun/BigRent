@@ -5,10 +5,10 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ContratoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\FamiliaController;
+use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\SerieController;
-use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
 use App\Models\Maquina;
@@ -72,7 +72,8 @@ Route::put('/editarFamilia/{id}',[FamiliaController::class,'update']);
 Route::delete('/eliminarFamilia/{id}',[FamiliaController::class,'destroy']);
 
 ////////////////////////// RUTAS SUBFAMILIAS //////////////////////////////////////
-Route::get('/subfamilias', [SubfamiliaController::class, 'index']);
+Route::get('/subfamilias',[SubfamiliaController::class,'index']);
+
 Route::get('/nuevaSubfamilia', function () {
     $familias = Familia::orderBy('id', 'asc')->get();
     return Inertia::render('Subfamilias/Nueva', [

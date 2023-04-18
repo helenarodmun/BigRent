@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubFamiliaForm;
+use App\Http\Requests\SubfamiliaForm;
 use App\Models\Familia;
-use App\Models\SubFamilia;
+use App\Models\Subfamilia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
