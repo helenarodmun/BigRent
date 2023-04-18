@@ -1,26 +1,25 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {
-    Col,
-    Container,
-    Table,
-    Row
-} from "react-bootstrap";
+import { Col, Container, Table, Row } from "react-bootstrap";
 import ModalEliminacion from "../partials/ModalEliminacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
     const { series, resultado } = usePage().props;
-    console.log(series)
     const { delete: destroy } = useForm();
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || '');
+    const [query, setQuery] = useState(resultado || "");
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-    const handleSearch = (event) => { setQuery(event.target.value); }
+    const handleSearch = (event) => {
+        setQuery(event.target.value);
+    };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-    const resultadosBusqueda = series.filter((serie) =>
-        serie.maquina.descripcion.toLowerCase().includes(query.toLowerCase())
-        || serie.numero_serie.toLowerCase().includes(query.toLowerCase())       
+    const resultadosBusqueda = series.filter(
+        (serie) =>
+            serie.maquina.descripcion
+                .toLowerCase()
+                .includes(query.toLowerCase()) ||
+            serie.numero_serie.toLowerCase().includes(query.toLowerCase())
     );
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -31,16 +30,40 @@ const TablaSeries = () => {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <Container>   
-             <div class="container mt-5">
-                <form action="/series/buscar" method="get" class="d-flex" role="search">
-                    <input name="consulta" value={query} onChange={handleSearch} class="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>      
-            </div>  
+        <Container>
+            <div class="container mt-5">
+                <form
+                    action="/series/buscar"
+                    method="get"
+                    class="d-flex"
+                    role="search"
+                    onSubmit={(event) => {
+                        // Validar la longitud de la consulta antes de enviarla al servidor
+                        if (query.length < 3) {
+                            event.preventDefault(); // Evitar que se envíe la solicitud
+                            alert(
+                                "La consulta debe tener al menos tres caracteres."
+                            ); // Mostrar un mensaje de error
+                        }
+                    }}
+                >
+                    <input
+                        name="consulta"
+                        value={query}
+                        onChange={handleSearch}
+                        class="form-control"
+                        type="search"
+                        placeholder="Buscar"
+                        aria-label="Buscar serie"
+                    />
+                    <button class="btn btn-outline-success" type="submit">
+                        Buscar
+                    </button>
+                </form>
+            </div>
             <p className="h3 m-3">Listado series</p>
-            <Row>  
-            <Col className="shadow">               
+            <Row>
+                <Col className="shadow">
                     <Table
                         striped
                         bordered
@@ -59,36 +82,52 @@ const TablaSeries = () => {
                                 <th></th>
                             </tr>
                         </thead>
-                        {resultadosBusqueda.map((serie) => (                           
+                        {resultadosBusqueda.map((serie) => (
                             <tbody className="">
                                 <tr key={serie.id}>
                                     <td>{serie.maquina.descripcion}</td>
-                                    <td>{serie.numero_serie}</td> 
+                                    <td>{serie.numero_serie}</td>
                                     {serie.horometro === 0 ? (
-                                        <td><strong>NO</strong></td>
+                                        <td>
+                                            <strong>NO</strong>
+                                        </td>
                                     ) : (
-                                        <td><strong>SÍ</strong></td>
+                                        <td>
+                                            <strong>SÍ</strong>
+                                        </td>
                                     )}
                                     <td>{serie.hora_inicio}</td>
                                     {serie.disponible === 0 ? (
-                                        <td className="text-danger"><strong>NO</strong></td>
+                                        <td className="text-danger">
+                                            <strong>NO</strong>
+                                        </td>
                                     ) : (
-                                        <td className="text-success"><strong>SÍ</strong></td>
+                                        <td className="text-success">
+                                            <strong>SÍ</strong>
+                                        </td>
                                     )}
                                     <td>
-                                      <TipInfo content='Modificar serie' direction='left'>
+                                        <TipInfo
+                                            content="Modificar serie"
+                                            direction="left"
+                                        >
                                             <Link
                                                 method="get"
                                                 href={
-                                                    "/editarSerie/" +  serie.id
+                                                    "/editarSerie/" + serie.id
                                                 }
                                                 as="button"
                                                 className="h5 border-0 bi bi-pencil-square text-primary m-1"
                                             />
                                         </TipInfo>
-                                        <TipInfo content='Borrar serie' direction='left'>
+                                        <TipInfo
+                                            content="Borrar serie"
+                                            direction="left"
+                                        >
                                             <button
-                                                onClick={() => handleDeleteClick(serie.id)}
+                                                onClick={() =>
+                                                    handleDeleteClick(serie.id)
+                                                }
                                                 as="button"
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
@@ -97,14 +136,21 @@ const TablaSeries = () => {
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
                                                 setIdToDelete(null);
-                                                setShowConfirmDeleteModal(false);
+                                                setShowConfirmDeleteModal(
+                                                    false
+                                                );
                                             }}
-                                            onConfirm={(urlEliminar,idRegistro) => {
+                                            onConfirm={(
+                                                urlEliminar,
+                                                idRegistro
+                                            ) => {
                                                 destroy(
                                                     `${urlEliminar}/${idRegistro}`,
                                                     {
                                                         onSuccess: () => {
-                                                            console.log( "registro eliminado");
+                                                            console.log(
+                                                                "registro eliminado"
+                                                            );
                                                         },
                                                     }
                                                 );
@@ -119,9 +165,9 @@ const TablaSeries = () => {
                             </tbody>
                         ))}
                     </Table>
-            </Col>
+                </Col>
             </Row>
-            <TipInfo content='Añadir nueva serie' direction='right'>
+            <TipInfo content="Añadir nueva serie" direction="right">
                 <Link
                     method="get"
                     href="/nuevaSerie"
@@ -130,6 +176,6 @@ const TablaSeries = () => {
                 />
             </TipInfo>
         </Container>
-    )
-}
+    );
+};
 export default TablaSeries;

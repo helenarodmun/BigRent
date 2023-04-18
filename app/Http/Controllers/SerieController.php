@@ -74,20 +74,28 @@ class SerieController extends Controller
     }
     public function search(Request $request)
     {
-        // solo devolverá resultados si la longitud de la consulta es mayor o igual a tres caracteres
+        // Se define una función que recibe una solicitud HTTP a través del objeto $request
+        // y devuelve una lista de series y una consulta de búsqueda
+        // Si la consulta tiene menos de tres caracteres, no se devolverán resultados
+
+        // Se obtiene la consulta de búsqueda del parámetro 'consulta' en la solicitud
         $query = $request->input('consulta');
+        // Si la longitud de la consulta es menor que tres, se devuelve una página vacía
         if (strlen($query) < 3) {
             return Inertia::render('Series/Listado', [
                 'series' => [],
                 'resultado' => null
             ]);
         }
+        // Se obtienen todas las series que contienen la consulta de búsqueda en su número de serie,
+        // o cuya máquina asociada tiene una descripción que contiene la consulta de búsqueda
         $series = Serie::with('maquina')
             ->whereHas('maquina', function ($queryBuilder) use ($query) {
                 $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
             })
             ->orWhere('numero_serie', 'like', '%' . $query . '%')
             ->get();
+        // Se devuelve una página que muestra la lista de series y la consulta de búsqueda
         return Inertia::render('Series/Listado', [
             'series' => $series,
             'resultado' => $query
