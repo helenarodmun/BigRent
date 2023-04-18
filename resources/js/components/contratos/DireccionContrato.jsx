@@ -1,27 +1,20 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
 import { Col, Table } from "react-bootstrap";
 import TipInfo from "../partials/TipInfo";
-export default function DireccionContrato(cliente){
-   const cliente_actual = cliente.setDireccion;
-    console.log(cliente)
+export default function DireccionContrato(props) {
+    const { cliente } = usePage().props;
+    const [direccionSeleccionada, setDireccionSeleccionada] = useState(null);
+
+    const handleDireccionClick = (direccionSeleccionada) => {
+        setDireccionSeleccionada(direccionSeleccionada);
+        props.onDireccionSeleccionada(direccionSeleccionada);
+    }
     return(
         <>
         <Col className="shadow">
             <p className="h4 m-3">Dirección del contrato</p>
-        {cliente_actual.direcciones.length === 0 ? (
-            <div className="d-flex justify-content-center align-items-center">
-                <p className="me-4">No existen direcciones asociadas a este cliente </p>
-              
-            </div>
-        ) : (
-            <Table
-                striped
-                bordered
-                hover
-                className="shadow"
-                size="sm"
-                responsive
-            >
+            <Table striped bordered hover className="shadow" size="sm" responsive>
                 <thead>
                     <tr>
                         <th>Dirección</th>
@@ -33,7 +26,7 @@ export default function DireccionContrato(cliente){
                         <th></th>
                     </tr>
                 </thead>
-                {cliente_actual.direcciones.map((direccion) => (
+                {cliente.direcciones.map((direccion) => (
                     <tbody className="">
                         <tr key={direccion.id}>
                             <td>{direccion.direccion}</td>
@@ -48,19 +41,13 @@ export default function DireccionContrato(cliente){
                             )}
                             <td>
                                <TipInfo content='Seleccionar dirección' direction='left' >
-                                    <Link
-                                        method="get"
-                                        href=''
-                                        as="button"
-                                        className="h5 border-0 bi bi-check-circle text-success m-1"
-                                    />
-                                    </TipInfo>
+                                    <Link onClick={() => handleDireccionClick(direccion.id)} method="get" as="button" className="h5 border-0 bi bi-check-circle text-success m-1"/>
+                                </TipInfo>
                             </td>
                         </tr>
                     </tbody>
                 ))}
             </Table>
-        )}
     </Col>
  </>
     )

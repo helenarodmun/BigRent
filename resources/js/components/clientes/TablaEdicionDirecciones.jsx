@@ -17,13 +17,6 @@ export default function TablaEdicionDirecciones() {
     return (
         <>
             <Col className="shadow">
-                {direcciones.length === 0 ? (
-                    <div className="d-flex justify-content-center align-items-center">
-                        <p className="me-4">
-                            No existen direcciones asociadas a este cliente{" "}
-                        </p>
-                    </div>
-                ) : (
                     <Table
                         striped
                         bordered
@@ -111,7 +104,6 @@ export default function TablaEdicionDirecciones() {
                             </tbody>
                         ))}
                     </Table>
-                )}
             </Col>
             <Tooltip content="Añadir nueva dirección" direction="right">
                 <Link

@@ -32,7 +32,8 @@ class ContratoController extends Controller
         //recupera los datos del cliente a través de la id pasada por url
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
-        $cliente_actual->load('direcciones.cliente');
+        $cliente_actual->load('direcciones.cliente')->load('autorizados.cliente');
+        
         //carga la relación maquina en la consulta
         $series = Serie::with(['maquina' => function($query) {
             $query->orderBy('descripcion', 'asc');
@@ -46,7 +47,8 @@ class ContratoController extends Controller
         return Inertia::render('Contratos/NuevoContrato', [
             'cliente' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
-            'series' => $series
+            'series' => $series,
+            'autorizados' => $cliente_actual->autorizados
         ]);
     }
 

@@ -32,21 +32,7 @@ const TablaSeries = () => {
     return (
         <Container>
             <div class="container mt-5">
-                <form
-                    action="/series/buscar"
-                    method="get"
-                    class="d-flex"
-                    role="search"
-                    onSubmit={(event) => {
-                        // Validar la longitud de la consulta antes de enviarla al servidor
-                        if (query.length < 3) {
-                            event.preventDefault(); // Evitar que se envíe la solicitud
-                            alert(
-                                "La consulta debe tener al menos tres caracteres."
-                            ); // Mostrar un mensaje de error
-                        }
-                    }}
-                >
+                <form action="/series/buscar" method="get" class="d-flex" role="search">
                     <input
                         name="consulta"
                         value={query}
