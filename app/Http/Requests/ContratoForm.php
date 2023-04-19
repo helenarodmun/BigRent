@@ -11,7 +11,7 @@ class ContratoForm extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,46 @@ class ContratoForm extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return match ($this->method()) {
+
+            'POST' => [
+
+                'fecha_retirada' => 'required|date',
+                'fecha_entrega' => 'required|date',
+                'importe_total' => 'nullable',
+                'notas1' => 'required',
+                'notas2' => 'required',
+                'cliente_id' => 'required',
+                'serie_id' => 'required',
+                'direccion_id' => 'required',
+                'autorizado_id' => 'required'
+            ],
+
+            'PUT' => [
+                
+                'fecha_retirada' => 'nullable',
+                'fecha_entrega' => 'nullable|time',
+                'importe_total' => 'nullable',
+                'notas1' => 'nullable',
+                'notas2' => 'nullable',
+                'cliente_id' => 'nullable',
+                'serie_id' => 'nullable',
+                'direccion_id' => 'nullable',
+                'autorizado_id' => 'nullable'
+            ],
+            
+            'GET' => [
+                
+                'fecha_retirada' => 'nullable',
+                'fecha_entrega' => 'nullable|time',
+                'importe_total' => 'nullable',
+                'notas1' => 'nullable',
+                'notas2' => 'nullable',
+                'cliente_id' => 'nullable',
+                'serie_id' => 'nullable',
+                'direccion_id' => 'nullable',
+                'autorizado_id' => 'nullable'
+            ]
+        };
     }
 }
