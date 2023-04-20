@@ -28,7 +28,6 @@ class CreateContratosTable extends Migration
             $table->unsignedSmallInteger('importe_total');
             $table->text('notas1');
             $table->text('notas2')->nullable();
-            $table->unsignedTinyInteger('semanas');
             $table->unsignedTinyInteger('dias');
             $table->boolean('activo')->default(1);
             $table->timestamps();
