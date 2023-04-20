@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, } from "react-bootstrap";
-import ModalEliminacion from "../partials/ModalEliminacion";
+import ModalConfirmacion from "../partials/ModalConfirmacion";
 
 export default function FormActualizaCliente() {
     const { clientes, flash } = usePage().props;
@@ -357,14 +357,14 @@ export default function FormActualizaCliente() {
                         >
                             Eliminar
                         </Button>
-                        <ModalEliminacion
+                        <ModalConfirmacion
                             show={showConfirmDeleteModal}
                             onHide={() => {
                                 setIdToDelete(null);
                                 setShowConfirmDeleteModal(false);
                             }}
-                            onConfirm={(urlEliminar, idRegistro) => {
-                                destroy(`${urlEliminar}/${idRegistro}`, {
+                            onConfirm={(urlAccion, idRegistro) => {
+                                destroy(`${urlAccion}/${idRegistro}`, {
                                     onSuccess: () => {
                                         console.log("registro eliminado");
                                     },
@@ -372,7 +372,7 @@ export default function FormActualizaCliente() {
                             }}
                             title="¡ADVERTENCIA!"
                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                            urlEliminar="/eliminarCliente"
+                            urlAccion="/eliminarCliente"
                             idRegistro={idToDelete}
                         />
                         <Button

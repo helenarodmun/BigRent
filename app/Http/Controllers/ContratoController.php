@@ -25,12 +25,15 @@ class ContratoController extends Controller
     {        
         $data = $request->validated(); // Validar los datos del formulario
         // Obtener la subfamilia de la serie
-        $maquina = Serie::findOrFail($data['serie_id'])->maquina;
+        $serie = Serie::findOrFail($data['serie_id']);
+        $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
         // Calcular las semanas y días a partir de las fechas de inicio y fin
         $semanas_dias = Contrato::calcularSemanasYDias($data['fecha_retirada'], $data['fecha_entrega']);
         // Calcular el importe total según los precios y fianzas de la subfamilia
         $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $semanas_dias['dias'] + $subfamilia->precio_semana * $semanas_dias['semanas'];
+        //cambia el estado de disponibilidad
+        $serie->disponible = 0;
         // Crear el contrato en la base de datos
         $contrato = Contrato::create([
             'fecha_retirada' => $data['fecha_retirada'],

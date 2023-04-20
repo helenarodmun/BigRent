@@ -1,7 +1,7 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Col, Container, Table, Row } from "react-bootstrap";
-import ModalEliminacion from "../partials/ModalEliminacion";
+import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
@@ -118,7 +118,7 @@ const TablaSeries = () => {
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
                                         </TipInfo>
-                                        <ModalEliminacion
+                                        <ModalConfirmacion
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
                                                 setIdToDelete(null);
@@ -127,11 +127,11 @@ const TablaSeries = () => {
                                                 );
                                             }}
                                             onConfirm={(
-                                                urlEliminar,
+                                                urlAccion,
                                                 idRegistro
                                             ) => {
                                                 destroy(
-                                                    `${urlEliminar}/${idRegistro}`,
+                                                    `${urlAccion}/${idRegistro}`,
                                                     {
                                                         onSuccess: () => {
                                                             console.log(
@@ -143,7 +143,7 @@ const TablaSeries = () => {
                                             }}
                                             title="¡ADVERTENCIA!"
                                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                            urlEliminar="/eliminarSerie"
+                                            urlAccion="/eliminarSerie"
                                             idRegistro={idToDelete}
                                         />
                                     </td>

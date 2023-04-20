@@ -1,17 +1,17 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-export default function ModalEliminacion({
+export default function ModalConfirmacion({
   show,
   onHide,
   onConfirm,
   title,
   message,
-  urlEliminar,
+  urlAccion,
   idRegistro,
 }) {
   const handleDelete = () => {
-    onConfirm(urlEliminar, idRegistro);
+    onConfirm(urlAccion, idRegistro);
     onHide();
   };
 

@@ -1,7 +1,7 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, Col, Modal, Table } from "react-bootstrap";
-import ModalEliminacion from "../partials/ModalEliminacion";
+import ModalConfirmacion from "../partials/ModalConfirmacion";
 import Tooltip from "../partials/TipInfo";
 export default function TablaEdicionDirecciones() {
     const { direcciones, clientes, flash } = usePage().props;
@@ -78,15 +78,15 @@ export default function TablaEdicionDirecciones() {
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
                                         </Tooltip>
-                                        <ModalEliminacion
+                                        <ModalConfirmacion
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
                                                 setIdToDelete(null);
                                                 setShowConfirmDeleteModal(false);
                                             }}
-                                            onConfirm={(urlEliminar,idRegistro) => {
+                                            onConfirm={(urlAccion,idRegistro) => {
                                                 destroy(
-                                                    `${urlEliminar}/${idRegistro}`,
+                                                    `${urlAccion}/${idRegistro}`,
                                                     {
                                                         onSuccess: () => {
                                                             console.log( "registro eliminado");
@@ -96,7 +96,7 @@ export default function TablaEdicionDirecciones() {
                                             }}
                                             title="¡ADVERTENCIA!"
                                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                            urlEliminar="/eliminarDireccion"
+                                            urlAccion="/eliminarDireccion"
                                             idRegistro={idToDelete}
                                         />
                                     </td>

@@ -5,7 +5,7 @@ import {
     Container,
     Table,
 } from "react-bootstrap";
-import ModalEliminacion from "../partials/ModalEliminacion";
+import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
@@ -69,15 +69,15 @@ export default function TablaSubFamilias() {
                                                 className="h5 border-0 bi bi-trash3 text-danger m-1"
                                             />
                                         </TipInfo>
-                                        <ModalEliminacion
+                                        <ModalConfirmacion
                                             show={showConfirmDeleteModal}
                                             onHide={() => {
                                                 setIdToDelete(null);
                                                 setShowConfirmDeleteModal(false);
                                             }}
-                                            onConfirm={(urlEliminar,idRegistro) => {
+                                            onConfirm={(urlAccion,idRegistro) => {
                                                 destroy(
-                                                    `${urlEliminar}/${idRegistro}`,
+                                                    `${urlAccion}/${idRegistro}`,
                                                     {
                                                         onSuccess: () => {
                                                             console.log( "registro eliminado");
@@ -87,7 +87,7 @@ export default function TablaSubFamilias() {
                                             }}
                                             title="¡ADVERTENCIA!"
                                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                            urlEliminar="/eliminarMaquina"
+                                            urlAccion="/eliminarMaquina"
                                             idRegistro={idToDelete}
                                         />
                                     </td>
