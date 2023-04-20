@@ -134,4 +134,6 @@ Route::get('/series/buscar', [SerieController::class, 'search']);
 
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
 Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']);
+Route::get('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
+Route::post('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
 Route::post('/nuevoContrato/{id}', [ContratoController::class, 'create']);

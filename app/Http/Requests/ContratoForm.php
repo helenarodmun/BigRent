@@ -29,7 +29,7 @@ class ContratoForm extends FormRequest
                 'semanas' => 'nullable|numeric',
                 'dias' => 'nullable|numeric',
                 'importe_total' => 'nullable|decimal',
-                'notas1' => 'required',
+                'notas1' => 'nullable',
                 'notas2' => 'required',
                 'cliente_id' => 'required',
                 'serie_id' => 'required',

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContratoForm;
+use App\Models\Autorizado;
 use App\Models\Cliente;
 use App\Models\Contrato;
+use App\Models\Direccion;
 use App\Models\Familia;
 use App\Models\Maquina;
 use App\Models\Serie;
@@ -17,12 +19,46 @@ use Inertia\Inertia;
 
 class ContratoController extends Controller
 {
-    public function index()
+    public function confirmarContrato(ContratoForm $request)
     {
+        $data = $request->validated();
+        $cliente = Cliente::findOrFail($data['cliente_id']);
+        $direccion = Direccion::findOrFail($data['direccion_id']);
+        $autorizado = Autorizado::findOrFail($data['autorizado_id']);
+        $serie = Serie::findOrFail($data['serie_id']);
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
+        $semanas_dias = Contrato::calcularSemanasYDias($data['fecha_retirada'], $data['fecha_entrega']);
+        $importe_alquiler = $subfamilia->precio_dia * $semanas_dias['dias'] + $subfamilia->precio_semana * $semanas_dias['semanas'];
+        $importeTotal = $subfamilia->fianza + $importe_alquiler;
+        $contrato = [
+            'fecha_retirada' => $data['fecha_retirada'],
+            'fecha_entrega' => $data['fecha_entrega'],
+            'semanas' => $semanas_dias['semanas'],
+            'dias' => $semanas_dias['dias'],
+            'importe_total' => $importeTotal,
+            'notas1' => $data['notas1'],
+            'notas2' => $data['notas2'],
+            'cliente_id' => $data['cliente_id'],
+            'serie_id' => $data['serie_id'],
+            'direccion_id' => $data['direccion_id'],
+            'autorizado_id' => $data['autorizado_id']
+        ];
+        return Inertia::render('Contratos/ConfirmarContrato', [
+            'cliente' => $cliente,
+            'direccion' => $direccion,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie,
+            'importe_alquiler' => $importe_alquiler
+        ]);
     }
 
+
     public function create(ContratoForm $request)
-    {        
+    {
         $data = $request->validated(); // Validar los datos del formulario
         // Obtener la subfamilia de la serie
         $serie = Serie::findOrFail($data['serie_id']);
