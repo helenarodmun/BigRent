@@ -24,10 +24,11 @@ class ContratoForm extends FormRequest
         return match ($this->method()) {
 
             'POST' => [
-
                 'fecha_retirada' => 'required|date',
                 'fecha_entrega' => 'required|date',
-                'importe_total' => 'nullable',
+                'semanas' => 'nullable|numeric',
+                'dias' => 'nullable|numeric',
+                'importe_total' => 'nullable|decimal',
                 'notas1' => 'required',
                 'notas2' => 'required',
                 'cliente_id' => 'required',
@@ -38,9 +39,11 @@ class ContratoForm extends FormRequest
 
             'PUT' => [
                 
-                'fecha_retirada' => 'nullable',
-                'fecha_entrega' => 'nullable|time',
-                'importe_total' => 'nullable',
+                'fecha_retirada' => 'nullable|date',
+                'fecha_entrega' => 'nullable|date',
+                'semanas' => 'nullable|numeric',
+                'dias' => 'nullable|numeric',
+                'importe_total' => 'nullable|decimal',
                 'notas1' => 'nullable',
                 'notas2' => 'nullable',
                 'cliente_id' => 'nullable',
@@ -51,8 +54,10 @@ class ContratoForm extends FormRequest
             
             'GET' => [
                 
-                'fecha_retirada' => 'nullable',
-                'fecha_entrega' => 'nullable|time',
+                'fecha_retirada' => 'nullable|date',
+                'fecha_entrega' => 'nullable|date',
+                'semanas' => 'required|numeric',
+                'dias' => 'required|numeric',
                 'importe_total' => 'nullable',
                 'notas1' => 'nullable',
                 'notas2' => 'nullable',

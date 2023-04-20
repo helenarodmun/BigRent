@@ -23,14 +23,14 @@ class CreateContratosTable extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->timestamp('fecha');
             $table->date('fecha_retirada');
             $table->date('fecha_entrega');
             $table->unsignedSmallInteger('importe_total');
-            $table->text('notas1')->nullable();
+            $table->text('notas1');
             $table->text('notas2')->nullable();
+            $table->unsignedTinyInteger('semanas')->unsigned();
+            $table->unsignedTinyInteger('dias')->unsigned();
             $table->timestamps();
-
 
             $table->foreignId('cliente_id')
                 ->constrained('clientes')

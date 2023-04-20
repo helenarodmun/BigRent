@@ -22,22 +22,22 @@ class ContratoController extends Controller
     }
 
     public function create(ContratoForm $request)
-    {
+    {        
         $data = $request->validated(); // Validar los datos del formulario
         // Obtener la subfamilia de la serie
         $maquina = Serie::findOrFail($data['serie_id'])->maquina;
         $subfamilia = $maquina->subfamilia;
-
         // Calcular las semanas y días a partir de las fechas de inicio y fin
         $semanas_dias = Contrato::calcularSemanasYDias($data['fecha_retirada'], $data['fecha_entrega']);
-
         // Calcular el importe total según los precios y fianzas de la subfamilia
         $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $semanas_dias['dias'] + $subfamilia->precio_semana * $semanas_dias['semanas'];
-        dd($semanas_dias, $importeTotal);
         // Crear el contrato en la base de datos
         $contrato = Contrato::create([
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
+            'semanas' => $semanas_dias['semanas'],
+            'dias' => $semanas_dias['dias'],
+            'importe_total' => $importeTotal,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
             'cliente_id' => $data['cliente_id'],
@@ -45,11 +45,11 @@ class ContratoController extends Controller
             'direccion_id' => $data['direccion_id'],
             'autorizado_id' => $data['autorizado_id']
         ]);
+        dd($contrato);
         // Devolver la vista con el contrato creado y los cálculos de semanas y días
         return Inertia::render('Contratos/VistaContrato', [
             'contrato' => $contrato,
-            'semanas' => $semanas_dias['semanas'],
-            'dias' => $semanas_dias['dias'],
+            'importe' => $importeTotal
         ]);
     }
 
