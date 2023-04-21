@@ -35,19 +35,17 @@ export default function TablaSubFamilias() {
                                 <th>Familia</th>
                                 <th>Id</th>
                                 <th>Descripción</th>
-                                <th>Precio / semana</th>
                                 <th>Precio /día</th>
                                 <th>Importe fianza</th>
                                 <th></th>
                             </tr>
                         </thead>
                         {subfamilias.map((subfamilia) => (
-                            <tbody className="">
-                                <tr key={subfamilia.id}>
+                            <tbody  key={subfamilia.id}>
+                                <tr>
                                     <td>{subfamilia.familia.nombre}</td>
                                     <td>{subfamilia.id}</td> 
                                     <td>{subfamilia.descripcion}</td>
-                                    <td>{subfamilia.precio_semana}</td>
                                     <td>{subfamilia.precio_dia}</td>
                                     <td>{subfamilia.fianza}</td>
                                     <td>

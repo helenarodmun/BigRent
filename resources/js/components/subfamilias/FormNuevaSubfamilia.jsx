@@ -15,7 +15,6 @@ export default function FormNuevaSubFamilia({ children }) {
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         descripcion: "",
-        precio_semana: "",
         precio_dia: "",
         fianza: "",
         familia_id: ""
@@ -89,7 +88,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                                 </option>
                                                 {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
                                               
-                                                    <option value={familia.id}>
+                                                    <option key={familia.id} value={familia.id}>
                                                         {familia.nombre}
                                                     </option>
                                                 ))}
@@ -125,32 +124,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel
-                                            label="PRECIO / SEMANA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="precio por semana"
-                                                type="number"
-                                                name="precio_semana"
-                                                value={data.nombprecio_semanare}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "precio_semana",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.precio_semana && (
-                                                <div className="alert alert-danger">
-                                                    {errors.precio_semana}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
+                                    </Col>                                   
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel
                                             label="PRECIO / DÍA"

@@ -8,7 +8,6 @@ export default function FormNuevaSubFamilia({ children }) {
     const { data, setData, put, processing, errors } = useForm({
         id: subfamilia.id,
         descripcion: subfamilia.descripcion,
-        precio_semana: subfamilia.precio_semana,
         precio_dia: subfamilia.precio_dia,
         fianza: subfamilia.fianza
     });
@@ -102,32 +101,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                                 </div>
                                             )}
                                         </FloatingLabel>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <FloatingLabel
-                                            label="PRECIO POR SEMANA"
-                                            className="mb-2"
-                                        >
-                                            <Form.Control
-                                                size="sm"
-                                                aria-label="precio de alquiler por semana"
-                                                type="text"
-                                                name="precio_semana"
-                                                value={data.precio_semana}
-                                                onChange={(e) =>
-                                                    setData(
-                                                        "precio_semana",
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
-                                            {errors.precio_semana && (
-                                                <div className="alert alert-danger">
-                                                    {errors.precio_semana}
-                                                </div>
-                                            )}
-                                        </FloatingLabel>
-                                    </Col>
+                                    </Col>                                   
                                     <Col sm={3}>
                                         <FloatingLabel
                                             label="PRECIO POR DÍA"
