@@ -37,8 +37,8 @@ export default function TablaEdicionDirecciones() {
                             </tr>
                         </thead>
                         {direcciones.map((direcciones) => (
-                            <tbody className="">
-                                <tr key={direcciones.id}>
+                            <tbody key={direcciones.id}>
+                                <tr>
                                     <td>{direcciones.direccion}</td>
                                     <td>{direcciones.localidad}</td>
                                     <td>{direcciones.cp}</td>

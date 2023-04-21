@@ -36,7 +36,7 @@ export default function TablaDirecciones({ children }) {
                             </tr>
                         </thead>
                         {direcciones.map((direcciones) => (
-                            <tbody>
+                            <tbody key={direcciones.id}>
                                 <tr key={direcciones.id}>
                                     <td>{direcciones.direccion}</td>
                                     <td>{direcciones.localidad}</td>
@@ -44,7 +44,7 @@ export default function TablaDirecciones({ children }) {
                                     <td>{direcciones.municipio}</td>
                                     <td>{direcciones.provincia}</td>
                                     {direcciones.predeterminada == 0 ? (
-                                        <td>No</td>
+                                        <td key={direcciones.id}>No</td>
                                     ) : (
                                         <td>Sí</td>
                                     )}

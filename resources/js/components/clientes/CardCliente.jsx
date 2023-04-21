@@ -31,10 +31,10 @@ export default function CardCliente({ children }) {
               <div align="center">
             <Col sm={10}>
                 {flash.creacion && (
-                    <div class="alert alert-success" role={"alert"}>
+                    <div className="alert alert-success" role={"alert"}>
                         <button
                             type="button"
-                            class="close"
+                            className="close"
                             data-dismiss="alert"
                             aria-label="Close"
                         >
@@ -72,7 +72,7 @@ export default function CardCliente({ children }) {
                                                 name="nif"
                                                 value={data.nif}
                                                 disabled
-                                                readonly
+                                                readOnly
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -86,7 +86,7 @@ export default function CardCliente({ children }) {
                                                 name="nombre_comercial"
                                                 value={data.nombre_comercial}
                                                 disabled
-                                                readonly
+                                                readOnly
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -100,7 +100,7 @@ export default function CardCliente({ children }) {
                                                 name="administrador"
                                                 value={data.administrador}
                                                 disabled
-                                                readonly
+                                                readOnly
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -114,7 +114,7 @@ export default function CardCliente({ children }) {
                                                 name="dni_administrador"
                                                 value={data.dni_administrador}
                                                 disabled
-                                                readonly
+                                                readOnly
                                             />
                                         </FloatingLabel>
                                     </Col>
@@ -128,7 +128,7 @@ export default function CardCliente({ children }) {
                                                 name="tipo_cliente"
                                                 value={data.tipo_cliente}
                                                 disabled
-                                                readonly
+                                                readOnly
                                             ></Form.Control>
                                         </FloatingLabel>
                                     </Col>
@@ -153,7 +153,7 @@ export default function CardCliente({ children }) {
                                             name="url_escrituras"
                                             value={data.url_escrituras}
                                             disabled
-                                            readonly
+                                            readOnly
                                         />
                                     </Col>
                                     <Col sm={4}>
@@ -165,7 +165,7 @@ export default function CardCliente({ children }) {
                                             name="url_dni_administrador"
                                             value={data.url_dni_administrador}
                                             disabled
-                                            readonly
+                                            readOnly
                                         />
                                     </Col>
                                     <Col sm={4}>
@@ -177,7 +177,7 @@ export default function CardCliente({ children }) {
                                             name="url_cif"
                                             value={data.url_cif}
                                             disabled
-                                            readonly
+                                            readOnly
                                         />
                                     </Col>
                                 </Row>
@@ -207,7 +207,7 @@ export default function CardCliente({ children }) {
                             </Button>
                         </Card.Footer>
                     </Card>
-                    <div class="d-grid gap-2">  
+                    <div className="d-grid gap-2">  
             <Button variant="btn btn-outline-warning btn-lg m-5" method='get' href={"/nuevoContrato/" + cliente.id}><strong>Contratar alquiler</strong></Button>
             </div>
                 </Col>

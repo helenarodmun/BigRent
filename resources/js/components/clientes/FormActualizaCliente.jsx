@@ -10,7 +10,6 @@ export default function FormActualizaCliente() {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        tipo_cliente: clientes.tipo_cliente,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
         url_escrituras: clientes.url_escrituras,
@@ -203,47 +202,7 @@ export default function FormActualizaCliente() {
                                         )}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={5}>
-                                    <FloatingLabel
-                                        label="TIPO"
-                                        className="mb-2"
-                                    >
-                                        <Form.Select
-                                            aria-label="tipo de cliente"
-                                            as="select"
-                                            name="tipo_cliente"
-                                            value={data.tipo_cliente}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "tipo_cliente",
-                                                    e.target.value
-                                                )
-                                            }
-                                        >
-                                            <option disabled>
-                                                Escoja el tipo de cliente ...
-                                            </option>
-                                            <option></option>
-                                            <option value="Empresa">
-                                                Empresa
-                                            </option>
-                                            <option value="Autónomo/Particular">
-                                                Autónomo/Particular
-                                            </option>
-                                            <option value="Organismo/Institución">
-                                                Organismo/Institución
-                                            </option>
-                                            <option value="Asociación">
-                                                Asociación
-                                            </option>
-                                        </Form.Select>
-                                        {errors.tipo_cliente && (
-                                            <div className="alert alert-danger">
-                                                {errors.tipo_cliente}
-                                            </div>
-                                        )}
-                                    </FloatingLabel>
-                                </Col>
+                               
                                 <Col sm={12}>
                                     <FloatingLabel
                                         label="OBSERVACIONES"

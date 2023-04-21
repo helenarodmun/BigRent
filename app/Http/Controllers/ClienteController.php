@@ -8,6 +8,7 @@ use App\Http\Requests\TelefonoForm;
 use App\Models\Cliente;
 use App\Models\Direccion;
 use App\Models\Telefono;
+use App\Models\TipoCliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -110,11 +111,11 @@ class ClienteController extends Controller
         $cliente_actual->load('telefonos.cliente');
         $cliente_actual->load('autorizados.cliente');
         //renderiza la vista, pasando los datos
-        return Inertia::render('Clientes/ActualizaCliente', [
+                return Inertia::render('Clientes/ActualizaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
-            'autorizados' => $cliente_actual->autorizados,
+            'autorizados' => $cliente_actual->autorizados,     
         ]);
     }
 
@@ -142,7 +143,6 @@ class ClienteController extends Controller
         $cliente->nombre_fiscal = $validatedData['nombre_fiscal'];
         $cliente->nif = $validatedData['nif'];
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
-        $cliente->tipo_cliente = $validatedData['tipo_cliente'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
         $cliente->url_escrituras = $validatedData['url_escrituras'];
@@ -159,6 +159,7 @@ class ClienteController extends Controller
         //carga los telefonos relacionados con el cliente
         $cliente->load('telefonos.cliente');
         $cliente->load('autorizados.cliente');
+        $cliente->load('tipo.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
             'clientes' => $cliente,

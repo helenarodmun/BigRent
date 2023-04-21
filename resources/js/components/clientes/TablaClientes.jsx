@@ -18,10 +18,10 @@ const TablaClientes = () => {
 
     return (
         <Container>
-            <div class="container mt-5">
-                <form action="/clientes/buscar" method="get" class="d-flex" role="search">
-                    <input name="consulta" value={query} onChange={handleSearch} class="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <div className="container mt-5">
+                <form action="/clientes/buscar" method="get" className="d-flex" role="search">
+                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
+                    <button className="btn btn-outline-success" type="submit">Buscar</button>
                 </form>      
             </div>
 
@@ -38,8 +38,8 @@ const TablaClientes = () => {
                             </tr>
                         </thead>
                         {resultadosBusqueda.map((cliente) => (
-                            <tbody>
-                                <tr key={cliente.id}>
+                            <tbody key={cliente.id}>
+                                <tr>
                                     <td>{cliente.nombre_fiscal}</td>
                                     <td>{cliente.nif}</td>
                                     <td>{cliente.administrador}</td>

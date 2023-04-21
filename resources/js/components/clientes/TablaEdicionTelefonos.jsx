@@ -34,8 +34,8 @@ export default function TablaEdicionTelefonos() {
                         </tr>
                     </thead>
                     {telefonos.map((telefonos) => (
-                        <tbody>
-                            <tr key={telefonos.id}>
+                        <tbody  key={telefonos.id}>
+                            <tr>
                                 {telefonos.via_comunicacion == "T" ? (
                                     <td>Teléfono</td>
                                 ) : (

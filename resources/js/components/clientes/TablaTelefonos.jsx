@@ -23,8 +23,8 @@ export default function TablaTelefonos({ children }) {
                             </tr>
                         </thead>
                         {telefonos.map((telefonos) => (
-                            <tbody>
-                                <tr key={telefonos.id}>
+                            <tbody  key={telefonos.id}>
+                                <tr>
                                     <td>{telefonos.contacto}</td>
                                     {telefonos.via_comunicacion == "T" ? (
                                         <td>Teléfono</td>

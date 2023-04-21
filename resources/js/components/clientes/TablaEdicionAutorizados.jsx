@@ -44,7 +44,7 @@ export default function TablaEdicionAutorizados() {
                             </tr>
                         </thead>
                         {autorizados.map((autorizado) => (
-                            <tbody className="">
+                            <tbody key={autorizado.id} className="">
                                 <tr key={autorizado.id}>
                                     <td>
                                         {autorizado.nombre_persona_autorizada}

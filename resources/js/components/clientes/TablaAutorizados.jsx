@@ -60,8 +60,8 @@ export default function TablaAutorizados() {
                             </tr>
                         </thead>
                         {autorizados.map((autorizado) => (
-                            <tbody>
-                                <tr key={autorizado.id}>
+                            <tbody  key={autorizado.id}>
+                                <tr>
                                     <td>{autorizado.nombre_persona_autorizada}</td>
                                     <td>{autorizado.dni}</td>
                                     <td>{autorizado.notas}</td>

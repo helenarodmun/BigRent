@@ -10,8 +10,7 @@ import {
     FloatingLabel,
 } from "react-bootstrap";
 
-export default function FormCliente() {
-    
+export default function FormCliente() {    
     const { tipos_cliente, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
@@ -232,7 +231,7 @@ export default function FormCliente() {
                                                 </option>
                                                 {tipos_cliente.map((tipo) => (
                                               
-                                              <option value={tipo.id}>
+                                              <option key={tipo.id} value={tipo.id}>
                                                   {tipo.tipo}
                                               </option>
                                           ))}

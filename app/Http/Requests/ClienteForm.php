@@ -61,7 +61,6 @@ class ClienteForm extends FormRequest
                 'url_dni_administrador' => 'nullable|string',
                 'url_cif' => 'nullable|string',
                 'anotaciones' => 'nullable|string|max:255',
-                'tipo_cliente_id' => 'nullable'
             ],
             'GET' => [
 
