@@ -38,8 +38,8 @@ export default function TablaFamilias() {
                             </tr>
                         </thead>
                         {familias.map((familia) => (
-                            <tbody className="">
-                                <tr key={familia.id}>
+                            <tbody key={familia.id}>
+                                <tr>
                                     <td>{familia.id}</td>
                                     <td>{familia.nombre}</td>
                                     <td>

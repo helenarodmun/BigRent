@@ -113,13 +113,13 @@ export default function FormNuevoContrato() {
                                         </Col>
                                     </Row>
                                     <Col xs="12" sm="3" md="12">
-                                        <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
+                                        <FloatingLabel label="ESTADO DEL ARTÍCULO - OTRAS OBSERVACIONES" className="mb-2">
                                             <Form.Control size="sm" as="textarea" rows={3} name="notas1" value={data.notas1} onChange={(e) => setData("notas1", e.target.value)}></Form.Control>
                                             {errors.notas1 && (<div className="alert alert-danger">{errors.notas1}</div>)}
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="3" md="12">
-                                        <FloatingLabel label="OBSERVACIONES ARTÍCULO" className="mb-2">
+                                        <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
                                             <Form.Control size="sm" as="textarea" rows={3} name="notas2" value={data.notas2} onChange={(e) => setData("notas2", e.target.value)}></Form.Control>
                                             {errors.notas2 && (<div className="alert alert-danger">{errors.notas2}</div>)}
                                         </FloatingLabel>
@@ -131,6 +131,7 @@ export default function FormNuevoContrato() {
                             <Button variant="btn btn-info btn-lg m-5" method="get" onClick={handleSubmit}>
                                 <strong>Visualizar datos y totales</strong>
                             </Button>
+                            <Button variant="btn btn-secondary btn-lg m-5" method="post" href={"/verCliente/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

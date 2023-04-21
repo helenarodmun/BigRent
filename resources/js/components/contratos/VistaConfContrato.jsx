@@ -12,7 +12,7 @@ export default function VistaConfContrato() {
         dias: contrato.dias,
         importe_total: contrato.importe_total,
         notas1: contrato.notas1,
-        notas2: contrato.notas2
+        notas2: contrato.notas2 || ''
     });
     function handleSubmit(e) {
         e.preventDefault();        
@@ -41,78 +41,78 @@ export default function VistaConfContrato() {
                                 <Row>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="CLIENTE" className="mb-2">
-                                            <Form.Control aria-label="numero de identificación fiscal" name="nif" value={cliente.nombre_fiscal} disabled readonly />
+                                            <Form.Control aria-label="numero de identificación fiscal" name="nif" value={cliente.nombre_fiscal} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="NIF CLIENTE" className="mb-2">
-                                            <Form.Control aria-label="numero de identificación fiscal" name="nif" value={cliente.nif} disabled readonly />
+                                            <Form.Control aria-label="numero de identificación fiscal" name="nif" value={cliente.nif} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="PERSONA AUTORIZADA" className="mb-2" >
-                                            <Form.Control aria-label="autorizado contrato" name="autorizado" value={autorizado.nombre_persona_autorizada} disabled readonly />
+                                            <Form.Control aria-label="autorizado contrato" name="autorizado" value={autorizado.nombre_persona_autorizada} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCION CONTRATO" className="mb-2">
-                                            <Form.Control aria-label="direccion contrato" name="direccion" value={direccion.direccion} disabled readonly />
+                                            <Form.Control aria-label="direccion contrato" name="direccion" value={direccion.direccion} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="MAQUINA CONTRATADA" className="mb-2">
-                                            <Form.Control aria-label="maquina contrato" name="maquina" value={maquina.descripcion} disabled readonly />
+                                            <Form.Control aria-label="maquina contrato" name="maquina" value={maquina.descripcion} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="NUMERO DE SERIE" className="mb-2">
-                                            <Form.Control aria-label="serie contrato" name="serie" value={serie.numero_serie} disabled readonly />
+                                            <Form.Control aria-label="serie contrato" name="serie" value={serie.numero_serie} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>                                    
                                     </Row>
                                     <Row>
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="FECHA INICIO" className="mb-2">
-                                                <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={contrato.fecha_retirada} disabled readonly />
+                                                <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={contrato.fecha_retirada} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="FECHA FIN" className="mb-2">
-                                                <Form.Control aria-label="finalización contrato" name="fceha_fin" value={contrato.fecha_entrega} disabled readonly />
+                                                <Form.Control aria-label="finalización contrato" name="fceha_fin" value={contrato.fecha_entrega} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="2">
                                             <FloatingLabel label="NÚMERO DIAS" className="mb-2">
-                                                <Form.Control aria-label="dias contrato" name="dias" value={contrato.dias} disabled readonly />
+                                                <Form.Control aria-label="dias contrato" name="dias" value={contrato.dias} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col xs="12" sm="6" md="2">
                                             <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
-                                                <Form.Control aria-label="fianza contrato" name="importeFianza" value={subfamilia.fianza} disabled readonly />
+                                                <Form.Control aria-label="fianza contrato" name="importeFianza" value={subfamilia.fianza} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="2">
                                             <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                                <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={importe_alquiler} disabled readonly />
+                                                <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={importe_alquiler} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="2">
                                             <FloatingLabel label="IMPORTE TOTAL" className="mb-2">
-                                                <Form.Control aria-label="importe total contrato" name="importeTotal" value={contrato.importe_total} disabled readonly />
+                                                <Form.Control aria-label="importe total contrato" name="importeTotal" value={contrato.importe_total} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                 </Row>
                                 <Row>
                                         <Col xs="12" sm="6" md="6">
-                                            <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
-                                                <Form.Control aria-label="observaciones sobre el contrato" name="notas1" value={contrato.notas1} disabled readonly />
+                                            <FloatingLabel label="ESTADO ARTÍCULO - OBSERVACIONES" className="mb-2">
+                                                <Form.Control aria-label="observaciones sobre el artículo" name="notas1" value={contrato.notas1} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="6">
-                                            <FloatingLabel label="OBSERVACIONES MÁQUINA" className="mb-2">
-                                                <Form.Control aria-label="observaciones sobre la máquina" name="notas2" value={contrato.notas2} disabled readonly />
+                                            <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
+                                                <Form.Control aria-label="observaciones sobre el contrato" name="notas2" value={contrato.notas2 ||''} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                 </Row>
@@ -120,6 +120,7 @@ export default function VistaConfContrato() {
                         </Card.Body>
                         <Card.Footer>
                             <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
+                            <Button variant="btn btn-secondary btn-lg m-5" method="post" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

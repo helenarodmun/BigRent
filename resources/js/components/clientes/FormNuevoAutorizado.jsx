@@ -153,7 +153,7 @@ export default function FormNuevoAutorizado() {
                         <Card.Footer>
                             <Button
                             size='lg'
-                                clasName="m-3 shadow"
+                                className="m-3 shadow"
                                 variant="primary"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nuevo autorizado"

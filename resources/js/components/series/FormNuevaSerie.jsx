@@ -95,7 +95,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 </option>
                                                 {tiendas.sort((a,b)=> a.nombre.localeCompare(b.nombre)).map((tienda) => (
                                               
-                                                    <option value={tienda.id}>
+                                                    <option key={tienda.id} value={tienda.id}>
                                                         {tienda.nombre}
                                                     </option>
                                                 ))}
@@ -128,7 +128,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 </option>
                                                 {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
                                               
-                                                    <option value={familia.id}>
+                                                    <option key={familia.id} value={familia.id}>
                                                         {familia.nombre}
                                                     </option>
                                                 ))}
@@ -162,7 +162,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 {subfamiliasFiltradas // muestra solo las subfamilias filtradas
                                                 .sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
                                               
-                                                    <option value={subfamilia.id}>
+                                                    <option key={subfamilia.id} value={subfamilia.id}>
                                                         {subfamilia.descripcion}
                                                     </option>
                                                 ))}
@@ -197,7 +197,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 </option>
                                                 {maquinasFiltradas.sort((a,b)=> a.descripcion.localeCompare(b.descripcion)).map((maquina) => (
                                               
-                                                    <option value={maquina.id}>
+                                                    <option key={maquina.id} value={maquina.id}>
                                                         {maquina.descripcion}
                                                     </option>
                                                 ))}
@@ -275,10 +275,10 @@ export default function FormNuevaMaquina({ children }) {
                                         >
                                             <Form.Control
                                                 size="sm"
-                                                aria-label="inventario"
+                                                aria-label="hora inicio horómetro"
                                                 type="time"
                                                 name="hora_inicio"
-                                                value={data.hora_inicio}
+                                                value={data.hora_inicio || ''}
                                                 onChange={(e) =>
                                                     setData(
                                                         "hora_inicio",

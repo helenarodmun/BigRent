@@ -43,8 +43,8 @@ export default function TablaSubFamilias() {
                             </tr>
                         </thead>
                         {maquinas.map((maquina) => (
-                            <tbody className="">
-                                <tr key={maquina.id}>
+                            <tbody key={maquina.id}>
+                                <tr>
                                     <td>{maquina.subfamilia.descripcion}</td>
                                     <td>{maquina.referencia}</td> 
                                     <td>{maquina.marca.denominacion}</td>

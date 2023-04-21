@@ -32,7 +32,7 @@ export default function FormCliente() {
         contacto: "",
         via_comunicacion: "",
         tipo:"",        
-        tipo_clientes_id: "",
+        tipo_cliente_id: "",
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {

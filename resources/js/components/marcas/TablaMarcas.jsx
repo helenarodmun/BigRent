@@ -38,8 +38,8 @@ export default function TablaMarcas() {
                             </tr>
                         </thead>
                         {marcas.map((marca) => (
-                            <tbody className="">
-                                <tr key={marca.id}>
+                            <tbody key={marca.id}>
+                                <tr>
                                     <td>{marca.id}</td>
                                     <td>{marca.denominacion}</td>
                                     <td>

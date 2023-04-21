@@ -9,9 +9,9 @@ export default function FormEdicionMaquina({ children }) {
         id: maquina.id,
         descripcion: maquina.descripcion,
         referencia: maquina.referencia,
-        url_manual: maquina.url_manual,
-        url_ficha: maquina.url_ficha,
-        url_imagen: maquina.url_imagen,
+        url_manual: maquina.url_manual || '',
+        url_ficha: maquina.url_ficha || '',
+        url_imagen: maquina.url_imagen || '',
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {

@@ -31,18 +31,18 @@ const TablaSeries = () => {
     };
     return (
         <Container>
-            <div class="container mt-5">
-                <form action="/series/buscar" method="get" class="d-flex" role="search">
+            <div className="container mt-5">
+                <form action="/series/buscar" method="get" className="d-flex" role="search">
                     <input
                         name="consulta"
                         value={query}
                         onChange={handleSearch}
-                        class="form-control"
+                        className="form-control"
                         type="search"
                         placeholder="Buscar"
                         aria-label="Buscar serie"
                     />
-                    <button class="btn btn-outline-success" type="submit">
+                    <button className="btn btn-outline-success" type="submit">
                         Buscar
                     </button>
                 </form>
@@ -69,8 +69,8 @@ const TablaSeries = () => {
                             </tr>
                         </thead>
                         {resultadosBusqueda.map((serie) => (
-                            <tbody className="">
-                                <tr key={serie.id}>
+                            <tbody key={serie.id}>
+                                <tr>
                                     <td>{serie.maquina.descripcion}</td>
                                     <td>{serie.numero_serie}</td>
                                     {serie.horometro === 0 ? (

@@ -205,7 +205,7 @@ export default function FormNuevaDireccion({ children }) {
                         </Card.Body>
                         <Card.Footer>
                             <Button
-                                clasName="m-3 shadow"
+                                className="m-3 shadow"
                                 variant="success"
                                 onClick={handleSubmit}
                                 aria-label="Guardar nueva direccion"

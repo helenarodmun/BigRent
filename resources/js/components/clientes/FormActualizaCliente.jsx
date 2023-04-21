@@ -12,10 +12,10 @@ export default function FormActualizaCliente() {
         nombre_comercial: clientes.nombre_comercial,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
-        url_escrituras: clientes.url_escrituras,
-        url_dni_administrador: clientes.url_dni_administrador,
-        url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones,
+        url_escrituras: clientes.url_escrituras || '',
+        url_dni_administrador: clientes.url_dni_administrador || '',
+        url_cif: clientes.url_cif || '',
+        anotaciones: clientes.anotaciones || '',
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {

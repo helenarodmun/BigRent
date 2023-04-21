@@ -9,7 +9,7 @@ export default function FormEdicionMaquina({ children }) {
     const { data, setData, put, processing, errors } = useForm({
         id: serie.id,
         horometro: serie.horometro,
-        hora_inicio: serie.hora_inicio,
+        hora_inicio: serie.hora_inicio || '',
         numero_serie: serie.numero_serie,
         disponible: serie.disponible
     });
