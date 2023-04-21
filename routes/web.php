@@ -32,7 +32,6 @@ Route::post('/clientes',[ClienteController::class,'index'])->middleware('auth');
 Route::get('/verCliente/{id}',[ClienteController::class,'showCliente']);
 Route::get('/nuevoCliente', function () {
     $tipos_cliente = TipoCliente::with('confDias')->orderBy('id', 'asc')->get();
-    dd($tipos_cliente);
     return Inertia::render('Clientes/NuevoCliente', [
         'tipos_cliente' => $tipos_cliente
     ]);

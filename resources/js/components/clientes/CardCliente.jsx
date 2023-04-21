@@ -16,7 +16,7 @@ export default function CardCliente({ children }) {
         nombre_fiscal: cliente.nombre_fiscal,
         nif: cliente.nif,
         nombre_comercial: cliente.nombre_comercial,
-        tipo_cliente: cliente.tipo,
+        tipo_cliente: tipo.tipo,
         administrador: cliente.administrador,
         dni_administrador: cliente.dni_administrador,
         url_escrituras: cliente.url_escrituras,

@@ -23,7 +23,6 @@ class ClienteController extends Controller
         $clientes = Cliente::with('tipo')
             ->orderBy('tipo_cliente_id', 'asc')
             ->get();
-dd($clientes);
         return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,
         ]);
@@ -89,8 +88,8 @@ dd($clientes);
         $cliente_actual->load('telefonos.cliente');
         //carga los autorizados relacionados con el cliente
         $cliente_actual->load('autorizados.cliente');
+        //carga el tipo de cliente
         $cliente_actual->load('tipo.cliente');
-        dd($cliente_actual);
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
             'cliente' => $cliente_actual,
