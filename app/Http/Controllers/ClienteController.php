@@ -20,8 +20,10 @@ class ClienteController extends Controller
     public function index()
     {
         //Recuperar todos los clientes de la base de datos
-        $clientes = Cliente::latest()->get();
-
+        $clientes = Cliente::with('tipo')
+            ->orderBy('tipo_cliente_id', 'asc')
+            ->get();
+dd($clientes);
         return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,
         ]);
@@ -32,14 +34,14 @@ class ClienteController extends Controller
         $request->validated();
         $predeterminada = $request->predeterminada;
 
-        if(Direccion::compruebaDireccion($predeterminada)) {
+        if (Direccion::compruebaDireccion($predeterminada)) {
 
             DB::transaction(function ()  use ($request) {
                 $cliente = Cliente::create([
                     'nombre_fiscal' => $request->nombre_fiscal,
                     'nif' => $request->nif,
                     'nombre_comercial' => $request->nombre_comercial,
-                    'tipo_cliente' => $request->tipo_cliente,
+                    'tipo_cliente_id' => $request->tipo_cliente_id,
                     'administrador' => $request->administrador,
                     'dni_administrador' => $request->dni_administrador,
                     'url_escrituras' => $request->url_escrituras,
@@ -85,14 +87,17 @@ class ClienteController extends Controller
         $cliente_actual->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
         $cliente_actual->load('telefonos.cliente');
-         //carga los autorizados relacionados con el cliente
-         $cliente_actual->load('autorizados.cliente');
+        //carga los autorizados relacionados con el cliente
+        $cliente_actual->load('autorizados.cliente');
+        $cliente_actual->load('tipo.cliente');
+        dd($cliente_actual);
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
-            'clientes' => $cliente_actual,
+            'cliente' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
             'autorizados' => $cliente_actual->autorizados,
+            'tipo' => $cliente_actual->tipo
         ]);
     }
 
@@ -117,9 +122,9 @@ class ClienteController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('consulta');
-        $clientes = Cliente::where('nombre_fiscal', 'like', '%'.$query.'%')
-                            ->orWhere('nif', 'like', '%'.$query.'%')
-                            ->get();
+        $clientes = Cliente::where('nombre_fiscal', 'like', '%' . $query . '%')
+            ->orWhere('nif', 'like', '%' . $query . '%')
+            ->get();
 
         return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,

@@ -10,20 +10,19 @@ import {
 } from "react-bootstrap";
 
 export default function CardCliente({ children }) {
-    const { clientes, flash } = usePage().props;
-
+    const { cliente, flash, tipo } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
-        nombre_fiscal: clientes.nombre_fiscal,
-        nif: clientes.nif,
-        nombre_comercial: clientes.nombre_comercial,
-        tipo_cliente: clientes.tipo_cliente,
-        administrador: clientes.administrador,
-        dni_administrador: clientes.dni_administrador,
-        url_escrituras: clientes.url_escrituras,
-        url_dni_administrador: clientes.url_dni_administrador,
-        url_cif: clientes.url_cif,
-        anotaciones: clientes.anotaciones,
+        nombre_fiscal: cliente.nombre_fiscal,
+        nif: cliente.nif,
+        nombre_comercial: cliente.nombre_comercial,
+        tipo_cliente: cliente.tipo,
+        administrador: cliente.administrador,
+        dni_administrador: cliente.dni_administrador,
+        url_escrituras: cliente.url_escrituras,
+        url_dni_administrador: cliente.url_dni_administrador,
+        url_cif: cliente.url_cif,
+        anotaciones: cliente.anotaciones,
     });
     //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papelera
     const [clienteId, setClienteId] = useState(null);
@@ -54,7 +53,7 @@ export default function CardCliente({ children }) {
                             <Card.Title>
                                 <p className="h3 m-0">
                                     <small className="ms-2">
-                                        <small>{clientes.id} - </small>
+                                        <small>{cliente.id} - </small>
                                     </small>
                                     {data.nombre_fiscal}
                                 </p>
@@ -191,7 +190,7 @@ export default function CardCliente({ children }) {
                                 className="m-3 shadow"
                                 variant="primary"
                                 method="get"
-                                href={"/editarCliente/" + clientes.id}
+                                href={"/editarCliente/" + cliente.id}
                                 aria-label="Modificar los datos del cliente"
                             >
                                 {" "}
@@ -209,7 +208,7 @@ export default function CardCliente({ children }) {
                         </Card.Footer>
                     </Card>
                     <div class="d-grid gap-2">  
-            <Button variant="btn btn-outline-warning btn-lg m-5" method='get' href={"/nuevoContrato/" + clientes.id}><strong>Contratar alquiler</strong></Button>
+            <Button variant="btn btn-outline-warning btn-lg m-5" method='get' href={"/nuevoContrato/" + cliente.id}><strong>Contratar alquiler</strong></Button>
             </div>
                 </Col>
             </Row>

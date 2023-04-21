@@ -31,7 +31,7 @@ class TipoCliente extends Model
     //Relación con tabla configuraciones dias
     public function confDias()
     {
-        return $this->hasOne(CongiguracionDia::class);
+        return $this->belongsTo(ConfiguracionDia::class);
     }
     //Relación tabla clientes n:1
     public function clientes()

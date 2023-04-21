@@ -28,7 +28,6 @@ class ClienteForm extends FormRequest
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'required|string',
-                'tipo_cliente' => 'required|string',
                 'administrador' => 'required|string',
                 'dni_administrador' => 'required|string',
                 'url_escrituras' => 'nullable|string',
@@ -47,7 +46,8 @@ class ClienteForm extends FormRequest
                 'nombre_persona_autorizada' => 'required|string',
                 'dni' => 'required|string|max:15',
                 'notas' => 'nullable|string|max:255',
-                'url_dni' => 'nullable|string|max:255'
+                'url_dni' => 'nullable|string|max:255',
+                'tipo_cliente_id' => 'required'
             ],
 
             'PUT' => [
@@ -55,20 +55,19 @@ class ClienteForm extends FormRequest
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'nullable|string',
-                'tipo_cliente' => 'nullable',
                 'administrador' => 'nullable|string',
                 'dni_administrador' => 'nullable|string',
                 'url_escrituras' => 'nullable|string',
                 'url_dni_administrador' => 'nullable|string',
                 'url_cif' => 'nullable|string',
-                'anotaciones' => 'nullable|string|max:255'
+                'anotaciones' => 'nullable|string|max:255',
+                'tipo_cliente_id' => 'nullable'
             ],
             'GET' => [
 
                 'nombre_fiscal' => 'nullable|string',
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'nullable|string',
-                'tipo_cliente' => 'nullable',
                 'administrador' => 'nullable|string',
                 'dni_administrador' => 'nullable|string',
                 'url_escrituras' => 'nullable|string',
@@ -83,7 +82,8 @@ class ClienteForm extends FormRequest
                 'predeterminada' => 'nullable',
                 'contacto' => 'nullable|string|max:255',
                 'via_comunicacion' => 'nullable|string',
-                'tipo' => 'nullable|string'
+                'tipo' => 'nullable|string',
+                'tipo_cliente_id' => 'nullable'
             ]
         };
     }

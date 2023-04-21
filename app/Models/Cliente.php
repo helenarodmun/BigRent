@@ -13,13 +13,13 @@ class Cliente extends Model
         'nombre_fiscal',
         'nif',
         'nombre_comercial',
-        'tipo_cliente',
         'administrador',
         'dni_administrador',
         'url_escrituras',
         'url_dni_administrador',
         'url_cif',
-        'anotaciones'
+        'anotaciones',
+        'tipo_cliente_id'
 
     ];
     protected $table = 'clientes';

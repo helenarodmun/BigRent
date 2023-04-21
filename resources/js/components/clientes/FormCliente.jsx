@@ -12,13 +12,12 @@ import {
 
 export default function FormCliente() {
     
-    const { flash } = usePage().props;
+    const { tipos_cliente, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
         nombre_fiscal: "",
         nif: "",
         nombre_comercial: "",
-        tipo_cliente: "",
         administrador: "",
         dni_administrador: "",
         url_escrituras: "",
@@ -33,7 +32,8 @@ export default function FormCliente() {
         predeterminada: "",
         contacto: "",
         via_comunicacion: "",
-        tipo:""
+        tipo:"",        
+        tipo_clientes_id: "",
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -218,11 +218,11 @@ export default function FormCliente() {
                                             size="sm"
                                                 aria-label="tipo de cliente"
                                                 as="select"
-                                                name="tipo_cliente"
-                                                value={data.tipo_cliente}
+                                                name="tipo_cliente_id"
+                                                value={data.tipo_cliente_id}
                                                 onChange={(e) =>
                                                     setData(
-                                                        "tipo_cliente",
+                                                        "tipo_cliente_id",
                                                         e.target.value
                                                     )
                                                 }
@@ -230,18 +230,12 @@ export default function FormCliente() {
                                                 <option>
                                                     Seleccione tipo cliente...
                                                 </option>
-                                                <option value="Empresa">
-                                                    Empresa
-                                                </option>
-                                                <option value="Autónomo/Particular">
-                                                    Autónomo/Particular
-                                                </option>
-                                                <option value="Organismo/Institución">
-                                                    Organismo/Institución
-                                                </option>
-                                                <option value="Asociación">
-                                                    Asociación
-                                                </option>
+                                                {tipos_cliente.map((tipo) => (
+                                              
+                                              <option value={tipo.id}>
+                                                  {tipo.tipo}
+                                              </option>
+                                          ))}
                                             </Form.Select>
                                             {errors.tipo_cliente && (
                                                 <div className="alert alert-danger">

@@ -22,7 +22,7 @@ class ConfiguracionDia extends Model
     protected $fillable = [
         'laborables',
         'sabados',
-        'domingoa'
+        'domingos'
     ];
 
     protected $table = 'configuraciones_dias';
@@ -33,7 +33,7 @@ class ConfiguracionDia extends Model
     //relación tabla tipos_cliente
     public function tipoCliente()
     {
-        return $this->belongsTo(TipoCliente::class);
+        return $this->hasOne(TipoCliente::class);
     }
 
 }
