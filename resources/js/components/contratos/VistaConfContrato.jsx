@@ -9,7 +9,6 @@ export default function VistaConfContrato() {
         serie_id: serie.numero_serie,
         fecha_retirada: contrato.fecha_retirada,
         fecha_entrega: contrato.fecha_entrega,
-        semanas: contrato.semanas,
         dias: contrato.dias,
         importe_total: contrato.importe_total,
         notas1: contrato.notas1,
@@ -80,11 +79,6 @@ export default function VistaConfContrato() {
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="FECHA FIN" className="mb-2">
                                                 <Form.Control aria-label="finalización contrato" name="fceha_fin" value={contrato.fecha_entrega} disabled readonly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="NÚMERO SEMANAS" className="mb-2">
-                                                <Form.Control aria-label="semanas contrato" name="semanas" value={contrato.semanas} disabled readonly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="2">
