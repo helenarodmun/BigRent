@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('configuraciones_dias', function (Blueprint $table) {
             $table->id();
+            $table->boolean('laborables');
+            $table->boolean('sabados');
+            $table->boolean('domingos');
             $table->timestamps();
         });
     }
