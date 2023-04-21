@@ -8,22 +8,20 @@ return new class extends Migration
 {
     /**
      * Tiendas:
-     * 001 - Puerto del Rosario
-     * 002 - Gran Tarajal
-     * 003 - Corralejo
-     * 004 - Lanzarote
+     * 1 - Puerto del Rosario
+     * 2 - Gran Tarajal
+     * 3 - Corralejo
+     * 4 - Lanzarote
      */
 
     public function up(): void
     {
         Schema::create('tiendas', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo');
             $table->string('nombre');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

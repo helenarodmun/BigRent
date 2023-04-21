@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tienda extends Model
 {
+    /**
+     * Tiendas:
+     * id: 1 - Puerto del Rosario
+     * id: 2 - Gran Tarajal
+     * id: 3 - Corralejo
+     * id: 4 - Lanzarote
+     */
     use HasFactory;
     protected $fillable = [
         'codigo',
@@ -14,6 +21,9 @@ class Tienda extends Model
     ];
 
     protected $tabla = 'tiendas';
+
+    //clave primaria no es auto-incremental
+    public $incrementing = false;
 
     //Relación 1:N con la tabla users
     public function empleados()
