@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Tiendas:
+     * 001 - Puerto del Rosario
+     * 002 - Gran Tarajal
+     * 003 - Corralejo
+     * 004 - Lanzarote
      */
+
     public function up(): void
     {
         Schema::create('tiendas', function (Blueprint $table) {

@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Configuración dias
+     * 1 - Particular
+     * 2 - Empresa
+     * 3 - Autónomo
+     * 4 - Organismo/Institución
+     * 5- Asociación
+     * Campo en true se contabiliza para el cobro
      */
     public function up(): void
     {

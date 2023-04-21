@@ -7,7 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Cada tipo de cliente tiene una configuración de días de cobro
+     * campo en true se contabiliza
+     * 
+     * Particular - configuraciones_dias_id(FK) => 1
+     * Empresa - configuraciones_dias_id(FK) => 2
+     * Autónomo - configuraciones_dias_id(FK) => 3
+     * Organismo/Institución - configuraciones_dias_id(FK) => 4
+     * Asociación - configuraciones_dias_id(FK) => 5
+     * 
+     * 
      */
     public function up(): void
     {
