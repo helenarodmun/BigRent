@@ -21,5 +21,10 @@ class Autorizado extends Model
      {
          return $this->belongsTo(Cliente::class);
      }
+      //Relación N:1 con la tabla contratos
+      public function contratos()
+      {
+          return $this->hasMany(Cliente::class);
+      }
 
 }

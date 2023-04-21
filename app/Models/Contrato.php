@@ -29,22 +29,22 @@ class Contrato extends Model
     //relacion 1:1 con la tabla clientes
     public function cliente()
     {
-        return $this->HasOne(Cliente::class);
+        return $this->belongsTo(Cliente::class);
     }
     //relacion 1:1 con la tabla direcciones
     public function direccion()
     {
-        return $this->HasOne(Direccion::class);
+        return $this->belongsTo(Direccion::class);
     }
     //relacion 1:1 con la tabla direcciones
     public function autorizados()
     {
-        return $this->HasOne(Autorizado::class);
+        return $this->belongsTo(Autorizado::class);
     }
     //relacion 1:N con la tabla series
     public function series()
     {
-        return $this->hasMany(Serie::class);
+        return $this->belongsTo(Serie::class);
     }
 
     //función para calcular las semanas y días a partir de las fechas de retiro y entrega, 

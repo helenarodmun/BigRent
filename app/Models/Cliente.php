@@ -23,6 +23,10 @@ class Cliente extends Model
 
     ];
     protected $table = 'clientes';
+    //relacion N:1 con la tabla tipos_cliente
+    public function tipo() {
+        return $this->belongsTo(TipoCliente::class);
+    }
     //relacion 1:N con la tabla direcciones
     public function direcciones()
     {
