@@ -14,7 +14,6 @@ class Contrato extends Model
     protected $fillable = [
         'fecha_retirada',
         'fecha_entrega',
-        'semanas',
         'dias',
         'importe_total',
         'notas1',
@@ -47,9 +46,9 @@ class Contrato extends Model
         return $this->belongsTo(Serie::class);
     }
 
-    //función para calcular las semanas y días a partir de las fechas de retiro y entrega, 
+    //función para calcular los días a partir de las fechas de retiro y entrega, 
     //descuenta los domingos a partir de la primera semana
-    public static function calcularSemanasYDias($fechaInicio, $fechaFin)
+    public static function calcularDias($fechaInicio, $fechaFin)
     {
         // Crear objetos DateTime a partir de las fechas de retiro y entrega
         $fechaRetirada = new DateTime($fechaInicio);
@@ -57,7 +56,6 @@ class Contrato extends Model
         //de lo contrario, se excluye la fecha de finalización (¿error?)
         $fechaFin = $fechaEntrega->modify('+1 day');
         // Calcular la diferencia entre las fechas en días
-        $diferenciaEnDias = $fechaRetirada->diff($fechaEntrega);
         $intervalo = $fechaFin->diff($fechaRetirada);
 
         // total dias
@@ -77,8 +75,6 @@ class Contrato extends Model
             }
             $diasHabiles++;
         }
-        $semanas = intDiv($diasHabiles, 7);
-        $dias = $diasHabiles % 7;
-        return ['semanas' => $semanas, 'dias' => $dias];
+        return ['dias' => $dias];
     }
 }

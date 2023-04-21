@@ -11,7 +11,6 @@ class Subfamilia extends Model
 
     protected $fillable = [
         'descripcion',
-        'precio_semana',
         'precio_dia',
         'fianza',
         'familia_id'

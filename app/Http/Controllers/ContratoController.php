@@ -28,14 +28,13 @@ class ContratoController extends Controller
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
-        $semanas_dias = Contrato::calcularSemanasYDias($data['fecha_retirada'], $data['fecha_entrega']);
-        $importe_alquiler = $subfamilia->precio_dia * $semanas_dias['dias'] + $subfamilia->precio_semana * $semanas_dias['semanas'];
+        $dias_alquiler = Contrato::calcularDias($data['fecha_retirada'], $data['fecha_entrega']);
+        $importe_alquiler = $subfamilia->precio_dia * $dias_alquiler['dias'];
         $importeTotal = $subfamilia->fianza + $importe_alquiler;
         $contrato = [
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
-            'semanas' => $semanas_dias['semanas'],
-            'dias' => $semanas_dias['dias'],
+            'dias' => $dias_alquiler['dias'],
             'importe_total' => $importeTotal,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
@@ -64,18 +63,17 @@ class ContratoController extends Controller
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
-        // Calcular las semanas y días a partir de las fechas de inicio y fin
-        $semanas_dias = Contrato::calcularSemanasYDias($data['fecha_retirada'], $data['fecha_entrega']);
+        // Calcular los días a partir de las fechas de inicio y fin
+        $dias_alquiler = Contrato::calcularDias($data['fecha_retirada'], $data['fecha_entrega']);
         // Calcular el importe total según los precios y fianzas de la subfamilia
-        $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $semanas_dias['dias'] + $subfamilia->precio_semana * $semanas_dias['semanas'];
+        $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $dias_alquiler['dias'];
         //cambia el estado de disponibilidad
         $serie->disponible = 0;
         // Crear el contrato en la base de datos
         $contrato = Contrato::create([
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
-            'semanas' => $semanas_dias['semanas'],
-            'dias' => $semanas_dias['dias'],
+            'dias' => $dias_alquiler['dias'],
             'importe_total' => $importeTotal,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
@@ -85,10 +83,9 @@ class ContratoController extends Controller
             'autorizado_id' => $data['autorizado_id']
         ]);
         dd($contrato);
-        // Devolver la vista con el contrato creado y los cálculos de semanas y días
+
         return Inertia::render('Contratos/VistaContrato', [
-            'contrato' => $contrato,
-            'importe' => $importeTotal
+            'contrato' => $contrato
         ]);
     }
 

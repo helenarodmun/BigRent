@@ -26,7 +26,6 @@ class ContratoForm extends FormRequest
             'POST' => [
                 'fecha_retirada' => 'required|date',
                 'fecha_entrega' => 'required|date',
-                'semanas' => 'nullable|numeric',
                 'dias' => 'nullable|numeric',
                 'importe_total' => 'nullable|decimal',
                 'notas1' => 'nullable',
@@ -41,7 +40,6 @@ class ContratoForm extends FormRequest
                 
                 'fecha_retirada' => 'nullable|date',
                 'fecha_entrega' => 'nullable|date',
-                'semanas' => 'nullable|numeric',
                 'dias' => 'nullable|numeric',
                 'importe_total' => 'nullable|decimal',
                 'notas1' => 'nullable',
@@ -56,7 +54,6 @@ class ContratoForm extends FormRequest
                 
                 'fecha_retirada' => 'nullable|date',
                 'fecha_entrega' => 'nullable|date',
-                'semanas' => 'required|numeric',
                 'dias' => 'required|numeric',
                 'importe_total' => 'nullable',
                 'notas1' => 'nullable',

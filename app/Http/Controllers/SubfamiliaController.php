@@ -55,7 +55,6 @@ class SubfamiliaController extends Controller
         $validatedData = $request->validated();
         $subfamilia = Subfamilia::findOrFail($id);
         $subfamilia->descripcion = $validatedData['descripcion'];
-        $subfamilia->precio_semana = $validatedData['precio_semana'];
         $subfamilia->precio_dia = $validatedData['precio_dia'];
         $subfamilia->fianza = $validatedData['fianza'];
 
