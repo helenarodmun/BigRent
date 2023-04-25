@@ -2,12 +2,11 @@ import { useForm, usePage } from "@inertiajs/react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 export default function VistaConfContrato() {
     const { cliente, direccion, direccion_predeterminada, telefono,autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
-    console.log(direccion_predeterminada);
     const { data, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
         telefono_id: telefono.id,
-        direccion_predeterminada: direccion_predeterminada[0].id,
+        direccion_predeterminada: direccion_predeterminada.id,
         autorizado_id: autorizado.id,
         serie_id: serie.id,
         fecha_retirada: contrato.fecha_retirada,
@@ -17,6 +16,9 @@ export default function VistaConfContrato() {
         notas1: contrato.notas1,
         notas2: contrato.notas2 || ''
     });
+    function myDate(fechaHora) {
+        return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
+    }
     function handleSubmit(e) {
         e.preventDefault();        
         post(
@@ -54,7 +56,7 @@ export default function VistaConfContrato() {
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCION CLIENTE" className="mb-2">
-                                            <Form.Control aria-label="direccion cliente" name="direccion" value={[direccion_predeterminada.direccion, direccion_predeterminada.localidad, direccion_predeterminada.municipio]} disabled readOnly />
+                                            <Form.Control aria-label="direccion cliente" name="direccion" value={`${direccion_predeterminada.direccion} - ${direccion_predeterminada.cp} - ${direccion_predeterminada.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
@@ -64,7 +66,7 @@ export default function VistaConfContrato() {
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCION CONTRATO" className="mb-2">
-                                            <Form.Control aria-label="direccion contrato" name="direccion" value={[direccion.direccion, direccion.localidad, direccion.municipio]} disabled readOnly />
+                                            <Form.Control aria-label="direccion contrato" name="direccion" value={`${direccion.direccion} - ${direccion.cp} - ${direccion.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
@@ -86,12 +88,12 @@ export default function VistaConfContrato() {
                                     <Row>
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="FECHA INICIO" className="mb-2">
-                                                <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={contrato.fecha_retirada} disabled readOnly />
+                                                <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={myDate(contrato.fecha_retirada)} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="FECHA FIN" className="mb-2">
-                                                <Form.Control aria-label="finalización contrato" name="fceha_fin" value={contrato.fecha_entrega} disabled readOnly />
+                                                <Form.Control aria-label="finalización contrato" name="fceha_fin" value={myDate(contrato.fecha_entrega)} disabled readOnly />
                                             </FloatingLabel>
                                         </Col>
                                         <Col xs="12" sm="6" md="2">

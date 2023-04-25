@@ -25,7 +25,7 @@ class ContratoController extends Controller
         $data = $request->validated();
         $cliente = Cliente::findOrFail($data['cliente_id']);
         $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
-            ->where('predeterminada', true)->get();
+            ->where('predeterminada', true)->first();
         $direccion = Direccion::findOrFail($data['direccion_id']);        
         $telefono = Telefono::findOrFail($data['telefono_id']); 
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);
