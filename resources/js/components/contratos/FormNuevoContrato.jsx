@@ -7,6 +7,7 @@ export default function FormNuevoContrato() {
     const { data, setData, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: '',
+        telefono_id:'',
         autorizado_id: '',
         serie_id: '',
         fecha_retirada: '',
@@ -47,6 +48,15 @@ export default function FormNuevoContrato() {
                                                 {cliente.direcciones.sort((a, b) => a.direccion.localeCompare(b.direccion)).map(direccion => (<option key={direccion.id} value={direccion.id}>{direccion.direccion}</option>))}
                                             </Form.Select>
                                             {errors.direccion_id && (<div className="alert alert-danger">{errors.direccion_id}</div>)}
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="6">
+                                        <FloatingLabel label="CONTACTO" className="mb-2">
+                                            <Form.Select name="telefono_id" placeholder="Selecciona un contacto" onChange={(e) => setData("telefono_id", e.target.value)}>
+                                                <option>Seleccione contacto ...</option>
+                                                {cliente.telefonos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
+                                            </Form.Select>
+                                            {errors.telefono_id && (<div className="alert alert-danger">{errors.telefono_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="6">

@@ -1,12 +1,15 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 export default function VistaConfContrato() {
-    const { cliente, direccion, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono,autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
+    console.log(direccion_predeterminada);
     const { data, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
+        telefono_id: telefono.id,
+        direccion_predeterminada: direccion_predeterminada[0].id,
         autorizado_id: autorizado.id,
-        serie_id: serie.numero_serie,
+        serie_id: serie.id,
         fecha_retirada: contrato.fecha_retirada,
         fecha_entrega: contrato.fecha_entrega,
         dias: contrato.dias,
@@ -50,13 +53,23 @@ export default function VistaConfContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
+                                        <FloatingLabel label="DIRECCION CLIENTE" className="mb-2">
+                                            <Form.Control aria-label="direccion cliente" name="direccion" value={[direccion_predeterminada.direccion, direccion_predeterminada.localidad, direccion_predeterminada.municipio]} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="PERSONA AUTORIZADA" className="mb-2" >
                                             <Form.Control aria-label="autorizado contrato" name="autorizado" value={autorizado.nombre_persona_autorizada} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCION CONTRATO" className="mb-2">
-                                            <Form.Control aria-label="direccion contrato" name="direccion" value={direccion.direccion} disabled readOnly />
+                                            <Form.Control aria-label="direccion contrato" name="direccion" value={[direccion.direccion, direccion.localidad, direccion.municipio]} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel label="CONTACTO" className="mb-2">
+                                            <Form.Control aria-label="contacto contrato" name="telefono" value={telefono.contacto} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
@@ -120,7 +133,7 @@ export default function VistaConfContrato() {
                         </Card.Body>
                         <Card.Footer>
                             <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
-                            <Button variant="btn btn-secondary btn-lg m-5" method="post" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
+                            <Button variant="btn btn-secondary btn-lg m-5"  href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

@@ -5,6 +5,7 @@ namespace App\Models;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,36 +46,53 @@ class Contrato extends Model
     {
         return $this->belongsTo(Serie::class);
     }
-
-    //función para calcular los días a partir de las fechas de retiro y entrega, 
-    //descuenta los domingos a partir de la primera semana
-    public static function calcularDias($fechaInicio, $fechaFin)
+    /**
+     * Calcula los días de alquiler entre dos fechas utilizando la configuración del cliente.
+     *
+     * @param string $fechaInicio La fecha de inicio del alquiler en formato Y-m-d.
+     * @param string $fechaFin La fecha de fin del alquiler en formato Y-m-d.
+     * @param stdClass $configuracionCliente La configuración del cliente como objeto con las columnas 'laborables', 'sabados' y 'domingos'.
+     * @return int Los días de alquiler según la configuración del cliente.
+     */
+    public static function calcularDiasDeAlquiler($fechaInicio, $fechaFin, $configuracionCliente)
     {
-        // Crear objetos DateTime a partir de las fechas de retiro y entrega
-        $fechaRetirada = new DateTime($fechaInicio);
-        $fechaEntrega = new DateTime($fechaFin);
-        //de lo contrario, se excluye la fecha de finalización (¿error?)
-        $fechaFin = $fechaEntrega->modify('+1 day');
-        // Calcular la diferencia entre las fechas en días
-        $intervalo = $fechaFin->diff($fechaRetirada);
+        // Convierte las fechas a objetos DateTime para poder manejarlas.
+        $fechaInicio = new DateTime($fechaInicio);
+        $fechaFin = new DateTime($fechaFin);
 
-        // total dias
-        $dias = $intervalo->days;
+        // Inicializa el contador de días de alquiler en cero.
+        $diasDeAlquiler = 0;
 
-        // crea un período de fecha iterable (P1D equivale a 1 día)
-        $intervalo = new DateInterval('P1D');
-        //DatePeriod representa un periodo de fechas
-        $periodo = new DatePeriod($fechaRetirada, $intervalo, $fechaFin);
-        $diasHabiles = 0;
-        //saco los fines de semana y los feriados (totala sacar = 4)
+        // Crea un intervalo de un día para iterar entre las fechas de inicio y fin.
+        $intervalo = DateInterval::createFromDateString('1 day');
+        $periodo = new DatePeriod($fechaInicio, $intervalo, $fechaFin);
+
+        // Itera sobre cada fecha del periodo.
         foreach ($periodo as $fecha) {
-            //función format Devuelve la fecha formateada según el formato dado, 'N' Representación numérica ISO 8601 del día de la semana
-            //comprueba si hay domingos durante el periodo
-            if ($fecha->format("N") === '7') {
-                continue;
+            // Obtiene el número de día de la semana (1 = Lunes, 7 = Domingo).
+            $dia = $fecha->format('N');
+
+            // Determina si el día actual es hábil según la configuración del cliente.
+            $esDiaHabil = true;
+            switch ($dia) {
+                case 6: // Sábado
+                    $esDiaHabil = $configuracionCliente->sabados;
+                    break;
+                case 7: // Domingo
+                    $esDiaHabil = $configuracionCliente->domingos;
+                    break;
+                default: // Lunes a viernes
+                    $esDiaHabil = $configuracionCliente->laborables;
+                    break;
             }
-            $diasHabiles++;
+
+            // Si el día actual es hábil, incrementa el contador de días de alquiler.
+            if ($esDiaHabil) {
+                $diasDeAlquiler++;
+            }
         }
-        return ['dias' => $dias];
+
+        // Retorna el número de días de alquiler.
+        return $diasDeAlquiler;
     }
 }

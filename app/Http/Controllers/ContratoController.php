@@ -11,6 +11,7 @@ use App\Models\Familia;
 use App\Models\Maquina;
 use App\Models\Serie;
 use App\Models\Subfamilia;
+use App\Models\Telefono;
 use App\Models\Tienda;
 use DateTime;
 use Illuminate\Http\Request;
@@ -23,29 +24,35 @@ class ContratoController extends Controller
     {
         $data = $request->validated();
         $cliente = Cliente::findOrFail($data['cliente_id']);
-        $direccion = Direccion::findOrFail($data['direccion_id']);
+        $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
+            ->where('predeterminada', true)->get();
+        $direccion = Direccion::findOrFail($data['direccion_id']);        
+        $telefono = Telefono::findOrFail($data['telefono_id']); 
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
-        $dias_alquiler = Contrato::calcularDias($data['fecha_retirada'], $data['fecha_entrega']);
-        $importe_alquiler = $subfamilia->precio_dia * $dias_alquiler['dias'];
+        $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $cliente->tipo->confDias);
+        $importe_alquiler = $subfamilia->precio_dia * $dias_alquiler;
         $importeTotal = $subfamilia->fianza + $importe_alquiler;
         $contrato = [
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
-            'dias' => $dias_alquiler['dias'],
+            'dias' => $dias_alquiler,
             'importe_total' => $importeTotal,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
             'cliente_id' => $data['cliente_id'],
             'serie_id' => $data['serie_id'],
             'direccion_id' => $data['direccion_id'],
-            'autorizado_id' => $data['autorizado_id']
+            'autorizado_id' => $data['autorizado_id'],
+            'telefono_id' => $data['telefono_id']
         ];
         return Inertia::render('Contratos/ConfirmarContrato', [
             'cliente' => $cliente,
             'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
             'autorizado' => $autorizado,
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
@@ -59,27 +66,31 @@ class ContratoController extends Controller
     public function create(ContratoForm $request)
     {
         $data = $request->validated(); // Validar los datos del formulario
+        //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
+        $cliente = Cliente::findOrFail($data['cliente_id']);
+        $conf_cliente = $cliente->tipo->confDias;
         // Obtener la subfamilia de la serie
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
         // Calcular los días a partir de las fechas de inicio y fin
-        $dias_alquiler = Contrato::calcularDias($data['fecha_retirada'], $data['fecha_entrega']);
+        $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $conf_cliente);
         // Calcular el importe total según los precios y fianzas de la subfamilia
-        $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $dias_alquiler['dias'];
+        $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $dias_alquiler;
         //cambia el estado de disponibilidad
         $serie->disponible = 0;
         // Crear el contrato en la base de datos
         $contrato = Contrato::create([
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
-            'dias' => $dias_alquiler['dias'],
+            'dias' => $dias_alquiler,
             'importe_total' => $importeTotal,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
             'cliente_id' => $data['cliente_id'],
-            'serie_id' => $data['serie_id'],
+            'serie_id' => $serie->id,
             'direccion_id' => $data['direccion_id'],
+            'telefono_id' => $data['telefono_id'],
             'autorizado_id' => $data['autorizado_id']
         ]);
         dd($contrato);
@@ -100,7 +111,7 @@ class ContratoController extends Controller
         //recupera los datos del cliente a través de la id pasada por url
         $cliente_actual = Cliente::findOrFail($id);
         //carga las direcciones relacionadas con el cliente actual
-        $cliente_actual->load('direcciones.cliente')->load('autorizados.cliente');
+        $cliente_actual->load('direcciones.cliente')->load('autorizados.cliente')->load('telefonos.cliente');
 
         //carga la relación maquina en la consulta
         $series = Serie::with(['maquina' => function ($query) {
@@ -118,6 +129,7 @@ class ContratoController extends Controller
         return Inertia::render('Contratos/NuevoContrato', [
             'cliente' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
+            'telefonos' => $cliente_actual->telefonos,
             'series' => $series,
             'autorizados' => $cliente_actual->autorizados,
             'familias' => $familias,
