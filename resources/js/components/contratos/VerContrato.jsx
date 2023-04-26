@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 export default function VerContrato() {
-    const { cliente, direccion, direccion_predeterminada, telefono,autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
     const { data, get } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
@@ -20,7 +20,7 @@ export default function VerContrato() {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
     }
     function handleSubmit(e) {
-        e.preventDefault();        
+        e.preventDefault();
         get(
             "/cerrarContrato",
             {
@@ -29,7 +29,7 @@ export default function VerContrato() {
                 },
             },
             data
-        );                
+        );
     }
     return (
         <Container>
@@ -83,59 +83,61 @@ export default function VerContrato() {
                                         <FloatingLabel label="NUMERO DE SERIE" className="mb-2">
                                             <Form.Control aria-label="serie contrato" name="serie" value={serie.numero_serie} disabled readOnly />
                                         </FloatingLabel>
-                                    </Col>                                    
-                                    </Row>
-                                    <Row>
-                                        <Col xs="12" sm="6" md="3">
-                                            <FloatingLabel label="FECHA INICIO" className="mb-2">
-                                                <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={myDate(contrato.fecha_retirada)} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="3">
-                                            <FloatingLabel label="FECHA FIN" className="mb-2">
-                                                <Form.Control aria-label="finalización contrato" name="fceha_fin" value={myDate(contrato.fecha_entrega)} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="NÚMERO DIAS" className="mb-2">
-                                                <Form.Control aria-label="dias contrato" name="dias" value={contrato.dias} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
-                                                <Form.Control aria-label="fianza contrato" name="importeFianza" value={subfamilia.fianza} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                                <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={importe_alquiler} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="IMPORTE TOTAL" className="mb-2">
-                                                <Form.Control aria-label="importe total contrato" name="importeTotal" value={contrato.importe_total} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
+                                    </Col>
                                 </Row>
                                 <Row>
-                                        <Col xs="12" sm="6" md="6">
-                                            <FloatingLabel label="ESTADO ARTÍCULO - OBSERVACIONES" className="mb-2">
-                                                <Form.Control aria-label="observaciones sobre el artículo" name="notas1" value={contrato.notas1} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="6">
-                                            <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
-                                                <Form.Control aria-label="observaciones sobre el contrato" name="notas2" value={contrato.notas2 ||''} disabled readOnly />
-                                            </FloatingLabel>
-                                        </Col>
+                                    <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel label="FECHA INICIO" className="mb-2">
+                                            <Form.Control aria-label="inicio contrato" name="fecha_inicio" value={myDate(contrato.fecha_retirada)} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="3">
+                                        <FloatingLabel label="FECHA FIN" className="mb-2">
+                                            <Form.Control aria-label="finalización contrato" name="fceha_fin" value={myDate(contrato.fecha_entrega)} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="2">
+                                        <FloatingLabel label="NÚMERO DIAS" className="mb-2">
+                                            <Form.Control aria-label="dias contrato" name="dias" value={contrato.dias} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs="12" sm="6" md="2">
+                                        <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
+                                            <Form.Control aria-label="fianza contrato" name="importeFianza" value={subfamilia.fianza} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="2">
+                                        <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
+                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={importe_alquiler} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="2">
+                                        <FloatingLabel label="IMPORTE TOTAL" className="mb-2">
+                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={contrato.importe_total} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs="12" sm="6" md="6">
+                                        <FloatingLabel label="ESTADO ARTÍCULO - OBSERVACIONES" className="mb-2">
+                                            <Form.Control aria-label="observaciones sobre el artículo" name="notas1" value={contrato.notas1} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="6">
+                                        <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
+                                            <Form.Control aria-label="observaciones sobre el contrato" name="notas2" value={contrato.notas2 || ''} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
                                 </Row>
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button variant="btn btn-success btn-lg m-5" method="get" onClick={handleSubmit}><strong>Cerrar contrato</strong></Button>
-                            <Button variant="btn btn-secondary btn-lg m-5"  href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
+                            {contrato.activo == 1 ? (
+                                <Button variant="btn btn-danger btn-lg m-5" method="get" onClick={handleSubmit}><strong>Cerrar contrato</strong></Button>
+                            ) : ('')}
+                            <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

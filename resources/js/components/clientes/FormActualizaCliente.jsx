@@ -300,7 +300,7 @@ export default function FormActualizaCliente() {
                     </Card.Body>
                     <Card.Footer>
                         <Button
-                            className="m-2 shadow"
+                            className="m-2 shadow btn-lg"
                             variant="success"
                             onClick={handleSubmit}
                             aria-label="Modificar los datos del cliente"
@@ -308,7 +308,7 @@ export default function FormActualizaCliente() {
                             Guardar registro
                         </Button>
                         <Button
-                            className="m-3 shadow"
+                            className="m-3 shadow btn-lg"
                             type="submit"
                             variant="danger"
                             aria-label="Eliminar los datos del cliente"
@@ -335,7 +335,7 @@ export default function FormActualizaCliente() {
                             idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                         />
                         <Button
-                            className="m-3 shadow"
+                            className="m-3 shadow btn-lg"
                             variant="secondary"
                             href={"/verCliente/" + clientes.id}
                             aria-label="Volver a la vista anterior"
