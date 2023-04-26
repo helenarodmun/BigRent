@@ -94,6 +94,9 @@ export default function CardCliente({ children }) {
                             </Button>
                             <Button size="lg" className="m-3 shadow" variant="secondary" href={"/clientes"} aria-label="Volver a la vista anterior">
                                 Cancelar
+                            </Button>                            
+                            <Button size="lg" className="m-3" variant="warning" href={"/listarContratos/" + cliente.id} aria-label="Volver a la vista anterior">
+                                Ver contratos
                             </Button>
                         </Card.Footer>
                     </Card>

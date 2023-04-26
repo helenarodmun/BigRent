@@ -141,3 +141,4 @@ Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']
 Route::get('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
 Route::post('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
 Route::post('/nuevoContrato', [ContratoController::class, 'create']);
+Route::get('/listarContratos/{id}', [ContratoController::class, 'verListadoContratos']);

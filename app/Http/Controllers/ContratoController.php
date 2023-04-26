@@ -26,8 +26,8 @@ class ContratoController extends Controller
         $cliente = Cliente::findOrFail($data['cliente_id']);
         $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
             ->where('predeterminada', true)->first();
-        $direccion = Direccion::findOrFail($data['direccion_id']);        
-        $telefono = Telefono::findOrFail($data['telefono_id']); 
+        $direccion = Direccion::findOrFail($data['direccion_id']);
+        $telefono = Telefono::findOrFail($data['telefono_id']);
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
@@ -93,17 +93,24 @@ class ContratoController extends Controller
             'telefono_id' => $data['telefono_id'],
             'autorizado_id' => $data['autorizado_id']
         ]);
-        dd($contrato);
 
-        return Inertia::render('Contratos/VistaContrato', [
+        return Inertia::render('Contratos/Listado', [
             'contrato' => $contrato
         ]);
     }
 
 
-    public function store(Request $request)
+    public function verListadoContratos($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $contratos = Contrato::where('cliente_id', $id)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return Inertia::render('Contratos/Listado', [
+            'cliente' => $cliente,
+            'contratos' => $contratos
+        ]);
     }
 
     public function verFormContrato($id)
