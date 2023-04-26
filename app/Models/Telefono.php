@@ -20,4 +20,9 @@ class Telefono extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+     //relación tabla contratos 1:N
+     public function contratos()
+     {
+         return $this->hasMany(Contrato::class);
+     }
 }

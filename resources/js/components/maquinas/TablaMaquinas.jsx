@@ -88,7 +88,7 @@ export default function TablaSubFamilias() {
                                             title="¡ADVERTENCIA!"
                                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
                                             urlAccion="/eliminarMaquina"
-                                            idRegistro={idToDelete}
+                                            idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                         />
                                     </td>
                                 </tr>

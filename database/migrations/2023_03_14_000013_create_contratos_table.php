@@ -46,10 +46,12 @@ class CreateContratosTable extends Migration
                 ->constrained('direcciones')
                 ->onDelete('no action')
                 ->onUpdate('no action');
+
             $table->foreignId('telefono_id')
                 ->constrained('telefonos')
                 ->onDelete('no action')
                 ->onUpdate('no action');
+
             $table->foreignId('autorizado_id')
                 ->constrained('autorizados')
                 ->onDelete('no action')

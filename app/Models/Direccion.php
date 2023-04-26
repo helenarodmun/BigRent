@@ -26,7 +26,7 @@ class Direccion extends Model
     //relación tabla contratos 1:N
     public function contratos()
     {
-        return $this->hasMany(Cliente::class);
+        return $this->hasMany(Contrato::class);
     }
     //Método para comprobar si existe una dirección predeterminada
     public static function compruebaDireccion($predeterminada)

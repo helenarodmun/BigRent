@@ -97,7 +97,7 @@ export default function TablaEdicionDirecciones() {
                                             title="¡ADVERTENCIA!"
                                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
                                             urlAccion="/eliminarDireccion"
-                                            idRegistro={idToDelete}
+                                            idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                         />
                                     </td>
                                 </tr>

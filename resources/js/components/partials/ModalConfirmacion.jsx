@@ -9,6 +9,8 @@ export default function ModalConfirmacion({
   message,
   urlAccion,
   idRegistro,
+  variant,
+  text
 }) {
   const handleDelete = () => {
     onConfirm(urlAccion, idRegistro);
@@ -27,8 +29,8 @@ export default function ModalConfirmacion({
         <Button variant="secondary" onClick={onHide}>
           Cancelar
         </Button>
-        <Button variant="danger" onClick={handleDelete}>
-          Eliminar
+        <Button variant={variant} onClick={handleDelete}>
+          {text}
         </Button>
       </Modal.Footer>
     </Modal>

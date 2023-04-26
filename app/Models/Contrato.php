@@ -5,7 +5,6 @@ namespace App\Models;
 use DateInterval;
 use DatePeriod;
 use DateTime;
-use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +21,8 @@ class Contrato extends Model
         'cliente_id',
         'serie_id',
         'direccion_id',
-        'autorizado_id'
+        'autorizado_id',
+        'telefono_id'
 
     ];
     protected $table = 'contratos';
@@ -36,13 +36,18 @@ class Contrato extends Model
     {
         return $this->belongsTo(Direccion::class);
     }
+    //relacion 1:1 con la tabla telefonos
+    public function telefono()
+    {
+        return $this->belongsTo(Telefono::class);
+    }
     //relacion 1:1 con la tabla direcciones
-    public function autorizados()
+    public function autorizado()
     {
         return $this->belongsTo(Autorizado::class);
     }
     //relacion 1:N con la tabla series
-    public function series()
+    public function serie()
     {
         return $this->belongsTo(Serie::class);
     }

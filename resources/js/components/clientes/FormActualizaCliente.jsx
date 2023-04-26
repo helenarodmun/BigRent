@@ -332,7 +332,7 @@ export default function FormActualizaCliente() {
                             title="¡ADVERTENCIA!"
                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
                             urlAccion="/eliminarCliente"
-                            idRegistro={idToDelete}
+                            idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                         />
                         <Button
                             className="m-3 shadow"

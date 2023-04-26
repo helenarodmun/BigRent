@@ -79,6 +79,7 @@ class ContratoController extends Controller
         $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $dias_alquiler;
         //cambia el estado de disponibilidad
         $serie->disponible = 0;
+        $serie->save();
         // Crear el contrato en la base de datos
         $contrato = Contrato::create([
             'fecha_retirada' => $data['fecha_retirada'],
@@ -93,9 +94,14 @@ class ContratoController extends Controller
             'telefono_id' => $data['telefono_id'],
             'autorizado_id' => $data['autorizado_id']
         ]);
-
+        $cliente = Cliente::findOrFail($cliente->id);
+        $contratos = Contrato::where('cliente_id', $cliente->id)
+            ->orderBy('created_at', 'asc')
+            ->get();
         return Inertia::render('Contratos/Listado', [
-            'contrato' => $contrato
+            'contrato' => $contrato,
+            'contratos' => $contratos,
+            'cliente' => $cliente
         ]);
     }
 
@@ -145,18 +151,86 @@ class ContratoController extends Controller
         ]);
     }
 
-    public function edit(Contrato $contrato)
+    public function verContrato($id)
     {
-        //
+        $contrato = Contrato::findOrFail($id);
+        $cliente = $contrato->cliente;
+        $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
+            ->where('predeterminada', true)->first();
+        $direccion = $contrato->direccion;
+        $telefono = $contrato->telefono;
+        $autorizado = $contrato->autorizado;
+        $serie = $contrato->serie;
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
+        return Inertia::render('Contratos/VistaContrato', [
+            'cliente' => $cliente,
+            'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
+        ]);
     }
 
-    public function update(Request $request, Contrato $contrato)
+    public function update($id)
     {
-        //
+        $contrato = Contrato::findOrFail($id);
+        $cliente = $contrato->cliente;
+        $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
+            ->where('predeterminada', true)->first();
+        $direccion = $contrato->direccion;
+        $telefono = $contrato->telefono;
+        $autorizado = $contrato->autorizado;
+        $serie = $contrato->serie;
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
+        return Inertia::render('Contratos/VistaContrato', [
+            'cliente' => $cliente,
+            'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
+        ]);
     }
 
-    public function destroy(Contrato $contrato)
+    public function verEdicionContrato($id)
     {
-        //
+        //recupera los datos del cliente a través de la id pasada por url
+        $cliente_actual = Cliente::findOrFail($id);
+        //carga las direcciones relacionadas con el cliente actual
+        $cliente_actual->load('direcciones.cliente')->load('autorizados.cliente')->load('telefonos.cliente');
+
+        //carga la relación maquina en la consulta
+        $series = Serie::with(['maquina' => function ($query) {
+            $query->orderBy('descripcion', 'asc');
+        }])
+            //filtra los resultados por el id de la tienda asociada al usuario autenticado
+            ->where('tienda_id', Auth::user()->tienda_id)
+            //filtra los resultados para mostrar solo las máquinas que están disponibles para alquilar
+            ->where('disponible', true)
+            ->get();
+        $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
+        $familias = Familia::orderBy('id', 'asc')->get();
+        $maquinas = Maquina::orderBy('id', 'asc')->get();
+        //renderiza la vista, pasando los datos
+        return Inertia::render('Contratos/ActualizaContrato', [
+            'cliente' => $cliente_actual,
+            'direcciones' => $cliente_actual->direcciones,
+            'telefonos' => $cliente_actual->telefonos,
+            'series' => $series,
+            'autorizados' => $cliente_actual->autorizados,
+            'familias' => $familias,
+            'subfamilias' => $subfamilias,
+            'maquinas' => $maquinas
+        ]);
     }
+
 }
