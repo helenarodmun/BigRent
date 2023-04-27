@@ -14,6 +14,7 @@ class Maquina extends Model
         'referencia',
         'url_manual',
         'url_ficha',
+        'url_imagen',
         'subfamilia_id',
         'marca_id'
     ];

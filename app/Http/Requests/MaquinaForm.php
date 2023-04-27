@@ -26,9 +26,9 @@ class MaquinaForm extends FormRequest
             'POST' => [
                 'descripcion' => 'required|string|max:150',
                 'referencia' => 'required|string|max:10',
-                'url_manual' => 'nullable|string',
-                'url_ficha' => 'nullable|string',
-                'url_imagen' => 'nullable|string',
+                'url_manual' => 'sometimes|file|mimes:pdf,xlx,csv|max:2048',
+                'url_ficha' => 'sometimes|file|mimes:pdf,xlx,csv|max:2048',
+                'url_imagen' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'subfamilia_id' => 'required',
                 'marca_id' => 'required'
             ],
@@ -36,9 +36,9 @@ class MaquinaForm extends FormRequest
             'PUT' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
-                'url_manual' => 'nullable|string',
-                'url_ficha' => 'nullable|string',
-                'url_imagen' => 'nullable|string',
+                'url_manual' => 'nullable|mimes:pdf,xlx,csv|max:2048',
+                'url_ficha' => 'nullable|mimes:pdf,xlx,csv|max:2048',
+                'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'subfamilia_id' => 'nullable',
                 'marca_id' => 'nullable'
             ],
@@ -46,9 +46,9 @@ class MaquinaForm extends FormRequest
             'GET' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
-                'url_manual' => 'nullable|string',
-                'url_ficha' => 'nullable|string',
-                'url_imagen' => 'nullable|string',
+                'url_manual' => 'nullable|mimes:pdf,xlx,csv|max:2048',
+                'url_ficha' => 'nullable|mimes:pdf,xlx,csv|max:2048',
+                'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'subfamilia_id' => 'nullable',
                 'marca_id' => 'nullable'
             ]

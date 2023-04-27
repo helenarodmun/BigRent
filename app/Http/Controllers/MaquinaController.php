@@ -28,7 +28,18 @@ class MaquinaController extends Controller
     public function create(MaquinaForm $request)
     {
         $request->validated();
-        $maquina = Maquina::create($request->all());
+        $manual = time().'.'.$request->url_manual->extension();
+        $request->url_manual->move(public_path('uploads'), $manual);
+        dd($manual);
+        $maquina = Maquina::create([
+            'descripcion' => $request->descripcion,
+            'referencia' => $request->referencia,
+            'url_manual' => $manual,
+            'url_ficha' => $request->file('url_ficha')->store('public/images'),
+            'url_imagen' => $request->file('url_imagen')->store('public/images'),
+            'subfamilia_id' => $request->subfamilia_id,
+            'marca_id' => $request->marca_id
+        ]);
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
             ->get();
