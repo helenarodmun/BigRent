@@ -28,7 +28,7 @@ class MaquinaController extends Controller
     public function create(MaquinaForm $request)
     {
         $request->validated();
-        $manual = time().'.'.$request->url_manual->extension();
+        $manual = $request->url_manual->extension();
         $request->url_manual->move(public_path('uploads'), $manual);
         dd($manual);
         $maquina = Maquina::create([
