@@ -17,7 +17,7 @@ class MaquinaController extends Controller
     {
         //Recuperar todos las maquinas de la base de datos
         $maquinas = Maquina::with('subfamilia')
-            ->orderBy('subfamilia_id', 'asc')
+            ->orderBy('descripcion', 'asc')
             ->get();
             $maquinas->load('marca.maquinas');
         return Inertia::render('Maquinaria/Listado', [
@@ -28,15 +28,18 @@ class MaquinaController extends Controller
     public function create(MaquinaForm $request)
     {
         $request->validated();
-        $manual = $request->url_manual->extension();
-        $request->url_manual->move(public_path('uploads'), $manual);
-        dd($manual);
+        $manual = $request->url_manual;
+        dd($_FILES[$manual]['name'],
+        $_FILES[$manual]['tmp_name'],
+        $_FILES[$manual]['type'],
+        $_FILES[$manual]['size'],
+        $_FILES[$manual]['error']);
         $maquina = Maquina::create([
             'descripcion' => $request->descripcion,
             'referencia' => $request->referencia,
-            'url_manual' => $manual,
-            'url_ficha' => $request->file('url_ficha')->store('public/images'),
-            'url_imagen' => $request->file('url_imagen')->store('public/images'),
+            'url_manual' => $request->url_manual,
+            'url_ficha' => $request->url_ficha,
+            'url_imagen' => $request->url_imagen,
             'subfamilia_id' => $request->subfamilia_id,
             'marca_id' => $request->marca_id
         ]);

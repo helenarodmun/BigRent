@@ -26,9 +26,12 @@ class MaquinaForm extends FormRequest
             'POST' => [
                 'descripcion' => 'required|string|max:150',
                 'referencia' => 'required|string|max:10',
-                'url_manual.*' => 'nullable|file|max:2048',
-                'url_ficha.*' => 'nullable|file|max:2048',
-                'url_imagen.*' => 'nullable|image|max:2048',
+                'url_manual.*' => 'nullable',
+                'url_ficha.*' => 'nullable',
+                'url_imagen.*' => 'nullable',
+                'url_manual.*' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_ficha.*' => 'nullable|file|mimes:pdf,xlx,csv1max:2048',
+                'url_imagen.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'required',
                 'marca_id' => 'required'
             ],

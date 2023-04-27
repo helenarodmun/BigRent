@@ -64,7 +64,7 @@ export default function TablaContratos() {
                                                     handleClick(
                                                         contrato.id
                                                     )
-                                                } as="button" className="h5 border-0 bi bi-x-octagon-fill text-danger m-2" />
+                                                } as="button" className="h5 border-0 bi bi-folder-plus text-dark m-2" />
                                             </TipInfo> 
                                             
                                         ) : ( ''

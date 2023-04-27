@@ -76,7 +76,7 @@ class ContratoController extends Controller
         // Calcular los días a partir de las fechas de inicio y fin
         $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $conf_cliente);
         // Calcular el importe total según los precios y fianzas de la subfamilia
-        $importeTotal = $subfamilia->fianza + $subfamilia->precio_dia * $dias_alquiler;
+        $importeTotal = $subfamilia->precio_dia * $dias_alquiler;
         //cambia el estado de disponibilidad
         $serie->disponible = false;
         $serie->save();

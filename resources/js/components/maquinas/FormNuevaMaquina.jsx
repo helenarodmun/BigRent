@@ -1,9 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import {Row, Col, Form, Button, Card, FloatingLabel,  Container,} from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, Container, } from "react-bootstrap";
 
 export default function FormNuevaMaquina({ children }) {
-    const { flash, subfamilias, familias, marcas } = usePage().props;    
+    const { flash, subfamilias, familias, marcas } = usePage().props;
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
     // useForm es un helper diseñado para formularios
@@ -13,7 +13,7 @@ export default function FormNuevaMaquina({ children }) {
         referencia: "",
         url_manual: "",
         url_ficha: "",
-        url_imagen:"",
+        url_imagen: "",
         subfamilia_id: "",
         marca_id: ""
     });
@@ -51,17 +51,17 @@ export default function FormNuevaMaquina({ children }) {
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Form>
+                            <Form enctype="multipart/form-data">
                                 <Row>
-                                <Col xs="12" sm="6" md="3">
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="FAMILIA" className="mb-2">
                                             <Form.Select size="sm" aria-label="familia" as="select" name="familia_id" value={selectedFamiliaId} // actualizado con el nuevo estado
                                                 onChange={(e) => {
                                                     setData("familia_id", e.target.value);
                                                     setSelectedFamiliaId(parseInt(e.target.value)); // actualiza el nuevo estado
-                                                  }}>
+                                                }}>
                                                 <option>Seleccione la familia...</option>
-                                                {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (                                              
+                                                {familias.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((familia) => (
                                                     <option value={familia.id}>{familia.nombre}</option>
                                                 ))}
                                             </Form.Select>
@@ -76,9 +76,9 @@ export default function FormNuevaMaquina({ children }) {
                                                 }>
                                                 <option>Seleccione la subfamilia...</option>
                                                 {subfamiliasFiltradas // muestra solo las subfamilias filtradas
-                                                .sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
-                                              <option value={subfamilia.id}>{subfamilia.descripcion}</option>
-                                                ))}
+                                                    .sort((a, b) => a.descripcion.localeCompare(b.descripcion)).map((subfamilia) => (
+                                                        <option value={subfamilia.id}>{subfamilia.descripcion}</option>
+                                                    ))}
                                             </Form.Select>
                                             {errors.subfamilia_id && (<div className="alert alert-danger">{errors.subfamilia_id}</div>)}
                                         </FloatingLabel>
@@ -91,7 +91,7 @@ export default function FormNuevaMaquina({ children }) {
                                                 }>
                                                 <option>Seleccione la marca...</option>
                                                 {marcas.sort((a, b) => a.denominacion.localeCompare(b.denominacion)).map((marca) => (
-                                              <option value={marca.id}>{marca.denominacion}</option>
+                                                    <option value={marca.id}>{marca.denominacion}</option>
                                                 ))}
                                             </Form.Select>
                                             {errors.marca_id && (<div className="alert alert-danger">{errors.marca_id}</div>)}
@@ -102,7 +102,7 @@ export default function FormNuevaMaquina({ children }) {
                                             <Form.Control size="sm" aria-label="descripción de la subfamilia" type="text" name="referencia" value={data.referencia}
                                                 onChange={(e) =>
                                                     setData("referencia", e.target.value)
-                                                }/>
+                                                } />
                                             {errors.referencia && (<div className="alert alert-danger">{errors.referencia}</div>)}
                                         </FloatingLabel>
                                     </Col>
@@ -111,17 +111,17 @@ export default function FormNuevaMaquina({ children }) {
                                             <Form.Control size="sm" aria-label="descripción de la máquina" type="text" name="descripcion" value={data.descripcion}
                                                 onChange={(e) =>
                                                     setData("descripcion", e.target.value)
-                                                }/>
+                                                } />
                                             {errors.descripcion && (<div className="alert alert-danger">{errors.descripcion}</div>)}
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Manual:</Form.Label>
                                         <Form.Control
-                                         className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual" value={data.url_manual}
+                                            className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual" value={data.url_manual}
                                             onChange={(e) =>
                                                 setData("url_manual", e.target.value)
-                                            }/>
+                                            } />
                                         {errors.url_manual && (<div className="alert alert-danger">{errors.url_manual}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
@@ -129,15 +129,15 @@ export default function FormNuevaMaquina({ children }) {
                                         <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" value={data.url_ficha}
                                             onChange={(e) =>
                                                 setData("url_ficha", e.target.value)
-                                            }/>
+                                            } />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_ficha}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Imagen:</Form.Label>
-                                        <Form.Control className="mb-2"  size="sm" aria-label="imagen" type="file" name="url_imagen" value={data.url_imagen}
+                                        <Form.Control className="mb-2" size="sm" aria-label="imagen" type="file" name="url_imagen" value={data.url_imagen}
                                             onChange={(e) =>
                                                 setData("url_imagen", e.target.value)
-                                            }/>
+                                            } />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_imagen}</div>)}
                                     </Col>
                                 </Row>
