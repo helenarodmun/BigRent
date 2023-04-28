@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {  Col, Table } from "react-bootstrap";
+import { Col, Table } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionAutorizados() {
@@ -18,104 +18,58 @@ export default function TablaEdicionAutorizados() {
         <>
             <Col className="shadow">
                 <h1 className="m-3">Autorizados</h1>
-                {autorizados.length === 0 ? (
-                    <div className="d-flex justify-content-center align-items-center">
-                        <p className="me-4">
-                            No existen personas autorizadas asociadas a este
-                            cliente{" "}
-                        </p>
-                    </div>
-                ) : (
-                    <Table
-                        striped
-                        bordered
-                        hover
-                        className="shadow"
-                        size="sm"
-                        responsive
-                    >
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>DNI</th>
-                                <th>Observaciones</th>
-                                <th>Archivo DNI</th>
-                                <th></th>
+                <Table striped bordered hover className="shadow" size="sm" responsive>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Observaciones</th>
+                            <th>Archivo DNI</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {autorizados.map((autorizado) => (
+                        <tbody key={autorizado.id} className="">
+                            <tr key={autorizado.id}>
+                                <td>{autorizado.nombre_persona_autorizada}</td>
+                                <td>{autorizado.dni}</td>
+                                <td>{autorizado.notas}</td>
+                                <td>{autorizado.url_dni}</td>
+                                <td>
+                                    <TipInfo content="Modificar autorizado" direction="left">
+                                        <Link method="get" href={"/editarAutorizado/" + autorizado.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
+                                    </TipInfo>
+                                    <TipInfo content="Borrar autorizado" direction="left">
+                                        <button onClick={() => handleDeleteClick(autorizado.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
+                                    </TipInfo>
+                                    <ModalConfirmacion show={showConfirmDeleteModal}
+                                        onHide={() => {
+                                            setIdToDelete(null);
+                                            setShowConfirmDeleteModal(false);
+                                        }}
+                                        onConfirm={(urlAccion, idRegistro) => {
+                                            destroy(
+                                                `${urlAccion}/${idRegistro}`,
+                                                {
+                                                    onSuccess: () => {
+                                                        console.log("registro eliminado");
+                                                    },
+                                                }
+                                            );
+                                        }}
+                                        title="¡ADVERTENCIA!"
+                                        message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                        urlAccion="/eliminarAutorizado"
+                                        idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
+                                    />
+                                </td>
                             </tr>
-                        </thead>
-                        {autorizados.map((autorizado) => (
-                            <tbody key={autorizado.id} className="">
-                                <tr key={autorizado.id}>
-                                    <td>
-                                        {autorizado.nombre_persona_autorizada}
-                                    </td>
-                                    <td>{autorizado.dni}</td>
-                                    <td>{autorizado.notas}</td>
-                                    <td>{autorizado.url_dni}</td>
-                                    <td>
-                                        <TipInfo
-                                            content="Modificar autorizado"
-                                            direction="left"
-                                        >
-                                            <Link
-                                                method="get"
-                                                href={
-                                                    "/editarAutorizado/" +
-                                                    autorizado.id
-                                                }
-                                                as="button"
-                                                className="h5 border-0 bi bi-pencil-square text-primary m-1"
-                                            />
-                                        </TipInfo>
-                                        <TipInfo
-                                            content="Borrar autorizado"
-                                            direction="left"
-                                        >
-                                            <button
-                                                onClick={() =>
-                                                    handleDeleteClick(
-                                                        autorizado.id
-                                                    )
-                                                }
-                                                as="button"
-                                                className="h5 border-0 bi bi-trash3 text-danger m-1"
-                                            />
-                                        </TipInfo>                                      
-                                          <ModalConfirmacion
-                                            show={showConfirmDeleteModal}
-                                            onHide={() => {
-                                                setIdToDelete(null);
-                                                setShowConfirmDeleteModal(false);
-                                            }}
-                                            onConfirm={(urlAccion,idRegistro) => {
-                                                destroy(
-                                                    `${urlAccion}/${idRegistro}`,
-                                                    {
-                                                        onSuccess: () => {
-                                                            console.log( "registro eliminado");
-                                                        },
-                                                    }
-                                                );
-                                            }}
-                                            title="¡ADVERTENCIA!"
-                                            message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                            urlAccion="/eliminarAutorizado"
-                                            idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
-                                        />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        ))}
-                    </Table>
-                )}
+                        </tbody>
+                    ))}
+                </Table>
             </Col>
             <TipInfo content="Añadir nuevo autorizado" direction="right">
-                <Link
-                    method="get"
-                    href={"/nuevoAutorizado/" + clientes.id}
-                    as="button"
-                    className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
-                />
+                <Link method="get" href={"/nuevoAutorizado/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </>
     );

@@ -1,9 +1,8 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Col, Table } from "react-bootstrap";
 
-export default function TablaTelefonos({ children }) {
+export default function TablaTelefonos() {
     const { telefonos, cliente } = usePage().props;
-
     // useForm es un helper diseñado para formularios
     const { data } = useForm({
         contacto: telefonos.contacto,
@@ -23,7 +22,7 @@ export default function TablaTelefonos({ children }) {
                             </tr>
                         </thead>
                         {telefonos.map((telefonos) => (
-                            <tbody  key={telefonos.id}>
+                            <tbody key={telefonos.id}>
                                 <tr>
                                     <td>{telefonos.contacto}</td>
                                     {telefonos.via_comunicacion == "T" ? (

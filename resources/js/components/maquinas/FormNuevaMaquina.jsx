@@ -118,25 +118,25 @@ export default function FormNuevaMaquina({ children }) {
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Manual:</Form.Label>
                                         <Form.Control
-                                            className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual" value={data.url_manual}
+                                            className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual" 
                                             onChange={(e) =>
-                                                setData("url_manual", e.target.value)
+                                                setData("url_manual", e.target.files[0])
                                             } />
                                         {errors.url_manual && (<div className="alert alert-danger">{errors.url_manual}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Ficha:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" value={data.url_ficha}
+                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" 
                                             onChange={(e) =>
-                                                setData("url_ficha", e.target.value)
+                                                setData("url_ficha", e.target.files[0])
                                             } />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_ficha}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Imagen:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="imagen" type="file" name="url_imagen" value={data.url_imagen}
+                                        <Form.Control className="mb-2" size="sm" aria-label="imagen" type="file" name="url_imagen" 
                                             onChange={(e) =>
-                                                setData("url_imagen", e.target.value)
+                                                setData("url_imagen", e.target.files[0])
                                             } />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_imagen}</div>)}
                                     </Col>

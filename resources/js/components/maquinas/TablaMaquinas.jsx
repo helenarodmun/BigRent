@@ -1,10 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {
-    Col,
-    Container,
-    Table,
-} from "react-bootstrap";
+import { Col, Container, Table, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -30,8 +26,6 @@ export default function TablaSubFamilias() {
                             <th>Subfamilia</th>
                             <th>Referencia</th>
                             <th>Marca</th>
-                            <th>Manual</th>
-                            <th>Ficha</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -42,22 +36,17 @@ export default function TablaSubFamilias() {
                                 <td>{maquina.subfamilia.descripcion}</td>
                                 <td>{maquina.referencia}</td>
                                 <td>{maquina.marca.denominacion}</td>
-                                <td>{maquina.url_manual}</td>
-                                <td>{maquina.ur_ficha}</td>
                                 <td>
+                                    <TipInfo content="Ver ficha" direction="left">
+                                        <Link href={"/verFicha/" + maquina.id} as="button" className="h5 border-0 bi bi-file-text text-dark m-1" />
+                                    </TipInfo>
                                     <TipInfo content='Modificar máquina' direction='left'>
-                                        <Link
-                                            method="get"
-                                            href={"/editarMaquina/" + maquina.id}
-                                            as="button"
-                                            className="h5 border-0 bi bi-pencil-square text-primary m-1"
-                                        />
+                                        <Link method="get" href={"/editarMaquina/" + maquina.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
                                     <TipInfo content='Borrar máquina' direction='left'>
                                         <button onClick={() => handleDeleteClick(maquina.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
                                     </TipInfo>
-                                    <ModalConfirmacion
-                                        show={showConfirmDeleteModal}
+                                    <ModalConfirmacion show={showConfirmDeleteModal}
                                         onHide={() => {
                                             setIdToDelete(null);
                                             setShowConfirmDeleteModal(false);
@@ -84,12 +73,7 @@ export default function TablaSubFamilias() {
                 </Table>
             </Col>
             <TipInfo content='Añadir nueva máquina' direction='left'>
-                <Link
-                    method="get"
-                    href="/nuevaMaquina"
-                    as="button"
-                    className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
-                />
+                <Link method="get" href="/nuevaMaquina" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </Container>
     );

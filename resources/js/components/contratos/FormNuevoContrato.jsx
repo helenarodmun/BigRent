@@ -7,7 +7,7 @@ export default function FormNuevoContrato() {
     const { data, setData, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: '',
-        telefono_id:'',
+        telefono_id: '',
         autorizado_id: '',
         serie_id: '',
         fecha_retirada: '',

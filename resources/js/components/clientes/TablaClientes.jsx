@@ -3,9 +3,9 @@ import { usePage } from '@inertiajs/react';
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 
 const TablaClientes = () => {
-     // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes y resultado respectivamente
+    // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes y resultado respectivamente
     const { clientes, resultado } = usePage().props;
-     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || '');
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
     const handleSearch = (event) => { setQuery(event.target.value); }
@@ -15,16 +15,14 @@ const TablaClientes = () => {
         || cliente.nif.toLowerCase().includes(query.toLowerCase())
         || cliente.administrador.toLowerCase().includes(query.toLowerCase())
     );
-
     return (
         <Container>
             <div className="container mt-5">
                 <form action="/clientes/buscar" method="get" className="d-flex" role="search">
                     <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
                     <button className="btn btn-outline-success" type="submit">Buscar</button>
-                </form>      
+                </form>
             </div>
-
             <p className="h3 m-3">Listado clientes</p>
             <Row>
                 <Col sm={12} className="mt-3 pt-3 shadow ">
@@ -44,9 +42,7 @@ const TablaClientes = () => {
                                     <td>{cliente.nif}</td>
                                     <td>{cliente.administrador}</td>
                                     <td>
-                                        <Button className="btn btn-success m-1 shadow" size="sm" href={"/verCliente/" + cliente.id} >
-                                            Seleccionar
-                                        </Button>
+                                        <Button className="btn btn-success m-1 shadow" size="sm" href={"/verCliente/" + cliente.id}>Seleccionar</Button>
                                     </td>
                                 </tr>
                             </tbody>

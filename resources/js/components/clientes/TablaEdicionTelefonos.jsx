@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import {  Col, Table } from "react-bootstrap";
+import { Col, Table } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionTelefonos() {
@@ -17,14 +17,7 @@ export default function TablaEdicionTelefonos() {
     return (
         <div>
             <Col className="shadow">
-                <Table
-                    striped
-                    bordered
-                    hover
-                    className="shadow"
-                    size="sm"
-                    responsive
-                >
+                <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
                         <tr>
                             <th>Vía de comunicación</th>
@@ -34,7 +27,7 @@ export default function TablaEdicionTelefonos() {
                         </tr>
                     </thead>
                     {telefonos.map((telefonos) => (
-                        <tbody  key={telefonos.id}>
+                        <tbody key={telefonos.id}>
                             <tr>
                                 {telefonos.via_comunicacion == "T" ? (
                                     <td>Teléfono</td>
@@ -48,52 +41,32 @@ export default function TablaEdicionTelefonos() {
                                     <td>Autorizado</td>
                                 )}
                                 <td>
-                                    <TipInfo
-                                        content="Modificar contacto"
-                                        direction="left"
-                                    >
-                                        <Link
-                                            href={
-                                                "/editarTelefono/" +
-                                                telefonos.id
-                                            }
-                                            as="button"
-                                            className="h5 border-0 bi bi-pencil-square text-primary m-1"
-                                        />
+                                    <TipInfo content="Modificar contacto" direction="left">
+                                        <Link href={"/editarTelefono/" + telefonos.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
-                                    <TipInfo
-                                        content="Borrar contacto"
-                                        direction="left"
-                                    >
-                                        <button
-                                            onClick={() =>
-                                                handleDeleteClick(telefonos.id)
-                                            }
-                                            as="button"
-                                            className="h5 border-0 bi bi-trash3 text-danger m-1"
-                                        />
+                                    <TipInfo content="Borrar contacto" direction="left">
+                                        <button onClick={() => handleDeleteClick(telefonos.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
                                     </TipInfo>
-                                    <ModalConfirmacion
-                                            show={showConfirmDeleteModal}
-                                            onHide={() => {
-                                                setIdToDelete(null);
-                                                setShowConfirmDeleteModal(false);
-                                            }}
-                                            onConfirm={(urlAccion,idRegistro) => {
-                                                destroy(
-                                                    `${urlAccion}/${idRegistro}`,
-                                                    {
-                                                        onSuccess: () => {
-                                                            console.log( "registro eliminado");
-                                                        },
-                                                    }
-                                                );
-                                            }}
-                                            title="¡ADVERTENCIA!"
-                                            message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                            urlAccion="/eliminarTelefono"
-                                            idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
-                                        />
+                                    <ModalConfirmacion show={showConfirmDeleteModal}
+                                        onHide={() => {
+                                            setIdToDelete(null);
+                                            setShowConfirmDeleteModal(false);
+                                        }}
+                                        onConfirm={(urlAccion, idRegistro) => {
+                                            destroy(
+                                                `${urlAccion}/${idRegistro}`,
+                                                {
+                                                    onSuccess: () => {
+                                                        console.log("registro eliminado");
+                                                    },
+                                                }
+                                            );
+                                        }}
+                                        title="¡ADVERTENCIA!"
+                                        message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                        urlAccion="/eliminarTelefono"
+                                        idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
+                                    />
                                 </td>
                             </tr>
                         </tbody>
@@ -101,12 +74,7 @@ export default function TablaEdicionTelefonos() {
                 </Table>
             </Col>
             <TipInfo content="Añadir nuevo contacto" direction="right">
-                <Link
-                    method="get"
-                    href={"/nuevoTelefono/" + clientes.id}
-                    as="button"
-                    className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
-                />
+                <Link method="get" href={"/nuevoTelefono/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </div>
     );
