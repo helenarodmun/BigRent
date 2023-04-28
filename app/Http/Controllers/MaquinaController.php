@@ -10,6 +10,7 @@ use App\Models\Subfamilia;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class MaquinaController extends Controller
@@ -36,13 +37,13 @@ class MaquinaController extends Controller
         $maquina->referencia = $request->referencia;
 
         // Guardar los archivos en el almacenamiento y obtener las rutas
-        $rutaManual = $request->file('url_manual')->storeAs('storage/public/manuales', $request->file('url_manual')->getClientOriginalName());
-        $rutaFicha = $request->file('url_ficha')->storeAs('storage/public/fichas', $request->file('url_ficha')->getClientOriginalName());
-        $rutaImagen = $request->file('url_imagen')->storeAs('storage/public/imagenes', $request->file('url_imagen')->getClientOriginalName());
+        $request->file('url_manual')->store('public/manuales');
+        $request->file('url_ficha')->store('public/fichas');
+        $request->file('url_imagen')->store('public/imagenes');
 
-        $maquina->url_manual = url($rutaManual);
-        $maquina->url_ficha = url($rutaFicha);
-        $maquina->url_imagen = url($rutaImagen);
+        $maquina->url_manual = asset('storage/manuales/'.$request->file('url_manual')->hashName());
+        $maquina->url_ficha = asset('storage/fichas/'.$request->file('url_ficha')->hashName());
+        $maquina->url_imagen = asset('storage/imagenes/'.$request->file('url_imagen')->hashName());
         $maquina->subfamilia_id = $request->subfamilia_id;
         $maquina->marca_id = $request->marca_id;
         $maquina->save();
@@ -97,12 +98,10 @@ class MaquinaController extends Controller
         $maquina = Maquina::findOrFail($id);
         // Puedes cargar relaciones adicionales si es necesario
         $maquina->load('subfamilia', 'marca');
-
         return Inertia::render('Maquinaria/VistaMaquina', [
-            'maquina' => $maquina,
+            'maquina' => $maquina,    
         ]);
     }
-
     public function destroy($id)
     {
         $maquina = Maquina::findOrFail($id);
