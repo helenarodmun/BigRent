@@ -1,18 +1,46 @@
-import { Link, usePage } from "@inertiajs/react";
-
+import {  usePage } from "@inertiajs/react";
+import { Card, Container, Row, Col, Button } from "react-bootstrap";
 export default function FichaMaquina() {
     const { maquina } = usePage().props;
     return (
-      <div>
-        <p className="h1">{maquina.descripcion}</p>
-        <p>Referencia: {maquina.referencia}</p>
-        <p>Subfamilia: {maquina.subfamilia.descripcion}</p>
-        <p>Marca: {maquina.marca.denominacion}</p>
-        <p>Precio alquiler por día: {maquina.subfamilia.precio_dia}</p>
-        <p>Precio fianza: {maquina.subfamilia.fianza}</p>
-        <img id= "img_maquinaria" class="img-fluid rounded d-block float-right" src={maquina.url_imagen} alt={maquina.descripcion} />
-        <hr />
-        <Link href="/maquinas">Volver al listado</Link>
-      </div>
+        <Container>
+             <Button variant="btn btn-info btn-lg m-3 bi bi-arrow-90deg-left" href="/maquinas">  Volver al listado</Button>
+            <Row>
+                <Col>
+                    <Card className="shadow">
+                  
+        <Card.Header className="bg-warning bg-opacity-50">
+        <Card.Title>
+        <p className="h-3 m-0"><small className="ms-2">{maquina.descripcion}</small></p>
+        </Card.Title>
+        </Card.Header>
+        <Card.Body>
+            <Row>
+                <Col xs="12" sm="6" md="5">
+                <Card.Img  variant="right" id="img_maquinaria" src={maquina.url_imagen} alt={maquina.descripcion} />
+                </Col>
+                <Col xs="12" sm="6" md="7" className="mt-5">
+                <p className="card-text"><strong>Referencia:  </strong>{maquina.referencia}</p>
+        <p className="card-text"><strong>Subfamilia:  </strong> {maquina.subfamilia.descripcion}</p>
+        <p className="card-text"><strong>Marca: </strong> {maquina.marca.denominacion}</p>
+        <p className="card-text"><strong>Precio alquiler por día: </strong>{maquina.subfamilia.precio_dia}</p>
+        <p className="card-text"><strong>Precio fianza: </strong>Precio fianza: {maquina.subfamilia.fianza}</p>
+                </Col>
+            </Row>
+      
+        
+       
+      
+      </Card.Body>
+      <Card.Footer>
+            <Button size="lg" className="m-3 shadow"><a className="btn btn-primary" href={maquina.url_manual} target="_blank">Ver Manual</a></Button>
+        <Button size="lg" className="m-3 shadow"><a className="btn btn-primary" href={maquina.url_ficha} target="_blank">Ver Ficha</a></Button>
+        </Card.Footer>
+       
+      
+    </Card>
+    </Col>
+    </Row>
+    </Container>
     );
-  }
+}

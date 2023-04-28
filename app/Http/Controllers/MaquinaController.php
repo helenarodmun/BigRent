@@ -31,16 +31,13 @@ class MaquinaController extends Controller
     public function create(MaquinaForm $request)
     {
         $request->validated();
-
         $maquina = new Maquina;
         $maquina->descripcion = $request->descripcion;
         $maquina->referencia = $request->referencia;
-
         // Guardar los archivos en el almacenamiento y obtener las rutas
         $request->file('url_manual')->store('public/manuales');
         $request->file('url_ficha')->store('public/fichas');
         $request->file('url_imagen')->store('public/imagenes');
-
         $maquina->url_manual = asset('storage/manuales/'.$request->file('url_manual')->hashName());
         $maquina->url_ficha = asset('storage/fichas/'.$request->file('url_ficha')->hashName());
         $maquina->url_imagen = asset('storage/imagenes/'.$request->file('url_imagen')->hashName());
@@ -52,7 +49,6 @@ class MaquinaController extends Controller
             ->get();
         $maquinas->load('marca.maquinas');
         Session::flash('edicion', 'Se ha creado la máquina de forma correcta');
-
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);
@@ -77,9 +73,14 @@ class MaquinaController extends Controller
         $maquina = Maquina::findOrFail($id);
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
-        $maquina->url_manual = $validatedData['url_manual'];
-        $maquina->url_ficha = $validatedData['url_ficha'];
-        $maquina->url_imagen = $validatedData['url_imagen'];
+
+        $request->file('url_manual')->store('public/manuales');
+        $request->file('url_ficha')->store('public/fichas');
+        $request->file('url_imagen')->store('public/imagenes');
+
+        $maquina->url_manual = asset('storage/manuales/'.$request->file('url_manual')->hashName());
+        $maquina->url_ficha = asset('storage/fichas/'.$request->file('url_ficha')->hashName());
+        $maquina->url_imagen = asset('storage/imagenes/'.$request->file('url_imagen')->hashName());
 
         $maquina->save();
 
