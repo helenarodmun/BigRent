@@ -56,7 +56,7 @@ export default function FormCliente() {
                 <Col xs="12" sm="10" md="12">
                     <Card className="shadow">
                         <Card.Body>
-                            <Form>
+                            <Form enctype="multipart/form-data">
                                 <Row className="align-items-center">
                                 <Col  xs="12" sm="6" md="6">
                                         <FloatingLabel label="NOMBRE COMERCIAL" className="mb-2">
@@ -251,15 +251,15 @@ export default function FormCliente() {
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>DNI:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="dni persona autorizada" type="file" name="url_dni" value={data.url_dni}
+                                        <Form.Control className="mb-2" size="sm" aria-label="dni persona autorizada" type="file" name="url_dni" 
                                             onChange={(e) =>
-                                                setData("url_dni", e.target.value)
+                                                setData("url_dni", e.target.files[0])
                                             }/>
                                         {errors.url_dni && (<div className="alert alert-danger">{errors.url_dni}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="12">
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
-                                            <Form.Control size="sm" as="textarea" rows={3} name="notas" value={data.anotacionotasnes}
+                                            <Form.Control size="sm" as="textarea" rows={3} name="notas" value={data.anotaciones}
                                                 onChange={(e) =>
                                                     setData( "notas", e.target.value)
                                                 }></Form.Control>
@@ -270,25 +270,25 @@ export default function FormCliente() {
                                     <p className="h3">Documentación</p>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Escrituras:</Form.Label>
-                                        <Form.Control size="sm"  aria-label="url escrituras" type="file" name="url_escrituras" value={data.url_escrituras}
+                                        <Form.Control size="sm"  aria-label="url escrituras" type="file" name="url_escrituras"
                                             onChange={(e) =>
-                                                setData("url_escrituras", e.target.value)
+                                                setData("url_escrituras", e.target.files[0])
                                             }/>
                                         {errors.url_escrituras && (<div className="alert alert-danger">{errors.url_escrituras} </div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>DNI Administrador:</Form.Label>
-                                        <Form.Control size="sm" aria-label="url dni administrador" type="file" name="url_dni_administrador" value={data.url_dni_administrador}
+                                        <Form.Control size="sm" aria-label="url dni administrador" type="file" name="url_dni_administrador"
                                             onChange={(e) =>
-                                                setData( "url_dni_administrador", e.target.value)
+                                                setData( "url_dni_administrador", e.target.files[0])
                                             }/>
                                         {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>CIF de la empresa:</Form.Label>
-                                        <Form.Control size="sm" aria-label=" url_cif" type="file" name="url_cif" value={data.url_cif}
+                                        <Form.Control size="sm" aria-label=" url_cif" type="file" name="url_cif"
                                             onChange={(e) =>
-                                                setData("url_cif", e.target.value)
+                                                setData("url_cif", e.target.files[0])
                                             }/>
                                         {errors.url_cif && (<div className="alert alert-danger">{errors.url_cif}</div>)}
                                     </Col>

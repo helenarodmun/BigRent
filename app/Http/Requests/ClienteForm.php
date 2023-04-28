@@ -30,9 +30,9 @@ class ClienteForm extends FormRequest
                 'nombre_comercial' => 'required|string',
                 'administrador' => 'required|string',
                 'dni_administrador' => 'required|string',
-                'url_escrituras' => 'nullable|string',
-                'url_dni_administrador' => 'nullable|string',
-                'url_cif' => 'nullable|string',
+                'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_cif' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'anotaciones' => 'nullable|string|max:255',
                 'direccion' => 'required|string|max:75',
                 'cp' => 'required|string|max:5',
@@ -46,7 +46,7 @@ class ClienteForm extends FormRequest
                 'nombre_persona_autorizada' => 'required|string',
                 'dni' => 'required|string|max:15',
                 'notas' => 'nullable|string|max:255',
-                'url_dni' => 'nullable|string|max:255',
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'tipo_cliente_id' => 'required'
             ],
 
@@ -57,9 +57,9 @@ class ClienteForm extends FormRequest
                 'nombre_comercial' => 'nullable|string',
                 'administrador' => 'nullable|string',
                 'dni_administrador' => 'nullable|string',
-                'url_escrituras' => 'nullable|string',
-                'url_dni_administrador' => 'nullable|string',
-                'url_cif' => 'nullable|string',
+                'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_cif' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'anotaciones' => 'nullable|string|max:255',
             ],
             'GET' => [
@@ -68,9 +68,9 @@ class ClienteForm extends FormRequest
                 'nif' => 'nullable|string|max:9',
                 'nombre_comercial' => 'nullable|string',
                 'administrador' => 'nullable|string',
-                'dni_administrador' => 'nullable|string',
-                'url_escrituras' => 'nullable|string',
-                'url_dni_administrador' => 'nullable|string',
+                'dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_cif' => 'nullable|string',
                 'anotaciones' => 'nullable|string|max:255',
                 'direccion' => 'nullable|string|max:75',
@@ -82,6 +82,10 @@ class ClienteForm extends FormRequest
                 'contacto' => 'nullable|string|max:255',
                 'via_comunicacion' => 'nullable|string',
                 'tipo' => 'nullable|string',
+                'nombre_persona_autorizada' => 'required|string',
+                'dni' => 'required|string|max:15',
+                'notas' => 'nullable|string|max:255',
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'tipo_cliente_id' => 'nullable'
             ]
         };

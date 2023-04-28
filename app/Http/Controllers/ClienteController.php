@@ -33,6 +33,10 @@ class ClienteController extends Controller
     {
         $request->validated();
         $predeterminada = $request->predeterminada;
+        $request->file('url_escrituras')->store('public/clientes/');
+        $request->file('url_dni_administrador')->store('public/clientes/');
+        $request->file('url_cif')->store('public/clientes/');
+        $request->file('url_dni')->store('public/clientes/');
 
         if (Direccion::compruebaDireccion($predeterminada)) {
 
@@ -44,9 +48,9 @@ class ClienteController extends Controller
                     'tipo_cliente_id' => $request->tipo_cliente_id,
                     'administrador' => $request->administrador,
                     'dni_administrador' => $request->dni_administrador,
-                    'url_escrituras' => $request->url_escrituras,
-                    'url_dni_administrador' => $request->url_dni_administrador,
-                    'url_cif' => $request->url_cif,
+                    'url_escrituras' => asset('storage/clientes/'.$request->file('url_escrituras')->hashName()),
+                    'url_dni_administrador' => asset('storage/clientes/'.$request->file('url_dni_administrador')->hashName()),
+                    'url_cif' => asset('storage/clientes/'.$request->file('url_cif')->hashName()),
                     'anotaciones' => $request->anotaciones
                 ]);
                 $cliente->direcciones()->create([
@@ -66,7 +70,7 @@ class ClienteController extends Controller
                     'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
                     'dni' => $request->dni,
                     'notas' => $request->notas,
-                    'url_dni' => $request->url_dni
+                    'url_dni' => asset('storage/clientes/'.$request->file('url_dni')->hashName()),
                 ]);
             });
 
