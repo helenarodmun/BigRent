@@ -121,25 +121,25 @@ export default function FormActualizaCliente() {
                                 <p className="h4 mb-1">Documentación</p>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">Escrituras:</Form.Label>
-                                    <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras" value={data.url_escrituras}
+                                    <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras"
                                         onChange={(e) =>
-                                            setData("url_escrituras", e.target.value)
+                                            setData("url_escrituras", e.target.files[0])
                                         } />
                                     {errors.url_escrituras && (<div className="alert alert-danger"> {errors.url_escrituras}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">DNI Administrador:</Form.Label>
-                                    <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador" value={data.url_dni_administrador}
+                                    <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador" 
                                         onChange={(e) =>
-                                            setData("url_dni_administrador", e.target.value)
+                                            setData("url_dni_administrador", e.target.files[0])
                                         } />
                                     {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
-                                    <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif" value={data.url_cif}
+                                    <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif" 
                                         onChange={(e) =>
-                                            setData("url_cif", e.target.value)
+                                            setData("url_cif", e.target.files[0])
                                         } />
                                     {errors.url_cif && (<div className="alert alert-danger">{errors.url_cif}</div>)}
                                 </Col>

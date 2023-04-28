@@ -65,9 +65,9 @@ export default function FormActualizaAutorizado({ children }) {
                                     <Col xs="12" sm="6" md="6">
                                         <Form.Label>Archivo DNI:</Form.Label>
                                         <Form.Control
-                                            size="sm" aria-label="url dni" type="file" name="url_dni" value={data.url_dni}
+                                            size="sm" aria-label="url dni" type="file" name="url_dni" 
                                             onChange={(e) => setData(
-                                                "url_dni", e.target.value)} />
+                                                "url_dni", e.target.files[0])} />
                                         {errors.url_dni && (
                                             <div className="alert alert-danger">{errors.url_dni}</div>)}
                                     </Col>

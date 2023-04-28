@@ -34,7 +34,7 @@ export default function TablaEdicionAutorizados() {
                                 <td>{autorizado.nombre_persona_autorizada}</td>
                                 <td>{autorizado.dni}</td>
                                 <td>{autorizado.notas}</td>
-                                <td>{autorizado.url_dni}</td>
+                                <td><a className="btn btn-dark" href={autorizado.url_dni} target="_blank">DNI</a></td>
                                 <td>
                                     <TipInfo content="Modificar autorizado" direction="left">
                                         <Link method="get" href={"/editarAutorizado/" + autorizado.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
