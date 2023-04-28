@@ -18,7 +18,6 @@ class Contrato extends Model
         'importe_total',
         'notas1',
         'notas2',
-        'url_contrato.pdf',
         'cliente_id',
         'serie_id',
         'direccion_id',

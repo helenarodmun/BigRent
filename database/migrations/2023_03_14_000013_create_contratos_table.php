@@ -30,7 +30,7 @@ class CreateContratosTable extends Migration
             $table->text('notas2')->nullable();
             $table->unsignedTinyInteger('dias');
             $table->boolean('activo')->default(1);
-            $table->string('url_contrato_pdf');
+            $table->string('url_contrato_pdf')->nullable();
             $table->timestamps();
 
             $table->foreignId('cliente_id')

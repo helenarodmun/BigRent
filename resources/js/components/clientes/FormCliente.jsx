@@ -129,7 +129,7 @@ export default function FormCliente() {
                                         </FloatingLabel>
                                     </Col>
                                     <hr />
-                                    <p className="h3">Direcciones</p>
+                                    <p className="h5">Direcciones</p>
                                     <Col xs="12" sm="6" md="6">
                                         <FloatingLabel label="DIRECCIÓN" className="mb-2">
                                             <Form.Control size="sm" aria-label="dirección" type="text"  name="direccion" placeholder="Introduce la dirección" value={data.direccion}
@@ -190,7 +190,7 @@ export default function FormCliente() {
                                     </Col>
                                     <Row>
                                     <hr/>
-                                    <p className="h3">Datos de contacto</p>
+                                    <p className="h5">Datos de contacto</p>
                                         <Col xs="12" sm="6" md="3">
                                             <FloatingLabel label="TELÉFONO / EMAIL" className="mb-2">
                                                 <Form.Control size="sm" aria-label="datos de contacto" type="text" name="contacto" value={data.contacto}
@@ -230,7 +230,7 @@ export default function FormCliente() {
                                     </Col>
                                     </Row>                                  
                                     <hr/>
-                                    <p className="h3">Personas Autorizadas</p>
+                                    <p className="h5">Personas Autorizadas</p>
                                     <Col xs="12" sm="6" md="5">
                                         <FloatingLabel  label="NOMBRE PERSONA AUTORIZADA" className="mb-2">
                                             <Form.Control size="sm" aria-label="nombre persona autorizada" type="text" name="nombre_persona_autorizada" value={data.nombre_persona_autorizada}
@@ -267,7 +267,7 @@ export default function FormCliente() {
                                         </FloatingLabel>
                                     </Col>                                   
                                     <hr/>
-                                    <p className="h3">Documentación</p>
+                                    <p className="h5">Documentación</p>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Escrituras:</Form.Label>
                                         <Form.Control size="sm"  aria-label="url escrituras" type="file" name="url_escrituras"
