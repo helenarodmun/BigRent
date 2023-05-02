@@ -34,12 +34,11 @@ class ContratoController extends Controller
         $subfamilia = $maquina->subfamilia;
         $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $cliente->tipo->confDias);
         $importe_alquiler = $subfamilia->precio_dia * $dias_alquiler;
-        $importeTotal = $subfamilia->fianza + $importe_alquiler;
         $contrato = [
             'fecha_retirada' => $data['fecha_retirada'],
             'fecha_entrega' => $data['fecha_entrega'],
             'dias' => $dias_alquiler,
-            'importe_total' => $importeTotal,
+            'importe_total' => $importe_alquiler,
             'notas1' => $data['notas1'],
             'notas2' => $data['notas2'],
             'cliente_id' => $data['cliente_id'],
@@ -57,8 +56,7 @@ class ContratoController extends Controller
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie,
-            'importe_alquiler' => $importe_alquiler
+            'serie' => $serie
         ]);
     }
 

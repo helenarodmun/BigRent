@@ -44,7 +44,7 @@ export default function TablaContratos() {
                                         <td>{myDate(contrato.created_at)}</td>
                                         <td>{contrato.fecha_retirada}</td>
                                         <td>{contrato.fecha_entrega}</td>
-                                        <td>{contrato.importe_total}</td>
+                                        <td>{`${contrato.importe_total} €`}</td>
                                         {contrato.activo == 0 ? (
                                             <td className="text-danger">
                                                 <strong>NO</strong>

@@ -105,17 +105,17 @@ export default function VistaConfContrato() {
                                 <Row>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
-                                            <Form.Control aria-label="fianza contrato" name="importeFianza" value={subfamilia.fianza} disabled readOnly />
-                                        </FloatingLabel>
+                                            <Form.Control aria-label="fianza contrato" name="importeFianza" value={`${subfamilia.fianza} €`} disabled readOnly />
+                                            </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={importe_alquiler} disabled readOnly />
-                                        </FloatingLabel>
+                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly/>
+                                            </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE TOTAL" className="mb-2">
-                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={contrato.importe_total} disabled readOnly />
+                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`}  disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
