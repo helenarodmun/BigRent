@@ -37,5 +37,4 @@ class Serie extends Model
     {
         return $this->belongsTo(Tienda::class);
     }
-    
 }

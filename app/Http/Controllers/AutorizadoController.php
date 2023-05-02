@@ -51,8 +51,8 @@ class AutorizadoController extends Controller
         ]);
     }
     public function verFormAutorizado($id)
-    {   
-        $cliente = Cliente::findOrFail($id);       
+    {
+        $cliente = Cliente::findOrFail($id);
         return Inertia::render('Clientes/NuevoAutorizado', [
             'cliente' => $cliente
         ]);
@@ -76,8 +76,8 @@ class AutorizadoController extends Controller
         $cliente = $autorizado->cliente;
         // Recupera todos las direcciones del cliente 
         $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-         // Recupera todos los telefonos del cliente 
-         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+        // Recupera todos los telefonos del cliente 
+        $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         // Redirige al cliente del usuario actualizado.
         Session::flash('edicion', 'Se ha actualizado el registro');
 

@@ -24,8 +24,8 @@ class CreateTelefonosTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('contacto', 255);
-            $table->enum('via_comunicacion', ['T', 'C']);//teléfono o correo
-            $table->enum('tipo', ['T', 'A']);//titular o autorizado
+            $table->enum('via_comunicacion', ['T', 'C']); //teléfono o correo
+            $table->enum('tipo', ['T', 'A']); //titular o autorizado
             $table->timestamps();
 
             $table->foreignId('cliente_id')

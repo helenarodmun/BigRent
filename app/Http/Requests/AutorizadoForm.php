@@ -32,15 +32,15 @@ class AutorizadoForm extends FormRequest
             ],
 
             'PUT' => [
-                
+
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
                 'notas' => 'nullable|string|max:150',
                 'url_dni' => 'nullable'
             ],
-            
+
             'GET' => [
-                
+
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
                 'notas' => 'nullable|string|max:150',

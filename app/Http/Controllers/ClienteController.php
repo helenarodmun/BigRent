@@ -48,9 +48,9 @@ class ClienteController extends Controller
                     'tipo_cliente_id' => $request->tipo_cliente_id,
                     'administrador' => $request->administrador,
                     'dni_administrador' => $request->dni_administrador,
-                    'url_escrituras' => asset('storage/clientes/'.$request->file('url_escrituras')->hashName()),
-                    'url_dni_administrador' => asset('storage/clientes/'.$request->file('url_dni_administrador')->hashName()),
-                    'url_cif' => asset('storage/clientes/'.$request->file('url_cif')->hashName()),
+                    'url_escrituras' => asset('storage/clientes/' . $request->file('url_escrituras')->hashName()),
+                    'url_dni_administrador' => asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()),
+                    'url_cif' => asset('storage/clientes/' . $request->file('url_cif')->hashName()),
                     'anotaciones' => $request->anotaciones
                 ]);
                 $cliente->direcciones()->create([
@@ -70,7 +70,7 @@ class ClienteController extends Controller
                     'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
                     'dni' => $request->dni,
                     'notas' => $request->notas,
-                    'url_dni' => asset('storage/clientes/'.$request->file('url_dni')->hashName()),
+                    'url_dni' => asset('storage/clientes/' . $request->file('url_dni')->hashName()),
                 ]);
             });
 
@@ -115,11 +115,11 @@ class ClienteController extends Controller
         $cliente_actual->load('telefonos.cliente');
         $cliente_actual->load('autorizados.cliente');
         //renderiza la vista, pasando los datos
-                return Inertia::render('Clientes/ActualizaCliente', [
+        return Inertia::render('Clientes/ActualizaCliente', [
             'clientes' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
             'telefonos' => $cliente_actual->telefonos,
-            'autorizados' => $cliente_actual->autorizados,     
+            'autorizados' => $cliente_actual->autorizados,
         ]);
     }
 

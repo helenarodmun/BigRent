@@ -15,7 +15,7 @@ class Subfamilia extends Model
         'fianza',
         'familia_id'
     ];
-protected $table = 'subfamilias';
+    protected $table = 'subfamilias';
     //Relación de N:1 con la tabla familias
     public function familia()
     {

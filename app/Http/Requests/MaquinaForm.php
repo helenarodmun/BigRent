@@ -42,7 +42,7 @@ class MaquinaForm extends FormRequest
                 'subfamilia_id' => 'nullable',
                 'marca_id' => 'nullable'
             ],
-            
+
             'GET' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',

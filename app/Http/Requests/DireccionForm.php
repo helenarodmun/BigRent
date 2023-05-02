@@ -34,7 +34,7 @@ class DireccionForm extends FormRequest
             ],
 
             'PUT' => [
-                
+
                 'direccion' => 'nullable|string|max:75',
                 'cp' => 'nullable|string|max:5',
                 'localidad' => 'nullable|string|max:75',
@@ -42,9 +42,9 @@ class DireccionForm extends FormRequest
                 'provincia' => 'nullable|string|max:65',
                 'predeterminada' => 'nullable'
             ],
-            
+
             'GET' => [
-                
+
                 'direccion' => 'nullable|string|max:75',
                 'cp' => 'nullable|string|max:5',
                 'localidad' => 'nullable|string|max:75',

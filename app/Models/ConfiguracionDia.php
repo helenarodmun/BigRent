@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConfiguracionDia extends Model
 {
-      /**
+    /**
      * Configuración dias
      * id: 1 - Particular
      * id: 2 - Empresa
@@ -26,7 +26,7 @@ class ConfiguracionDia extends Model
     ];
 
     protected $table = 'configuraciones_dias';
-    
+
     //clave primaria no es auto-incremental
     public $incrementing = false;
 
@@ -35,5 +35,4 @@ class ConfiguracionDia extends Model
     {
         return $this->hasOne(TipoCliente::class);
     }
-
 }

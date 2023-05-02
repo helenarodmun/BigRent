@@ -29,9 +29,9 @@ class TelefonoForm extends FormRequest
                 'via_comunicacion' => 'required|string',
                 'tipo' => 'required|string'
             ],
-            
+
             'PUT' => [
-                
+
                 'contacto' => 'nullable|string|max:255',
                 'via_comunicacion' => 'nullable|string',
                 'tipo' => 'nullable|string'

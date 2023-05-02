@@ -38,9 +38,9 @@ class MaquinaController extends Controller
         $request->file('url_manual')->store('public/manuales');
         $request->file('url_ficha')->store('public/fichas');
         $request->file('url_imagen')->store('public/imagenes');
-        $maquina->url_manual = asset('storage/manuales/'.$request->file('url_manual')->hashName());
-        $maquina->url_ficha = asset('storage/fichas/'.$request->file('url_ficha')->hashName());
-        $maquina->url_imagen = asset('storage/imagenes/'.$request->file('url_imagen')->hashName());
+        $maquina->url_manual = asset('storage/manuales/' . $request->file('url_manual')->hashName());
+        $maquina->url_ficha = asset('storage/fichas/' . $request->file('url_ficha')->hashName());
+        $maquina->url_imagen = asset('storage/imagenes/' . $request->file('url_imagen')->hashName());
         $maquina->subfamilia_id = $request->subfamilia_id;
         $maquina->marca_id = $request->marca_id;
         $maquina->save();
@@ -78,9 +78,9 @@ class MaquinaController extends Controller
         $request->file('url_ficha')->store('public/fichas');
         $request->file('url_imagen')->store('public/imagenes');
 
-        $maquina->url_manual = asset('storage/manuales/'.$request->file('url_manual')->hashName());
-        $maquina->url_ficha = asset('storage/fichas/'.$request->file('url_ficha')->hashName());
-        $maquina->url_imagen = asset('storage/imagenes/'.$request->file('url_imagen')->hashName());
+        $maquina->url_manual = asset('storage/manuales/' . $request->file('url_manual')->hashName());
+        $maquina->url_ficha = asset('storage/fichas/' . $request->file('url_ficha')->hashName());
+        $maquina->url_imagen = asset('storage/imagenes/' . $request->file('url_imagen')->hashName());
 
         $maquina->save();
 
@@ -100,7 +100,7 @@ class MaquinaController extends Controller
         // Puedes cargar relaciones adicionales si es necesario
         $maquina->load('subfamilia', 'marca');
         return Inertia::render('Maquinaria/VistaMaquina', [
-            'maquina' => $maquina,    
+            'maquina' => $maquina,
         ]);
     }
     public function destroy($id)

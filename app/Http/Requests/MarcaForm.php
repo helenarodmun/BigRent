@@ -22,9 +22,9 @@ class MarcaForm extends FormRequest
     public function rules(): array
     {
         return match ($this->method()) {
-            
+
             'POST' => [
-                
+
                 'denominacion' => 'required|string|max:75'
             ],
 

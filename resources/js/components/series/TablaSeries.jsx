@@ -33,31 +33,14 @@ const TablaSeries = () => {
         <Container>
             <div className="container mt-5">
                 <form action="/series/buscar" method="get" className="d-flex" role="search">
-                    <input
-                        name="consulta"
-                        value={query}
-                        onChange={handleSearch}
-                        className="form-control"
-                        type="search"
-                        placeholder="Buscar"
-                        aria-label="Buscar serie"
-                    />
-                    <button className="btn btn-outline-success" type="submit">
-                        Buscar
-                    </button>
+                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
+                    <button className="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
             </div>
             <p className="h3 m-3">Listado series</p>
             <Row>
                 <Col className="shadow">
-                    <Table
-                        striped
-                        bordered
-                        hover
-                        className="shadow"
-                        size="sm"
-                        responsive
-                    >
+                    <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>
                                 <th>Máquina</th>
@@ -93,30 +76,11 @@ const TablaSeries = () => {
                                         </td>
                                     )}
                                     <td>
-                                        <TipInfo
-                                            content="Modificar serie"
-                                            direction="left"
-                                        >
-                                            <Link
-                                                method="get"
-                                                href={
-                                                    "/editarSerie/" + serie.id
-                                                }
-                                                as="button"
-                                                className="h5 border-0 bi bi-pencil-square text-primary m-1"
-                                            />
+                                        <TipInfo content="Modificar serie" direction="left">
+                                            <Link method="get" href={"/editarSerie/" + serie.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                         </TipInfo>
-                                        <TipInfo
-                                            content="Borrar serie"
-                                            direction="left"
-                                        >
-                                            <button
-                                                onClick={() =>
-                                                    handleDeleteClick(serie.id)
-                                                }
-                                                as="button"
-                                                className="h5 border-0 bi bi-trash3 text-danger m-1"
-                                            />
+                                        <TipInfo content="Borrar serie" direction="left">
+                                            <button onClick={() => handleDeleteClick(serie.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
                                         </TipInfo>
                                         <ModalConfirmacion
                                             show={showConfirmDeleteModal}
@@ -154,12 +118,7 @@ const TablaSeries = () => {
                 </Col>
             </Row>
             <TipInfo content="Añadir nueva serie" direction="right">
-                <Link
-                    method="get"
-                    href="/nuevaSerie"
-                    as="button"
-                    className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1"
-                />
+                <Link method="get" href="/nuevaSerie" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </Container>
     );

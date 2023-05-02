@@ -35,5 +35,4 @@ class Tienda extends Model
     {
         return $this->hasMany(User::class);
     }
- 
 }

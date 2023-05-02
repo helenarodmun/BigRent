@@ -34,7 +34,7 @@ class SerieForm extends FormRequest
             ],
 
             'PUT' => [
-                
+
                 'horometro' => 'nullable',
                 'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'nullable',
@@ -42,9 +42,9 @@ class SerieForm extends FormRequest
                 'maquina_id' => 'nullable',
                 'tienda_id' => 'nullable'
             ],
-            
+
             'GET' => [
-                
+
                 'horometro' => 'nullable',
                 'hora_inicio' => 'nullable|time',
                 'numero_serie' => 'nullable',

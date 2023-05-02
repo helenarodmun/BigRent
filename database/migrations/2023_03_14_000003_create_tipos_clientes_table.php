@@ -26,9 +26,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreignId('configuraciones_dias_id')
-            ->constrained('configuraciones_dias')
-            ->onDelete('no action')
-            ->onUpdate('no action');
+                ->constrained('configuraciones_dias')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

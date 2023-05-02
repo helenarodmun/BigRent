@@ -2,7 +2,6 @@ import { usePage } from "@inertiajs/react";
 import React from "react";
 import { Container } from "react-bootstrap";
 import FormActualizaDireccion from "../../components/clientes/FormActualizaDireccion";
-import FormNuevaDireccion from "../../components/clientes/FormActualizaDireccion";
 import NavBar from "../../components/partials/NavBar";
 import Sidebar from "../../components/partials/Sidebar";
 

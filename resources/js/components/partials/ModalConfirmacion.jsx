@@ -26,9 +26,7 @@ export default function ModalConfirmacion({
         <p>{message}</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
-          Cancelar
-        </Button>
+        <Button variant="secondary" onClick={onHide}>Cancelar</Button>
         <Button variant={variant} onClick={handleDelete}>
           {text}
         </Button>

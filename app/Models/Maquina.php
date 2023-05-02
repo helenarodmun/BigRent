@@ -24,12 +24,12 @@ class Maquina extends Model
     //Relacion N:1 con la tabla subfamilias
     public function subfamilia()
     {
-        return $this-> belongsTo(Subfamilia::class);
+        return $this->belongsTo(Subfamilia::class);
     }
     //Relacion N:1 con la tabla marcas
     public function marca()
     {
-        return $this-> belongsTo(Marca::class);
+        return $this->belongsTo(Marca::class);
     }
 
     //Relación 1:N con la tabla series

@@ -110,7 +110,7 @@ class ContratoController extends Controller
         $contratos = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
-            ->get();
+            ->get()->load('serie');
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos
@@ -198,7 +198,7 @@ class ContratoController extends Controller
             'serie' => $serie
         ]);
     }
-    public function cerrarContrato($id) 
+    public function cerrarContrato($id)
     {
         $contrato = Contrato::findOrFail($id);
         $contrato->activo = false;
@@ -216,6 +216,5 @@ class ContratoController extends Controller
             'cliente' => $cliente,
             'contratos' => $contratos
         ]);
-
     }
 }

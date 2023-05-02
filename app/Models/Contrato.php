@@ -51,6 +51,7 @@ class Contrato extends Model
     {
         return $this->belongsTo(Serie::class);
     }
+
     /**
      * Calcula los días de alquiler entre dos fechas utilizando la configuración del cliente.
      *

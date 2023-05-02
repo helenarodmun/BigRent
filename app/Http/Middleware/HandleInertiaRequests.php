@@ -36,7 +36,7 @@ class HandleInertiaRequests extends Middleware
      * @return array
      */
     public function share(Request $request): array
-    {        
+    {
         // comprueba si $authUser es null antes de acceder a su propiedad "tienda".
         // Si $authUser es null, entonces $tienda se establece como null. De esta manera, evito el error de intentar leer una propiedad en null
         $authUser = $request->user();
@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'tienda' => $tienda,
-                ],
+            ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

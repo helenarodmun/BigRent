@@ -50,7 +50,7 @@ class DireccionController extends Controller
             'cliente' => $direccion_actual->cliente
         ]);
     }
-    
+
     public function verFormDireccion($id)
     {
         $cliente = Cliente::findOrFail($id);
@@ -98,11 +98,10 @@ class DireccionController extends Controller
         // Comprueba si se puede eliminar la dirección
         if ($direccion->compruebaDireccion($direccion->predeterminada)) {
             Session::flash('errorBorrado', 'No se puede eliminar la dirección predeterminada');
-           
-        }else{
-            $direccion->delete();         
+        } else {
+            $direccion->delete();
         }
-      
+
         $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
         $cliente = $direccion->cliente;
         // Recupera todos los telefonos del cliente 

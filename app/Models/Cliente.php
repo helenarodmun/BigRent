@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
-{    
+{
     use HasFactory;
 
     protected $fillable = [
@@ -24,7 +24,8 @@ class Cliente extends Model
     ];
     protected $table = 'clientes';
     //relacion N:1 con la tabla tipos_cliente
-    public function tipo() {
+    public function tipo()
+    {
         return $this->belongsTo(TipoCliente::class, 'tipo_cliente_id');
     }
     //relacion 1:N con la tabla direcciones

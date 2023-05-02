@@ -29,6 +29,7 @@ export default function TablaContratos() {
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Serie</th>
                                     <th>Alta del contrato</th>
                                     <th>Fecha inicio</th>
                                     <th>Fecha Fin</th>
@@ -41,6 +42,7 @@ export default function TablaContratos() {
                                 <tbody key={contrato.id} className="">
                                     <tr>
                                         <td>{contrato.id}</td>
+                                        <td>{contrato.serie.numero_serie}</td>
                                         <td>{myDate(contrato.created_at)}</td>
                                         <td>{contrato.fecha_retirada}</td>
                                         <td>{contrato.fecha_entrega}</td>

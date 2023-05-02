@@ -35,9 +35,9 @@ class CreateClientesTable extends Migration
             $table->timestamps();
 
             $table->foreignId('tipo_cliente_id')
-            ->constrained('tipos_clientes')
-            ->onDelete('no action')
-            ->onUpdate('no action');
+                ->constrained('tipos_clientes')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

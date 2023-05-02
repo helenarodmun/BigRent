@@ -38,7 +38,7 @@ class ContratoForm extends FormRequest
             ],
 
             'PUT' => [
-                
+
                 'fecha_retirada' => 'nullable|date',
                 'fecha_entrega' => 'nullable|date',
                 'dias' => 'nullable',
@@ -51,9 +51,9 @@ class ContratoForm extends FormRequest
                 'autorizado_id' => 'nullable',
                 'telefono_id' => 'nullable'
             ],
-            
+
             'GET' => [
-                
+
                 'fecha_retirada' => 'nullable|date',
                 'fecha_entrega' => 'nullable|date',
                 'dias' => 'required',

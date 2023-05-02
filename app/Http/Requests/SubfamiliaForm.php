@@ -40,6 +40,6 @@ class SubfamiliaForm extends FormRequest
                 'fianza' => 'nullable',
                 'familia_id' => 'nullable'
             ]
-        }; 
+        };
     }
 }

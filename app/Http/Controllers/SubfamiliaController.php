@@ -61,9 +61,9 @@ class SubfamiliaController extends Controller
         $subfamilia->save();
 
         $subfamilias = Subfamilia::with('familia')
-        ->orderBy('familia_id', 'asc')
-        ->orderBY('descripcion', 'asc')
-        ->get();
+            ->orderBy('familia_id', 'asc')
+            ->orderBY('descripcion', 'asc')
+            ->get();
         Session::flash('creacion', 'Se ha actualizado la subfamilia de forma correcta');
         return Inertia::render('Subfamilias/Listado', [
             'subfamilias' => $subfamilias,

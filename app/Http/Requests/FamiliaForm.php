@@ -22,9 +22,9 @@ class FamiliaForm extends FormRequest
     public function rules(): array
     {
         return match ($this->method()) {
-            
+
             'POST' => [
-                
+
                 'nombre' => 'required|string|max:75'
             ],
 

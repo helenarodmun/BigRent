@@ -31,9 +31,9 @@ class Direccion extends Model
     //Método para comprobar si existe una dirección predeterminada
     public static function compruebaDireccion($predeterminada)
     {
-        if($predeterminada == 1) {
+        if ($predeterminada == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
