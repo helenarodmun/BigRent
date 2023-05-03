@@ -40,19 +40,6 @@ export default function FormActualizaCliente() {
     };
     return (
         <div className="m-3">
-            <div align="center">
-                <Col sm={10}>
-                    {flash.edicion && (
-                        <div class="alert alert-success" role={"alert"}>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> {flash.edicion}
-                        </div>)}
-                    {flash.errorEdicion && (
-                        <div class="alert alert-danger" role={"alert"}>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button> {flash.errorEdicion}
-                        </div>
-                    )}
-                </Col>
-            </div>
             <Col>
                 <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">

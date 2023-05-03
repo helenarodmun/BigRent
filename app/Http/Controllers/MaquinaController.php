@@ -16,6 +16,7 @@ use Inertia\Inertia;
 class MaquinaController extends Controller
 {
     use InteractsWithSockets;
+
     public function index()
     {
         //Recuperar todos las maquinas de la base de datos
@@ -38,6 +39,7 @@ class MaquinaController extends Controller
         $request->file('url_manual')->store('public/manuales');
         $request->file('url_ficha')->store('public/fichas');
         $request->file('url_imagen')->store('public/imagenes');
+        // Asigna las rutas de los archivos almacenados a los atributos correspondientes del modelo
         $maquina->url_manual = asset('storage/manuales/' . $request->file('url_manual')->hashName());
         $maquina->url_ficha = asset('storage/fichas/' . $request->file('url_ficha')->hashName());
         $maquina->url_imagen = asset('storage/imagenes/' . $request->file('url_imagen')->hashName());
@@ -46,9 +48,9 @@ class MaquinaController extends Controller
         $maquina->save();
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
-            ->get();
-        $maquinas->load('marca.maquinas');
-        Session::flash('edicion', 'Se ha creado la máquina de forma correcta');
+            ->get();// Obtiene todas las máquinas de la base de datos, incluyendo la relación 'subfamilia'
+        $maquinas->load('marca.maquinas');// Carga la relación 'marca.maquinas' para todas las máquinas
+        Session::flash('success', 'Se ha creado el registro de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);
@@ -73,22 +75,29 @@ class MaquinaController extends Controller
         $maquina = Maquina::findOrFail($id);
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
-
-        $request->file('url_manual')->store('public/manuales');
-        $request->file('url_ficha')->store('public/fichas');
-        $request->file('url_imagen')->store('public/imagenes');
-
-        $maquina->url_manual = asset('storage/manuales/' . $request->file('url_manual')->hashName());
-        $maquina->url_ficha = asset('storage/fichas/' . $request->file('url_ficha')->hashName());
-        $maquina->url_imagen = asset('storage/imagenes/' . $request->file('url_imagen')->hashName());
-
+        //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
+        //si no, quedará el valor anterior, para evitar errores de formulario
+        if ($request->hasFile('url_manual')) {
+            $request->file('url_manual')->store('public/manuales');
+            $maquina->url_manual = asset('storage/manuales/' . $request->file('url_manual')->hashName());
+        }
+    
+        if ($request->hasFile('url_ficha')) {
+            $request->file('url_ficha')->store('public/fichas');
+            $maquina->url_ficha = asset('storage/fichas/' . $request->file('url_ficha')->hashName());
+        }
+    
+        if ($request->hasFile('url_imagen')) {
+            $request->file('url_imagen')->store('public/imagenes');
+            $maquina->url_imagen = asset('storage/imagenes/' . $request->file('url_imagen')->hashName());
+        }
         $maquina->save();
 
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('subfamilia_id', 'asc')
             ->get();
         $maquinas->load('marca.maquinas');
-        Session::flash('creacion', 'Se ha actualizado la máquina de forma correcta');
+        Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);
@@ -140,7 +149,7 @@ class MaquinaController extends Controller
             ->orderBy('subfamilia_id', 'asc')
             ->get();
         $maquinas->load('marca.maquinas');
-        Session::flash('borrado', 'Se ha eliminado la máquina de forma correcta');
+        Session::flash('success', 'Se ha eliminado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
     }
 }

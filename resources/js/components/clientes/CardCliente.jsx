@@ -23,10 +23,15 @@ export default function CardCliente({ children }) {
         <div>
             <div align="center">
                 <Col sm={10}>
-                    {flash.creacion && (
+                    {flash.success && (
                         <div className="alert alert-success" role={"alert"}>
                             <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {flash.creacion}
+                        </div>)}
+                        {flash.error && (
+                        <div className="alert alert-danger" role={"alert"}>
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {flash.error}
                         </div>)}
                 </Col>
             </div>
@@ -73,29 +78,18 @@ export default function CardCliente({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     <Col>
-                                    <p className="h4 pb-2">Documentación</p>
-                                  
+                                        <p className="h4 pb-2">Documentación</p>
                                         <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">Escrituras</a></Button>
-                                   
-                                
-                                    <Button  variant='dark'className="ms-3  shadow"><a className="btn btn-dark" href={cliente.url_dni_administrador} target="_blank">DNI Administrador</a></Button>
-                                  
-                                  
-                                    <Button  variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_cif} target="_blank">CIF</a></Button>
+                                        <Button variant='dark' className="ms-3  shadow"><a className="btn btn-dark" href={cliente.url_dni_administrador} target="_blank">DNI Administrador</a></Button>
+                                        <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_cif} target="_blank">CIF</a></Button>
                                     </Col>
                                 </Row>
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button size="lg" type="submit" className="m-3 shadow" variant="primary" method="get" href={"/editarCliente/" + cliente.id} aria-label="Modificar los datos del cliente">
-                                Editar cliente
-                            </Button>
-                            <Button size="lg" className="m-3 shadow" variant="secondary" href={"/clientes"} aria-label="Volver a la vista anterior">
-                                Cancelar
-                            </Button>                            
-                            <Button size="lg" className="m-3" variant="warning" href={"/listarContratos/" + cliente.id} aria-label="Volver a la vista anterior">
-                                Ver contratos
-                            </Button>
+                            <Button size="lg" type="submit" className="m-3 shadow" variant="primary" method="get" href={"/editarCliente/" + cliente.id} aria-label="Modificar los datos del cliente">Editar cliente</Button>
+                            <Button size="lg" className="m-3 shadow" variant="secondary" href={"/clientes"} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button size="lg" className="m-3" variant="warning" href={"/listarContratos/" + cliente.id} aria-label="Volver a la vista anterior">Ver contratos</Button>
                         </Card.Footer>
                     </Card>
                     <div className="d-grid gap-2">

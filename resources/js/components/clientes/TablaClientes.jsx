@@ -4,7 +4,7 @@ import { Button, Col, Container, Row, Table } from "react-bootstrap";
 
 const TablaClientes = () => {
     // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes y resultado respectivamente
-    const { clientes, resultado } = usePage().props;
+    const { clientes, resultado, flash } = usePage().props;
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || '');
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
@@ -17,6 +17,20 @@ const TablaClientes = () => {
     );
     return (
         <Container>
+             <div align="center">
+                <Col sm={10}>
+                    {flash.success && (
+                        <div className="alert alert-success" role={"alert"}>
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {flash.success}
+                        </div>)}
+                        {flash.error && (
+                        <div className="alert alert-danger" role={"alert"}>
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {flash.error}
+                        </div>)}
+                </Col>
+            </div>
             <div className="container mt-5">
                 <form action="/clientes/buscar" method="get" className="d-flex" role="search">
                     <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />

@@ -9,9 +9,9 @@ export default function FormEdicionMaquina({ children }) {
         id: maquina.id,
         descripcion: maquina.descripcion,
         referencia: maquina.referencia,
-        url_manual: maquina.url_manual || '',
-        url_ficha: maquina.url_ficha || '',
-        url_imagen: maquina.url_imagen || '',
+        url_manual: maquina.url_manual ,
+        url_ficha: maquina.url_ficha ,
+        url_imagen: maquina.url_imagen ,
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -29,23 +29,6 @@ export default function FormEdicionMaquina({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.errorCreacion && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                {flash.errorCreacion}
-                            </div>
-                        )}
-                    </Col>
-                </div>
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>
@@ -82,25 +65,25 @@ export default function FormEdicionMaquina({ children }) {
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Manual:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual" value={data.url_manual}
+                                        <Form.Control className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual"
                                             onChange={(e) =>
-                                                setData("url_manual", e.target.value)
+                                                setData("url_manual", e.target.files[0])
                                             } />
                                         {errors.url_manual && (<div className="alert alert-danger">{errors.url_manual}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Ficha:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" value={data.url_ficha}
+                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" 
                                             onChange={(e) =>
-                                                setData("url_ficha", e.target.value)
+                                                setData("url_ficha", e.target.files[0])
                                             } />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_ficha}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Imagen:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="imagen de la máquina" type="file" name="url_imagen" value={data.url_imagen}
+                                        <Form.Control className="mb-2" size="sm" aria-label="imagen de la máquina" type="file" name="url_imagen"
                                             onChange={(e) =>
-                                                setData("url_imagen", e.target.value)
+                                                setData("url_imagen", e.target.files[0])
                                             } />
                                         {errors.url_imagen && (<div className="alert alert-danger">{errors.url_imagen}</div>)}
                                     </Col>

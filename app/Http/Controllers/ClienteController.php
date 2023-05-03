@@ -33,11 +33,20 @@ class ClienteController extends Controller
     {
         $request->validated();
         $predeterminada = $request->predeterminada;
-        $request->file('url_escrituras')->store('public/clientes/');
-        $request->file('url_dni_administrador')->store('public/clientes/');
-        $request->file('url_cif')->store('public/clientes/');
-        $request->file('url_dni')->store('public/clientes/');
-
+        //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
+        if ($request->hasFile('url_escrituras')) {
+            $request->file('url_escrituras')->store('public/clientes/');
+        }    
+        if ($request->hasFile('url_dni_administrador')) {
+            $request->file('url_dni_administrador')->store('public/clientes/');
+        }    
+        if ($request->hasFile('url_cif')) {
+            $request->file('url_cif')->store('public/clientes/');
+        }    
+        if ($request->hasFile('url_dni')) {
+            $request->file('url_dni')->store('public/clientes/');
+        }    
+        //Comprueba que la dirección se haya guardado como predeterminada
         if (Direccion::compruebaDireccion($predeterminada)) {
 
             DB::transaction(function ()  use ($request) {
@@ -48,9 +57,11 @@ class ClienteController extends Controller
                     'tipo_cliente_id' => $request->tipo_cliente_id,
                     'administrador' => $request->administrador,
                     'dni_administrador' => $request->dni_administrador,
-                    'url_escrituras' => asset('storage/clientes/' . $request->file('url_escrituras')->hashName()),
-                    'url_dni_administrador' => asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()),
-                    'url_cif' => asset('storage/clientes/' . $request->file('url_cif')->hashName()),
+                    //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
+                    // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
+                    'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : null,
+                    'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : null,
+                    'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/' . $request->file('url_cif')->hashName()) : null,
                     'anotaciones' => $request->anotaciones
                 ]);
                 $cliente->direcciones()->create([
@@ -70,15 +81,15 @@ class ClienteController extends Controller
                     'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
                     'dni' => $request->dni,
                     'notas' => $request->notas,
-                    'url_dni' => asset('storage/clientes/' . $request->file('url_dni')->hashName()),
+                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/' . $request->file('url_dni')->hashName()) : null,
                 ]);
             });
 
             $clientes = Cliente::latest()->get();
-            Session::flash('creacion', 'Datos guardados con éxito');
+            Session::flash('success', 'Registro guardado con éxito');
             return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
         } else {
-            Session::flash('errorCreacion', 'La dirección principal del cliente debe ser la predeterminada');
+            Session::flash('error', 'La dirección principal del cliente debe ser la predeterminada');
             return back();
         }
     }
@@ -149,15 +160,31 @@ class ClienteController extends Controller
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
-        $cliente->url_escrituras = $validatedData['url_escrituras'];
-        $cliente->url_dni_administrador = $validatedData['url_dni_administrador'];
-        $cliente->url_cif = $validatedData['url_cif'];
+         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
+        //si no, quedará el valor anterior, para evitar errores de formulario
+        if ($request->hasFile('url_escrituras')) {
+            $request->file('url_escrituras')->store('public/clientes');
+            $cliente->url_escrituras = asset('storage/clientes/' . $request->file('url_escrituras')->hashName());
+        }
+    
+        if ($request->hasFile('url_dni_administrador')) {
+            $request->file('url_dni_administrador')->store('public/clientes/');
+            $cliente->url_dni_administrador = asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName());
+        }
+    
+        if ($request->hasFile('url_cif')) {
+            $request->file('url_cif')->store('public/clientes/');
+            $cliente->url_cif = asset('storage/clientes/' . $request->file('url_cif')->hashName());
+        }
+        // $cliente->url_escrituras = $validatedData['url_escrituras'];
+        // $cliente->url_dni_administrador = $validatedData['url_dni_administrador'];
+        // $cliente->url_cif = $validatedData['url_cif'];
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
         $cliente->save();
 
         // Redirige al cliente del usuario actualizado.
-        Session::flash('edicion', 'Se ha actualizado el cliente');
+        Session::flash('success', 'Se ha actualizado el registro');
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
@@ -166,10 +193,11 @@ class ClienteController extends Controller
         $cliente->load('tipo.cliente');
         //renderiza la vista, pasando los datos
         return Inertia::render('Clientes/FichaCliente', [
-            'clientes' => $cliente,
+            'cliente' => $cliente,
             'direcciones' => $cliente->direcciones,
             'telefonos' => $cliente->telefonos,
-            'autorizados' => $cliente->autorizados
+            'autorizados' => $cliente->autorizados,
+            'tipo' => $cliente->tipo
         ]);
     }
 
@@ -183,7 +211,7 @@ class ClienteController extends Controller
         $cliente->delete();
         //recuperación de los clientes después dela eliminación
         $clientes = Cliente::latest()->get();
-        Session::flash('borrado', 'Se ha eliminado el cliente de forma definitiva');
+        Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
         return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
     }
 }
