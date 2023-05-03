@@ -13,7 +13,7 @@ const TablaSeries = () => {
     const handleSearch = (event) => {
         setQuery(event.target.value);
     };
-    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+    // variable resultadosBusqueda que filtra las series según su número de serie, o descripcioón del artículoy los almacena en un array
     const resultadosBusqueda = series.filter(
         (serie) =>
             serie.maquina.descripcion

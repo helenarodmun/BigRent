@@ -9,7 +9,6 @@ export default function Listado() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
-                <p className="h1 m-3">Listado maquinaria</p>
                 <TablaMaquinas></TablaMaquinas>
             </div>
         </div>
