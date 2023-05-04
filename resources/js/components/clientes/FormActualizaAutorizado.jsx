@@ -6,7 +6,7 @@ export default function FormActualizaAutorizado({ children }) {
     const { autorizado, cliente } = usePage().props;
     console.log(autorizado);
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         nombre_persona_autorizada: autorizado.nombre_persona_autorizada,
         dni: autorizado.dni,
         notas: autorizado.notas || '',
@@ -15,7 +15,7 @@ export default function FormActualizaAutorizado({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        put(
+        post(
             `/editarAutorizado/${autorizado.id}`,
             {
                 onSuccess: () => { console.log(data); },
@@ -66,8 +66,10 @@ export default function FormActualizaAutorizado({ children }) {
                                         <Form.Label>Archivo DNI:</Form.Label>
                                         <Form.Control
                                             size="sm" aria-label="url dni" type="file" name="url_dni" 
-                                            onChange={(e) => setData(
-                                                "url_dni", e.target.files[0])} />
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                setData("url_dni", file ? file : autorizado.url_dni)
+                                                } }/>
                                         {errors.url_dni && (
                                             <div className="alert alert-danger">{errors.url_dni}</div>)}
                                     </Col>

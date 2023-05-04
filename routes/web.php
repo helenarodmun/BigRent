@@ -60,7 +60,7 @@ Route::post('/nuevoTelefono/{id}', [TelefonoController::class, 'create']);
 Route::get('/autorizados/{id}', [AutorizadoController::class, 'verAutorizados']);
 Route::get('/nuevoAutorizado/{id}', [AutorizadoController::class, 'verFormAutorizado']);
 Route::post('/nuevoAutorizado/{id}', [AutorizadoController::class, 'create']);
-Route::put('/editarAutorizado/{id}', [AutorizadoController::class, 'update']);
+Route::post('/editarAutorizado/{id}', [AutorizadoController::class, 'update']);
 Route::get('/editarAutorizado/{id}', [AutorizadoController::class, 'verEdicionAutorizado']);
 Route::delete('/eliminarAutorizado/{id}', [AutorizadoController::class, 'destroy']);
 
