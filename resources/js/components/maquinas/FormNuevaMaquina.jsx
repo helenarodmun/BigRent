@@ -51,7 +51,7 @@ export default function FormNuevaMaquina({ children }) {
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <Form enctype="multipart/form-data">
+                            <Form encType="multipart/form-data">
                                 <Row>
                                     <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="FAMILIA" className="mb-2">
