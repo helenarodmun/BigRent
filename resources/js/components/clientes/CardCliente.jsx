@@ -67,11 +67,6 @@ export default function CardCliente({ children }) {
                                             <Form.Control aria-label="dni del administrador" name="dni_administrador" value={data.dni_administrador} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={4}>
-                                        <FloatingLabel label="TIPO" className="mb-2">
-                                            <Form.Control aria-label="tipo de cliente" name="tipo_cliente" value={data.tipo_cliente} disabled readOnly></Form.Control>
-                                        </FloatingLabel>
-                                    </Col>
                                     <Col sm={12}>
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                             <Form.Control as="textarea" rows={5} value={data.anotaciones} disabled></Form.Control>
