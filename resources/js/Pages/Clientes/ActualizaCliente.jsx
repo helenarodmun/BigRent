@@ -14,37 +14,7 @@ export default function ActualizaCliente() {
         <div style={{ display: "flex", height: "100vh" }}>
             <Sidebar />
             <div style={{ flex: 1 }}>
-                <NavBar></NavBar>
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.success && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                {flash.success}
-                            </div>
-                        )}
-                        {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                {flash.error}
-                            </div>
-                        )}
-                    </Col>
-                </div>
+                <NavBar></NavBar>              
                 <div className="update-container">
                     <div className="form-container">
                         <FormActualizaCliente />

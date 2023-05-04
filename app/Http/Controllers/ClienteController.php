@@ -182,9 +182,9 @@ class ClienteController extends Controller
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
-        $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : null;
-        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : null;
-        $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/' . $request->file('url_cif')->hashName()) : null;
+        $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : $cliente->url_escrituras;
+        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : $cliente->url_dni_administrador;
+        $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/' . $request->file('url_cif')->hashName()) : $cliente->url_cif;
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
         $cliente->save();       
