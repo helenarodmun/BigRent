@@ -113,7 +113,7 @@ Route::get('/nuevaMaquina', function () {
 });
 Route::post('/nuevaMaquina', [MaquinaController::class, 'create']);
 Route::get('/editarMaquina/{id}', [MaquinaController::class, 'verEdicionMaquina']);
-Route::put('/editarMaquina/{id}', [MaquinaController::class, 'update']);
+Route::post('/editarMaquina/{id}', [MaquinaController::class, 'update']);
 Route::delete('/eliminarMaquina/{id}', [MaquinaController::class, 'destroy']);
 Route::get('/verFicha/{id}', [MaquinaController::class, 'verDatosMaquina']);
 Route::get('/maquinas/buscar', [MaquinaController::class, 'search']);

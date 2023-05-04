@@ -4,19 +4,47 @@ import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bo
 
 export default function FormEdicionMaquina({ children }) {
     const { maquina, subfamilias, marcas, flash } = usePage().props;
+    console.log(maquina)
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
         id: maquina.id,
         descripcion: maquina.descripcion,
         referencia: maquina.referencia,
-        url_manual: maquina.url_manual ,
-        url_ficha: maquina.url_ficha ,
-        url_imagen: maquina.url_imagen ,
+        url_manual: null,
+        url_ficha: null,
+        url_imagen: null,
+        subfamilia_id: maquina.subfamilia_id,
+        marca_id: maquina.marca_id
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        put(
+        const formData = new FormData();
+
+        formData.append('id', data.id);
+        formData.append('descripcion', data.descripcion);
+        formData.append('referencia', data.referencia);
+
+        // Verificar si se ha seleccionado un archivo para cada campo y agregarlo al formData
+        if (data.url_manual) {
+            formData.append('url_manual', data.url_manual);
+        } else {
+            formData.append('url_manual', maquina.url_manual);
+        }
+
+        if (data.url_ficha) {
+            formData.append('url_ficha', data.url_ficha);
+        } else {
+            formData.append('url_ficha', maquina.url_ficha);
+        }
+
+        if (data.url_imagen) {
+            formData.append('url_imagen', data.url_imagen);
+        } else {
+            formData.append('url_imagen', maquina.url_imagen);
+        }
+
+        post(
             "/editarMaquina/" + maquina.id,
             {
                 onSuccess: () => {
@@ -65,26 +93,30 @@ export default function FormEdicionMaquina({ children }) {
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Manual:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="manual de la máquina" type="file" name="url_manual"
-                                            onChange={(e) =>
-                                                setData("url_manual", e.target.files[0])
-                                            } />
+                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_manual"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                setData("url_manual", file ? file : maquina.url_manual);
+                                            }}
+                                        />
                                         {errors.url_manual && (<div className="alert alert-danger">{errors.url_manual}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Ficha:</Form.Label>
-                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha" 
-                                            onChange={(e) =>
-                                                setData("url_ficha", e.target.files[0])
-                                            } />
+                                        <Form.Control className="mb-2" size="sm" aria-label="ficha de la máquina" type="file" name="url_ficha"
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                setData("url_ficha", file ? file : maquina.url_ficha);
+                                            }} />
                                         {errors.url_ficha && (<div className="alert alert-danger">{errors.url_ficha}</div>)}
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
                                         <Form.Label>Imagen:</Form.Label>
                                         <Form.Control className="mb-2" size="sm" aria-label="imagen de la máquina" type="file" name="url_imagen"
-                                            onChange={(e) =>
-                                                setData("url_imagen", e.target.files[0])
-                                            } />
+                                            onChange={(e) => {
+                                                const file = e.target.files[0];
+                                                setData("url_imagen", file ? file : maquina.url_imagen)
+                                            }} />
                                         {errors.url_imagen && (<div className="alert alert-danger">{errors.url_imagen}</div>)}
                                     </Col>
                                 </Row>

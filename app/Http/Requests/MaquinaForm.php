@@ -24,10 +24,10 @@ class MaquinaForm extends FormRequest
         return match ($this->method()) {
 
             'POST' => [
-                'descripcion' => 'required|string|max:150',
-                'referencia' => 'required|string|max:10',
+                'descripcion' => 'nullable|string|max:150',
+                'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
-                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv1max:2048',
+                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'required',
                 'marca_id' => 'required'
@@ -37,7 +37,7 @@ class MaquinaForm extends FormRequest
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
-                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv1max:2048',
+                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'nullable',
                 'marca_id' => 'nullable'
@@ -47,7 +47,7 @@ class MaquinaForm extends FormRequest
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
                 'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
-                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv1max:2048',
+                'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'nullable',
                 'marca_id' => 'nullable'

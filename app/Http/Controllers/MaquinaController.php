@@ -78,14 +78,23 @@ class MaquinaController extends Controller
 
     public function update(MaquinaForm $request, $id)
     {
-        dd($request);
         $validatedData = $request->validated();
         $maquina = Maquina::findOrFail($id);
+        // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
+        if ($request->hasFile('url_manual')) {
+            $request->file('url_manual')->store('public/manuales');
+        }
+        if ($request->hasFile('url_ficha')) {
+            $request->file('url_ficha')->store('public/fichas');
+        }
+        if ($request->hasFile('url_imagen')) {
+            $request->file('url_imagen')->store('public/imagenes');
+        }
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
-        $maquina->url_manual = $validatedData['url_manual'];
-        $maquina->url_ficha = $validatedData['url_ficha'];
-        $maquina->url_imagen = $validatedData['url_imagen'];
+        $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : $maquina->url_manual;
+        $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) :$maquina->url_ficha;
+        $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : $maquina->url_imagen;
         $maquina->save();
 
         $maquinas = Maquina::with('subfamilia')
