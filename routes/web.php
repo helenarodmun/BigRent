@@ -38,7 +38,7 @@ Route::get('/nuevoCliente', function () {
 });
 Route::post('/nuevoCliente', [ClienteController::class, 'create']);
 Route::get('/editarCliente/{id}', [ClienteController::class, 'showClienteEdicion']);
-Route::put('/editarCliente/{id}', [ClienteController::class, 'update']);
+Route::post('/editarCliente/{id}', [ClienteController::class, 'update']);
 Route::delete('/eliminarCliente/{id}', [ClienteController::class, 'destroy']);
 Route::get('/clientes/buscar', [ClienteController::class, 'search']);
 

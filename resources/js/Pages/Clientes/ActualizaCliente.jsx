@@ -17,30 +17,30 @@ export default function ActualizaCliente() {
                 <NavBar></NavBar>
                 <div align="center">
                     <Col sm={10}>
-                        {flash.errorEdicion && (
+                        {flash.success && (
                             <div class="alert alert-danger" role={"alert"}>
                                 <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="alert"
                                     aria-label="Close"
                                 >
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                {flash.errorEdicion}
+                                {flash.success}
                             </div>
                         )}
-                        {flash.errorBorrado && (
+                        {flash.error && (
                             <div class="alert alert-danger" role={"alert"}>
                                 <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="alert"
                                     aria-label="Close"
                                 >
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                {flash.errorBorrado}
+                                {flash.error}
                             </div>
                         )}
                     </Col>

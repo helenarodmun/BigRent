@@ -6,21 +6,47 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 export default function FormActualizaCliente() {
     const { clientes, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
-    const { data, setData, put, delete: destroy, processing, errors, } = useForm({
+    const { data, setData, post, delete: destroy, processing, errors, } = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
         administrador: clientes.administrador,
         dni_administrador: clientes.dni_administrador,
-        url_escrituras: clientes.url_escrituras || '',
-        url_dni_administrador: clientes.url_dni_administrador || '',
-        url_cif: clientes.url_cif || '',
+        url_escrituras: null,
+        url_dni_administrador: null,
+        url_cif: null,
         anotaciones: clientes.anotaciones || '',
     });
+    console.log(data)
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        put(
+        const formData = new FormData();
+
+        formData.append('nombre_fiscal', data.nombre_fiscal);
+        formData.append('nif', data.nif);
+        formData.append('nombre_comercial', data.nombre_comercial);
+        formData.append('administrador', data.administrador);
+        formData.append('dni_administrador', data.dni_administrador);
+        // Verificar si se ha seleccionado un archivo para cada campo y agregarlo al formData
+        if (data.url_escrituras) {
+            formData.append('url_escrituras', data.url_escrituras);
+        } else {
+            formData.append('url_escrituras', clientes.url_escrituras);
+        }
+
+        if (data.url_dni_administrador) {
+            formData.append('url_dni_administrador', data.url_dni_administrador);
+        } else {
+            formData.append('url_dni_administrador', clientes.url_dni_administrador);
+        }
+
+        if (data.url_cif) {
+            formData.append('url_cif', data.url_cif);
+        } else {
+            formData.append('url_cif', clientes.url_cif);
+        }
+        post(
             `/editarCliente/${clientes.id}`,
             {
                 onSuccess: () => {
@@ -109,24 +135,30 @@ export default function FormActualizaCliente() {
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">Escrituras:</Form.Label>
                                     <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras"
-                                        onChange={(e) =>
-                                            setData("url_escrituras", e.target.files[0])
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            setData("url_escrituras",  file ? file : clientes.url_escrituras)
+                                        }
                                         } />
                                     {errors.url_escrituras && (<div className="alert alert-danger"> {errors.url_escrituras}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">DNI Administrador:</Form.Label>
                                     <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador" 
-                                        onChange={(e) =>
-                                            setData("url_dni_administrador", e.target.files[0])
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            setData("url_dni_administrador",  file ? file : clientes.url_dni_administrador)
+                                        }
                                         } />
                                     {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
                                     <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif" 
-                                        onChange={(e) =>
-                                            setData("url_cif", e.target.files[0])
+                                        onChange={(e) =>{
+                                            const file = e.target.files[0];
+                                            setData("url_cif",  file ? file : clientes.url_cif)
+                                        }
                                         } />
                                     {errors.url_cif && (<div className="alert alert-danger">{errors.url_cif}</div>)}
                                 </Col>

@@ -36,16 +36,16 @@ class ClienteController extends Controller
         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
         if ($request->hasFile('url_escrituras')) {
             $request->file('url_escrituras')->store('public/clientes/');
-        }    
+        }
         if ($request->hasFile('url_dni_administrador')) {
             $request->file('url_dni_administrador')->store('public/clientes/');
-        }    
+        }
         if ($request->hasFile('url_cif')) {
             $request->file('url_cif')->store('public/clientes/');
-        }    
+        }
         if ($request->hasFile('url_dni')) {
             $request->file('url_dni')->store('public/clientes/');
-        }    
+        }
         //Comprueba que la dirección se haya guardado como predeterminada
         if (Direccion::compruebaDireccion($predeterminada)) {
 
@@ -147,44 +147,47 @@ class ClienteController extends Controller
         ]);
     }
 
-    public function update(ClienteForm $request, $id)
+    public function update(Request $request, $id)
     {
 
         // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
-        $validatedData = $request->validated();
+        $validatedData = $this->validate($request, [
+
+                'nombre_fiscal' => 'nullable|string',
+                'nif' => 'nullable|string|max:9',
+                'nombre_comercial' => 'nullable|string',
+                'administrador' => 'nullable|string',
+                'dni_administrador' => 'nullable|string',
+                'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
+                'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
+                'anotaciones' => 'nullable|string|max:255',
+           
+        ]);
         // Busca el cliente a actualizar por su ID.
         $cliente = Cliente::findOrFail($id);
+        //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
+        if ($request->hasFile('url_escrituras')) {
+            $request->file('url_escrituras')->store('public/clientes/');
+        }
+        if ($request->hasFile('url_dni_administrador')) {
+            $request->file('url_dni_administrador')->store('public/clientes/');
+        }
+        if ($request->hasFile('url_cif')) {
+            $request->file('url_cif')->store('public/clientes/');
+        }
         // Actualiza los campos del cliente con los datos validados del formulario.
         $cliente->nombre_fiscal = $validatedData['nombre_fiscal'];
         $cliente->nif = $validatedData['nif'];
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
-         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
-        //si no, quedará el valor anterior, para evitar errores de formulario
-        if ($request->hasFile('url_escrituras')) {
-            $request->file('url_escrituras')->store('public/clientes');
-            $cliente->url_escrituras = asset('storage/clientes/' . $request->file('url_escrituras')->hashName());
-        }
-    
-        if ($request->hasFile('url_dni_administrador')) {
-            $request->file('url_dni_administrador')->store('public/clientes/');
-            $cliente->url_dni_administrador = asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName());
-        }
-    
-        if ($request->hasFile('url_cif')) {
-            $request->file('url_cif')->store('public/clientes/');
-            $cliente->url_cif = asset('storage/clientes/' . $request->file('url_cif')->hashName());
-        }
-        // $cliente->url_escrituras = $validatedData['url_escrituras'];
-        // $cliente->url_dni_administrador = $validatedData['url_dni_administrador'];
-        // $cliente->url_cif = $validatedData['url_cif'];
+        $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : null;
+        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : null;
+        $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/' . $request->file('url_cif')->hashName()) : null;
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
-        $cliente->save();
-
-        // Redirige al cliente del usuario actualizado.
-        Session::flash('success', 'Se ha actualizado el registro');
+        $cliente->save();       
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
@@ -192,6 +195,8 @@ class ClienteController extends Controller
         $cliente->load('autorizados.cliente');
         $cliente->load('tipo.cliente');
         //renderiza la vista, pasando los datos
+         // Redirige al cliente del usuario actualizado.
+         Session::flash('success', 'Se ha actualizado el registro');
         return Inertia::render('Clientes/FichaCliente', [
             'cliente' => $cliente,
             'direcciones' => $cliente->direcciones,
