@@ -113,7 +113,8 @@ class ContratoController extends Controller
         $contratos = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
-            ->get()->load('serie');
+            ->with('serie')
+            ->get();
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos
@@ -213,8 +214,8 @@ class ContratoController extends Controller
         $contratos = Contrato::where('cliente_id', $contrato->cliente_id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
+            ->with('serie')
             ->get();
-
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos

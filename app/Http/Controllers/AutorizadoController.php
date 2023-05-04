@@ -18,7 +18,17 @@ class AutorizadoController extends Controller
     {
         $request->validated();
         $cliente = Cliente::findOrFail($id);
-        $autorizado = $cliente->autorizados()->create($request->all());
+        $autorizado = new Autorizado;
+        $autorizado->nombre_persona_autorizada = $request->nombre_persona_autorizada;
+        $autorizado->dni = $request->dni;
+        $autorizado->notas = $request->notas;
+        // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
+        if ($request->hasFile('url_dni')) {
+            $request->file('url_dni')->store('public/manuales');
+        }
+        $autorizado->url_dni = $request->hasFile('url_dni') ? asset('storage/clientes/' . $request->file('url_dni')->hashName()) : null;
+        $autorizado->cliente_id = $cliente->id;
+        $autorizado->save();
         $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         $cliente = $autorizado->cliente;
         $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
