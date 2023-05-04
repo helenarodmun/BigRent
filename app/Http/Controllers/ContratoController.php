@@ -94,8 +94,11 @@ class ContratoController extends Controller
         ]);
         $cliente = Cliente::findOrFail($cliente->id);
         $contratos = Contrato::where('cliente_id', $cliente->id)
+            ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
+            ->with('serie')
             ->get();
+
         return Inertia::render('Contratos/Listado', [
             'contrato' => $contrato,
             'contratos' => $contratos,

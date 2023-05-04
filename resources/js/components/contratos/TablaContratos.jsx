@@ -9,7 +9,7 @@ export default function TablaContratos() {
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
-    const { get } = useForm();
+    const { get, delete:destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [idToClose, setIdToClose] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -72,7 +72,7 @@ export default function TablaContratos() {
                                                     setShowConfirmModal(false);
                                                 }}
                                                 onConfirm={(urlAccion, idRegistro) => {
-                                                    get(
+                                                    destroy(
                                                         `${urlAccion}/${idRegistro}`,
                                                         {
                                                             onSuccess: () => {

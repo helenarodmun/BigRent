@@ -144,4 +144,4 @@ Route::post('/contrato/confirmar', [ContratoController::class, 'confirmarContrat
 Route::post('/nuevoContrato', [ContratoController::class, 'create']);
 Route::get('/listarContratos/{id}', [ContratoController::class, 'verListadoContratos']);
 Route::get('/verContrato/{id}', [ContratoController::class, 'verContrato']);
-Route::get('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
+Route::delete('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
