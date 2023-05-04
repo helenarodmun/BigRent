@@ -26,26 +26,31 @@ class Contrato extends Model
 
     ];
     protected $table = 'contratos';
+
     //relacion 1:1 con la tabla clientes
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
+
     //relacion 1:1 con la tabla direcciones
     public function direccion()
     {
         return $this->belongsTo(Direccion::class);
     }
+
     //relacion 1:1 con la tabla telefonos
     public function telefono()
     {
         return $this->belongsTo(Telefono::class);
     }
+
     //relacion 1:1 con la tabla direcciones
     public function autorizado()
     {
         return $this->belongsTo(Autorizado::class);
     }
+
     //relacion 1:N con la tabla series
     public function serie()
     {
@@ -91,7 +96,6 @@ class Contrato extends Model
                     $esDiaHabil = $configuracionCliente->laborables;
                     break;
             }
-
             // Si el día actual es hábil, incrementa el contador de días de alquiler.
             if ($esDiaHabil) {
                 $diasDeAlquiler++;

@@ -16,11 +16,13 @@ class Subfamilia extends Model
         'familia_id'
     ];
     protected $table = 'subfamilias';
+
     //Relación de N:1 con la tabla familias
     public function familia()
     {
         return $this->belongsTo(Familia::class);
     }
+
     //Relación 1:N con la tabla maquinas
     public function maquinas()
     {

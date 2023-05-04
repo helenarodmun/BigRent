@@ -26,6 +26,7 @@ class Maquina extends Model
     {
         return $this->belongsTo(Subfamilia::class);
     }
+    
     //Relacion N:1 con la tabla marcas
     public function marca()
     {

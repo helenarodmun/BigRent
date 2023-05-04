@@ -23,25 +23,32 @@ class Cliente extends Model
 
     ];
     protected $table = 'clientes';
+
     //relacion N:1 con la tabla tipos_cliente
     public function tipo()
     {
         return $this->belongsTo(TipoCliente::class, 'tipo_cliente_id');
     }
+
     //relacion 1:N con la tabla direcciones
     public function direcciones()
     {
         return $this->hasMany(Direccion::class);
     }
+
     //relacion 1:N con la tabla telefonos
     public function telefonos()
     {
         return $this->hasMany(Telefono::class);
     }
+
+    
     public function autorizados()
     {
         return $this->hasMany(Autorizado::class);
     }
+
+
     public function contratos()
     {
         return $this->hasMany(Contrato::class);

@@ -18,16 +18,19 @@ class Direccion extends Model
         'predeterminada'
     ];
     protected $table = 'direcciones';
+
     //Relación N:1 con la tabla clientes
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
+
     //relación tabla contratos 1:N
     public function contratos()
     {
         return $this->hasMany(Contrato::class);
     }
+    
     //Método para comprobar si existe una dirección predeterminada
     public static function compruebaDireccion($predeterminada)
     {

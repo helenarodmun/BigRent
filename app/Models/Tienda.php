@@ -30,6 +30,7 @@ class Tienda extends Model
     {
         return $this->hasMany(User::class);
     }
+    
     //Relación 1:N con la tabla series
     public function series()
     {

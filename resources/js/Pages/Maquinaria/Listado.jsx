@@ -17,7 +17,7 @@ export default function Listado() {
                             <div class="alert alert-success" role={"alert"}>
                                 <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="alert"
                                     aria-label="Close"
                                 >
@@ -30,7 +30,7 @@ export default function Listado() {
                             <div class="alert alert-danger" role={"alert"}>
                                 <button
                                     type="button"
-                                    class="close"
+                                    className="close"
                                     data-dismiss="alert"
                                     aria-label="Close"
                                 >

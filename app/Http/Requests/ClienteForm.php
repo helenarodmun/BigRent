@@ -13,12 +13,7 @@ class ClienteForm extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-     */
+    
     public function rules(): array
     {
         return match ($this->method()) {

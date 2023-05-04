@@ -16,11 +16,13 @@ class Autorizado extends Model
         'url_dni'
     ];
     protected $table = 'autorizados';
+
     //Relación N:1 con la tabla clientes
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
+    
     //Relación N:1 con la tabla contratos
     public function contratos()
     {

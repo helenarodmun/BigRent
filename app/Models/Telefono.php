@@ -15,11 +15,13 @@ class Telefono extends Model
         'tipo'
     ];
     protected $table = 'telefonos';
+
     //Relación N:1 con la tabla clientes
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
+    
     //relación tabla contratos 1:N
     public function contratos()
     {

@@ -26,13 +26,16 @@ class TipoCliente extends Model
     ];
 
     protected $table = 'tipos_clientes';
+
     //clave primaria no es auto-incremental
     public $incrementing = false;
+
     //Relación con tabla configuraciones dias
     public function confDias()
     {
         return $this->belongsTo(ConfiguracionDia::class, 'configuraciones_dias_id');
     }
+    
     //Relación tabla clientes n:1
     public function cliente()
     {
