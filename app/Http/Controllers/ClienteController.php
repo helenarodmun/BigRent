@@ -149,20 +149,17 @@ class ClienteController extends Controller
 
     public function update(Request $request, $id)
     {
-
-        // Valida los datos del formulario utilizando las reglas definidas en ClienteUpdateForm.
+        // Valida los datos del formulario utilizando las reglas definidas.
         $validatedData = $this->validate($request, [
-
-                'nombre_fiscal' => 'nullable|string',
-                'nif' => 'nullable|string|max:9',
-                'nombre_comercial' => 'nullable|string',
-                'administrador' => 'nullable|string',
-                'dni_administrador' => 'nullable|string',
-                'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
-                'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
-                'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
-                'anotaciones' => 'nullable|string|max:255',
-           
+            'nombre_fiscal' => 'nullable|string',
+            'nif' => 'nullable|string|max:9',
+            'nombre_comercial' => 'nullable|string',
+            'administrador' => 'nullable|string',
+            'dni_administrador' => 'nullable|string',
+            'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+            'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
+            'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
+            'anotaciones' => 'nullable|string|max:255',
         ]);
         // Busca el cliente a actualizar por su ID.
         $cliente = Cliente::findOrFail($id);
@@ -187,7 +184,7 @@ class ClienteController extends Controller
         $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/' . $request->file('url_cif')->hashName()) : $cliente->url_cif;
         $cliente->anotaciones = $validatedData['anotaciones'];
         // Guarda el cliente actualizado en la base de datos.
-        $cliente->save();       
+        $cliente->save();
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente');
         //carga los telefonos relacionados con el cliente
@@ -195,8 +192,8 @@ class ClienteController extends Controller
         $cliente->load('autorizados.cliente');
         $cliente->load('tipo.cliente');
         //renderiza la vista, pasando los datos
-         // Redirige al cliente del usuario actualizado.
-         Session::flash('success', 'Se ha actualizado el registro');
+        // Redirige al cliente del usuario actualizado.
+        Session::flash('success', 'Se ha actualizado el registro');
         return Inertia::render('Clientes/FichaCliente', [
             'cliente' => $cliente,
             'direcciones' => $cliente->direcciones,

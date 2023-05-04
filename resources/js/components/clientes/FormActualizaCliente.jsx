@@ -21,14 +21,15 @@ export default function FormActualizaCliente() {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData();
-
+        const formData = new FormData();// Crea un objeto FormData para enviar los datos del formulario
+        // Agrega los campos correspondientes al formData con el valor de data
         formData.append('nombre_fiscal', data.nombre_fiscal);
         formData.append('nif', data.nif);
         formData.append('nombre_comercial', data.nombre_comercial);
         formData.append('administrador', data.administrador);
         formData.append('dni_administrador', data.dni_administrador);
         // Verificar si se ha seleccionado un archivo para cada campo y agregarlo al formData
+        // Si se ha seleccionado un archivo, se agrega al formData, si no se agrega el valor existente de cliente al formData
         if (data.url_escrituras) {
             formData.append('url_escrituras', data.url_escrituras);
         } else {
@@ -137,27 +138,27 @@ export default function FormActualizaCliente() {
                                     <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras"
                                         onChange={(e) => {
                                             const file = e.target.files[0];
-                                            setData("url_escrituras",  file ? file : clientes.url_escrituras)
+                                            setData("url_escrituras", file ? file : clientes.url_escrituras)
                                         }
                                         } />
                                     {errors.url_escrituras && (<div className="alert alert-danger"> {errors.url_escrituras}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">DNI Administrador:</Form.Label>
-                                    <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador" 
+                                    <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador"
                                         onChange={(e) => {
                                             const file = e.target.files[0];
-                                            setData("url_dni_administrador",  file ? file : clientes.url_dni_administrador)
+                                            setData("url_dni_administrador", file ? file : clientes.url_dni_administrador)
                                         }
                                         } />
                                     {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
                                 </Col>
                                 <Col sm={6}>
                                     <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
-                                    <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif" 
-                                        onChange={(e) =>{
+                                    <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif"
+                                        onChange={(e) => {
                                             const file = e.target.files[0];
-                                            setData("url_cif",  file ? file : clientes.url_cif)
+                                            setData("url_cif", file ? file : clientes.url_cif)
                                         }
                                         } />
                                     {errors.url_cif && (<div className="alert alert-danger">{errors.url_cif}</div>)}

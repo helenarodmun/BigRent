@@ -9,6 +9,7 @@ use App\Models\Marca;
 use App\Models\Subfamilia;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -19,11 +20,13 @@ class MaquinaController extends Controller
 
     public function index()
     {
-        //Recuperar todos las maquinas de la base de datos
+        $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')
             ->get();
-        $maquinas->load('marca.maquinas');
+        $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
+            $query->where('tienda_id', $tienda);
+        }]);
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);
@@ -45,7 +48,6 @@ class MaquinaController extends Controller
         if ($request->hasFile('url_imagen')) {
             $request->file('url_imagen')->store('public/imagenes');
         }
-
         // Asigna las rutas de los archivos almacenados a los atributos correspondientes del modelo
         $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : null;
         $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : null;
@@ -53,10 +55,13 @@ class MaquinaController extends Controller
         $maquina->subfamilia_id = $request->subfamilia_id;
         $maquina->marca_id = $request->marca_id;
         $maquina->save();
+        $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
-            ->orderBy('subfamilia_id', 'asc')
-            ->get(); // Obtiene todas las máquinas de la base de datos, incluyendo la relación 'subfamilia'
-        $maquinas->load('marca.maquinas'); // Carga la relación 'marca.maquinas' para todas las máquinas
+            ->orderBy('descripcion', 'asc')
+            ->get();
+        $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
+            $query->where('tienda_id', $tienda);
+        }]);
         Session::flash('success', 'Se ha creado el registro de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
@@ -92,15 +97,19 @@ class MaquinaController extends Controller
         }
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
+        //si se ha enviado el archivo se almacena, si no se almacena el campo existente
         $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : $maquina->url_manual;
-        $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) :$maquina->url_ficha;
+        $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : $maquina->url_ficha;
         $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : $maquina->url_imagen;
         $maquina->save();
 
+        $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
-            ->orderBy('subfamilia_id', 'asc')
+            ->orderBy('descripcion', 'asc')
             ->get();
-        $maquinas->load('marca.maquinas');
+        $maquinas->load(['subfamilia.maquinas', 'marca.maquinas', 'series' => function ($query) use ($tienda) {
+            $query->where('tienda_id', $tienda);
+        }]);
         Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
@@ -109,9 +118,11 @@ class MaquinaController extends Controller
 
     public function verDatosMaquina($id)
     {
+        $tienda = Auth::user()->tienda_id;
         $maquina = Maquina::findOrFail($id);
-        // Puedes cargar relaciones adicionales si es necesario
-        $maquina->load('subfamilia', 'marca');
+        $maquina->load(['subfamilia.maquinas', 'marca.maquinas', 'series' => function ($query) use ($tienda) {
+            $query->where('tienda_id', $tienda);
+        }]);
         return Inertia::render('Maquinaria/VistaMaquina', [
             'maquina' => $maquina,
         ]);
@@ -139,6 +150,7 @@ class MaquinaController extends Controller
             ->orWhere('referencia', 'like', '%' . $query . '%')
             ->orWhere('descripcion', 'like', '%' . $query . '%')
             ->get();
+
         // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
@@ -149,10 +161,13 @@ class MaquinaController extends Controller
     {
         $maquina = Maquina::findOrFail($id);
         $maquina->delete();
+        $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
-            ->orderBy('subfamilia_id', 'asc')
+            ->orderBy('descripcion', 'asc')
             ->get();
-        $maquinas->load('marca.maquinas');
+        $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
+            $query->where('tienda_id', $tienda);
+        }]);
         Session::flash('success', 'Se ha eliminado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
     }

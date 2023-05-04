@@ -26,7 +26,7 @@ class MaquinaForm extends FormRequest
             'POST' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
-                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
+                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv',
                 'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'required',
@@ -36,7 +36,7 @@ class MaquinaForm extends FormRequest
             'PUT' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
-                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
+                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv',
                 'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'nullable',
@@ -46,7 +46,7 @@ class MaquinaForm extends FormRequest
             'GET' => [
                 'descripcion' => 'nullable|string|max:150',
                 'referencia' => 'nullable|string|max:10',
-                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:10000',
+                'url_manual' => 'nullable|file|mimes:pdf,xlx,csv|max:20000',
                 'url_ficha' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
                 'url_imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
                 'subfamilia_id' => 'nullable',

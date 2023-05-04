@@ -23,7 +23,8 @@ export default function FichaMaquina() {
                                     <p><strong>Subfamilia:  </strong> {maquina.subfamilia.descripcion}</p>
                                     <p><strong>Marca: </strong> {maquina.marca.denominacion}</p>
                                     <p><strong>Precio alquiler por día: </strong>{maquina.subfamilia.precio_dia} €</p>
-                                    <p><strong>Precio fianza: </strong>Precio fianza: {maquina.subfamilia.fianza} €</p>
+                                    <p><strong>Precio fianza: </strong>{maquina.subfamilia.fianza} €</p>
+                                    <p><strong>Disponibles en tienda: </strong>{maquina.series.length} uds.</p>
                                 </Col>
                             </Row>
                         </Card.Body>

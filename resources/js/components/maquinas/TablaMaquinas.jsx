@@ -4,7 +4,7 @@ import { Col, Container, Table, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
-export default function TablaSubFamilias() {
+export default function TablaMaquinas() {
     const { maquinas, resultado, flash } = usePage().props;
     const { delete: destroy } = useForm();
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
@@ -45,6 +45,7 @@ export default function TablaSubFamilias() {
                             <th>Subfamilia</th>
                             <th>Referencia</th>
                             <th>Marca</th>
+                            <th className="text-center">Disponibles en tienda</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -55,6 +56,7 @@ export default function TablaSubFamilias() {
                                 <td>{maquina.subfamilia.descripcion}</td>
                                 <td>{maquina.referencia}</td>
                                 <td>{maquina.marca.denominacion}</td>
+                                <td className="text-center"><strong width='25'>{maquina.series.length}</strong> uds.</td>
                                 <td>
                                     <TipInfo content="Ver ficha" direction="left">
                                         <Link href={"/verFicha/" + maquina.id} as="button" className="h5 border-0 bi bi-file-text text-dark m-1" />

@@ -18,40 +18,38 @@ export default function FormEdicionMaquina({ children }) {
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
-        e.preventDefault();
-        const formData = new FormData();
-
+        e.preventDefault();// Evita que se envíe el formulario de manera convencional
+        const formData = new FormData();// Crea un objeto FormData para enviar los datos del formulario
+        // Agrega los campos correspondientes al formData con el valor de data
         formData.append('id', data.id);
         formData.append('descripcion', data.descripcion);
         formData.append('referencia', data.referencia);
 
         // Verificar si se ha seleccionado un archivo para cada campo y agregarlo al formData
+        // Si se ha seleccionado un archivo, se agrega al formData, si no se agrega el valor existente de maquina al formData
         if (data.url_manual) {
             formData.append('url_manual', data.url_manual);
         } else {
             formData.append('url_manual', maquina.url_manual);
         }
-
         if (data.url_ficha) {
             formData.append('url_ficha', data.url_ficha);
         } else {
             formData.append('url_ficha', maquina.url_ficha);
         }
-
         if (data.url_imagen) {
             formData.append('url_imagen', data.url_imagen);
         } else {
             formData.append('url_imagen', maquina.url_imagen);
         }
-
         post(
-            "/editarMaquina/" + maquina.id,
+            "/editarMaquina/" + maquina.id,// URL a la que se enviará la solicitud POST
             {
                 onSuccess: () => {
-                    console.log(data);
+                    console.log(formData);
                 },
             },
-            data
+            formData
         );
     }
     return (
