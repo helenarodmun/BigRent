@@ -25,6 +25,9 @@ export default function FormCliente() {
         via_comunicacion: "",
         tipo:"",        
         tipo_cliente_id: "",
+        nombre_persona_autorizada: "",
+        dni:"",
+        notas: ""
     });
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
@@ -259,7 +262,7 @@ export default function FormCliente() {
                                     </Col>
                                     <Col xs="12" sm="6" md="12">
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
-                                            <Form.Control size="sm" as="textarea" rows={3} name="notas" value={data.anotaciones}
+                                            <Form.Control size="sm" as="textarea" rows={3} name="notas" value={data.notas}
                                                 onChange={(e) =>
                                                     setData( "notas", e.target.value)
                                                 }></Form.Control>
