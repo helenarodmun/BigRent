@@ -239,7 +239,7 @@ class ContratoController extends Controller
         $contrato->save();
         $serie->save();
         
-        $cliente = Cliente::findOrFail($id);
+        $cliente = Cliente::findOrFail($contrato->cliente_id);
         $contratos = Contrato::where('cliente_id', $contrato->cliente_id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
