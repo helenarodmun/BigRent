@@ -55,7 +55,12 @@ const Sidebar = () => {
             label: "Contratos",
             link: "#",
             icon: "bi bi-card-checklist m-2",
-            subItems: null,
+            subItems: [
+                {
+                    label: "Nuevo",
+                    link: "/clientes",
+                },
+            ],
         },
     ];
 
