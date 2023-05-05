@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Button, Col, Modal, Table } from "react-bootstrap";
+import {  Col, Row, Table } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import Tooltip from "../partials/TipInfo";
 export default function TablaEdicionDirecciones() {
@@ -15,7 +15,7 @@ export default function TablaEdicionDirecciones() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <>
+        <Row>
             <Col className="shadow">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
@@ -78,6 +78,6 @@ export default function TablaEdicionDirecciones() {
             <Tooltip content="Añadir nueva dirección" direction="right">
                 <Link method="get" href={"/nuevaDireccion/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </Tooltip>
-        </>
+        </Row>
     );
 }

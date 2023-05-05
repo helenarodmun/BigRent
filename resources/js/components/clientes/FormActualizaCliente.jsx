@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Row, Col, Form, Button, Card, FloatingLabel, } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 
 export default function FormActualizaCliente() {
@@ -66,8 +66,8 @@ export default function FormActualizaCliente() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <div className="m-3">
-            <Col>
+            <Row>
+            <Col xs="12" sm="12" md="12">
                 <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">
                     <Card.Header className="bg-warning bg-opacity-50">
@@ -78,7 +78,7 @@ export default function FormActualizaCliente() {
                     <Card.Body>
                         <Form onSubmit={handleSubmit}>
                             <Row className="align-items-center">
-                                <Col sm={12}>
+                                <Col xs="12" sm="12" md="12">
                                     <FloatingLabel label="NOMBRE FISCAL" className="mb-2">
                                         <Form.Control aria-label="nombre fiscal" type="text" name="nombre_fiscal" placeholder="Introduce el nombre fiscal" value={data.nombre_fiscal}
                                             onChange={(e) =>
@@ -87,7 +87,7 @@ export default function FormActualizaCliente() {
                                         {errors.nombre_fiscal && (<div className="alert alert-danger"> {errors.nombre_fiscal}</div>)}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={4}>
+                                <Col xs="12" sm="12" md="4">
                                     <FloatingLabel label="NUM IDENTIFICACIÓN FISCAL" className="mb-2">
                                         <Form.Control aria-label="numero de identificación fiscal" type="text" name="nif" placeholder="Introduce el número de identificación fiscal" value={data.nif}
                                             onChange={(e) =>
@@ -96,7 +96,7 @@ export default function FormActualizaCliente() {
                                         {errors.nif && (<div className="alert alert-danger">{errors.nif}</div>)}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={8}>
+                                <Col xs="12" sm="12" md="8">
                                     <FloatingLabel label="NOMBRE COMERCIAL" className="mb-2">
                                         <Form.Control aria-label="nombre comercial" type="text" name="nombre_comercial" placeholder="Introduce el nombre comercial" value={data.nombre_comercial}
                                             onChange={(e) =>
@@ -105,7 +105,7 @@ export default function FormActualizaCliente() {
                                         {errors.nombre_comercial && (<div className="alert alert-danger">{errors.nombre_comercial}</div>)}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={9}>
+                                <Col xs="12" sm="12" md="8">
                                     <FloatingLabel label="ADMINISTRADOR" className="mb-2">
                                         <Form.Control aria-label="Administrador de la empresa" type="text" name="administrador" placeholder="Introduce el nombre del administrador de la empresa" value={data.administrador}
                                             onChange={(e) =>
@@ -114,7 +114,7 @@ export default function FormActualizaCliente() {
                                         {errors.administrador && (<div className="alert alert-danger">{errors.administrador}</div>)}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={3}>
+                                <Col xs="12" sm="12" md="4">
                                     <FloatingLabel label="NIF" className="mb-2">
                                         <Form.Control aria-label="dni del administrador" type="text" name="dni_administrador" placeholder="Introduce el DNI del administrador de la empresa" value={data.dni_administrador}
                                             onChange={(e) =>
@@ -123,7 +123,7 @@ export default function FormActualizaCliente() {
                                         {errors.dni_administrador && (<div className="alert alert-danger">{errors.dni_administrador} </div>)}
                                     </FloatingLabel>
                                 </Col>
-                                <Col sm={12}>
+                                <Col xs="12" sm="12" md="12">
                                     <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                         <Form.Control as="textarea" rows={5} aria-label=" url_cif" name="anotaciones" placeholder="" value={data.anotaciones}
                                             onChange={(e) =>
@@ -133,7 +133,7 @@ export default function FormActualizaCliente() {
                                 </Col>
                                 <hr></hr>
                                 <p className="h4 mb-1">Documentación</p>
-                                <Col sm={6}>
+                                <Col xs="12" sm="12" md="6">
                                     <Form.Label className="mb-1">Escrituras:</Form.Label>
                                     <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras"
                                         onChange={(e) => {
@@ -143,7 +143,7 @@ export default function FormActualizaCliente() {
                                         } />
                                     {errors.url_escrituras && (<div className="alert alert-danger"> {errors.url_escrituras}</div>)}
                                 </Col>
-                                <Col sm={6}>
+                                <Col xs="12" sm="12" md="6">
                                     <Form.Label className="mb-1">DNI Administrador:</Form.Label>
                                     <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador"
                                         onChange={(e) => {
@@ -153,7 +153,7 @@ export default function FormActualizaCliente() {
                                         } />
                                     {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
                                 </Col>
-                                <Col sm={6}>
+                                <Col xs="12" sm="12" md="6">
                                     <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
                                     <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif"
                                         onChange={(e) => {
@@ -190,6 +190,6 @@ export default function FormActualizaCliente() {
                     </Card.Footer>
                 </Card>
             </Col>
-        </div>
+            </Row>
     );
 }

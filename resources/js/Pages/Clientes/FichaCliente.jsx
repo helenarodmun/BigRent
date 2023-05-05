@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import CardCliente from "../../components/clientes/CardCliente";
 import TablaAutorizados from "../../components/clientes/TablaAutorizados";
 import TablaDirecciones from "../../components/clientes/TablaDirecciones";
@@ -13,11 +13,15 @@ export default function FichaCliente() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
-                <div className="update-container">
-                    <Container fluid className="form-container">
+                <Container fluid className="update-container">
+          <Row>
+            <Col lg={6}>
+                    <div fluid className="form-container">
                         <CardCliente />
-                    </Container>
-                    <Container fluid className="tables-container">
+                    </div>
+                    </Col>
+            <Col lg={6}>
+                    <div fluid className="tables-container">
                         <div className="table-container">
                             <TablaDirecciones></TablaDirecciones>
                         </div>
@@ -28,8 +32,10 @@ export default function FichaCliente() {
                         <div className="table-container">
                             <TablaAutorizados></TablaAutorizados>
                         </div>
-                    </Container>
-                </div>
+                    </div>
+                </Col>
+          </Row>
+        </Container>
             </div>
         </div>
     );

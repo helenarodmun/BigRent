@@ -24,14 +24,9 @@ export default function CardCliente({ children }) {
             <div align="center">
                 <Col sm={10}>
                     {flash.success && (
-                        <div className="alert alert-success" role={"alert"}>
+                        <div className="alert alert-info" role={"alert"}>
                             <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.creacion}
-                        </div>)}
-                        {flash.error && (
-                        <div className="alert alert-danger" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.error}
+                            {flash.success}
                         </div>)}
                 </Col>
             </div>

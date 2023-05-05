@@ -27,8 +27,9 @@ class TelefonoController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
         $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
+        
         // Redirige al cliente del usuario actualizado.
-        Session::flash('creacion', 'Se han guardado los datos de forma correcta');
+        Session::flash('success', 'Se han guardado los datos de forma correcta');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
@@ -76,8 +77,9 @@ class TelefonoController extends Controller
         $cliente = $telefono->cliente;
         $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
         $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
+
         // Redirige al cliente del usuario actualizado.
-        Session::flash('edicion', 'Se han actualizado los datos de contacto');
+        Session::flash('success', 'Se han actualizado los datos de contacto');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
@@ -97,7 +99,8 @@ class TelefonoController extends Controller
         $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
         $cliente = $telefono->cliente;
         $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        Session::flash('edicion', 'Se han eliminado los datos');
+
+        Session::flash('success', 'Se han eliminado los datos');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,

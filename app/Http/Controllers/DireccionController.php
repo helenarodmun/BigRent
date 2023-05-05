@@ -28,6 +28,7 @@ class DireccionController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
         $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
+        
         // Redirige al cliente del usuario actualizado.
         Session::flash('edicion', 'Se ha creado la dirección de forma correcta');
 
@@ -87,8 +88,9 @@ class DireccionController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
         $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
+
         // Redirige al cliente del usuario actualizado.
-        Session::flash('edicion', 'Se ha creado la dirección de forma correcta');
+        Session::flash('success', 'Se ha creado la dirección de forma correcta');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,
@@ -106,7 +108,7 @@ class DireccionController extends Controller
 
         // Comprueba si se puede eliminar la dirección
         if ($direccion->compruebaDireccion($direccion->predeterminada)) {
-            Session::flash('errorBorrado', 'No se puede eliminar la dirección predeterminada');
+            Session::flash('error', 'No se puede eliminar la dirección predeterminada');
         } else {
             $direccion->delete();
         }
@@ -115,8 +117,9 @@ class DireccionController extends Controller
         $cliente = $direccion->cliente;
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
-        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();        
-        Session::flash('borrado', 'Se ha eliminado la dirección de forma correcta');
+        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();  
+
+        Session::flash('success', 'Se ha eliminado la dirección de forma correcta');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,

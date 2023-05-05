@@ -8,6 +8,7 @@ use App\Models\Direccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ClienteController extends Controller
@@ -93,10 +94,9 @@ class ClienteController extends Controller
             Session::flash('success', 'Registro guardado con éxito');
 
             return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
-
         } else {
 
-            Session::flash('error', 'La dirección principal del cliente debe ser la predeterminada');
+            Session::flash('message', 'La dirección principal del cliente debe ser la predeterminada');
             return back();
         }
     }
@@ -198,12 +198,13 @@ class ClienteController extends Controller
 
         // Guarda el cliente actualizado en la base de datos.
         $cliente->save();
-        
+
         //carga las direcciones relacionadas con el cliente actual
         $cliente->load('direcciones.cliente')
             ->load('telefonos.cliente')
             ->load('autorizados.cliente')
             ->load('tipo.cliente');
+            
         Session::flash('success', 'Se ha actualizado el registro');
 
         return Inertia::render('Clientes/FichaCliente', [
@@ -219,8 +220,15 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         $cliente = Cliente::findOrFail($id);
+        // $rutaCompleta = $cliente->url_escrituras;
+        // // Obtén la ruta relativa desde la URL
+        // $path = parse_url($rutaCompleta, PHP_URL_PATH);    
+        // // Elimina las barras diagonales adicionales en la ruta
+        // $rutaArchivo = trim($path, '/');
+        // Storage::disk('public')->delete($rutaArchivo);
         $cliente->delete();
         $clientes = Cliente::latest()->get();
+
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
 
         return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);

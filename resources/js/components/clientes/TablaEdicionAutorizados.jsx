@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Table } from "react-bootstrap";
+import { Col, Table, Row } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionAutorizados() {
@@ -15,7 +15,7 @@ export default function TablaEdicionAutorizados() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <>
+        <Row>
             <Col className="shadow">
                 <h1 className="m-3">Autorizados</h1>
                 <Table striped bordered hover className="shadow" size="sm" responsive>
@@ -71,6 +71,6 @@ export default function TablaEdicionAutorizados() {
             <TipInfo content="Añadir nuevo autorizado" direction="right">
                 <Link method="get" href={"/nuevoAutorizado/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
-        </>
+        </Row>
     );
 }

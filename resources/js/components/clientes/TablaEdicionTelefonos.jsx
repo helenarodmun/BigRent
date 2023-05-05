@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Table } from "react-bootstrap";
+import { Col, Table, Row } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionTelefonos() {
@@ -15,7 +15,7 @@ export default function TablaEdicionTelefonos() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-        <div>
+        <Row>
             <Col className="shadow">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
@@ -76,6 +76,6 @@ export default function TablaEdicionTelefonos() {
             <TipInfo content="Añadir nuevo contacto" direction="right">
                 <Link method="get" href={"/nuevoTelefono/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
-        </div>
+        </Row>
     );
 }

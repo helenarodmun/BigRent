@@ -1,6 +1,6 @@
 import { usePage } from "@inertiajs/react";
 import React from "react";
-import { Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import FormActualizaCliente from "../../components/clientes/FormActualizaCliente";
 import TablaEdicionDirecciones from "../../components/clientes/TablaEdicionDirecciones";
 import TablaEdicionTelefonos from "../../components/clientes/TablaEdicionTelefonos";
@@ -15,22 +15,28 @@ export default function ActualizaCliente() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>              
-                <div className="update-container">
-                    <div className="form-container">
-                        <FormActualizaCliente />
-                    </div>
-                    <div className="tables-container">
-                        <div className="table-container">
-                            <TablaEdicionDirecciones />
-                        </div>
-                        <div className="table-container">
-                            <TablaEdicionTelefonos />
-                        </div>
-                        <div className="table-container">
-                            <TablaEdicionAutorizados />
-                        </div>
-                    </div>
+                <Container fluid className="update-container">
+          <Row>
+            <Col lg={6}>
+              <div className="form-container">
+                <FormActualizaCliente />
+              </div>
+            </Col>
+            <Col lg={6}>
+              <div className="tables-container">
+                <div className="table-container">
+                  <TablaEdicionDirecciones />
                 </div>
+                <div className="table-container">
+                  <TablaEdicionTelefonos />
+                </div>
+                <div className="table-container">
+                  <TablaEdicionAutorizados />
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
             </div>
         </div>
     );

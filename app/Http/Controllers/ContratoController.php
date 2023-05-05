@@ -13,6 +13,7 @@ use App\Models\Serie;
 use App\Models\Subfamilia;
 use App\Models\Telefono;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class ContratoController extends Controller
@@ -108,6 +109,8 @@ class ContratoController extends Controller
             ->orderBy('created_at', 'asc')
             ->with('serie')
             ->get();
+
+        Session::flash('success', 'Registro guardado con éxito');
 
         return Inertia::render('Contratos/Listado', [
             'contrato' => $contrato,
@@ -245,6 +248,8 @@ class ContratoController extends Controller
             ->orderBy('created_at', 'asc')
             ->with('serie')
             ->get();
+
+        Session::flash('success', 'Se ha cerrado el contrato correctamente');  
 
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
