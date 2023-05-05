@@ -21,10 +21,10 @@ export default function TablaContratos() {
     return (
         <>
             <Container>
-                <Button variant="btn btn-info btn-lg m-3 bi bi-arrow-90deg-left" href={"/verCliente/" + cliente.id}>  Volver al cliente</Button>
+                <Button variant="btn btn-primary btn-lg m-3 bi bi-arrow-90deg-left" href={"/verCliente/" + cliente.id}>  Volver al cliente</Button>
                 <Row className="mt-2">
                     <Col className="shadow">
-                        <h1 className="m-3">Contratos de {cliente.nombre_fiscal}</h1>
+                        <h1 className="m-3">Contratos  {cliente.nombre_fiscal}</h1>
                         <Table striped bordered hover className="shadow" size="sm" responsive>
                             <thead>
                                 <tr>

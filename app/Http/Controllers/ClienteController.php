@@ -33,16 +33,16 @@ class ClienteController extends Controller
 
         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
         if ($request->hasFile('url_escrituras')) {
-            $request->file('url_escrituras')->store('public/clientes/');
+            $request->file('url_escrituras')->store('public/clientes/escrituras/');
         }
         if ($request->hasFile('url_dni_administrador')) {
-            $request->file('url_dni_administrador')->store('public/clientes/');
+            $request->file('url_dni_administrador')->store('public/clientes/dni/');
         }
         if ($request->hasFile('url_cif')) {
-            $request->file('url_cif')->store('public/clientes/');
+            $request->file('url_cif')->store('public/clientes/cif/');
         }
         if ($request->hasFile('url_dni')) {
-            $request->file('url_dni')->store('public/clientes/');
+            $request->file('url_dni')->store('public/clientes/autorizados/');
         }
 
         //Comprueba que la dirección se haya guardado como predeterminada
@@ -59,9 +59,9 @@ class ClienteController extends Controller
                     'dni_administrador' => $request->dni_administrador,
                     //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
                     // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
-                    'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : null,
-                    'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : null,
-                    'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/' . $request->file('url_cif')->hashName()) : null,
+                    'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : null,
+                    'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : null,
+                    'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : null,
                     'anotaciones' => $request->anotaciones
                 ]);
 
@@ -84,7 +84,7 @@ class ClienteController extends Controller
                     'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
                     'dni' => $request->dni,
                     'notas' => $request->notas,
-                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/' . $request->file('url_dni')->hashName()) : null,
+                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/autorizados' . $request->file('url_dni')->hashName()) : null,
                 ]);
             });
 
@@ -176,13 +176,13 @@ class ClienteController extends Controller
 
         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
         if ($request->hasFile('url_escrituras')) {
-            $request->file('url_escrituras')->store('public/clientes/');
+            $request->file('url_escrituras')->store('public/clientes/escrituras/');
         }
         if ($request->hasFile('url_dni_administrador')) {
-            $request->file('url_dni_administrador')->store('public/clientes/');
+            $request->file('url_dni_administrador')->store('public/clientes/dni/');
         }
         if ($request->hasFile('url_cif')) {
-            $request->file('url_cif')->store('public/clientes/');
+            $request->file('url_cif')->store('public/clientes/cif/');
         }
 
         // Actualiza los campos del cliente con los datos validados del formulario.
@@ -191,9 +191,9 @@ class ClienteController extends Controller
         $cliente->nombre_comercial = $validatedData['nombre_comercial'];
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
-        $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/' . $request->file('url_escrituras')->hashName()) : $cliente->url_escrituras;
-        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/' . $request->file('url_dni_administrador')->hashName()) : $cliente->url_dni_administrador;
-        $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/' . $request->file('url_cif')->hashName()) : $cliente->url_cif;
+        $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : $cliente->url_escrituras;
+        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : $cliente->url_dni_administrador;
+        $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : $cliente->url_cif;
         $cliente->anotaciones = $validatedData['anotaciones'];
 
         // Guarda el cliente actualizado en la base de datos.
