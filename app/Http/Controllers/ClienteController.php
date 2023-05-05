@@ -165,9 +165,9 @@ class ClienteController extends Controller
             'nombre_comercial' => 'nullable|string',
             'administrador' => 'nullable|string',
             'dni_administrador' => 'nullable|string',
-            'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+            'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
             'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
-            'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
+            'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
             'anotaciones' => 'nullable|string|max:255',
         ]);
 

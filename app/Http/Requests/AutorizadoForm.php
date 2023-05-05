@@ -24,7 +24,7 @@ class AutorizadoForm extends FormRequest
                 'nombre_persona_autorizada' => 'required|string|max:75',
                 'dni' => 'required|string|max:9',
                 'notas' => 'nullable|string|max:150',
-                'url_dni' => 'nullable'
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048'
             ],
 
             'PUT' => [
@@ -32,7 +32,7 @@ class AutorizadoForm extends FormRequest
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
                 'notas' => 'nullable|string|max:150',
-                'url_dni' => 'nullable'
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048'
             ],
 
             'GET' => [
@@ -40,7 +40,7 @@ class AutorizadoForm extends FormRequest
                 'nombre_persona_autorizada' => 'nullable|string|max:75',
                 'dni' => 'nullable|string|max:9',
                 'notas' => 'nullable|string|max:150',
-                'url_dni' => 'nullable'
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048'
             ]
         };
     }

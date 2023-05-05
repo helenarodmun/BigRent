@@ -64,10 +64,11 @@ export default function FormNuevoAutorizado() {
                                         <p className="h3">Documentación</p>
                                         <Col sm={4}>
                                             <Form.Label>DNI:</Form.Label>
-                                            <Form.Control size="sm" aria-label="documento Nacional de identidad" type="file" name="url_dni" value={data.url_dni}
-                                                onChange={(e) =>
-                                                    setData("url_dni", e.target.value)
-                                                } />
+                                            <Form.Control size="sm" aria-label="documento Nacional de identidad" type="file" name="url_dni"
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    setData("url_dni", file ? file : autorizado.url_dni)
+                                                    } }/>
                                             {errors.url_dni && (<div className="alert alert-danger">{errors.url_dni}</div>)}
                                         </Col>
                                     </Row>

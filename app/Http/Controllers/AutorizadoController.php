@@ -29,7 +29,7 @@ class AutorizadoController extends Controller
         if ($request->hasFile('url_dni')) {
             $request->file('url_dni')->store('public/clientes/autorizados/');
         }
-        $autorizado->url_dni = $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : null;
+        $autorizado->url_dni =  $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
         $autorizado->cliente_id = $cliente->id;
 
         $autorizado->save();
