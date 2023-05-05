@@ -41,7 +41,7 @@ class ClienteForm extends FormRequest
                 'nombre_persona_autorizada' => 'required|string',
                 'dni' => 'required|string|max:15',
                 'notas' => 'nullable|string|max:255',
-                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
                 'tipo_cliente_id' => 'required'
             ],
 
@@ -80,7 +80,7 @@ class ClienteForm extends FormRequest
                 'nombre_persona_autorizada' => 'required|string',
                 'dni' => 'required|string|max:15',
                 'notas' => 'nullable|string|max:255',
-                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv|max:2048',
+                'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
                 'tipo_cliente_id' => 'nullable'
             ]
         };
