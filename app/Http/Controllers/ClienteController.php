@@ -84,7 +84,7 @@ class ClienteController extends Controller
                     'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
                     'dni' => $request->dni,
                     'notas' => $request->notas,
-                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/autorizados' . $request->file('url_dni')->hashName()) : null,
+                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : null,
                 ]);
             });
 
