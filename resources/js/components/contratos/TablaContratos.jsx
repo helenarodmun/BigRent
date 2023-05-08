@@ -62,30 +62,11 @@ export default function TablaContratos() {
                                             </TipInfo>
                                             {contrato.activo == 1 ? (
                                                 <TipInfo content="Cerrar contrato" direction="left">
-                                                    <button onClick={() => handleClick(contrato.id)} as="button" className="h5 border-0 bi bi-folder-plus text-dark m-2" />
+                                                    <Link href={"/finContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-folder-plus text-dark m-2" />
                                                 </TipInfo>
                                             ) : (''
                                             )}
-                                            <ModalConfirmacion show={showConfirmModal}
-                                                onHide={() => {
-                                                    setIdToClose(null);
-                                                    setShowConfirmModal(false);
-                                                }}
-                                                onConfirm={(urlAccion, idRegistro) => {
-                                                    destroy(
-                                                        `${urlAccion}/${idRegistro}`,
-                                                        {
-                                                            onSuccess: () => {
-                                                                console.log("contrato cerrado");
-                                                            },
-                                                        }
-                                                    );
-                                                }}
-                                                title="¡ADVERTENCIA!"
-                                                message="Se va a proceder al cierre del contrato. ¿Está seguro que desea continuar?"
-                                                urlAccion="/cerrarContrato"
-                                                idRegistro={idToClose} variant={'success'} text={'Aceptar'}
-                                            />
+                                           
                                         </td>
                                     </tr>
                                 </tbody>))}

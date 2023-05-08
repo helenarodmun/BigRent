@@ -230,6 +230,45 @@ class ContratoController extends Controller
         ]);
     }
 
+    public function finContrato($id) {
+        $contrato = Contrato::findOrFail($id);
+         //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
+         $cliente = Cliente::findOrFail($contrato->cliente_id);       
+        $conf_cliente = $cliente->tipo->confDias;
+        $now = new \DateTime();
+       
+        
+        $cliente = $contrato->cliente;
+        //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
+        $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
+            ->where('predeterminada', true)->first();
+        $direccion = $contrato->direccion;
+        $telefono = $contrato->telefono;
+        $autorizado = $contrato->autorizado;
+        $serie = $contrato->serie;
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
+        $fechaCierre = $now->format('Y-m-d');
+        $contrato->fecha_entrega = $fechaCierre;
+        $total_dias_alquiler = Contrato::calcularDiasDeAlquiler($contrato->fecha_retirada, $fechaCierre, $conf_cliente);
+        $contrato->dias = $total_dias_alquiler;
+        // Calcular el importe total según los precio estipulado en la tabla subfamilia
+        $importeFinal = $subfamilia->precio_dia * $total_dias_alquiler;
+        $contrato->importe_total = $importeFinal;
+        
+        return Inertia::render('Contratos/VistaFin', [
+            'cliente' => $cliente,
+            'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
+        ]);
+    }
+
 
     public function cerrarContrato($id)
     {
@@ -256,4 +295,6 @@ class ContratoController extends Controller
             'contratos' => $contratos
         ]);
     }
+
+
 }

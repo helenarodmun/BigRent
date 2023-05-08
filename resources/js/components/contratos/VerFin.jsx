@@ -1,10 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
-export default function VerContrato() {
+import { useState } from "react";
+export default function VistaFin() {
     const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
-    const { data, get } = useForm({
+    const { data, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
         telefono_id: telefono.id,
@@ -37,7 +37,7 @@ export default function VerContrato() {
                     <Card className="shadow">
                         <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
-                                <p className="h3 m-1 mb-0">Datos y totales del contrato</p>
+                                <p className="h3 m-1 mb-0">Finalización contrato</p>
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -96,7 +96,7 @@ export default function VerContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel label="NÚMERO DIAS" className="mb-2">
+                                        <FloatingLabel label="TOTAL DÍAS" className="mb-2">
                                             <Form.Control aria-label="dias contrato" name="dias" value={contrato.dias} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
@@ -105,16 +105,16 @@ export default function VerContrato() {
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
                                             <Form.Control aria-label="fianza contrato" name="importeFianza" value={`${subfamilia.fianza} €`} disabled readOnly />
-                                        </FloatingLabel>
+                                            </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly />
-                                        </FloatingLabel>
+                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly/>
+                                            </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel label="TOTAL ALQUILER" className="mb-2">
-                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`} disabled readOnly />
+                                        <FloatingLabel label="IMPORTE FINAL" className="mb-2">
+                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`}  disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
@@ -154,12 +154,12 @@ export default function VerContrato() {
                                                 }}
                                                 title="¡ADVERTENCIA!"
                                                 message="Se va a proceder al cierre del contrato. ¿Está seguro que desea continuar?"
-                                                urlAccion="/finContrato"
+                                                urlAccion="/cerrarContrato"
                                                 idRegistro={idToClose} variant={'success'} text={'Aceptar'}
                                             />
 
                             <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
-                        </Card.Footer>
+                            </Card.Footer>
                     </Card>
                 </Col>
             </Row>
