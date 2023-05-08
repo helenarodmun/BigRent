@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Row } from "react-bootstrap";
+import { Col, Container, Table, Row, Button } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -14,7 +14,7 @@ const TablaSeries = () => {
         setQuery(event.target.value);
     };
     // variable resultadosBusqueda que filtra las series según su número de serie, o descripcioón del artículoy los almacena en un array
-    const resultadosBusqueda = series.filter(
+    const resultadosBusqueda = series.data.filter(
         (serie) =>
             serie.maquina.descripcion
                 .toLowerCase()
@@ -115,6 +115,11 @@ const TablaSeries = () => {
                             </tbody>
                         ))}
                     </Table>
+                    {series.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
                 </Col>
             </Row>
             <TipInfo content="Añadir nueva serie" direction="right">

@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, } from "react-bootstrap";
+import { Col, Container, Table, Button} from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -22,7 +22,7 @@ export default function TablaMaquinas() {
         setQuery(event.target.value);
     };
      // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-     const resultadosBusqueda = maquinas.filter(
+     const resultadosBusqueda = maquinas.data.filter(
         (maquina) =>
         maquina.subfamilia.descripcion.toLowerCase().includes(query.toLowerCase()) ||
                 maquina.referencia.toLowerCase().includes(query.toLowerCase()) ||
@@ -92,6 +92,11 @@ export default function TablaMaquinas() {
                         </tbody>
                     ))}
                 </Table>
+                {maquinas.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
             </Col>
             <TipInfo content='Añadir nueva máquina' direction='left'>
                 <Link method="get" href="/nuevaMaquina" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

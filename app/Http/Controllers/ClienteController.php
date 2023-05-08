@@ -18,7 +18,7 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::with('tipo')
             ->orderBy('tipo_cliente_id', 'asc')
-            ->get();
+            ->paginate(15);
 
         return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,

@@ -12,7 +12,7 @@ class MarcaController extends Controller
 
     public function index()
     {
-        $marcas = Marca::orderBy('denominacion', 'asc')->get();
+        $marcas = Marca::orderBy('denominacion', 'asc')->paginate(15);
 
         return Inertia::render('Marcas/Listado', [
             'marcas' => $marcas,

@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, } from "react-bootstrap";
+import { Col, Container, Table, Button } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -29,7 +29,7 @@ export default function TablaSubFamilias() {
                             <th></th>
                         </tr>
                     </thead>
-                    {subfamilias.map((subfamilia) => (
+                    {subfamilias.data.map((subfamilia) => (
                         <tbody key={subfamilia.id}>
                             <tr>
                                 <td>{subfamilia.familia.nombre}</td>
@@ -70,6 +70,11 @@ export default function TablaSubFamilias() {
                         </tbody>
                     ))}
                 </Table>
+                {subfamilias.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
             </Col>
             <TipInfo content='Añadir nueva subfamilia' direction='right'>
                 <Link method="get" href="/nuevaSubfamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

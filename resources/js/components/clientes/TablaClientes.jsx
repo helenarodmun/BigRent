@@ -10,7 +10,7 @@ const TablaClientes = () => {
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
     const handleSearch = (event) => { setQuery(event.target.value); }
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-    const resultadosBusqueda = clientes.filter((cliente) =>
+    const resultadosBusqueda = clientes.data.filter((cliente) =>
         cliente.nombre_fiscal.toLowerCase().includes(query.toLowerCase())
         || cliente.nif.toLowerCase().includes(query.toLowerCase())
         || cliente.administrador.toLowerCase().includes(query.toLowerCase())
@@ -62,6 +62,11 @@ const TablaClientes = () => {
                             </tbody>
                         ))}
                     </Table>
+                    {clientes.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
                 </Col>
             </Row>
             <Button className="m-5 align-items-center justify-content-center" variant="primary" href="/nuevoCliente">

@@ -1,26 +1,21 @@
-import { Link, useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
 import { Col, Table, Row, Container, Button } from "react-bootstrap";
-import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaContratos() {
     const { contratos, cliente, flash } = usePage().props;
-    console.log(contratos);
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
-    const { get, delete:destroy } = useForm();
-    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [idToClose, setIdToClose] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
-    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
-    const handleClick = (id) => {
-        setShowConfirmModal(true);
-        setIdToClose(id); // Se establece la id del registro a eliminar
-    };
+    function handlePageChange(pageNumber) {
+        if (pageNumber !== activePage) {
+            setActivePage(pageNumber);
+            const url = contratos.path + '?page=' + pageNumber;
+            window.history.pushState({}, '', url);
+        }
+    }
     return (
         <>
-         <div align="center">
+            <div align="center">
                 <Col sm={10}>
                     {flash.success && (
                         <div className="alert alert-info" role={"alert"}>
@@ -47,7 +42,7 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {contratos.map((contrato) => (
+                            {contratos.data.map((contrato) => (
                                 <tbody key={contrato.id} className="">
                                     <tr>
                                         <td>{contrato.id}</td>
@@ -73,13 +68,16 @@ export default function TablaContratos() {
                                                 <TipInfo content="Cerrar contrato" direction="left">
                                                     <Link href={"/finContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-folder-plus text-dark m-2" />
                                                 </TipInfo>
-                                            ) : (''
-                                            )}
-                                           
+                                            ) : ('')}
                                         </td>
                                     </tr>
                                 </tbody>))}
                         </Table>
+                        {contratos.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
                     </Col>
                     <TipInfo content="Añadir nuevo contrato" direction="right">
                         <Link method="get" href={"/nuevoContrato/" + cliente.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, } from "react-bootstrap";
+import { Col, Container, Table, Button} from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -26,7 +26,7 @@ export default function TablaMarcas() {
                             <th></th>
                         </tr>
                     </thead>
-                    {marcas.map((marca) => (
+                    {marcas.data.map((marca) => (
                         <tbody key={marca.id}>
                             <tr>
                                 <td>{marca.id}</td>
@@ -64,6 +64,11 @@ export default function TablaMarcas() {
                         </tbody>
                     ))}
                 </Table>
+                {marcas.links.map((link, index) => (
+                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                            </Button>
+                        ))}
             </Col>
             <TipInfo content='Añadir nueva fmarca' direction='right' >
                 <Link method="get" href="/nuevaMarca" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
