@@ -15,6 +15,7 @@ use App\Models\Telefono;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class ContratoController extends Controller
 {
@@ -26,7 +27,7 @@ class ContratoController extends Controller
         $cliente = Cliente::findOrFail($data['cliente_id']);
 
         $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
-            ->where('predeterminada', true)->first();            
+            ->where('predeterminada', true)->first();
         $direccion = Direccion::findOrFail($data['direccion_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);
@@ -73,7 +74,7 @@ class ContratoController extends Controller
         $data = $request->validated();
 
         //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
-        $cliente = Cliente::findOrFail($data['cliente_id']);        
+        $cliente = Cliente::findOrFail($data['cliente_id']);
         $conf_cliente = $cliente->tipo->confDias;
 
         $serie = Serie::findOrFail($data['serie_id']);
@@ -230,14 +231,15 @@ class ContratoController extends Controller
         ]);
     }
 
-    public function finContrato($id) {
+    public function finContrato($id)
+    {
         $contrato = Contrato::findOrFail($id);
-         //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
-         $cliente = Cliente::findOrFail($contrato->cliente_id);       
+        //Obtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
+        $cliente = Cliente::findOrFail($contrato->cliente_id);
         $conf_cliente = $cliente->tipo->confDias;
+        //obtener fecha actual
         $now = new \DateTime();
-       
-        
+
         $cliente = $contrato->cliente;
         //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
         $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
@@ -255,7 +257,7 @@ class ContratoController extends Controller
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importeFinal = $subfamilia->precio_dia * $total_dias_alquiler;
         $contrato->importe_total = $importeFinal;
-        
+        $contrato->save();
         return Inertia::render('Contratos/VistaFin', [
             'cliente' => $cliente,
             'direccion' => $direccion,
@@ -270,17 +272,17 @@ class ContratoController extends Controller
     }
 
 
-    public function cerrarContrato($id)
+    public function cerrarContrato(Request $request, $id)
     {
-        $contrato = Contrato::findOrFail($id);        
+        $contrato = Contrato::findOrFail($id);
         $contrato->activo = false;
-
+        $contrato->notas1 = $request['notas1'];
+        $contrato->notas2 = $request['notas2'];
         $serie = Serie::findOrFail($contrato->serie->id);
         $serie->disponible = true;
-
         $contrato->save();
         $serie->save();
-        
+
         $cliente = Cliente::findOrFail($contrato->cliente_id);
         $contratos = Contrato::where('cliente_id', $contrato->cliente_id)
             ->orderBy('activo', 'desc')
@@ -288,13 +290,11 @@ class ContratoController extends Controller
             ->with('serie')
             ->get();
 
-        Session::flash('success', 'Se ha cerrado el contrato correctamente');  
+        Session::flash('success', 'Se ha cerrado el contrato correctamente');
 
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos
         ]);
     }
-
-
 }

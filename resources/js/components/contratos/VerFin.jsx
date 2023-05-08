@@ -4,7 +4,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import { useState } from "react";
 export default function VistaFin() {
     const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
-    const { data, post } = useForm({
+    const { data, setData, post, errors } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
         telefono_id: telefono.id,
@@ -119,14 +119,16 @@ export default function VistaFin() {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col xs="12" sm="6" md="6">
-                                        <FloatingLabel label="ESTADO ARTÍCULO - OBSERVACIONES" className="mb-2">
-                                            <Form.Control aria-label="observaciones sobre el artículo" name="notas1" value={contrato.notas1} disabled readOnly />
+                                <Col xs="12" sm="3" md="12">
+                                        <FloatingLabel label="ESTADO DEL ARTÍCULO - OTRAS OBSERVACIONES" className="mb-2">
+                                            <Form.Control size="sm" as="textarea" rows={3} name="notas1" value={data.notas1} onChange={(e) => setData("notas1", e.target.value)}></Form.Control>
+                                            {errors.notas1 && (<div className="alert alert-danger">{errors.notas1}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="6">
+                                    <Col xs="12" sm="3" md="12">
                                         <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
-                                            <Form.Control aria-label="observaciones sobre el contrato" name="notas2" value={contrato.notas2 || ''} disabled readOnly />
+                                            <Form.Control size="sm" as="textarea" rows={3} name="notas2" value={data.notas2} onChange={(e) => setData("notas2", e.target.value)}></Form.Control>
+                                            {errors.notas2 && (<div className="alert alert-danger">{errors.notas2}</div>)}
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
@@ -143,7 +145,7 @@ export default function VistaFin() {
                                                     setShowConfirmModal(false);
                                                 }}
                                                 onConfirm={(urlAccion, idRegistro) => {
-                                                    destroy(
+                                                    post(
                                                         `${urlAccion}/${idRegistro}`,
                                                         {
                                                             onSuccess: () => {

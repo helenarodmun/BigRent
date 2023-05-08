@@ -20,6 +20,15 @@ export default function TablaContratos() {
     };
     return (
         <>
+         <div align="center">
+                <Col sm={10}>
+                    {flash.success && (
+                        <div className="alert alert-info" role={"alert"}>
+                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {flash.success}
+                        </div>)}
+                </Col>
+            </div>
             <Container>
                 <Button variant="btn btn-primary btn-lg m-3 bi bi-arrow-90deg-left" href={"/verCliente/" + cliente.id}>  Volver al cliente</Button>
                 <Row className="mt-2">
