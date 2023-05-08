@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Inertia\Inertia;
 
 class LoginController extends Controller
 {
@@ -37,6 +38,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+    // Sobreescribo el método showLoginForm del trait AuthenticatesUsers
+    protected function showLoginForm()
+    {
+        return Inertia::render('Usuario/Inicio');
+    }
+
+    
     public function username()
     {
         return 'username';
