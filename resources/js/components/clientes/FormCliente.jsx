@@ -59,7 +59,7 @@ export default function FormCliente() {
                 <Col xs="12" sm="10" md="12">
                     <Card className="shadow">
                         <Card.Body>
-                            <Form enctype="multipart/form-data">
+                            <Form encType="multipart/form-data">
                                 <Row className="align-items-center">
                                 <Col  xs="12" sm="6" md="6">
                                         <FloatingLabel label="NOMBRE COMERCIAL" className="mb-2">

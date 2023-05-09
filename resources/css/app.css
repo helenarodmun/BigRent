@@ -9,6 +9,7 @@ html {
   padding: 0;
 }
 
+
 @include media-breakpoint-up(sm) {
   html {
     font-size: 1.2rem;
@@ -58,51 +59,55 @@ label {
 thead {
   background-color: rgba(241, 190, 21, 0.5);
 }
+/* Anchura máxima para móviles */
+@media (max-width: 767px) {
+  .navbar-nav .nav-link {
+    padding-left: 1rem;
+    width: 200px;
+  }
+}
+/* Anchura mínima para tabletas y pantallas más grandes */
+@media (min-width: 768px) {
+  .navbar-nav {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+  }
 
-.sidebar {
+  .navbar-nav .nav-item {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-size: 1.1em;
+  }
+  .navbar-nav .dropdown-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+}
+.navbar {
   background-color: #313131;
-  padding: 20px;
-  height: 130%;
+  padding: 10px;
   
 }
 
-.sidebar ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  margin-top: 200px;
+
+/* Estilos personalizados para Navbar.Toggle */
+.navbar-toggler-icon {
+  width: 1rem;
+  height: 1rem;
 }
 
-.sidebar li {
-  margin-bottom: 20px;
+.navbar-toggler {
+  font-size: 1rem;
+  line-height: 1;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
 }
 
-.sidebar a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bolder;
-  font-size: 1.2em;
-}
-
-
-.sidebar .sub-menu {
-  list-style-type: none;
-  padding-left: 20px;
-  margin-top: 10px;
-}
-
-.sidebar .sub-menu li {
-  margin-bottom: 5px;
-}
-
-.sidebar .sub-menu a {
-  color: #6786a0;
-  font-size: 1em;
-}
-
-.sidebar .sub-menu a:hover {
-  color: #2bff00;
-}
 
 #img_maquinaria {
   width: 400px;

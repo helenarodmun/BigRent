@@ -1,14 +1,10 @@
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
-
-const Sidebar = () => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const toggleSidebar = () => {
-        setIsSidebarOpen(!isSidebarOpen);
-    };
-
-    const sidebarItems = [
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+export default function (){
+    const [expanded, setExpanded] = useState(false);
+    
+    const items = [
         {
             label: "Clientes",
             link: "#",
@@ -63,35 +59,40 @@ const Sidebar = () => {
             ],
         },
     ];
-
+    const handleToggle = () => {
+        setExpanded(!expanded);
+      };      
     return (
-        <div className="sidebar-wrapper">
-            <div className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
-                <ul>
-                    {sidebarItems.map((item, index) => (
-                        <li key={index}>
-                            <Link href={item.link}>
-                                <i className={item.icon}></i>
-                                {item.label}
-                                {item.subItems && <i className=""></i>}
-                            </Link>
-                            {item.subItems && (
-                                <ul className="sub-menu">
-                                    {item.subItems.map((subItem, subIndex) => (
-                                        <li key={subIndex}>
-                                            <Link href={subItem.link}>
-                                                {subItem.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
-};
-
-export default Sidebar;
+        <Navbar expand="lg" expanded={expanded} className="flex-column sidebar" variant="dark">
+        <Navbar.Toggle aria-controls="sidebar-nav" onClick={handleToggle} className="mx-2"/>
+        <Navbar.Collapse id="sidebar-nav">
+          <Nav className="flex-column">
+            {items.map((item) => (
+              <Nav.Item key={item.label}>
+                {item.subItems ? (
+                  <NavDropdown
+                    title={
+                      <>
+                        <i className={item.icon} /> {item.label}
+                      </>
+                    }
+                    id={`item-${item.label}`}
+                  >
+                    {item.subItems.map((subItem) => (
+                           <NavDropdown.Item key={subItem.label} as={Link} href={subItem.link}>
+                           {subItem.label}
+                         </NavDropdown.Item>
+                       ))}
+                     </NavDropdown>
+                   ) : (
+                     <Nav.Link as={Link} href={item.link}>
+                       <i className={item.icon} /> {item.label}
+                     </Nav.Link>
+                   )}
+                 </Nav.Item>
+               ))}
+             </Nav>
+           </Navbar.Collapse>
+         </Navbar>
+       );
+     };     
