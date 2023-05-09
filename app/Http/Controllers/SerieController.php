@@ -17,7 +17,7 @@ class SerieController extends Controller
         $series = Serie::with('maquina')
             ->orderBy('maquina_id', 'asc')
             ->orderBy('numero_serie', 'asc')
-            ->paginate(15);
+            ->paginate(10);
 
         return Inertia::render('Series/Listado', [
             'series' => $series,

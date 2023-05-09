@@ -19,7 +19,7 @@ class MaquinaController extends Controller
         $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')
-            ->paginate(15);
+            ->paginate(10);
         $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
             $query->where('tienda_id', $tienda);
         }]);

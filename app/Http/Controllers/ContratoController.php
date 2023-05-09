@@ -128,7 +128,7 @@ class ContratoController extends Controller
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
             ->with('serie')
-            ->paginate(15);
+            ->paginate(10);
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos
