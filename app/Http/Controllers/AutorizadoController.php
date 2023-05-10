@@ -19,34 +19,39 @@ class AutorizadoController extends Controller
         $request->validated();
 
         $cliente = Cliente::findOrFail($id);
+if(Autorizado::existeAutorizado($cliente->id, $request->nombre_persona_autorizada, $request->dni)){
+    $autorizado = new Autorizado;
 
-        $autorizado = new Autorizado;
+    $autorizado->nombre_persona_autorizada = $request->nombre_persona_autorizada;
+    $autorizado->dni = $request->dni;
+    $autorizado->notas = $request->notas;
+    // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
+    if ($request->hasFile('url_dni')) {
+        $request->file('url_dni')->store('public/clientes/autorizados/');
+    }
+    $autorizado->url_dni =  $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
+    $autorizado->cliente_id = $cliente->id;
 
-        $autorizado->nombre_persona_autorizada = $request->nombre_persona_autorizada;
-        $autorizado->dni = $request->dni;
-        $autorizado->notas = $request->notas;
-        // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
-        if ($request->hasFile('url_dni')) {
-            $request->file('url_dni')->store('public/clientes/autorizados/');
-        }
-        $autorizado->url_dni =  $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
-        $autorizado->cliente_id = $cliente->id;
+    $autorizado->save();
 
-        $autorizado->save();
+    $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+    $cliente = $autorizado->cliente;
+    $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
+    $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
 
-        $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        $cliente = $autorizado->cliente;
-        $telefonos = Telefono::where('cliente_id', $autorizado->cliente)->latest()->get();
-        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
+    Session::flash('success', 'Registro guardado con éxito');
 
-        Session::flash('success', 'Registro guardado con éxito');
-
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'autorizados' => $autorizados,
-            'clientes' => $cliente,
-            'direcciones' => $direcciones,
-            'telefonos' => $telefonos
-        ]);
+    return Inertia::render('Clientes/ActualizaCliente', [
+        'autorizados' => $autorizados,
+        'clientes' => $cliente,
+        'direcciones' => $direcciones,
+        'telefonos' => $telefonos
+    ]);
+}else{
+    Session::flash('error', 'Este cliente ya tiene un autorizado con estos datos');
+    return back();
+}
+       
     }
 
 
