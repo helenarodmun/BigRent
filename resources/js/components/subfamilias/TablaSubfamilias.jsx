@@ -5,18 +5,38 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
-    const { subfamilias, flash } = usePage().props;
-    const { delete: destroy } = useForm();
-    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
-    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
-    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
-    const handleDeleteClick = (id) => {
-        setShowConfirmDeleteModal(true);
-        setIdToDelete(id); // Se establece la id del registro a eliminar
+    const { subfamilias, resultado, flash } = usePage().props;
+    // const { delete: destroy } = useForm();
+    // //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
+    // const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+    // const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    // //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
+    // const handleDeleteClick = (id) => {
+    //     setShowConfirmDeleteModal(true);
+    //     setIdToDelete(id); // Se establece la id del registro a eliminar
+    // };
+
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
+    const [query, setQuery] = useState(resultado || "");
+     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+     const handleSearch = (event) => {
+        setQuery(event.target.value);
     };
+     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+     const resultadosBusqueda = subfamilias.data.filter(
+        (subfamilia) =>
+        subfamilia.familia.nombre.toLowerCase().includes(query.toLowerCase()) ||               
+                subfamilia.descripcion. toLowerCase().includes(query.toLowerCase())
+    );
     return (
         <Container>
+              <div className="container mt-5">
+                <form action="/series/buscar" method="get" className="d-flex" role="search">
+                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
+                    <button className="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+            <p className="h3 m-3">Listado subfamilias</p>
             <Col className="shadow">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
@@ -26,10 +46,10 @@ export default function TablaSubFamilias() {
                             <th>Descripción</th>
                             <th>Precio /día</th>
                             <th>Importe fianza</th>
-                            <th></th>
+                            {/* <th></th> */}
                         </tr>
                     </thead>
-                    {subfamilias.data.map((subfamilia) => (
+                    {resultadosBusqueda.map((subfamilia) => (
                         <tbody key={subfamilia.id}>
                             <tr>
                                 <td>{subfamilia.familia.nombre}</td>
@@ -37,7 +57,7 @@ export default function TablaSubFamilias() {
                                 <td>{subfamilia.descripcion}</td>
                                 <td>{subfamilia.precio_dia}</td>
                                 <td>{subfamilia.fianza}</td>
-                                <td>
+                                {/* <td>
                                     <TipInfo content='Modificar subfamilia' direction='left'>
                                         <Link method="get" href={"/editarSubfamilia/" + subfamilia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
@@ -65,7 +85,7 @@ export default function TablaSubFamilias() {
                                         urlAccion="/eliminarSubfamilia"
                                         idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                     />
-                                </td>
+                                </td> */}
                             </tr>
                         </tbody>
                     ))}

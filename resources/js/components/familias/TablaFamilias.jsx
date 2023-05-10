@@ -23,7 +23,7 @@ export default function TablaFamilias() {
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th></th>
+                            {/* <th></th> */}
                         </tr>
                     </thead>
                     {familias.data.map((familia) => (
@@ -31,7 +31,7 @@ export default function TablaFamilias() {
                             <tr>
                                 <td>{familia.id}</td>
                                 <td>{familia.nombre}</td>
-                                <td>
+                                {/* <td>
                                     <TipInfo content='Modificar familia' direction='left' >
                                         <Link method="get" href={"/editarFamilia/" + familia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
@@ -58,7 +58,7 @@ export default function TablaFamilias() {
                                         urlAccion="/eliminarFamilia"
                                         idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                     />
-                                </td>
+                                </td> */}
                             </tr>
                         </tbody>
                     ))}
