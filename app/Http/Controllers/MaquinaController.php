@@ -16,10 +16,12 @@ class MaquinaController extends Controller
 
     public function index()
     {
+        //obtiene id de la tienda a la que pertenece el usuario logueado
         $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')
             ->paginate(10);
+        //obtiene todos los registros que coinciden con la tienda del usuario
         $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
             $query->where('tienda_id', $tienda);
         }]);
@@ -50,7 +52,7 @@ class MaquinaController extends Controller
             $request->file('url_imagen')->store('public/imagenes');
         }
 
-        // Asigna las rutas de los archivos almacenados a los atributos correspondientes del modelo
+        // Asigna las rutas de los archivos almacenados a los atributos correspondientes del modelo si no recibe valos para este campo lo deja en null
         $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : null;
         $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : null;
         $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : null;
@@ -58,7 +60,7 @@ class MaquinaController extends Controller
         $maquina->subfamilia_id = $request->subfamilia_id;
         $maquina->marca_id = $request->marca_id;
         $maquina->save();
-
+        //recuperamos todos los registros a mostrar
         $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')
@@ -116,6 +118,7 @@ class MaquinaController extends Controller
 
         $maquina->save();
 
+        //recuperamos todos los registros a mostrar
         $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')
@@ -124,7 +127,7 @@ class MaquinaController extends Controller
             $query->where('tienda_id', $tienda);
         }]);
 
-        Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
+        Session::flash('update', 'Se ha actualizado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);
@@ -134,6 +137,7 @@ class MaquinaController extends Controller
     public function verDatosMaquina($id)
     {
         $tienda = Auth::user()->tienda_id;
+        //recuperamos el registro de la maquina y los valores correspondientes a sus relaciones con otras tablas
         $maquina = Maquina::findOrFail($id);        
         $maquina->load(['subfamilia.maquinas', 'marca.maquinas', 'series' => function ($query) use ($tienda) {
             $query->where('tienda_id', $tienda);
@@ -180,7 +184,7 @@ class MaquinaController extends Controller
     {
         $maquina = Maquina::findOrFail($id);
         $maquina->delete();
-        
+        //recuperamos todos los registros a mostrar
         $tienda = Auth::user()->tienda_id;
         $maquinas = Maquina::with('subfamilia')
             ->orderBy('descripcion', 'asc')

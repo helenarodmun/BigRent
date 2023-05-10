@@ -45,58 +45,64 @@ class ClienteController extends Controller
         if ($request->hasFile('url_dni')) {
             $request->file('url_dni')->store('public/clientes/autorizados/');
         }
+        //comprueba los campos nif, y nombre fiscal
+        if (Cliente::existeCliente($request->cif, $request->nombre_fiscal)) {
+            //Comprueba que la dirección se haya guardado como predeterminada
+            if (Direccion::compruebaDireccion($predeterminada)) {
 
-        //Comprueba que la dirección se haya guardado como predeterminada
-        if (Direccion::compruebaDireccion($predeterminada)) {
+                DB::transaction(function ()  use ($request) {
 
-            DB::transaction(function ()  use ($request) {
+                    $cliente = Cliente::create([
+                        'nombre_fiscal' => $request->nombre_fiscal,
+                        'nif' => $request->nif,
+                        'nombre_comercial' => $request->nombre_comercial,
+                        'tipo_cliente_id' => $request->tipo_cliente_id,
+                        'administrador' => $request->administrador,
+                        'dni_administrador' => $request->dni_administrador,
+                        //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
+                        // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
+                        'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : null,
+                        'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : null,
+                        'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : null,
+                        'anotaciones' => $request->anotaciones
+                    ]);
 
-                $cliente = Cliente::create([
-                    'nombre_fiscal' => $request->nombre_fiscal,
-                    'nif' => $request->nif,
-                    'nombre_comercial' => $request->nombre_comercial,
-                    'tipo_cliente_id' => $request->tipo_cliente_id,
-                    'administrador' => $request->administrador,
-                    'dni_administrador' => $request->dni_administrador,
-                    //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
-                    // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
-                    'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : null,
-                    'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : null,
-                    'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : null,
-                    'anotaciones' => $request->anotaciones
-                ]);
+                    $cliente->direcciones()->create([
+                        'direccion' => $request->direccion,
+                        'cp' => $request->cp,
+                        'localidad' => $request->localidad,
+                        'municipio' => $request->municipio,
+                        'provincia' => $request->provincia,
+                        'predeterminada' => $request->predeterminada
+                    ]);
 
-                $cliente->direcciones()->create([
-                    'direccion' => $request->direccion,
-                    'cp' => $request->cp,
-                    'localidad' => $request->localidad,
-                    'municipio' => $request->municipio,
-                    'provincia' => $request->provincia,
-                    'predeterminada' => $request->predeterminada
-                ]);
+                    $cliente->telefonos()->create([
+                        'contacto' => $request->contacto,
+                        'via_comunicacion' => $request->via_comunicacion,
+                        'tipo' => $request->tipo
+                    ]);
 
-                $cliente->telefonos()->create([
-                    'contacto' => $request->contacto,
-                    'via_comunicacion' => $request->via_comunicacion,
-                    'tipo' => $request->tipo
-                ]);
+                    $cliente->autorizados()->create([
+                        'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
+                        'dni' => $request->dni,
+                        'notas' => $request->notas,
+                        'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : null,
+                    ]);
+                });
 
-                $cliente->autorizados()->create([
-                    'nombre_persona_autorizada' => $request->nombre_persona_autorizada,
-                    'dni' => $request->dni,
-                    'notas' => $request->notas,
-                    'url_dni' => $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : null,
-                ]);
-            });
+                $clientes = Cliente::latest()->paginate(10);
 
-            $clientes = Cliente::latest()->get();
+                Session::flash('success', 'Registro guardado con éxito');
 
-            Session::flash('success', 'Registro guardado con éxito');
+                return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+            } else {
 
-            return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+                Session::flash('error', 'La dirección principal del cliente debe ser la predeterminada');
+                return back();
+            }
         } else {
-
-            Session::flash('message', 'La dirección principal del cliente debe ser la predeterminada');
+            $clientes = Cliente::latest()->paginate(10);
+            Session::flash('error', 'El cif o el nombre fiscal ya existen en la base de datos');
             return back();
         }
     }
@@ -204,8 +210,8 @@ class ClienteController extends Controller
             ->load('telefonos.cliente')
             ->load('autorizados.cliente')
             ->load('tipo.cliente');
-            
-        Session::flash('success', 'Se ha actualizado el registro');
+
+        Session::flash('update', 'Se ha actualizado el registro');
 
         return Inertia::render('Clientes/FichaCliente', [
             'cliente' => $cliente,
@@ -227,7 +233,7 @@ class ClienteController extends Controller
         // $rutaArchivo = trim($path, '/');
         // Storage::disk('public')->delete($rutaArchivo);
         $cliente->delete();
-        $clientes = Cliente::latest()->get();
+        $clientes = Cliente::latest()->paginate(10);
 
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
 

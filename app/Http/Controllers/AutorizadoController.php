@@ -117,7 +117,7 @@ class AutorizadoController extends Controller
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
 
-        Session::flash('success', 'Se ha actualizado el registro');
+        Session::flash('update', 'Se ha actualizado el registro');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'autorizados' => $autorizados,

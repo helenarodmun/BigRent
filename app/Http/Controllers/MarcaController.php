@@ -28,7 +28,7 @@ class MarcaController extends Controller
         $marca->save();
 
         $marcas = Marca::orderBy('denominacion', 'asc')->get();
-        Session::flash('edicion', 'Se ha creado la familia de forma correcta');
+        Session::flash('success', 'Se ha creado la familia de forma correcta');
 
         return Inertia::render('Marcas/Listado', [
             'marcas' => $marcas,
@@ -55,7 +55,7 @@ class MarcaController extends Controller
         $marca->save();
 
         $marcas = Marca::orderBy('id', 'asc')->get();
-        Session::flash('creacion', 'Se ha actualizado la familia de forma correcta');
+        Session::flash('update', 'Se ha actualizado la familia de forma correcta');
 
         return Inertia::render('Marcas/Listado', [
             'marcas' => $marcas,
@@ -69,7 +69,7 @@ class MarcaController extends Controller
         $marca->delete();
         
         $marcas = Marca::orderBy('id', 'asc')->get();
-        Session::flash('borrado', 'Se ha eliminado la família de froma correcta');
+        Session::flash('success', 'Se ha eliminado la família de froma correcta');
         
         return Inertia::render('Marcas/Listado', ['marcas' => $marcas]);
     }

@@ -25,7 +25,7 @@ class ContratoController extends Controller
         $data = $request->validated();
 
         $cliente = Cliente::findOrFail($data['cliente_id']);
-
+        //Obtiene la dirección predeterminada, para añadirla al contrato
         $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
             ->where('predeterminada', true)->first();
         $direccion = Direccion::findOrFail($data['direccion_id']);
@@ -273,9 +273,12 @@ class ContratoController extends Controller
     public function cerrarContrato(Request $request, $id)
     {
         $contrato = Contrato::findOrFail($id);
+        //Desactiva el contrato
         $contrato->activo = false;
+        //permite introducir cambios en los campos de anotaciones
         $contrato->notas1 = $request['notas1'];
         $contrato->notas2 = $request['notas2'];
+        //obtiene la serie del contrate y activa la disponobilidad
         $serie = Serie::findOrFail($contrato->serie->id);
         $serie->disponible = true;
         $contrato->save();

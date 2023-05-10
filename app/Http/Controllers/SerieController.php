@@ -74,7 +74,7 @@ class SerieController extends Controller
             ->orderBy('maquina_id', 'asc')
             ->orderBY('numero_serie', 'asc')
             ->get();
-        Session::flash('creacion', 'Se ha actualizado la serie de forma correcta');
+        Session::flash('success', 'Se ha actualizado la serie de forma correcta');
 
         return Inertia::render('Series/Listado', [
             'series' => $series,
