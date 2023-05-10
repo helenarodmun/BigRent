@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
-    const { series, resultado } = usePage().props;
+    const { series, resultado, auth } = usePage().props;
     const { delete: destroy } = useForm();
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || "");
@@ -48,7 +48,6 @@ const TablaSeries = () => {
                                 <th>Horometro</th>
                                 <th>Hora inicio</th>
                                 <th>Disponible</th>
-                                <th></th>
                             </tr>
                         </thead>
                         {resultadosBusqueda.map((serie) => (
@@ -75,6 +74,8 @@ const TablaSeries = () => {
                                             <strong>SÍ</strong>
                                         </td>
                                     )}
+                                      {auth.user.rol == true ? (
+                                    <>
                                     <td>
                                         <TipInfo content="Modificar serie" direction="left">
                                             <Link method="get" href={"/editarSerie/" + serie.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
@@ -111,6 +112,8 @@ const TablaSeries = () => {
                                             idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                         />
                                     </td>
+                                    </>
+                                ) : null}
                                 </tr>
                             </tbody>
                         ))}

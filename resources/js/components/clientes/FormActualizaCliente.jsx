@@ -4,7 +4,7 @@ import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bo
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 
 export default function FormActualizaCliente() {
-    const { clientes, flash } = usePage().props;
+    const { clientes, flash, auth } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, post, delete: destroy, processing, errors, } = useForm({
         nombre_fiscal: clientes.nombre_fiscal,
@@ -66,7 +66,7 @@ export default function FormActualizaCliente() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
-            <Row>
+        <Row>
             <Col xs="12" sm="12" md="12">
                 <p className="h1 mt-3">Modificación Cliente</p>
                 <Card className="shadow">
@@ -168,6 +168,8 @@ export default function FormActualizaCliente() {
                     </Card.Body>
                     <Card.Footer>
                         <Button className="m-2 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Modificar los datos del cliente">Guardar registro</Button>
+                        {auth.user.rol == true ? (
+                              <>
                         <Button className="m-3 shadow btn-lg" type="submit" variant="danger" aria-label="Eliminar los datos del cliente" onClick={() => handleDeleteClick(clientes.id)}>Eliminar</Button>
                         <ModalConfirmacion
                             show={showConfirmDeleteModal}
@@ -186,10 +188,13 @@ export default function FormActualizaCliente() {
                             message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
                             urlAccion="/eliminarCliente"
                             idRegistro={idToDelete} variant={'danger'} text={'Eliminar'} />
+                        </>
+                                ) : null}
+
                         <Button className="m-3 shadow btn-lg" variant="secondary" href={"/verCliente/" + clientes.id} aria-label="Volver a la vista anterior">Cancelar</Button>
                     </Card.Footer>
                 </Card>
             </Col>
-            </Row>
+        </Row>
     );
 }

@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaMarcas() {
-    const { marcas, flash } = usePage().props;
+    const { marcas, flash, auth } = usePage().props;
     const { delete: destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -23,7 +23,6 @@ export default function TablaMarcas() {
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th></th>
                         </tr>
                     </thead>
                     {marcas.data.map((marca) => (
@@ -31,6 +30,8 @@ export default function TablaMarcas() {
                             <tr>
                                 <td>{marca.id}</td>
                                 <td>{marca.denominacion}</td>
+                                {auth.user.rol == true ? (
+                                    <>
                                 <td>
                                     <TipInfo content='Modificar marca' direction='left' >
                                         <Link method="get" href={"/editarMarca/" + marca.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
@@ -59,7 +60,10 @@ export default function TablaMarcas() {
                                         urlAccion="/eliminarMarca"
                                         idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                     />
+                                    
                                 </td>
+                                </>
+                                ) : null}
                             </tr>
                         </tbody>
                     ))}

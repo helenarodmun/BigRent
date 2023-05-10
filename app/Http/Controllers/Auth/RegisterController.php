@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
@@ -67,5 +68,10 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+    // Sobreescribo el método sshowRegistrationFor del trait AuthenticatesUsers
+    protected function showRegistrationForm()
+    {
+        return Inertia::render('Usuario/Registro');
     }
 }

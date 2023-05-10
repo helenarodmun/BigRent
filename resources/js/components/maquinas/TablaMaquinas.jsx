@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaMaquinas() {
-    const { maquinas, resultado, flash } = usePage().props;
+    const { maquinas, resultado, flash, auth } = usePage().props;
     const { delete: destroy } = useForm();
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || "");
@@ -61,6 +61,8 @@ export default function TablaMaquinas() {
                                     <TipInfo content="Ver ficha" direction="left">
                                         <Link href={"/verFicha/" + maquina.id} as="button" className="h5 border-0 bi bi-file-text text-dark m-1" />
                                     </TipInfo>
+                                    {auth.user.rol == true ? (
+                                        <>
                                     <TipInfo content='Modificar máquina' direction='left'>
                                         <Link method="get" href={"/editarMaquina/" + maquina.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
@@ -87,6 +89,8 @@ export default function TablaMaquinas() {
                                         urlAccion="/eliminarMaquina"
                                         idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                     />
+                                    </>
+                                    ) : null}
                                 </td>
                             </tr>
                         </tbody>

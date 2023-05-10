@@ -15,11 +15,23 @@ function NavBar() {
             <Navbar.Toggle aria-controls="navbarNavDropdown" />
             <Navbar.Collapse id="navbarNavDropdown">
                 <Nav className="ms-auto">
+                {auth.user?.rol == 1 && ( 
+                        <>
+                            <Nav.Item>
+                                <Nav.Link
+                                    href="/register"
+                                    className="mx-2 me-5 bi bi-check-circle"
+                                >
+                                    Registro Usuarios
+                                </Nav.Link>
+                            </Nav.Item>
+                        </>
+                    )}
                     {/* Si el usuario no ha iniciado sesión, se muestra el botón de inicio de sesión y el de registro */}
                     {auth.user == null ? (
                         <>
                             <Nav.Item>
-                                <Nav.Link href="/login" className="mx-2  h5 bi bi-door-open">
+                                <Nav.Link href="/login" className="mx-2 h5 bi bi-door-open">
                                     <strong className="h4">Inicio de sesión</strong>
                                 </Nav.Link>
                             </Nav.Item>
@@ -39,9 +51,7 @@ function NavBar() {
         </Navbar>
     );
 }
-
 export default NavBar;
-
 if (document.getElementById("nav")) {
     const Index = ReactDOM.createRoot(document.getElementById("nav"));
 

@@ -5,16 +5,16 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
-    const { subfamilias, resultado, flash } = usePage().props;
-    // const { delete: destroy } = useForm();
-    // //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
-    // const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
-    // const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
-    // //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
-    // const handleDeleteClick = (id) => {
-    //     setShowConfirmDeleteModal(true);
-    //     setIdToDelete(id); // Se establece la id del registro a eliminar
-    // };
+    const { subfamilias, resultado, flash, auth } = usePage().props;
+    const { delete: destroy } = useForm();
+    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+    const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
+    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
+    const handleDeleteClick = (id) => {
+        setShowConfirmDeleteModal(true);
+        setIdToDelete(id); // Se establece la id del registro a eliminar
+    };
 
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || "");
@@ -57,7 +57,9 @@ export default function TablaSubFamilias() {
                                 <td>{subfamilia.descripcion}</td>
                                 <td>{subfamilia.precio_dia}</td>
                                 <td>{subfamilia.fianza}</td>
-                                {/* <td>
+                                {auth.user.rol == true ? (
+                                    <>
+                                <td>
                                     <TipInfo content='Modificar subfamilia' direction='left'>
                                         <Link method="get" href={"/editarSubfamilia/" + subfamilia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
                                     </TipInfo>
@@ -85,7 +87,9 @@ export default function TablaSubFamilias() {
                                         urlAccion="/eliminarSubfamilia"
                                         idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
                                     />
-                                </td> */}
+                                </td>
+                                </>
+                                ) : null}
                             </tr>
                         </tbody>
                     ))}
