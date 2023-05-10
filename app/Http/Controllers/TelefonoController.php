@@ -17,7 +17,7 @@ class TelefonoController extends Controller
         $request->validated();
         $cliente = Cliente::findOrFail($id);
 
-        if(Telefono::existeContacto($cliente->id, $request->contacto)){
+        if(Telefono::noExisteContacto($cliente->id, $request->contacto)){
             $telefono = $cliente->telefonos()->create($request->all());
 
             // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.

@@ -54,7 +54,7 @@ class Cliente extends Model
         return $this->hasMany(Contrato::class);
     }
 
-    static function existeCliente($nif, $nombre_fiscal)
+    static function noExisteCliente($nif, $nombre_fiscal)
     {
         if (static::where('nif', $nif)->orWhere('nombre_fiscal', $nombre_fiscal)->count() == 0) 
         {

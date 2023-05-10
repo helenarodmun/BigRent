@@ -38,4 +38,14 @@ class Maquina extends Model
     {
         return $this->hasMany(Serie::class);
     }
+
+    static function noExisteMaquina($descripcion, $referencia){
+
+        if(static::where('descripcion', $descripcion)->orWhere('referencia', $referencia)->count() == 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

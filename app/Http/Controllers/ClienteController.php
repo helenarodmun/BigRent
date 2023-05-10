@@ -46,7 +46,7 @@ class ClienteController extends Controller
             $request->file('url_dni')->store('public/clientes/autorizados/');
         }
         //comprueba los campos nif, y nombre fiscal
-        if (Cliente::existeCliente($request->cif, $request->nombre_fiscal)) {
+        if (Cliente::noExisteCliente($request->cif, $request->nombre_fiscal)) {
             //Comprueba que la dirección se haya guardado como predeterminada
             if (Direccion::compruebaDireccion($predeterminada)) {
 
