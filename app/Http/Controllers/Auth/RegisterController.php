@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tienda;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -30,18 +32,28 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/registrar';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
+
+    
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
+
+    public function registroNuevo(Request $request)
+    {
+        $data = $request->all();
+        $this->validator($data);
+        $this->create($data);
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +65,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'rol' => ['required', 'boolean'],
+            'tienda_id' => ['required', 'string'],
         ]);
     }
 
@@ -67,11 +81,14 @@ class RegisterController extends Controller
         return User::create([
             'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'rol' => $data['rol'],
+            'tienda_id' => $data['tienda_id']
         ]);
     }
-    // Sobreescribo el método sshowRegistrationFor del trait AuthenticatesUsers
+    // Sobreescribo el método showRegistrationForm del trait AuthenticatesUsers
     protected function showRegistrationForm()
     {
-        return Inertia::render('Usuario/Registro');
+        $tiendas = Tienda::orderBy('id', 'asc')->get();
+        return Inertia::render('Usuario/Registro',  ['tiendas' => $tiendas]);
     }
 }

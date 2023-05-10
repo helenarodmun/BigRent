@@ -26,6 +26,7 @@ Route::get('/', function () {
     $user = Auth::user();
     return Inertia::render('Welcome', ['user' => $user]);
 });
+Route::post('registrar', [App\Http\Controllers\Auth\RegisterController::class, 'registroNuevo']);
 //////////////////////////// RUTAS CLIENTES ///////////////////////////////////////
 Route::get('/clientes', [ClienteController::class, 'index'])->middleware('auth');
 Route::post('/clientes', [ClienteController::class, 'index'])->middleware('auth');
