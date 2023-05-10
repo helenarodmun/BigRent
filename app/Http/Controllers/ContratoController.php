@@ -109,7 +109,7 @@ class ContratoController extends Controller
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
             ->with('serie')
-            ->get();
+            ->paginate(10);
         Session::flash('success', 'Registro guardado con éxito');
 
         return Inertia::render('Contratos/Listado', [
@@ -289,7 +289,7 @@ class ContratoController extends Controller
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
             ->with('serie')
-            ->get();
+            ->paginate(10);
 
         Session::flash('success', 'Se ha cerrado el contrato correctamente');
 

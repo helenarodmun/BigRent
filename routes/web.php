@@ -116,6 +116,7 @@ Route::post('/nuevaMaquina', [MaquinaController::class, 'create']);
 Route::get('/editarMaquina/{id}', [MaquinaController::class, 'verEdicionMaquina']);
 Route::post('/editarMaquina/{id}', [MaquinaController::class, 'update']);
 Route::delete('/eliminarMaquina/{id}', [MaquinaController::class, 'destroy']);
+Route::get('/eliminarMaquina/{id}', [MaquinaController::class, 'index']);
 Route::get('/verFicha/{id}', [MaquinaController::class, 'verDatosMaquina']);
 Route::get('/maquinas/buscar', [MaquinaController::class, 'search']);
 ////////////////////////// RUTAS SERIES //////////////////////////////////////
@@ -137,14 +138,16 @@ Route::get('/editarSerie/{id}', [SerieController::class, 'verEdicionSerie']);
 Route::put('/editarSerie/{id}', [SerieController::class, 'update']);
 Route::delete('/eliminarSerie/{id}', [SerieController::class, 'destroy']);
 Route::get('/series/buscar', [SerieController::class, 'search']);
-
+Route::get('/eliminarSerie/{id}', [SerieController::class, 'index']);
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
 Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']);
 Route::get('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
 Route::post('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
 Route::post('/nuevoContrato', [ContratoController::class, 'create']);
+Route::get('/nuevoContrato', [ContratoController::class, 'create']);
 Route::get('/listarContratos/{id}', [ContratoController::class, 'verListadoContratos']);
 Route::get('/verContrato/{id}', [ContratoController::class, 'verContrato']);
 Route::get('/finContrato/{id}', [ContratoController::class, 'finContrato']);
 Route::post('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
+Route::get('/cerrarContrato/{id}', [ContratoController::class, 'verContrato']);
 
