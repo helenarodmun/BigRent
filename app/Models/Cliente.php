@@ -56,7 +56,7 @@ class Cliente extends Model
 
     static function existeCliente($nif, $nombre_fiscal)
     {
-        if (static::where('nif', $nif)->where('nombre_fiscal', $nombre_fiscal)->first()) 
+        if (static::where('nif', $nif)->orWhere('nombre_fiscal', $nombre_fiscal)->count() == 0) 
         {
             return true;
 

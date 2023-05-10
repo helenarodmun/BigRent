@@ -29,10 +29,10 @@ class Autorizado extends Model
         return $this->hasMany(Cliente::class);
     }
 
-    static function existeAutorizado($cliente_id, $nombre, $dni){
+    static function noExisteAutorizado($cliente_id, $nombre, $dni){
 
         $autorizados = Autorizado::where('cliente_id', $cliente_id);
-        if (static::where('nombre_persona_autorizada', $nombre)->where('dni', $dni)->first()) 
+        if ($autorizados->where('nombre_persona_autorizada', $nombre)->orWhere('dni', $dni)->count() == 0) 
         {
             return true;
 

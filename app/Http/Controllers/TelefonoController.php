@@ -15,28 +15,33 @@ class TelefonoController extends Controller
     public function create(TelefonoForm $request, $id)
     {
         $request->validated();
-
         $cliente = Cliente::findOrFail($id);
 
-        $telefono = $cliente->telefonos()->create($request->all());
+        if(Telefono::existeContacto($cliente->id, $request->contacto)){
+            $telefono = $cliente->telefonos()->create($request->all());
 
-        // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
-        $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        //recupera los datos del cliente
-        $cliente = $telefono->cliente;
-        // Recupera todos los telefonos del cliente 
-        $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        
-        // Redirige al cliente del usuario actualizado.
-        Session::flash('success', 'Se han guardado los datos de forma correcta');
-
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'direcciones' => $direcciones,
-            'clientes' => $cliente,
-            'telefonos' => $telefonos,
-            'autorizados' => $autorizados
-        ]);
+            // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
+            $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
+            //recupera los datos del cliente
+            $cliente = $telefono->cliente;
+            // Recupera todos los telefonos del cliente 
+            $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
+            $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
+            
+            // Redirige al cliente del usuario actualizado.
+            Session::flash('success', 'Se han guardado los datos de forma correcta');
+    
+            return Inertia::render('Clientes/ActualizaCliente', [
+                'direcciones' => $direcciones,
+                'clientes' => $cliente,
+                'telefonos' => $telefonos,
+                'autorizados' => $autorizados
+            ]);
+        }else{
+            Session::flash('error', 'Ya existe el contacto asociado al cliente');
+            return back();
+        }
+       
     }
 
 

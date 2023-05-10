@@ -1,9 +1,9 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
-import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormNuevoTelefono({ children }) {
-    const { cliente } = usePage().props;
+    const { cliente, flash } = usePage().props;
     console.log(cliente);
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
@@ -25,7 +25,15 @@ export default function FormNuevoTelefono({ children }) {
     }
     return (
         <>
-            <div className="align-items-center justify-content-center accesibilidad-texto">
+            <Container className="align-items-center justify-content-center accesibilidad-texto">
+            <div align="center">
+                    <Col sm={10}>
+                        {flash.error && (
+                            <div class="alert alert-danger" role={"alert"}>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
+                            </div>)}
+                    </Col>
+                </div>
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>
@@ -80,7 +88,7 @@ export default function FormNuevoTelefono({ children }) {
                         </Card.Footer>
                     </Card>
                 </Col>
-            </div>
+            </Container>
         </>
     );
 }
