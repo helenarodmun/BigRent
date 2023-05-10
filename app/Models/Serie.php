@@ -37,4 +37,14 @@ class Serie extends Model
     {
         return $this->belongsTo(Tienda::class);
     }
+
+    static function noExisteSerie($numero_serie){
+
+        if(static::where('numero_serie', $numero_serie)->count() == 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

@@ -28,20 +28,24 @@ class SerieController extends Controller
     public function create(SerieForm $request)
     {
         $request->validated();
+        if (Serie::noExisteSerie($request->numero_serie)) {
+            $serie = Serie::create($request->all());
 
-        $serie = Serie::create($request->all());
+            $series = Serie::with('maquina')
+                ->orderBy('maquina_id', 'asc')
+                ->orderBy('numero_serie', 'asc')
+                ->paginate(10);
+            $tiendas = Tienda::get();
+            Session::flash('success', 'Se ha creado la serie de forma correcta');
 
-        $series = Serie::with('maquina')
-            ->orderBy('maquina_id', 'asc')
-            ->orderBy('numero_serie', 'asc')
-            ->get();
-        $tiendas = Tienda::get();
-        Session::flash('edicion', 'Se ha creado la serie de forma correcta');
-
-        return Inertia::render('Series/Listado', [
-            'series' => $series,
-            'tiendas' => $tiendas
-        ]);
+            return Inertia::render('Series/Listado', [
+                'series' => $series,
+                'tiendas' => $tiendas
+            ]);
+        } else {
+            Session::flash('error', 'Ya existe una serie con esa numeración');
+            return back();
+        }
     }
 
 
@@ -73,7 +77,7 @@ class SerieController extends Controller
         $series = Serie::with('maquina')
             ->orderBy('maquina_id', 'asc')
             ->orderBY('numero_serie', 'asc')
-            ->get();
+            ->paginate(10);
         Session::flash('success', 'Se ha actualizado la serie de forma correcta');
 
         return Inertia::render('Series/Listado', [
@@ -103,7 +107,7 @@ class SerieController extends Controller
                 $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
             })
             ->orWhere('numero_serie', 'like', '%' . $query . '%')
-            ->get();
+            ->paginate(10);
 
         // Se devuelve una página que muestra la lista de series y la consulta de búsqueda
         return Inertia::render('Series/Listado', [
@@ -117,11 +121,11 @@ class SerieController extends Controller
     {
         $serie = Serie::findOrFail($id);
         $serie->delete();
-        
+
         $series = Serie::with('maquina')
             ->orderBy('maquina_id', 'asc')
             ->orderBY('numero_serie', 'asc')
-            ->get();
+            ->paginate(10);
         Session::flash('borrado', 'Se ha eliminado la serie de forma correcta');
 
         return Inertia::render('Series/Listado', ['series' => $series]);

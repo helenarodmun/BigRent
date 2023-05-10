@@ -34,11 +34,12 @@ export default function FormNuevaMaquina({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <div align="center">
+            <div align="center">
                     <Col sm={10}>
-                        {flash.errorCreacion && (
+                        {flash.error && (
                             <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>{flash.errorCreacion}</div>)}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
+                            </div>)}
                     </Col>
                 </div>
                 <Col className="">
