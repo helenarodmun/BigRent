@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaFamilias() {
-    const { familias, flash } = usePage().props;
+    const { familias, flash, auth } = usePage().props;
     const { delete: destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -31,43 +31,47 @@ export default function TablaFamilias() {
                             <tr>
                                 <td>{familia.id}</td>
                                 <td>{familia.nombre}</td>
-                                {/* <td>
-                                    <TipInfo content='Modificar familia' direction='left' >
-                                        <Link method="get" href={"/editarFamilia/" + familia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
-                                    </TipInfo>
-                                    <TipInfo content='Eliminar familia' direction='left' >
-                                        <button onClick={() => handleDeleteClick(familia.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
-                                    </TipInfo>
-                                    <ModalConfirmacion show={showConfirmDeleteModal}
-                                        onHide={() => {
-                                            setIdToDelete(null);
-                                            setShowConfirmDeleteModal(false);
-                                        }}
-                                        onConfirm={(urlAccion, idRegistro) => {
-                                            destroy(
-                                                `${urlAccion}/${idRegistro}`,
-                                                {
-                                                    onSuccess: () => {
-                                                        console.log("registro eliminado");
-                                                    },
-                                                }
-                                            );
-                                        }}
-                                        title="¡ADVERTENCIA!"
-                                        message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                        urlAccion="/eliminarFamilia"
-                                        idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
-                                    />
-                                </td> */}
+                                {auth.user.rol == true ? (
+                                    <>
+                                        <td>
+                                            <TipInfo content='Modificar familia' direction='left' >
+                                                <Link method="get" href={"/editarFamilia/" + familia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
+                                            </TipInfo>
+                                            <TipInfo content='Eliminar familia' direction='left' >
+                                                <button onClick={() => handleDeleteClick(familia.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
+                                            </TipInfo>
+                                            <ModalConfirmacion show={showConfirmDeleteModal}
+                                                onHide={() => {
+                                                    setIdToDelete(null);
+                                                    setShowConfirmDeleteModal(false);
+                                                }}
+                                                onConfirm={(urlAccion, idRegistro) => {
+                                                    destroy(
+                                                        `${urlAccion}/${idRegistro}`,
+                                                        {
+                                                            onSuccess: () => {
+                                                                console.log("registro eliminado");
+                                                            },
+                                                        }
+                                                    );
+                                                }}
+                                                title="¡ADVERTENCIA!"
+                                                message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                                urlAccion="/eliminarFamilia"
+                                                idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
+                                            />
+                                        </td>
+                                    </>
+                                ) : null}
                             </tr>
                         </tbody>
                     ))}
                 </Table>
                 {familias.links.map((link, index) => (
-                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                            </Button>
-                        ))}
+                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                ))}
             </Col>
             <TipInfo content='Añadir nueva familia' direction='right' >
                 <Link method="get" href="/nuevaFamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
