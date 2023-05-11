@@ -62,13 +62,13 @@ export default function TablaContratos() {
                                         )}
                                         <td>
                                             <TipInfo content="Ver contrato" direction="left">
-                                                <Link href={"/verContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-search text-info m-1" />
+                                                <Link href={"/verContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-search text-dark m-1" />
                                             </TipInfo>
-                                            {contrato.activo == 1 ? (
+                                            {/* {contrato.activo == 1 ? (
                                                 <TipInfo content="Cerrar contrato" direction="left">
                                                     <Link href={"/finContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-folder-plus text-dark m-2" />
                                                 </TipInfo>
-                                            ) : ('')}
+                                            ) : ('')} */}
                                         </td>
                                     </tr>
                                 </tbody>))}

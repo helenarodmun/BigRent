@@ -20,16 +20,7 @@ export default function VerContrato() {
     });
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
-    }
-    const {  delete:destroy } = useForm();
-    //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
-    const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [idToClose, setIdToClose] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
-    //función es llamada cuando se hace clic en el botón de eliminar, la cual establece el valor de showConfirmDeleteModal en true.
-    const handleClick = (id) => {
-        setShowConfirmModal(true);
-        setIdToClose(id); // Se establece la id del registro a eliminar
-    };
+    } 
     return (
         <Container>
             <Row>
@@ -134,30 +125,9 @@ export default function VerContrato() {
                         </Card.Body>
                         <Card.Footer>
                             {contrato.activo == 1 ? (
-                                <Button variant="btn btn-danger btn-lg m-5" method="get" onClick={() => handleClick(contrato.id)}><strong>Cerrar contrato</strong></Button>
+                                <Button variant="btn btn-danger btn-lg m-5" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>
                                 
                             ) : ('')}
-                             <ModalConfirmacion show={showConfirmModal}
-                                                onHide={() => {
-                                                    setIdToClose(null);
-                                                    setShowConfirmModal(false);
-                                                }}
-                                                onConfirm={(urlAccion, idRegistro) => {
-                                                    destroy(
-                                                        `${urlAccion}/${idRegistro}`,
-                                                        {
-                                                            onSuccess: () => {
-                                                                console.log("contrato cerrado");
-                                                            },
-                                                        }
-                                                    );
-                                                }}
-                                                title="¡ADVERTENCIA!"
-                                                message="Se va a proceder al cierre del contrato. ¿Está seguro que desea continuar?"
-                                                urlAccion="/finContrato"
-                                                idRegistro={idToClose} variant={'success'} text={'Aceptar'}
-                                            />
-
                             <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>

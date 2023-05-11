@@ -271,7 +271,6 @@ class ContratoController extends Controller
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importeFinal = $subfamilia->precio_dia * $total_dias_alquiler;
         $contrato->importe_total = $importeFinal;
-        $contrato->save();
         return Inertia::render('Contratos/VistaFin', [
             'cliente' => $cliente,
             'direccion' => $direccion,
