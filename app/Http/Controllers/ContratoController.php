@@ -35,8 +35,13 @@ class ContratoController extends Controller
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
 
-        // Calcular los días a partir de las fechas de inicio y fin
-        $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $cliente->tipo->confDias);
+        // si la máquina se devuelve el mismo día cobrar un día, si no calcular
+        if ($data['fecha_retirada'] == $data['fecha_entrega']) {
+            $dias_alquiler = 1;
+        } else {
+            // Calcular los días a partir de las fechas de inicio y fin
+            $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $cliente->tipo->confDias);
+        }
 
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importe_alquiler = $subfamilia->precio_dia * $dias_alquiler;
@@ -81,8 +86,13 @@ class ContratoController extends Controller
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
 
-        // Calcular los días a partir de las fechas de inicio y fin
-        $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $conf_cliente);
+         // si la máquina se devuelve el mismo día cobrar un día, si no calcular
+         if ($data['fecha_retirada'] == $data['fecha_entrega']) {
+            $dias_alquiler = 1;
+        } else {
+            // Calcular los días a partir de las fechas de inicio y fin
+            $dias_alquiler = Contrato::calcularDiasDeAlquiler($data['fecha_retirada'], $data['fecha_entrega'], $cliente->tipo->confDias);
+        }
 
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importeTotal = $subfamilia->precio_dia * $dias_alquiler;
@@ -250,7 +260,13 @@ class ContratoController extends Controller
         $subfamilia = $maquina->subfamilia;
         $fechaCierre = $now->format('Y-m-d');
         $contrato->fecha_entrega = $fechaCierre;
-        $total_dias_alquiler = Contrato::calcularDiasDeAlquiler($contrato->fecha_retirada, $fechaCierre, $conf_cliente);
+
+        if( $contrato->fecha_retirada == $fechaCierre) {
+            $total_dias_alquiler = 1;
+        } else {
+            $total_dias_alquiler = Contrato::calcularDiasDeAlquiler($contrato->fecha_retirada, $fechaCierre, $conf_cliente);
+        }
+       
         $contrato->dias = $total_dias_alquiler;
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importeFinal = $subfamilia->precio_dia * $total_dias_alquiler;

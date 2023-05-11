@@ -71,7 +71,7 @@ class Contrato extends Model
         $fechaInicio = new DateTime($fechaInicio);
         $fechaFin = new DateTime($fechaFin);
 
-        // Inicializa el contador de días de alquiler en cero.
+        // Inicializa el contador de días de alquiler en uno ya que se puede alquilar sólo un día.
         $diasDeAlquiler = 0;
 
         // Crea un intervalo de un día para iterar entre las fechas de inicio y fin.
