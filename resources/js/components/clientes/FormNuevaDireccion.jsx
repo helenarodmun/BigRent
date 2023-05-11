@@ -92,7 +92,7 @@ export default function FormNuevaDireccion({ children }) {
                                                     setData("predeterminada", e.target.value)
                                                 }>
                                                 <option>Seleccione tipo de dirección...</option>
-                                                <option value="1"> Dirección de la empresa</option>
+                                                <option value="1" disabled> Dirección predeterminada</option>
                                                 <option value="0">Dirección del alquiler</option>
                                             </Form.Select>
                                             {errors.predeterminada && (<div className="alert alert-danger">{errors.predeterminada}</div>)}

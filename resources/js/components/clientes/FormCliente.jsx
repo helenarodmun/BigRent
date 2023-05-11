@@ -186,7 +186,7 @@ export default function FormCliente() {
                                                     }>
                                                     <option>Seleccione tipo de dirección...</option>
                                                     <option value="1">Dirección predeterminada</option>
-                                                    <option value="0">Dirección del alquiler</option>
+                                                    <option value="0" disabled hidden>Dirección del alquiler</option>
                                                 </Form.Select>
                                                 {errors.predeterminada && (<div className="alert alert-danger">{errors.predeterminada}</div>)}
                                             </FloatingLabel>
