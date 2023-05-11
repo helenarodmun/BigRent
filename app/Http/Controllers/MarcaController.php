@@ -27,7 +27,7 @@ class MarcaController extends Controller
         $marca = Marca::create($request->all());
         $marca->save();
 
-        $marcas = Marca::orderBy('denominacion', 'asc')->get();
+        $marcas = Marca::orderBy('denominacion', 'asc')->paginate(10);
         Session::flash('success', 'Se ha creado la familia de forma correcta');
 
         return Inertia::render('Marcas/Listado', [
@@ -54,7 +54,7 @@ class MarcaController extends Controller
         $marca->denominacion = strtoupper($validatedData['denominacion']);
         $marca->save();
 
-        $marcas = Marca::orderBy('id', 'asc')->get();
+        $marcas = Marca::orderBy('id', 'asc')->paginate(10);
         Session::flash('update', 'Se ha actualizado la familia de forma correcta');
 
         return Inertia::render('Marcas/Listado', [
@@ -68,7 +68,7 @@ class MarcaController extends Controller
         $marca = Marca::findOrFail($id);
         $marca->delete();
         
-        $marcas = Marca::orderBy('id', 'asc')->get();
+        $marcas = Marca::orderBy('id', 'asc')->paginate(10);
         Session::flash('success', 'Se ha eliminado la família de froma correcta');
         
         return Inertia::render('Marcas/Listado', ['marcas' => $marcas]);

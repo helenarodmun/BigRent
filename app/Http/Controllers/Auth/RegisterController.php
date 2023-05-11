@@ -48,12 +48,6 @@ class RegisterController extends Controller
     }
 
 
-    public function registroNuevo(Request $request)
-    {
-        $data = $request->all();
-        $this->validator($data);
-        $this->create($data);
-    }
     /**
      * Get a validator for an incoming registration request.
      *

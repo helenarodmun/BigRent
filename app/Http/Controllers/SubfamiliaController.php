@@ -33,7 +33,7 @@ class SubfamiliaController extends Controller
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
             ->orderBY('descripcion', 'asc')
-            ->get();
+            ->paginate(10);
         Session::flash('edicion', 'Se ha creado la subfamilia de forma correcta');
 
         return Inertia::render('Subfamilias/Listado', [
@@ -98,7 +98,7 @@ class SubfamiliaController extends Controller
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
             ->orderBY('descripcion', 'asc')
-            ->get();
+            ->paginate(10);
         Session::flash('creacion', 'Se ha actualizado la subfamilia de forma correcta');
         
         return Inertia::render('Subfamilias/Listado', [
@@ -115,7 +115,7 @@ class SubfamiliaController extends Controller
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
             ->orderBY('descripcion', 'asc')
-            ->get();
+            ->paginate(10);
         Session::flash('borrado', 'Se ha eliminado la subfamilia de forma correcta');
 
         return Inertia::render('Subfamilias/Listado', ['subfamilias' => $subfamilias]);
