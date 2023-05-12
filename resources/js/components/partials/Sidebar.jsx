@@ -5,6 +5,21 @@ export default function (){
     const [expanded, setExpanded] = useState(false);
     
     const items = [
+      {
+        label: "Contratos",
+        link: "#",
+        icon: "bi bi-card-checklist m-2",
+        subItems: [
+            {
+                label: "Nuevo",
+                link: "/clientes",
+            },
+            {
+              label: "Listado",
+              link: "/listarContratos",
+          },
+        ],
+    },
         {
             label: "Clientes",
             link: "#",
@@ -47,17 +62,7 @@ export default function (){
                 },
             ],
         },
-        {
-            label: "Contratos",
-            link: "#",
-            icon: "bi bi-card-checklist m-2",
-            subItems: [
-                {
-                    label: "Nuevo",
-                    link: "/clientes",
-                },
-            ],
-        },
+       
     ];
     const handleToggle = () => {
         setExpanded(!expanded);

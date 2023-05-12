@@ -20,6 +20,31 @@ use Illuminate\Http\Request;
 class ContratoController extends Controller
 {
 
+    public function index(Cliente $id= null)
+    {
+        if($id) {
+            $cliente = Cliente::findOrFail($id);
+
+        $contratos = Contrato::where('cliente_id', $id)
+            ->orderBy('activo', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->with('serie')
+            ->paginate(10);
+        }else{
+            $contratos = Contrato::orderBy('activo', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->with('serie')
+            ->paginate(10);
+
+            $cliente = '';
+        }
+       
+        return Inertia::render('Contratos/Listado', [
+            'contratos' => $contratos,
+            'cliente' => $cliente
+        ]);
+    }
+
     public function confirmarContrato(ContratoForm $request)
     {
         $data = $request->validated();
