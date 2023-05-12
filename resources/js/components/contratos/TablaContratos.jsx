@@ -1,18 +1,28 @@
 import { Link, usePage } from "@inertiajs/react";
-import { Col, Table, Row, Container, Button } from "react-bootstrap";
+import { useState } from "react";
+import { Col, Table, Row, Container, Button, Form, InputGroup } from "react-bootstrap";
 import TipInfo from "../partials/TipInfo";
 export default function TablaContratos() {
     const { contratos, cliente, flash } = usePage().props;
+    console.log(contratos)
+        // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+        const [query, setQuery] = useState('');
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
-    function handlePageChange(pageNumber) {
-        if (pageNumber !== activePage) {
-            setActivePage(pageNumber);
-            const url = contratos.path + '?page=' + pageNumber;
-            window.history.pushState({}, '', url);
-        }
-    }
+ // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+ const handleSearch = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+  };
+    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+    const resultadosBusqueda = contratos.data.filter(
+        (contrato) =>           
+            contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase()) ||
+            contrato.created_at.toLowerCase().includes(query.toLowerCase())
+    );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : contratos.data;
+    const links = query.length >= 3 ? [] : contratos.links;
     return (
         <>
             <div align="center">
@@ -25,7 +35,14 @@ export default function TablaContratos() {
                 </Col>
             </div>
             <Container>
-                <Button variant="btn btn-primary btn-lg m-3 bi bi-arrow-90deg-left" href={"/verCliente/" + cliente.id}>  Volver al cliente</Button>
+            <Row className="justify-content-end mt-5">
+                    <Col xs="auto">
+                <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
+                    <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
+                    <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                </InputGroup>
+            </Col>
+            </Row>
                 <Row className="mt-2">
                     <Col className="shadow rounded">
                         <h1 className="m-3">Contratos  {cliente.nombre_fiscal}</h1>
@@ -42,7 +59,7 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {contratos.data.map((contrato) => (
+                            {mostrarResultados.map((contrato) => (
                                 <tbody key={contrato.id} className="">
                                     <tr>
                                         <td>{contrato.id}</td>
@@ -73,16 +90,35 @@ export default function TablaContratos() {
                                     </tr>
                                 </tbody>))}
                         </Table>
-                        {contratos.links.map((link, index) => (
-                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                            </Button>
-                        ))}
+                        <Row className="justify-content-center">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
                     </Col>
                     <TipInfo content="Añadir nuevo contrato" direction="right">
                         <Link method="get" href={"/nuevoContrato/" + cliente.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
                     </TipInfo>
                 </Row>
+                <div className="d-grid gap-2">
+                <Button  variant="btn bi bi-arrow-90deg-left btn-outline-primary btn-lg m-5" method='get'  href={"/verCliente/" + cliente.id}><strong> Ficha cliente</strong></Button>
+            </div>
             </Container>
         </>
     );
