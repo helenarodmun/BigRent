@@ -7,6 +7,7 @@ export default function TablaContratos() {
     console.log(contratos)
         // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
         const [query, setQuery] = useState('');
+        const [activoFilter, setActivoFilter] = useState(2);
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
@@ -15,14 +16,24 @@ export default function TablaContratos() {
     const value = event.target.value;
     setQuery(value);
   };
-    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-    const resultadosBusqueda = contratos.data.filter(
-        (contrato) =>           
-            contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase()) ||
-            contrato.created_at.toLowerCase().includes(query.toLowerCase())
+  const handleActivoFilter = (value) => {
+    setActivoFilter(value);
+};
+let resultadosFiltrados = contratos.data;
+if (query.length >= 3) {
+    resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
+      
+        contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase())
     );
-    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : contratos.data;
-    const links = query.length >= 3 ? [] : contratos.links;
+}
+
+if (activoFilter !== 2) {
+    resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
+        contrato.activo === activoFilter
+    );
+}
+
+const links = contratos.links;
     return (
         <>
             <div align="center">
@@ -42,6 +53,13 @@ export default function TablaContratos() {
                     <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                 </InputGroup>
             </Col>
+            <Col xs="auto">
+                        <Form.Select onChange={(e) => handleActivoFilter(parseInt(e.target.value))}>
+                            <option value={2}>Todos</option>
+                            <option value={1}>Activos</option>
+                            <option value={0}>No activos</option>
+                        </Form.Select>
+                    </Col>
             </Row>
                 <Row className="mt-2">
                     <Col className="shadow rounded">
@@ -59,7 +77,7 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {mostrarResultados.map((contrato) => (
+                            {resultadosFiltrados.map((contrato) => (
                                 <tbody key={contrato.id} className="">
                                     <tr>
                                         <td>{contrato.id}</td>
@@ -97,11 +115,11 @@ export default function TablaContratos() {
               {links.map((link, index) => (
                 <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
                   {link.label === '&laquo; Anterior' ? (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                    <Button variant="link" disabled={!link.url} href={link.url}>
                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
                     </Button>
                   ) : (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                    <Button variant="link" disabled={!link.url} href={link.url}>
                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
                     </Button>
                   )}

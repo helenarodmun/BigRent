@@ -16,8 +16,8 @@ export default function TablaTelefonos() {
                     <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>
-                                <th>Vía de comunicación</th>
                                 <th>Contacto</th>
+                                <th>Vía de comunicación</th>
                                 <th>Persona de contacto</th>
                             </tr>
                         </thead>

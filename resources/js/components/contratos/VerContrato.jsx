@@ -125,10 +125,9 @@ export default function VerContrato() {
                         </Card.Body>
                         <Card.Footer>
                             {contrato.activo == 1 ? (
-                                <Button variant="btn btn-danger btn-lg m-5" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>
-                                
+                                <Button variant="btn btn-danger btn-lg m-3" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>                                
                             ) : ('')}
-                            <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
+                            <Button variant="btn btn-secondary btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

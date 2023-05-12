@@ -12,7 +12,7 @@ export default function TablaAutorizados() {
                     <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>
-                                <th>Nombre</th>
+                                <th>Autorizado</th>
                                 <th>DNI</th>
                                 <th>Observaciones</th>
                                 <th>Archivo </th>
