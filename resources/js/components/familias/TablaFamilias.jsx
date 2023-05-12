@@ -5,10 +5,10 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaFamilias() {
-    const { familias, flash, auth, resultado } = usePage().props;
+    const { familias, flash, auth } = usePage().props;
     const { delete: destroy } = useForm();
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || "");
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const [query, setQuery] = useState('');
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -19,13 +19,16 @@ export default function TablaFamilias() {
     };
      // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
      const handleSearch = (event) => {
-        setQuery(event.target.value);
-    };
+        const value = event.target.value;
+        setQuery(value);
+      };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = familias.data.filter(
         (familia) =>
         familia.nombre.toLowerCase().includes(query.toLowerCase()) 
     );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : familias.data;
+    const links = query.length >= 3 ? [] : familias.links;
     return (
         <Container>
              <Row className="justify-content-end mt-5">
@@ -46,7 +49,7 @@ export default function TablaFamilias() {
                             {/* <th></th> */}
                         </tr>
                     </thead>
-                    {resultadosBusqueda.map((familia) => (
+                    {mostrarResultados.map((familia) => (
                         <tbody key={familia.id}>
                             <tr>
                                 <td>{familia.id}</td>
@@ -87,11 +90,29 @@ export default function TablaFamilias() {
                         </tbody>
                     ))}
                 </Table>
-                {familias.links.map((link, index) => (
-                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                <Row className="justify-content-center mt-4">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    
                     </Button>
-                ))}
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                   
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
             </Col>
             <TipInfo content='Añadir nueva familia' direction='right' >
                 <Link method="get" href="/nuevaFamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

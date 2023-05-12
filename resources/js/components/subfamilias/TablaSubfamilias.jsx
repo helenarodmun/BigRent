@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaSubFamilias() {
-    const { subfamilias, resultado, flash, auth } = usePage().props;
+    const { subfamilias, flash, auth } = usePage().props;
     const { delete: destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -16,18 +16,21 @@ export default function TablaSubFamilias() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
 
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || "");
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const [query, setQuery] = useState('');
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
     const handleSearch = (event) => {
-        setQuery(event.target.value);
-    };
+        const value = event.target.value;
+        setQuery(value);
+      };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = subfamilias.data.filter(
         (subfamilia) =>
             subfamilia.familia.nombre.toLowerCase().includes(query.toLowerCase()) ||
             subfamilia.descripcion.toLowerCase().includes(query.toLowerCase())
     );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : subfamilias.data;
+    const links = query.length >= 3 ? [] : subfamilias.links;
     return (
         <Container>
             <Row className="justify-content-end mt-5">
@@ -51,7 +54,7 @@ export default function TablaSubFamilias() {
                             {/* <th></th> */}
                         </tr>
                     </thead>
-                    {resultadosBusqueda.map((subfamilia) => (
+                    {mostrarResultados.map((subfamilia) => (
                         <tbody key={subfamilia.id}>
                             <tr>
                                 <td>{subfamilia.familia.nombre}</td>
@@ -96,11 +99,27 @@ export default function TablaSubFamilias() {
                         </tbody>
                     ))}
                 </Table>
-                {subfamilias.links.map((link, index) => (
-                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                <Row className="justify-content-center mt-4">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
                         {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
                     </Button>
-                ))}
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
             </Col>
             <TipInfo content='Añadir nueva subfamilia' direction='right'>
                 <Link method="get" href="/nuevaSubfamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

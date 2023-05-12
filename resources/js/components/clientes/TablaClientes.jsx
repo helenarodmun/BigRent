@@ -3,18 +3,23 @@ import { usePage } from '@inertiajs/react';
 import { Button, Col, Container, Row, Table, InputGroup, Form } from "react-bootstrap";
 
 const TablaClientes = () => {
-    // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes y resultado respectivamente
-    const { clientes, resultado, flash } = usePage().props;
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || '');
+    // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes
+    const { clientes, flash } = usePage().props;
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const [query, setQuery] = useState('');
     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-    const handleSearch = (event) => { setQuery(event.target.value); }
+    const handleSearch = (event) => {
+        const value = event.target.value;
+        setQuery(value);
+      };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = clientes.data.filter((cliente) =>
         cliente.nombre_fiscal.toLowerCase().includes(query.toLowerCase())
         || cliente.nif.toLowerCase().includes(query.toLowerCase())
         || cliente.administrador.toLowerCase().includes(query.toLowerCase())
     );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : clientes.data;
+    const links = query.length >= 3 ? [] : clientes.links;
     return (
         <Container >
             <div align="center">
@@ -51,7 +56,7 @@ const TablaClientes = () => {
                                 <th></th>
                             </tr>
                         </thead>
-                        {resultadosBusqueda.map((cliente) => (
+                        {mostrarResultados.map((cliente) => (
                             <tbody key={cliente.id}>
                                 <tr>
                                     <td>{cliente.nombre_fiscal}</td>
@@ -64,13 +69,30 @@ const TablaClientes = () => {
                             </tbody>
                         ))}
                     </Table>
-                    {clientes.links.map((link, index) => (
-                        <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                            {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                        </Button>
-                    ))}
+                    <Row className="justify-content-center mt-4">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
                 </Col>
             </Row>
+  
             <div className="d-grid gap-2">
                 <Button variant="btn btn-outline-primary btn-lg m-5" method='get' href="/nuevoCliente"><strong>Nuevo cliente</strong></Button>
             </div>

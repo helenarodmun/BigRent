@@ -147,26 +147,7 @@ class ClienteController extends Controller
         ]);
     }
 
-
-    public function search(Request $request)
-    {
-        $query = $request->get('consulta');
-        if (strlen($query) < 3) {
-            $this->index();
-        } else {
-
-            $clientes = Cliente::where('nombre_fiscal', 'like', '%' . $query . '%')
-                ->orWhere('nif', 'like', '%' . $query . '%')
-                ->paginate(10);
-
-            return Inertia::render('Clientes/Listado', [
-                'clientes' => $clientes,
-                'resultado' => $query
-            ]);
-        }
-    }
-
-
+    
     public function update(Request $request, $id)
     {
         // Valida los datos del formulario utilizando las reglas definidas.

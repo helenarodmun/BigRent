@@ -5,10 +5,10 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaMaquinas() {
-    const { maquinas, resultado, flash, auth } = usePage().props;
+    const { maquinas,  flash, auth } = usePage().props;
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const [query, setQuery] = useState('');
     const { delete: destroy } = useForm();
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || "");
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -17,10 +17,11 @@ export default function TablaMaquinas() {
         setShowConfirmDeleteModal(true);
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
-    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-    const handleSearch = (event) => {
-        setQuery(event.target.value);
-    };
+   // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+   const handleSearch = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+  };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = maquinas.data.filter(
         (maquina) =>
@@ -28,6 +29,8 @@ export default function TablaMaquinas() {
             maquina.referencia.toLowerCase().includes(query.toLowerCase()) ||
             maquina.descripcion.toLowerCase().includes(query.toLowerCase())
     );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : maquinas.data;
+    const links = query.length >= 3 ? [] : maquinas.links;
     return (
         <Container>
             <Row className="justify-content-end mt-5">
@@ -51,7 +54,7 @@ export default function TablaMaquinas() {
                             <th></th>
                         </tr>
                     </thead>
-                    {resultadosBusqueda.map((maquina) => (
+                    {mostrarResultados.map((maquina) => (
                         <tbody key={maquina.id}>
                             <tr>
                                 <td>{maquina.descripcion}</td>
@@ -98,11 +101,27 @@ export default function TablaMaquinas() {
                         </tbody>
                     ))}
                 </Table>
-                {maquinas.links.map((link, index) => (
-                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                <Row className="justify-content-center mt-4">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
                     </Button>
-                ))}
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
             </Col>
             <TipInfo content='Añadir nueva máquina' direction='left'>
                 <Link method="get" href="/nuevaMaquina" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

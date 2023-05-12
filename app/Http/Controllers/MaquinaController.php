@@ -154,34 +154,6 @@ class MaquinaController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
-        // Se define una función que recibe una solicitud HTTP a través del objeto $request
-        // y devuelve una lista de maquinas y una consulta de búsqueda
-        // Si la consulta tiene menos de tres caracteres, no se devolverán resultados
-        // Se obtiene la consulta de búsqueda del parámetro 'consulta' en la solicitud
-        $query = $request->input('consulta');
-        // Si la longitud de la consulta es menor que tres, se devuelve una página vacía
-        if (strlen($query) < 3) {
-            $this->index();
-        } else {
-            // Se obtienen todas las mauinas que contienen la consulta de búsqueda por dscripcion, subfamilia o referencia
-            $maquinas = Maquina::with('subfamilia')
-                ->whereHas('subfamilia', function ($queryBuilder) use ($query) {
-                    $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
-                })
-                ->orWhere('referencia', 'like', '%' . $query . '%')
-                ->orWhere('descripcion', 'like', '%' . $query . '%')
-                ->paginate(10);
-            // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
-            return Inertia::render('Maquinaria/Listado', [
-                'maquinas' => $maquinas,
-                'resultado' => $query
-            ]);
-        }
-    }
-
-
     public function destroy($id)
     {
         $maquina = Maquina::findOrFail($id);

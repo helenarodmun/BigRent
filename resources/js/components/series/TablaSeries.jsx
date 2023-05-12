@@ -5,14 +5,15 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
-    const { series, resultado, auth } = usePage().props;
+    const { series,  auth } = usePage().props;
     const { delete: destroy } = useForm();
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
-    const [query, setQuery] = useState(resultado || "");
-    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-    const handleSearch = (event) => {
-        setQuery(event.target.value);
-    };
+   // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+   const [query, setQuery] = useState('');
+   // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+   const handleSearch = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+  };
     // variable resultadosBusqueda que filtra las series según su número de serie, o descripcioón del artículoy los almacena en un array
     const resultadosBusqueda = series.data.filter(
         (serie) =>
@@ -21,6 +22,8 @@ const TablaSeries = () => {
                 .includes(query.toLowerCase()) ||
             serie.numero_serie.toLowerCase().includes(query.toLowerCase())
     );
+    const mostrarResultados = query.length >= 3 ? resultadosBusqueda : series.data;
+    const links = query.length >= 3 ? [] : series.links;
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -52,7 +55,7 @@ const TablaSeries = () => {
                                 <th>Disponible</th>
                             </tr>
                         </thead>
-                        {resultadosBusqueda.map((serie) => (
+                        {mostrarResultados.map((serie) => (
                             <tbody key={serie.id}>
                                 <tr>
                                     <td>{serie.maquina.descripcion}</td>
@@ -120,11 +123,27 @@ const TablaSeries = () => {
                             </tbody>
                         ))}
                     </Table>
-                    {series.links.map((link, index) => (
-                        <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                            {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                        </Button>
-                    ))}
+                    <Row className="justify-content-center mt-4">
+        <Col sm={12} md={6} className="text-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              {links.map((link, index) => (
+                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                  {link.label === '&laquo; Anterior' ? (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  ) : (
+                    <Button variant="link" disabled={link.url === null} href={link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </Col>
+      </Row>
                 </Col>
             </Row>
             <TipInfo content="Añadir nueva serie" direction="right">
