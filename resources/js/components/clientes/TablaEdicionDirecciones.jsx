@@ -16,8 +16,8 @@ export default function TablaEdicionDirecciones() {
     };
     return (
         <Row>
-            <Col className="shadow">
-                <Table striped bordered hover className="shadow" size="sm" responsive>
+            <Col className="shadow  rounded">
+                <Table striped bordered hover className="shadow  rounded" size="sm" responsive>
                     <thead>
                         <tr>
                             <th>Dirección</th>

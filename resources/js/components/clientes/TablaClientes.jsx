@@ -16,7 +16,7 @@ const TablaClientes = () => {
         || cliente.administrador.toLowerCase().includes(query.toLowerCase())
     );
     return (
-        <Container>
+        <Container >
              <div align="center">
                 <Col sm={10}>
                     {flash.success  && (
@@ -39,8 +39,8 @@ const TablaClientes = () => {
             </div>
             <p className="h3 m-3">Listado clientes</p>
             <Row>
-                <Col sm={12} className="mt-3 pt-3 shadow ">
-                    <Table striped bordered hover className="shadow" size="sm" responsive>
+                <Col sm={12} className="mt-3 pt-3 shadow rounded">
+                    <Table striped bordered hover className="shadow " size="sm" responsive>
                         <thead>
                             <tr>
                                 <th>Nombre fiscal</th>

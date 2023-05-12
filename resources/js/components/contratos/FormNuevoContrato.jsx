@@ -32,7 +32,7 @@ export default function FormNuevoContrato() {
         <Container className="mt-5">
             <Row>
                 <Col>
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
                                 <p className="h3 m-1 mb-0">Nuevo contrato <small className="ms-2"></small>{cliente.nombre_fiscal}</p>

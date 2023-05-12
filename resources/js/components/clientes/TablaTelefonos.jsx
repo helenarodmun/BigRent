@@ -12,7 +12,7 @@ export default function TablaTelefonos() {
     return (
         <div>
             <div>
-                <Col className="mt-3 pt-3 shadow p-3 ">
+                <Col className="mt-3 pt-3 shadow p-3 rounded">
                     <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>

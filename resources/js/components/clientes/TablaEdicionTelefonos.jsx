@@ -16,12 +16,12 @@ export default function TablaEdicionTelefonos() {
     };
     return (
         <Row>
-            <Col className="shadow">
-                <Table striped bordered hover className="shadow" size="sm" responsive>
+            <Col className="shadow  rounded">
+                <Table striped bordered hover className="shadow  rounded" size="sm" responsive>
                     <thead>
-                        <tr>
-                            <th>Vía de comunicación</th>
+                        <tr>                            
                             <th>Contacto</th>
+                            <th>Vía de comunicación</th>
                             <th>Persona de contacto</th>
                             <th></th>
                         </tr>
@@ -29,12 +29,13 @@ export default function TablaEdicionTelefonos() {
                     {telefonos.map((telefonos) => (
                         <tbody key={telefonos.id}>
                             <tr>
+                                
+                            <td>{telefonos.contacto}</td>
                                 {telefonos.via_comunicacion == "T" ? (
                                     <td>Teléfono</td>
                                 ) : (
                                     <td>Email</td>
                                 )}
-                                <td>{telefonos.contacto}</td>
                                 {telefonos.tipo == "T" ? (
                                     <td>Titular</td>
                                 ) : (

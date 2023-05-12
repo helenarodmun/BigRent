@@ -7,7 +7,7 @@ export default function FichaMaquina() {
             <Button variant="btn btn-primary btn-lg m-3 bi bi-arrow-90deg-left" href="/maquinas">  Volver al listado</Button>
             <Row>
                 <Col>
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
                                 <p className="h-3 m-0"><strong className="ms-2">{maquina.descripcion}</strong></p>

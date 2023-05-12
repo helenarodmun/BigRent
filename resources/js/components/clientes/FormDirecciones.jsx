@@ -35,7 +35,7 @@ export default function FormDirecciones({ children }) {
             <div className="align-items-center justify-content-center accesibilidad-texto">
                 <Row>
                     <Col>
-                        <Card className="shadow">
+                        <Card className="shadow rounded">
                             <Card.Header>
                                 <p className="h1">Direcciones</p>
                             </Card.Header>

@@ -36,7 +36,7 @@ export default function FormRegistro() {
       <Container>
         <Row className="justify-content-center">
           <div className="col-md-8 pb-4">
-            <Card>
+            <Card className='rounded'>
               <Card.Header className='bg-warning bg-opacity-50'><strong>Registro de usuarios</strong></Card.Header>
               <Card.Body>
                 <Form method="POST" onSubmit={handleSubmit}>

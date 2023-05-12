@@ -69,7 +69,7 @@ export default function FormActualizaCliente() {
         <Row>
             <Col xs="12" sm="12" md="12">
                 <p className="h1 mt-3">Modificación Cliente</p>
-                <Card className="shadow">
+                <Card className="shadow rounded">
                     <Card.Header className="bg-warning bg-opacity-50">
                         <Card.Title>
                             <p className="h2"> Cliente {clientes.id}</p>

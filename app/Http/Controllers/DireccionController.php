@@ -19,7 +19,19 @@ class DireccionController extends Controller
 
         $cliente = Cliente::findOrFail($id);
 
-        $direccion = $cliente->direcciones()->create($request->all());
+        $direccion = new Direccion;
+
+        $direccion->direccion = $request['direccion'];
+        $direccion->cp = $request['cp'];
+        $direccion->localidad = $request['localidad'];
+        $direccion->municipio = $request['municipio'];
+        $direccion->provincia = $request['provincia']; 
+        $direccion->cliente_id = $cliente->id;       
+        $direccion->predeterminada = $request['predeterminada'];
+      
+        // Guarda el direccion actualizado en la base de datos.
+        $direccion->save();
+ 
 
         // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
         $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
@@ -76,11 +88,9 @@ class DireccionController extends Controller
         $direccion->cp = $validatedData['cp'];
         $direccion->localidad = $validatedData['localidad'];
         $direccion->municipio = $validatedData['municipio'];
-        $direccion->provincia = $validatedData['provincia'];
+        $direccion->provincia = $validatedData['provincia'];        
         $direccion->predeterminada = $validatedData['predeterminada'];
-        // Guarda el direccion actualizado en la base de datos.
         $direccion->save();
-
         // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
         $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
         //recupera los datos del cliente

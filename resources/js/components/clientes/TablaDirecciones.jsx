@@ -25,7 +25,7 @@ export default function TablaDirecciones({ children }) {
                 </Col>
             </div>
             <div>
-                <Col className="pt-3 shadow p-3 ">
+                <Col className="pt-3 shadow p-3 rounded">
                     <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>

@@ -43,7 +43,7 @@ export default function FormNuevaFamilia({ children }) {
                     </Col>
                 </div>
                 <Col className="">
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header>
                             <Card.Title>
                                 <p className="h3 mt-3 ms-3 mb-0">Editar familia</p>

@@ -17,7 +17,7 @@ export default function TablaFamilias() {
     };
     return (
         <Container>
-            <Col className="shadow">
+            <Col className="shadow rounded">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
                         <tr>

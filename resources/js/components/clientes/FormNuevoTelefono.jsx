@@ -35,7 +35,7 @@ export default function FormNuevoTelefono({ children }) {
                     </Col>
                 </div>
                 <Col className="">
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header>
                             <Card.Title>
                                 <p className="h2">Cliente {cliente.nombre_fiscal}</p>

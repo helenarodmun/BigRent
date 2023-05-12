@@ -31,7 +31,7 @@ export default function FormActualizaDireccion({ children }) {
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
                 <Col className="">
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header>
                             <Card.Title>
                                 <p className="h2">Cliente {cliente.nombre_fiscal}</p>

@@ -37,7 +37,7 @@ export default function TablaMaquinas() {
                 </form>
             </div>
             <p className="h3 m-3">Listado máquinas</p>
-            <Col className="shadow">
+            <Col className="shadow rounded">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
                         <tr>

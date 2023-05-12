@@ -27,7 +27,7 @@ export default function FormActualizaTelefono({ children }) {
         <>
             <div className="align-items-center justify-content-center accesibilidad-texto">
                 <Col className="">
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header>
                             <Card.Title>
                                 <p className="h2"> Cliente {clientes.nombre_fiscal}</p>

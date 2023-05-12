@@ -27,7 +27,7 @@ export default function TablaContratos() {
             <Container>
                 <Button variant="btn btn-primary btn-lg m-3 bi bi-arrow-90deg-left" href={"/verCliente/" + cliente.id}>  Volver al cliente</Button>
                 <Row className="mt-2">
-                    <Col className="shadow">
+                    <Col className="shadow rounded">
                         <h1 className="m-3">Contratos  {cliente.nombre_fiscal}</h1>
                         <Table striped bordered hover className="shadow" size="sm" responsive>
                             <thead>

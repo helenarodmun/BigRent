@@ -38,7 +38,7 @@ export default function FormNuevoAutorizado() {
                 <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo autorizado de {cliente.nombre_fiscal}</p>
                 <Row>
                     <Col className="">
-                        <Card className="shadow">
+                        <Card className="shadow rounded">
                             <Card.Body>
                                 <Form>
                                     <Row className="align-items-center">

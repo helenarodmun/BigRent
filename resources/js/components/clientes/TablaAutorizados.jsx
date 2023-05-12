@@ -7,8 +7,8 @@ export default function TablaAutorizados() {
     const { autorizados } = usePage().props;
     return (
         <>
-            <Col className="shadow">
-                <Col className="pt-3 shadow p-3 ">
+            <Col className="shadow rounded">
+                <Col className="pt-3 shadow p-3 rounded">
                     <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>

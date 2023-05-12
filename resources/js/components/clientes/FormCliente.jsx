@@ -57,7 +57,7 @@ export default function FormCliente() {
                 <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo cliente</p>
                 <Row>
                     <Col xs="12" sm="12" md="12">
-                        <Card className="shadow">
+                        <Card className="shadow rounded">
                             <Card.Body>
                                 <Form encType="multipart/form-data">
                                     <Row className="align-items-center">

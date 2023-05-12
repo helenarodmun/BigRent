@@ -32,7 +32,7 @@ export default function LogIn() {
       <Container className='mt-5'>
         <Row className="justify-content-center ">
           <div className="col-md-8 pb-4">
-            <Card className="shadow">
+            <Card className="shadow rounded">
               <Card.Header className="bg-warning bg-opacity-50"><strong>INICIO DE SESIÓN</strong></Card.Header>
               <Card.Body>
 

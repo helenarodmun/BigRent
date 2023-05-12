@@ -16,12 +16,11 @@ export default function TablaEdicionAutorizados() {
     };
     return (
         <Row>
-            <Col className="shadow">
-                <h1 className="m-3">Autorizados</h1>
+            <Col className="shadow  rounded">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                            <th>Autorizado</th>
                             <th>DNI</th>
                             <th>Observaciones</th>
                             <th>Archivo DNI</th>

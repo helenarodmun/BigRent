@@ -66,9 +66,8 @@ export default function CardCliente({ children }) {
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                             <Form.Control as="textarea" rows={5} value={data.anotaciones} disabled></Form.Control>
                                         </FloatingLabel>
-                                    </Col>
+                                    </Col><hr></hr>
                                     <Col>
-                                        <p className="h4 pb-2">Documentación</p>
                                         <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">Escrituras</a></Button>
                                         <Button variant='dark' className="ms-3  shadow"><a className="btn btn-dark" href={cliente.url_dni_administrador} target="_blank">DNI Administrador</a></Button>
                                         <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_cif} target="_blank">CIF</a></Button>

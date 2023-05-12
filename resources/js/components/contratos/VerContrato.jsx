@@ -25,7 +25,7 @@ export default function VerContrato() {
         <Container>
             <Row>
                 <Col>
-                    <Card className="shadow">
+                    <Card className="shadow rounded">
                         <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
                                 <p className="h3 m-1 mb-0">Datos y totales del contrato</p>
