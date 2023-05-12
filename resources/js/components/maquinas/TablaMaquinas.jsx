@@ -101,7 +101,7 @@ export default function TablaMaquinas() {
                         </tbody>
                     ))}
                 </Table>
-                <Row className="justify-content-center mt-4">
+                <Row className="justify-content-center">
         <Col sm={12} md={6} className="text-center">
           <nav>
             <ul className="pagination justify-content-center">
