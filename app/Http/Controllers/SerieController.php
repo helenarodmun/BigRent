@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SerieForm;
+use App\Models\Maquina;
 use App\Models\Serie;
 use App\Models\Tienda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
@@ -14,10 +16,20 @@ class SerieController extends Controller
 
     public function index()
     {
-        $series = Serie::with('maquina')
+        if(Auth::user()->rol == 1){
+            $series = Serie::with('maquina')
             ->orderBy('maquina_id', 'asc')
             ->orderBy('numero_serie', 'asc')
             ->paginate(10);
+        }else{
+            $tienda = Auth::user()->tienda_id;
+            $series = Serie::with('maquina')
+            ->where('tienda_id', $tienda)
+            ->orderBy('maquina_id', 'asc')
+            ->orderBy('numero_serie', 'asc')
+            ->paginate(10);
+        }
+       
 
         return Inertia::render('Series/Listado', [
             'series' => $series,
