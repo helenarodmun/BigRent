@@ -75,7 +75,7 @@ Route::post('/nuevaFamilia', [FamiliaController::class, 'create']);
 Route::get('/editarFamilia/{id}', [FamiliaController::class, 'verEdicionFamilia']);
 Route::put('/editarFamilia/{id}', [FamiliaController::class, 'update']);
 Route::delete('/eliminarFamilia/{id}', [FamiliaController::class, 'destroy']);
-
+Route::get('/familias/buscar', [FamiliaController::class, 'search']);
 ////////////////////////// RUTAS SUBFAMILIAS //////////////////////////////////////
 Route::get('/subfamilias', [SubfamiliaController::class, 'index']);
 
@@ -99,7 +99,7 @@ Route::post('/nuevaMarca', [MarcaController::class, 'create']);
 Route::get('/editarMarca/{id}', [MarcaController::class, 'verEdicionMarca']);
 Route::put('/editarMarca/{id}', [MarcaController::class, 'update']);
 Route::delete('/eliminarMarca/{id}', [MarcaController::class, 'destroy']);
-
+Route::get('/marcas/buscar', [MarcaController::class, 'search']);
 ////////////////////////// RUTAS MÁQUINAS //////////////////////////////////////
 Route::get('/maquinas', [MaquinaController::class, 'index']);
 Route::get('/nuevaMaquina', function () {

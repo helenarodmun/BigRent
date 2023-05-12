@@ -163,25 +163,22 @@ class MaquinaController extends Controller
         $query = $request->input('consulta');
         // Si la longitud de la consulta es menor que tres, se devuelve una página vacía
         if (strlen($query) < 3) {
+            $this->index();
+        } else {
+            // Se obtienen todas las mauinas que contienen la consulta de búsqueda por dscripcion, subfamilia o referencia
+            $maquinas = Maquina::with('subfamilia')
+                ->whereHas('subfamilia', function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
+                })
+                ->orWhere('referencia', 'like', '%' . $query . '%')
+                ->orWhere('descripcion', 'like', '%' . $query . '%')
+                ->paginate(10);
+            // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
             return Inertia::render('Maquinaria/Listado', [
-                'maquinas' => [],
-                'resultado' => null
+                'maquinas' => $maquinas,
+                'resultado' => $query
             ]);
         }
-        // Se obtienen todas las mauinas que contienen la consulta de búsqueda por dscripcion, subfamilia o referencia
-        $maquinas = Maquina::with('subfamilia')
-            ->whereHas('subfamilia', function ($queryBuilder) use ($query) {
-                $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
-            })
-            ->orWhere('referencia', 'like', '%' . $query . '%')
-            ->orWhere('descripcion', 'like', '%' . $query . '%')
-            ->paginate(10);
-
-        // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
-        return Inertia::render('Maquinaria/Listado', [
-            'maquinas' => $maquinas,
-            'resultado' => $query
-        ]);
     }
 
 

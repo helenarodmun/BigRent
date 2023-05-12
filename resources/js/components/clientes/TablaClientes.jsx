@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Row, Table, InputGroup, Form } from "react-bootstrap";
 
 const TablaClientes = () => {
     // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes y resultado respectivamente
@@ -17,30 +17,32 @@ const TablaClientes = () => {
     );
     return (
         <Container >
-             <div align="center">
+            <div align="center">
                 <Col sm={10}>
-                    {flash.success  && (
+                    {flash.success && (
                         <div className="alert alert-success" role={"alert"}>
                             <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {flash.success}
                         </div>)}
-                        {flash.error && (
+                    {flash.error && (
                         <div className="alert alert-danger" role={"alert"}>
                             <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {flash.error}
                         </div>)}
                 </Col>
             </div>
-            <div className="container mt-5">
-                <form action="/clientes/buscar" method="get" className="d-flex" role="search">
-                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
-                    <button className="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-            </div>
+            <Row className="justify-content-end mt-5">
+                    <Col xs="auto">
+            <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">
+                <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
+                <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
+            </InputGroup>
+            </Col>
+            </Row>
             <p className="h3 m-3">Listado clientes</p>
             <Row>
                 <Col sm={12} className="mt-3 pt-3 shadow rounded">
-                    <Table striped bordered hover className="shadow " size="sm" responsive>
+                    <Table striped bordered hover className="shadow" size="sm" responsive>
                         <thead>
                             <tr>
                                 <th>Nombre fiscal</th>
@@ -63,15 +65,15 @@ const TablaClientes = () => {
                         ))}
                     </Table>
                     {clientes.links.map((link, index) => (
-                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                            </Button>
-                        ))}
+                        <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                            {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                        </Button>
+                    ))}
                 </Col>
             </Row>
-            <Button className="m-5 align-items-center justify-content-center" variant="primary" href="/nuevoCliente">
-                Crear nuevo Cliente
-            </Button>
+            <div className="d-grid gap-2">
+                <Button variant="btn btn-outline-primary btn-lg m-5" method='get' href="/nuevoCliente"><strong>Nuevo cliente</strong></Button>
+            </div>
         </Container>
     );
 };

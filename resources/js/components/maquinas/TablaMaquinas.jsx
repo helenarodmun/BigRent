@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Button} from "react-bootstrap";
+import { Col, Container, Table, Button, Form, InputGroup, Row } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -17,25 +17,27 @@ export default function TablaMaquinas() {
         setShowConfirmDeleteModal(true);
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
-     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-     const handleSearch = (event) => {
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+    const handleSearch = (event) => {
         setQuery(event.target.value);
     };
-     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-     const resultadosBusqueda = maquinas.data.filter(
+    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+    const resultadosBusqueda = maquinas.data.filter(
         (maquina) =>
-        maquina.subfamilia.descripcion.toLowerCase().includes(query.toLowerCase()) ||
-                maquina.referencia.toLowerCase().includes(query.toLowerCase()) ||
-                maquina.descripcion. toLowerCase().includes(query.toLowerCase())
+            maquina.subfamilia.descripcion.toLowerCase().includes(query.toLowerCase()) ||
+            maquina.referencia.toLowerCase().includes(query.toLowerCase()) ||
+            maquina.descripcion.toLowerCase().includes(query.toLowerCase())
     );
     return (
         <Container>
-              <div className="container mt-5">
-                <form action="/series/buscar" method="get" className="d-flex" role="search">
-                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
-                    <button className="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-            </div>
+            <Row className="justify-content-end mt-5">
+                    <Col xs="auto">
+                <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
+                    <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
+                    <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                </InputGroup>
+            </Col>
+            </Row>
             <p className="h3 m-3">Listado máquinas</p>
             <Col className="shadow rounded">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
@@ -63,33 +65,33 @@ export default function TablaMaquinas() {
                                     </TipInfo>
                                     {auth.user.rol == true ? (
                                         <>
-                                    <TipInfo content='Modificar máquina' direction='left'>
-                                        <Link method="get" href={"/editarMaquina/" + maquina.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
-                                    </TipInfo>
-                                    <TipInfo content='Borrar máquina' direction='left'>
-                                        <button onClick={() => handleDeleteClick(maquina.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
-                                    </TipInfo>
-                                    <ModalConfirmacion show={showConfirmDeleteModal}
-                                        onHide={() => {
-                                            setIdToDelete(null);
-                                            setShowConfirmDeleteModal(false);
-                                        }}
-                                        onConfirm={(urlAccion, idRegistro) => {
-                                            destroy(
-                                                `${urlAccion}/${idRegistro}`,
-                                                {
-                                                    onSuccess: () => {
-                                                        console.log("registro eliminado");
-                                                    },
-                                                }
-                                            );
-                                        }}
-                                        title="¡ADVERTENCIA!"
-                                        message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                        urlAccion="/eliminarMaquina"
-                                        idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
-                                    />
-                                    </>
+                                            <TipInfo content='Modificar máquina' direction='left'>
+                                                <Link method="get" href={"/editarMaquina/" + maquina.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
+                                            </TipInfo>
+                                            <TipInfo content='Borrar máquina' direction='left'>
+                                                <button onClick={() => handleDeleteClick(maquina.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
+                                            </TipInfo>
+                                            <ModalConfirmacion show={showConfirmDeleteModal}
+                                                onHide={() => {
+                                                    setIdToDelete(null);
+                                                    setShowConfirmDeleteModal(false);
+                                                }}
+                                                onConfirm={(urlAccion, idRegistro) => {
+                                                    destroy(
+                                                        `${urlAccion}/${idRegistro}`,
+                                                        {
+                                                            onSuccess: () => {
+                                                                console.log("registro eliminado");
+                                                            },
+                                                        }
+                                                    );
+                                                }}
+                                                title="¡ADVERTENCIA!"
+                                                message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                                urlAccion="/eliminarMaquina"
+                                                idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
+                                            />
+                                        </>
                                     ) : null}
                                 </td>
                             </tr>
@@ -97,10 +99,10 @@ export default function TablaMaquinas() {
                     ))}
                 </Table>
                 {maquinas.links.map((link, index) => (
-                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                            </Button>
-                        ))}
+                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                ))}
             </Col>
             <TipInfo content='Añadir nueva máquina' direction='left'>
                 <Link method="get" href="/nuevaMaquina" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

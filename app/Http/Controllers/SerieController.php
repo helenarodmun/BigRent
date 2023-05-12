@@ -95,25 +95,23 @@ class SerieController extends Controller
         $query = $request->input('consulta');
         // Si la longitud de la consulta es menor que tres, se devuelve una página vacía
         if (strlen($query) < 3) {
+            $this->index();
+        } else {
+            // Se obtienen todas las series que contienen la consulta de búsqueda en su número de serie,
+            // o cuya máquina asociada tiene una descripción que contiene la consulta de búsqueda
+            $series = Serie::with('maquina')
+                ->whereHas('maquina', function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
+                })
+                ->orWhere('numero_serie', 'like', '%' . $query . '%')
+                ->paginate(10);
+
+            // Se devuelve una página que muestra la lista de series y la consulta de búsqueda
             return Inertia::render('Series/Listado', [
-                'series' => [],
-                'resultado' => null
+                'series' => $series,
+                'resultado' => $query
             ]);
         }
-        // Se obtienen todas las series que contienen la consulta de búsqueda en su número de serie,
-        // o cuya máquina asociada tiene una descripción que contiene la consulta de búsqueda
-        $series = Serie::with('maquina')
-            ->whereHas('maquina', function ($queryBuilder) use ($query) {
-                $queryBuilder->where('descripcion', 'like', '%' . $query . '%');
-            })
-            ->orWhere('numero_serie', 'like', '%' . $query . '%')
-            ->paginate(10);
-
-        // Se devuelve una página que muestra la lista de series y la consulta de búsqueda
-        return Inertia::render('Series/Listado', [
-            'series' => $series,
-            'resultado' => $query
-        ]);
     }
 
 

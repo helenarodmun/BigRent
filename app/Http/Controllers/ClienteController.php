@@ -151,14 +151,19 @@ class ClienteController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('consulta');
-        $clientes = Cliente::where('nombre_fiscal', 'like', '%' . $query . '%')
-            ->orWhere('nif', 'like', '%' . $query . '%')
-            ->get();
+        if (strlen($query) < 3) {
+            $this->index();
+        } else {
 
-        return Inertia::render('Clientes/Listado', [
-            'clientes' => $clientes,
-            'resultado' => $query
-        ]);
+            $clientes = Cliente::where('nombre_fiscal', 'like', '%' . $query . '%')
+                ->orWhere('nif', 'like', '%' . $query . '%')
+                ->paginate(10);
+
+            return Inertia::render('Clientes/Listado', [
+                'clientes' => $clientes,
+                'resultado' => $query
+            ]);
+        }
     }
 
 

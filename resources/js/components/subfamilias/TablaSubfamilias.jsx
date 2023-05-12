@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Button } from "react-bootstrap";
+import { Col, Container, Table, Button, Form, InputGroup, Row } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -18,24 +18,26 @@ export default function TablaSubFamilias() {
 
     // se crea el estado query utilizando la función useState y se establece su valor inicial como el valor de resultado, o una cadena vacía si no existe resultado
     const [query, setQuery] = useState(resultado || "");
-     // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-     const handleSearch = (event) => {
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+    const handleSearch = (event) => {
         setQuery(event.target.value);
     };
-     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
-     const resultadosBusqueda = subfamilias.data.filter(
+    // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
+    const resultadosBusqueda = subfamilias.data.filter(
         (subfamilia) =>
-        subfamilia.familia.nombre.toLowerCase().includes(query.toLowerCase()) ||               
-                subfamilia.descripcion. toLowerCase().includes(query.toLowerCase())
+            subfamilia.familia.nombre.toLowerCase().includes(query.toLowerCase()) ||
+            subfamilia.descripcion.toLowerCase().includes(query.toLowerCase())
     );
     return (
         <Container>
-              <div className="container mt-5">
-                <form action="/series/buscar" method="get" className="d-flex" role="search">
-                    <input name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar serie" />
-                    <button className="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-            </div>
+            <Row className="justify-content-end mt-5">
+                <Col xs="auto">
+                    <InputGroup action="/subfamilias/buscar" method="get" className="d-flex shadow" role="search">
+                        <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
+                        <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                    </InputGroup>
+                </Col>
+            </Row>
             <p className="h3 m-3">Listado subfamilias</p>
             <Col className="shadow">
                 <Table striped bordered hover className="shadow" size="sm" responsive>
@@ -59,46 +61,46 @@ export default function TablaSubFamilias() {
                                 <td>{subfamilia.fianza}</td>
                                 {auth.user.rol == true ? (
                                     <>
-                                <td>
-                                    <TipInfo content='Modificar subfamilia' direction='left'>
-                                        <Link method="get" href={"/editarSubfamilia/" + subfamilia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
-                                    </TipInfo>
-                                    <TipInfo content='Borrar subfamilia' direction='left'>
-                                        <button onClick={() => handleDeleteClick(subfamilia.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
-                                    </TipInfo>
-                                    <ModalConfirmacion
-                                        show={showConfirmDeleteModal}
-                                        onHide={() => {
-                                            setIdToDelete(null);
-                                            setShowConfirmDeleteModal(false);
-                                        }}
-                                        onConfirm={(urlAccion, idRegistro) => {
-                                            destroy(
-                                                `${urlAccion}/${idRegistro}`,
-                                                {
-                                                    onSuccess: () => {
-                                                        console.log("registro eliminado");
-                                                    },
-                                                }
-                                            );
-                                        }}
-                                        title="¡ADVERTENCIA!"
-                                        message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
-                                        urlAccion="/eliminarSubfamilia"
-                                        idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
-                                    />
-                                </td>
-                                </>
+                                        <td>
+                                            <TipInfo content='Modificar subfamilia' direction='left'>
+                                                <Link method="get" href={"/editarSubfamilia/" + subfamilia.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
+                                            </TipInfo>
+                                            <TipInfo content='Borrar subfamilia' direction='left'>
+                                                <button onClick={() => handleDeleteClick(subfamilia.id)} as="button" className="h5 border-0 bi bi-trash3 text-danger m-1" />
+                                            </TipInfo>
+                                            <ModalConfirmacion
+                                                show={showConfirmDeleteModal}
+                                                onHide={() => {
+                                                    setIdToDelete(null);
+                                                    setShowConfirmDeleteModal(false);
+                                                }}
+                                                onConfirm={(urlAccion, idRegistro) => {
+                                                    destroy(
+                                                        `${urlAccion}/${idRegistro}`,
+                                                        {
+                                                            onSuccess: () => {
+                                                                console.log("registro eliminado");
+                                                            },
+                                                        }
+                                                    );
+                                                }}
+                                                title="¡ADVERTENCIA!"
+                                                message="Se va a proceder a eliminar los datos de forma definitiva. ¿Está seguro que desea continuar?"
+                                                urlAccion="/eliminarSubfamilia"
+                                                idRegistro={idToDelete} variant={'danger'} text={'Eliminar'}
+                                            />
+                                        </td>
+                                    </>
                                 ) : null}
                             </tr>
                         </tbody>
                     ))}
                 </Table>
                 {subfamilias.links.map((link, index) => (
-                            <Button key={index} variant="link" href={link.url} disabled={!link.url}>
-                                {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                            </Button>
-                        ))}
+                    <Button key={index} variant="link" href={link.url} disabled={!link.url}>
+                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                    </Button>
+                ))}
             </Col>
             <TipInfo content='Añadir nueva subfamilia' direction='right'>
                 <Link method="get" href="/nuevaSubfamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

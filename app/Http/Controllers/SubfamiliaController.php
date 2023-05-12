@@ -63,27 +63,25 @@ class SubfamiliaController extends Controller
         $query = $request->input('consulta');
         // Si la longitud de la consulta es menor que tres, se devuelve una página vacía
         if (strlen($query) < 3) {
-            return Inertia::render('Subfamilias/Listado', [
-                'subfamilias' => [],
-                'resultado' => null
+            $this->index();
+        } else {
+            // Se obtienen todas las mauinas que contienen la consulta de búsqueda por dscripcion, subfamilia o referencia
+            $subfamilias = Subfamilia::with('familia')
+                ->whereHas('familia', function ($queryBuilder) use ($query) {
+                    $queryBuilder->where('nombre', 'like', '%' . $query . '%');
+                })
+                ->orWhere('descripcion', 'like', '%' . $query . '%')
+                ->paginate(10);
+
+            // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
+            return Inertia::render('Maquinaria/Listado', [
+                'subfamilias' => $subfamilias,
+                'resultado' => $query
             ]);
         }
-        // Se obtienen todas las mauinas que contienen la consulta de búsqueda por dscripcion, subfamilia o referencia
-        $subfamilias = Subfamilia::with('familia')
-            ->whereHas('familia', function ($queryBuilder) use ($query) {
-                $queryBuilder->where('nombre', 'like', '%' . $query . '%');
-            })
-            ->orWhere('descripcion', 'like', '%' . $query . '%')
-            ->paginate(10);
-
-        // Se devuelve una página que muestra la lista de maquinas y la consulta de búsqueda
-        return Inertia::render('Maquinaria/Listado', [
-            'subfamilias' => $subfamilias,
-            'resultado' => $query
-        ]);
     }
 
-    
+
     public function update(SubfamiliaForm $request, $id)
     {
         $validatedData = $request->validated();
@@ -100,7 +98,7 @@ class SubfamiliaController extends Controller
             ->orderBY('descripcion', 'asc')
             ->paginate(10);
         Session::flash('creacion', 'Se ha actualizado la subfamilia de forma correcta');
-        
+
         return Inertia::render('Subfamilias/Listado', [
             'subfamilias' => $subfamilias,
         ]);
@@ -111,7 +109,7 @@ class SubfamiliaController extends Controller
     {
         $subfamilia = Subfamilia::findOrFail($id);
         $subfamilia->delete();
-        
+
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
             ->orderBY('descripcion', 'asc')
