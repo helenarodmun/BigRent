@@ -20,28 +20,15 @@ use Illuminate\Http\Request;
 class ContratoController extends Controller
 {
 
-    public function index(Cliente $id= null)
+    public function index()
     {
-        if($id) {
-            $cliente = Cliente::findOrFail($id);
-
-        $contratos = Contrato::where('cliente_id', $id)
-            ->orderBy('activo', 'desc')
+        $contratos = Contrato::orderBy('activo', 'desc')
             ->orderBy('created_at', 'asc')
+            ->with('cliente')
             ->with('serie')
             ->paginate(10);
-        }else{
-            $contratos = Contrato::orderBy('activo', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->with('serie')
-            ->paginate(10);
-
-            $cliente = '';
-        }
-       
-        return Inertia::render('Contratos/Listado', [
-            'contratos' => $contratos,
-            'cliente' => $cliente
+        return Inertia::render('Contratos/Todos', [
+            'contratos' => $contratos
         ]);
     }
 
@@ -111,8 +98,8 @@ class ContratoController extends Controller
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
 
-         // si la máquina se devuelve el mismo día cobrar un día, si no calcular
-         if ($data['fecha_retirada'] == $data['fecha_entrega']) {
+        // si la máquina se devuelve el mismo día cobrar un día, si no calcular
+        if ($data['fecha_retirada'] == $data['fecha_entrega']) {
             $dias_alquiler = 1;
         } else {
             // Calcular los días a partir de las fechas de inicio y fin
@@ -286,12 +273,12 @@ class ContratoController extends Controller
         $fechaCierre = $now->format('Y-m-d');
         $contrato->fecha_entrega = $fechaCierre;
 
-        if( $contrato->fecha_retirada == $fechaCierre) {
+        if ($contrato->fecha_retirada == $fechaCierre) {
             $total_dias_alquiler = 1;
         } else {
             $total_dias_alquiler = Contrato::calcularDiasDeAlquiler($contrato->fecha_retirada, $fechaCierre, $conf_cliente);
         }
-       
+
         $contrato->dias = $total_dias_alquiler;
         // Calcular el importe total según los precio estipulado en la tabla subfamilia
         $importeFinal = $subfamilia->precio_dia * $total_dias_alquiler;

@@ -16,7 +16,7 @@ export default function (){
             },
             {
               label: "Listado",
-              link: "/listarContratos",
+              link: "/verContratos",
           },
         ],
     },
