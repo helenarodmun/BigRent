@@ -26,10 +26,7 @@ class CreateClientesTable extends Migration
             $table->string('nombre_fiscal', 100)->nullable();
             $table->string('nif', 15)->nullable();
             $table->string('nombre_comercial', 100);
-            $table->string('administrador', 75);
-            $table->string('dni_administrador', 15);
             $table->string('url_escrituras')->nullable();
-            $table->string('url_dni_administrador')->nullable();
             $table->string('url_cif')->nullable();
             $table->text('anotaciones')->nullable();
             $table->timestamps();
