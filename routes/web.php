@@ -26,9 +26,11 @@ Route::get('/', function () {
     $user = Auth::user();
     return Inertia::render('Welcome', ['user' => $user]);
 });
+Route::middleware('auth')->group(function () {
+
 //////////////////////////// RUTAS CLIENTES ///////////////////////////////////////
-Route::get('/clientes', [ClienteController::class, 'index'])->middleware('auth');
-Route::post('/clientes', [ClienteController::class, 'index'])->middleware('auth');
+Route::get('/clientes', [ClienteController::class, 'index']);
+Route::post('/clientes', [ClienteController::class, 'index']);
 Route::get('/verCliente/{id}', [ClienteController::class, 'showCliente']);
 Route::get('/nuevoCliente', function () {
     $tipos_cliente = TipoCliente::with('confDias')->orderBy('id', 'asc')->get();
@@ -76,6 +78,7 @@ Route::get('/editarFamilia/{id}', [FamiliaController::class, 'verEdicionFamilia'
 Route::put('/editarFamilia/{id}', [FamiliaController::class, 'update']);
 Route::delete('/eliminarFamilia/{id}', [FamiliaController::class, 'destroy']);
 Route::get('/familias/buscar', [FamiliaController::class, 'search']);
+
 ////////////////////////// RUTAS SUBFAMILIAS //////////////////////////////////////
 Route::get('/subfamilias', [SubfamiliaController::class, 'index']);
 
@@ -100,6 +103,7 @@ Route::get('/editarMarca/{id}', [MarcaController::class, 'verEdicionMarca']);
 Route::put('/editarMarca/{id}', [MarcaController::class, 'update']);
 Route::delete('/eliminarMarca/{id}', [MarcaController::class, 'destroy']);
 Route::get('/marcas/buscar', [MarcaController::class, 'search']);
+
 ////////////////////////// RUTAS MÁQUINAS //////////////////////////////////////
 Route::get('/maquinas', [MaquinaController::class, 'index']);
 Route::get('/nuevaMaquina', function () {
@@ -119,6 +123,7 @@ Route::delete('/eliminarMaquina/{id}', [MaquinaController::class, 'destroy']);
 Route::get('/eliminarMaquina/{id}', [MaquinaController::class, 'index']);
 Route::get('/verFicha/{id}', [MaquinaController::class, 'verDatosMaquina']);
 Route::get('/maquinas/buscar', [MaquinaController::class, 'search']);
+
 ////////////////////////// RUTAS SERIES //////////////////////////////////////
 Route::get('/series', [SerieController::class, 'index']);
 Route::get('/nuevaSerie', function () {
@@ -139,6 +144,7 @@ Route::put('/editarSerie/{id}', [SerieController::class, 'update']);
 Route::delete('/eliminarSerie/{id}', [SerieController::class, 'destroy']);
 Route::get('/series/buscar', [SerieController::class, 'search']);
 Route::get('/eliminarSerie/{id}', [SerieController::class, 'index']);
+
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
 Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']);
 Route::get('/contrato/confirmar', [ContratoController::class, 'confirmarContrato']);
@@ -151,4 +157,4 @@ Route::get('/finContrato/{id}', [ContratoController::class, 'finContrato']);
 Route::post('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
 Route::get('/cerrarContrato/{id}', [ContratoController::class, 'verContrato']);
 Route::get('/verContratos', [ContratoController::class, 'index']);
-
+});
