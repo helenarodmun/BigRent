@@ -10,10 +10,7 @@ export default function FormActualizaCliente() {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        administrador: clientes.administrador,
-        dni_administrador: clientes.dni_administrador,
         url_escrituras: null,
-        url_dni_administrador: null,
         url_cif: null,
         anotaciones: clientes.anotaciones || '',
     });
@@ -26,8 +23,6 @@ export default function FormActualizaCliente() {
         formData.append('nombre_fiscal', data.nombre_fiscal);
         formData.append('nif', data.nif);
         formData.append('nombre_comercial', data.nombre_comercial);
-        formData.append('administrador', data.administrador);
-        formData.append('dni_administrador', data.dni_administrador);
         // Verificar si se ha seleccionado un archivo para cada campo y agregarlo al formData
         // Si se ha seleccionado un archivo, se agrega al formData, si no se agrega el valor existente de cliente al formData
         if (data.url_escrituras) {
@@ -35,13 +30,6 @@ export default function FormActualizaCliente() {
         } else {
             formData.append('url_escrituras', clientes.url_escrituras);
         }
-
-        if (data.url_dni_administrador) {
-            formData.append('url_dni_administrador', data.url_dni_administrador);
-        } else {
-            formData.append('url_dni_administrador', clientes.url_dni_administrador);
-        }
-
         if (data.url_cif) {
             formData.append('url_cif', data.url_cif);
         } else {
@@ -104,25 +92,7 @@ export default function FormActualizaCliente() {
                                             } />
                                         {errors.nombre_comercial && (<div className="alert alert-danger">{errors.nombre_comercial}</div>)}
                                     </FloatingLabel>
-                                </Col>
-                                <Col xs="12" sm="12" md="8">
-                                    <FloatingLabel label="ADMINISTRADOR" className="mb-2">
-                                        <Form.Control aria-label="Administrador de la empresa" type="text" name="administrador" placeholder="Introduce el nombre del administrador de la empresa" value={data.administrador}
-                                            onChange={(e) =>
-                                                setData("administrador", e.target.value)
-                                            } />
-                                        {errors.administrador && (<div className="alert alert-danger">{errors.administrador}</div>)}
-                                    </FloatingLabel>
-                                </Col>
-                                <Col xs="12" sm="12" md="4">
-                                    <FloatingLabel label="NIF" className="mb-2">
-                                        <Form.Control aria-label="dni del administrador" type="text" name="dni_administrador" placeholder="Introduce el DNI del administrador de la empresa" value={data.dni_administrador}
-                                            onChange={(e) =>
-                                                setData("dni_administrador", e.target.value)
-                                            } />
-                                        {errors.dni_administrador && (<div className="alert alert-danger">{errors.dni_administrador} </div>)}
-                                    </FloatingLabel>
-                                </Col>
+                                </Col>                                
                                 <Col xs="12" sm="12" md="12">
                                     <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                         <Form.Control as="textarea" rows={5} aria-label=" url_cif" name="anotaciones" placeholder="" value={data.anotaciones}
@@ -142,17 +112,7 @@ export default function FormActualizaCliente() {
                                         }
                                         } />
                                     {errors.url_escrituras && (<div className="alert alert-danger"> {errors.url_escrituras}</div>)}
-                                </Col>
-                                <Col xs="12" sm="12" md="6">
-                                    <Form.Label className="mb-1">DNI Administrador:</Form.Label>
-                                    <Form.Control aria-label="url dni administrador" type="file" size="sm" name="url_dni_administrador"
-                                        onChange={(e) => {
-                                            const file = e.target.files[0];
-                                            setData("url_dni_administrador", file ? file : clientes.url_dni_administrador)
-                                        }
-                                        } />
-                                    {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
-                                </Col>
+                                </Col>                                
                                 <Col xs="12" sm="12" md="6">
                                     <Form.Label className="mb-1">CIF de la empresa:</Form.Label>
                                     <Form.Control aria-label=" url_cif" type="file" size="sm" name="url_cif"

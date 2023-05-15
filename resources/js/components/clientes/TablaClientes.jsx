@@ -16,7 +16,6 @@ const TablaClientes = () => {
     const resultadosBusqueda = clientes.data.filter((cliente) =>
         cliente.nombre_fiscal.toLowerCase().includes(query.toLowerCase())
         || cliente.nif.toLowerCase().includes(query.toLowerCase())
-        || cliente.administrador.toLowerCase().includes(query.toLowerCase())
     );
     const mostrarResultados = query.length >= 3 ? resultadosBusqueda : clientes.data;
     const links = query.length >= 3 ? [] : clientes.links;
@@ -52,7 +51,6 @@ const TablaClientes = () => {
                             <tr>
                                 <th>Nombre fiscal</th>
                                 <th>CIF</th>
-                                <th>Nombre administrador</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -61,7 +59,6 @@ const TablaClientes = () => {
                                 <tr>
                                     <td>{cliente.nombre_fiscal}</td>
                                     <td>{cliente.nif}</td>
-                                    <td>{cliente.administrador}</td>
                                     <td>
                                         <Button className="btn btn-success m-1 shadow" size="sm" href={"/verCliente/" + cliente.id}>Seleccionar</Button>
                                     </td>

@@ -9,10 +9,7 @@ export default function FormCliente() {
         nombre_fiscal: "",
         nif: "",
         nombre_comercial: "",
-        administrador: "",
-        dni_administrador: "",
         url_escrituras: "",
-        url_dni_administrador: "",
         url_cif: "",
         anotaciones: "",
         direccion: "",
@@ -88,27 +85,7 @@ export default function FormCliente() {
                                                     } />
                                                 {errors.nif && (<div className="alert alert-danger">{errors.nif}</div>)}
                                             </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="5">
-                                            <FloatingLabel
-                                                label="ADMINISTRADOR" className="mb-2">
-                                                <Form.Control size="sm" aria-label="Administrador de la empresa" type="text"
-                                                    name="administrador" placeholder="Introduce el nombre del administrador de la empresa" value={data.administrador}
-                                                    onChange={(e) =>
-                                                        setData("administrador", e.target.value)
-                                                    } />
-                                                {errors.administrador && (<div className="alert alert-danger">{errors.administrador}</div>)}
-                                            </FloatingLabel>
-                                        </Col>
-                                        <Col xs="12" sm="6" md="2">
-                                            <FloatingLabel label="NIF" className="mb-2">
-                                                <Form.Control size="sm" aria-label="dni del administrador" type="text" name="dni_administrador" placeholder="Introduce el DNI del administrador de la empresa" value={data.dni_administrador}
-                                                    onChange={(e) =>
-                                                        setData("dni_administrador", e.target.value)
-                                                    } />
-                                                {errors.dni_administrador && (<div className="alert alert-danger">{errors.dni_administrador}</div>)}
-                                            </FloatingLabel>
-                                        </Col>
+                                        </Col>                                       
                                         <Col xs="12" sm="6" md="2">
                                             <FloatingLabel label="TIPO" className="mb-2">
                                                 <Form.Select size="sm" aria-label="tipo de cliente" as="select" name="tipo_cliente_id" value={data.tipo_cliente_id}
@@ -278,15 +255,7 @@ export default function FormCliente() {
                                                     setData("url_escrituras", e.target.files[0])
                                                 } />
                                             {errors.url_escrituras && (<div className="alert alert-danger">{errors.url_escrituras} </div>)}
-                                        </Col>
-                                        <Col xs="12" sm="6" md="4">
-                                            <Form.Label>DNI Administrador:</Form.Label>
-                                            <Form.Control size="sm" aria-label="url dni administrador" type="file" name="url_dni_administrador"
-                                                onChange={(e) =>
-                                                    setData("url_dni_administrador", e.target.files[0])
-                                                } />
-                                            {errors.url_dni_administrador && (<div className="alert alert-danger">{errors.url_dni_administrador}</div>)}
-                                        </Col>
+                                        </Col>                                       
                                         <Col xs="12" sm="6" md="4">
                                             <Form.Label>CIF de la empresa:</Form.Label>
                                             <Form.Control size="sm" aria-label=" url_cif" type="file" name="url_cif"

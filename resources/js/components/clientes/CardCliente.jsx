@@ -10,10 +10,7 @@ export default function CardCliente({ children }) {
         nif: cliente.nif,
         nombre_comercial: cliente.nombre_comercial,
         tipo_cliente: tipo.tipo,
-        administrador: cliente.administrador,
-        dni_administrador: cliente.dni_administrador,
         url_escrituras: cliente.url_escrituras || '',
-        url_dni_administrador: cliente.url_dni_administrador || '',
         url_cif: cliente.url_cif || '',
         anotaciones: cliente.anotaciones || '',
     });
@@ -51,25 +48,14 @@ export default function CardCliente({ children }) {
                                         <FloatingLabel label="NOMBRE COMERCIAL" className="mb-2">
                                             <Form.Control aria-label="nombre comercial" name="nombre_comercial" value={data.nombre_comercial} disabled readOnly />
                                         </FloatingLabel>
-                                    </Col>
-                                    <Col sm={9}>
-                                        <FloatingLabel label="ADMINISTRADOR" className="mb-2">
-                                            <Form.Control aria-label="Administrador de la empresa" name="administrador" value={data.administrador} disabled readOnly />
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col sm={3}>
-                                        <FloatingLabel label="NIF" className="mb-2">
-                                            <Form.Control aria-label="dni del administrador" name="dni_administrador" value={data.dni_administrador} disabled readOnly />
-                                        </FloatingLabel>
-                                    </Col>
+                                    </Col>                                  
                                     <Col sm={12}>
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                             <Form.Control as="textarea" rows={5} value={data.anotaciones} disabled></Form.Control>
                                         </FloatingLabel>
                                     </Col><hr></hr>
                                     <Col>
-                                        <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">Escrituras</a></Button>
-                                        <Button variant='dark' className="ms-3  shadow"><a className="btn btn-dark" href={cliente.url_dni_administrador} target="_blank">DNI Administrador</a></Button>
+                                        <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">Escrituras</a></Button>                                       
                                         <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_cif} target="_blank">CIF</a></Button>
                                     </Col>
                                 </Row>
