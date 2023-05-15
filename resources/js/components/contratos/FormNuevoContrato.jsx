@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Row, Col, Button, Card, Form, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormNuevoContrato() {
-    const { cliente, series, familias, subfamilias, maquinas, errors } = usePage().props;
+    const { cliente, telefonos, correos, series, familias, subfamilias, maquinas, errors } = usePage().props;
     const { data, setData, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: '',
@@ -13,7 +13,7 @@ export default function FormNuevoContrato() {
         fecha_retirada: '',
         fecha_entrega: '',
         notas1: '',
-        notas2: ''
+        notas2: '',
     })
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada  
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
@@ -50,11 +50,11 @@ export default function FormNuevoContrato() {
                                             {errors.direccion_id && (<div className="alert alert-danger">{errors.direccion_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="6">
-                                        <FloatingLabel label="CONTACTO" className="mb-2">
-                                            <Form.Select name="telefono_id" placeholder="Selecciona un contacto" onChange={(e) => setData("telefono_id", e.target.value)}>
-                                                <option>Seleccione contacto ...</option>
-                                                {cliente.telefonos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
+                                    <Col xs="12" sm="3" md="3">
+                                        <FloatingLabel label="CORREO ELÉCTRONICO" className="mb-2">
+                                            <Form.Select name="telefono_id" placeholder="Selecciona un correo" onChange={(e) => setData("telefono_id", e.target.value)}>
+                                                <option>Seleccione correo ...</option>
+                                                {correos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
                                             </Form.Select>
                                             {errors.telefono_id && (<div className="alert alert-danger">{errors.telefono_id}</div>)}
                                         </FloatingLabel>
@@ -68,6 +68,16 @@ export default function FormNuevoContrato() {
                                             {errors.autoizado_id && (<div className="alert alert-danger">{errors.autorizado_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
+                                <Col xs="12" sm="3" md="3">
+                                        <FloatingLabel label="TELÉFONO PERSONA AUTORIZADA" className="mb-2">
+                                            <Form.Select name="telefono_id" placeholder="Selecciona un correo" onChange={(e) => setData("telefono_id", e.target.value)}>
+                                                <option>Seleccione teléfono ...</option>
+                                                {telefonos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
+                                            </Form.Select>
+                                            {errors.telefono_id && (<div className="alert alert-danger">{errors.telefono_id}</div>)}
+                                        </FloatingLabel>
+                                    </Col>
+                                    
                                 </Row>
                                 <Row>
                                     <Col xs="12" sm="6" md="3">
@@ -107,6 +117,7 @@ export default function FormNuevoContrato() {
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
+                                <Row>
                                 <Col xs="12" sm="3" md="6" >
                                     <Row>
                                         <Col xs="12" sm="3" md="6">
@@ -135,6 +146,7 @@ export default function FormNuevoContrato() {
                                         </FloatingLabel>
                                     </Col>
                                 </Col>
+                                </Row>
                             </Form>
                         </Card.Body>
                         <Card.Footer>

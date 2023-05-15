@@ -42,7 +42,7 @@ class ContratoController extends Controller
             ->where('predeterminada', true)->first();
         $direccion = Direccion::findOrFail($data['direccion_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
-        $autorizado = Autorizado::findOrFail($data['autorizado_id']);
+        $autorizado = Autorizado::findOrFail($data['autorizado_id']);     
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
@@ -137,7 +137,7 @@ class ContratoController extends Controller
         return Inertia::render('Contratos/Listado', [
             'contrato' => $contrato,
             'contratos' => $contratos,
-            'cliente' => $cliente
+            'cliente' => $cliente,
         ]);
     }
 
@@ -164,9 +164,12 @@ class ContratoController extends Controller
 
         //carga las direcciones, autorizados y telefonos relacionadas con el cliente actual
         $cliente_actual->load('direcciones.cliente')
-            ->load('autorizados.cliente')
-            ->load('telefonos.cliente');
+            ->load('autorizados.cliente');
 
+        $telefonos = Telefono::where('cliente_id', $cliente_actual->id)
+            ->where('via_comunicacion', 'T')->get();
+        $correos = Telefono::where('cliente_id', $cliente_actual->id)
+            ->where('via_comunicacion', 'C')->get();
         //carga la relación maquina en la consulta
         $series = Serie::with(['maquina' => function ($query) {
             $query->orderBy('descripcion', 'asc');
@@ -185,7 +188,8 @@ class ContratoController extends Controller
         return Inertia::render('Contratos/NuevoContrato', [
             'cliente' => $cliente_actual,
             'direcciones' => $cliente_actual->direcciones,
-            'telefonos' => $cliente_actual->telefonos,
+            'telefonos' => $telefonos,
+            'correos' => $correos,
             'series' => $series,
             'autorizados' => $cliente_actual->autorizados,
             'familias' => $familias,
