@@ -36,9 +36,6 @@ class ClienteController extends Controller
         if ($request->hasFile('url_escrituras')) {
             $request->file('url_escrituras')->store('public/clientes/escrituras/');
         }
-        if ($request->hasFile('url_dni_administrador')) {
-            $request->file('url_dni_administrador')->store('public/clientes/dni/');
-        }
         if ($request->hasFile('url_cif')) {
             $request->file('url_cif')->store('public/clientes/cif/');
         }
@@ -57,12 +54,9 @@ class ClienteController extends Controller
                         'nif' => $request->nif,
                         'nombre_comercial' => $request->nombre_comercial,
                         'tipo_cliente_id' => $request->tipo_cliente_id,
-                        'administrador' => $request->administrador,
-                        'dni_administrador' => $request->dni_administrador,
                         //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
                         // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
-                        'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : null,
-                        'url_dni_administrador' =>  $request->hasFile('url_dni_administrador') ? asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : null,
+                        'url_escrituras' => $request->hasFile('url_escrituras') ? asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : null,                       
                         'url_cif' => $request->hasFile('url_cif') ? asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : null,
                         'anotaciones' => $request->anotaciones
                     ]);
@@ -155,10 +149,7 @@ class ClienteController extends Controller
             'nombre_fiscal' => 'nullable|string',
             'nif' => 'nullable|string|max:9',
             'nombre_comercial' => 'nullable|string',
-            'administrador' => 'nullable|string',
-            'dni_administrador' => 'nullable|string',
             'url_escrituras' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
-            'url_dni_administrador' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
             'url_cif' => 'nullable|file|mimes:pdf,xlx,csv,pg,png,jpeg|max:2048',
             'anotaciones' => 'nullable|string|max:255',
         ]);
@@ -169,9 +160,6 @@ class ClienteController extends Controller
         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
         if ($request->hasFile('url_escrituras')) {
             $request->file('url_escrituras')->store('public/clientes/escrituras/');
-        }
-        if ($request->hasFile('url_dni_administrador')) {
-            $request->file('url_dni_administrador')->store('public/clientes/dni/');
         }
         if ($request->hasFile('url_cif')) {
             $request->file('url_cif')->store('public/clientes/cif/');
@@ -184,7 +172,6 @@ class ClienteController extends Controller
         $cliente->administrador = $validatedData['administrador'];
         $cliente->dni_administrador = $validatedData['dni_administrador'];
         $cliente->url_escrituras = $request->hasFile('url_escrituras') ?  asset('storage/clientes/escrituras/' . $request->file('url_escrituras')->hashName()) : $cliente->url_escrituras;
-        $cliente->url_dni_administrador = $request->hasFile('url_dni_administrador') ?  asset('storage/clientes/dni/' . $request->file('url_dni_administrador')->hashName()) : $cliente->url_dni_administrador;
         $cliente->url_cif = $request->hasFile('url_cif') ?  asset('storage/clientes/cif/' . $request->file('url_cif')->hashName()) : $cliente->url_cif;
         $cliente->anotaciones = $validatedData['anotaciones'];
 
