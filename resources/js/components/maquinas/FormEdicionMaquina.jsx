@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormEdicionMaquina({ children }) {
-    const { maquina, subfamilias, marcas, flash } = usePage().props;
+    const { maquina, subfamilia, marca, flash } = usePage().props;
     console.log(maquina)
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
@@ -67,11 +67,21 @@ export default function FormEdicionMaquina({ children }) {
                                 <Row>
                                     <Col xs="12" sm="6" md="1">
                                         <FloatingLabel label="ID" className="mb-2">
-                                            <Form.Control size="sm" aria-label="id de la familia" type="text" name="id" value={data.id} disabled />
-                                            {errors.id && (<div className="alert alert-danger">{errors.id}</div>)}
+                                            <Form.Control size="sm" aria-label="id de la maquina" type="text" name="id" value={data.id} disabled />
+
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="6" md="2">
+                                    <Col xs="12" sm="6" md="4">
+                                        <FloatingLabel label="Subfamilia" className="mb-2">
+                                            <Form.Control size="sm" aria-label="subfamilia" type="text" name="id" value={subfamilia.descripcion} disabled />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="4">
+                                        <FloatingLabel label="Marca" className="mb-2">
+                                            <Form.Control size="sm" aria-label="marca" type="text" name="id" value={marca.denominacion} disabled />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="REFERENCIA" className="mb-2">
                                             <Form.Control size="sm" aria-label="referencia de la máquina" type="text" name="referencia" value={data.referencia}
                                                 onChange={(e) =>

@@ -3,7 +3,7 @@ import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 
 export default function FormNuevaSubFamilia({ children }) {
-    const { subfamilia, flash } = usePage().props;
+    const { subfamilia, familia, flash } = usePage().props;
     // useForm es un helper diseñado para formularios
     const { data, setData, put, processing, errors } = useForm({
         id: subfamilia.id,
@@ -46,13 +46,16 @@ export default function FormNuevaSubFamilia({ children }) {
                         <Card.Body>
                             <Form>
                                 <Row>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="1">
                                         <FloatingLabel label="ID" className="mb-2">
-                                            <Form.Control size="sm" aria-label="id de la familia" type="text" name="id" value={data.id} disabled />
-                                            {errors.id && (<div className="alert alert-danger">{errors.id}</div>)}
+                                            <Form.Control size="sm" aria-label="id de la familia" type="text" name="id" value={data.id} disabled />                                           
+                                        </FloatingLabel>
+                                    </Col> <Col xs="12" sm="6" md="5">
+                                        <FloatingLabel label="Família" className="mb-2">
+                                            <Form.Control size="sm" aria-label="id de la familia" type="text" name="id" value={familia.nombre} disabled />                                           
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="6">
                                         <FloatingLabel label="DESCRIPCIÓN" className="mb-2">
                                             <Form.Control size="sm" aria-label="descripción de la subfamilia" type="text" name="descripcion" value={data.descripcion}
                                                 onChange={(e) => setData("descripcion", e.target.value)
@@ -60,7 +63,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                             {errors.descripcion && (<div className="alert alert-danger">{errors.descripcion}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="PRECIO POR DÍA" className="mb-2">
                                             <Form.Control size="sm" aria-label="precio de alquiler por día" type="text" name="precio_dia" value={data.precio_dia}
                                                 onChange={(e) => setData("precio_dia", e.target.value)
@@ -68,7 +71,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                             {errors.precio_dia && (<div className="alert alert-danger">{errors.precio_dia}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col sm={3}>
+                                    <Col xs="12" sm="6" md="3">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
                                             <Form.Control size="sm" aria-label="dimporte de la fianza" type="text" name="fianza" value={data.fianza}
                                                 onChange={(e) => setData("fianza", e.target.value)

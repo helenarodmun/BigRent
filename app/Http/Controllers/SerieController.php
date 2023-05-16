@@ -69,7 +69,7 @@ class SerieController extends Controller
 
         return Inertia::render('Series/Actualiza', [
             'serie' => $serie_actual,
-            'maquina' => $maquina
+            'maquina' => $maquina,
         ]);
     }
 

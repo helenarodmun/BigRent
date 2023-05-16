@@ -49,11 +49,11 @@ class SubfamiliaController extends Controller
     public function verEdicionSubfamilia($id)
     {
         $subfamilia_actual = Subfamilia::findOrFail($id);
-        $familias = Familia::orderBy('id', 'asc')->get();
+        $familia = $subfamilia_actual->familia;
 
         return Inertia::render('Subfamilias/Actualiza', [
             'subfamilia' => $subfamilia_actual,
-            'familias' => $familias
+            'familia' => $familia
         ]);
     }
 

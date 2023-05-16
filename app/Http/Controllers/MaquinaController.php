@@ -90,8 +90,8 @@ class MaquinaController extends Controller
 
         return Inertia::render('Maquinaria/Actualiza', [
             'maquina' => $maquina_actual,
-            'subfamilias' => $maquina_actual->subfamilia,
-            'marcas' => $maquina_actual->marca
+            'subfamilia' => $maquina_actual->subfamilia,
+            'marca' => $maquina_actual->marca
         ]);
     }
 
