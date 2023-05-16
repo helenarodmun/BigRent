@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Table, Row } from "react-bootstrap";
+import { Col, Table, Row, Button } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionAutorizados() {
@@ -33,7 +33,19 @@ export default function TablaEdicionAutorizados() {
                                 <td>{autorizado.nombre_persona_autorizada}</td>
                                 <td>{autorizado.dni}</td>
                                 <td>{autorizado.notas}</td>
-                                <td><a className="btn btn-dark" href={autorizado.url_dni} target="_blank">DNI</a></td>
+                                <td>{autorizado.url_dni ? (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> DNI
+                                                </a>
+                                            </Button>
+                                        ) : (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                                <i class="bi-exclamation-triangle-fill text-danger"></i>   DNI
+                                                </a>
+                                            </Button>
+                                        )}</td>
                                 <td>
                                     <TipInfo content="Modificar autorizado" direction="left">
                                         <Link method="get" href={"/editarAutorizado/" + autorizado.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />

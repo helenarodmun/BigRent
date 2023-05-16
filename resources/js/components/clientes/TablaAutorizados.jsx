@@ -24,7 +24,19 @@ export default function TablaAutorizados() {
                                     <td>{autorizado.nombre_persona_autorizada}</td>
                                     <td>{autorizado.dni}</td>
                                     <td>{autorizado.notas}</td>
-                                    <td><a className="btn btn-dark" href={autorizado.url_dni} target="_blank">DNI</a></td>
+                                    <td>{autorizado.url_dni ? (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> DNI
+                                                </a>
+                                            </Button>
+                                        ) : (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                                <i class="bi-exclamation-triangle-fill text-danger"></i>    DNI
+                                                </a>
+                                            </Button>
+                                        )}</td>
                                 </tr>
                             </tbody>
                         ))}

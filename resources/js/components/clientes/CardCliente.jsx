@@ -1,5 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
+
 import { Button, Card, Col, FloatingLabel, Form, Row, } from "react-bootstrap";
 
 export default function CardCliente({ children }) {
@@ -48,16 +49,41 @@ export default function CardCliente({ children }) {
                                         <FloatingLabel label="NOMBRE COMERCIAL" className="mb-2">
                                             <Form.Control aria-label="nombre comercial" name="nombre_comercial" value={data.nombre_comercial} disabled readOnly />
                                         </FloatingLabel>
-                                    </Col>                                  
+                                    </Col>
                                     <Col sm={12}>
                                         <FloatingLabel label="OBSERVACIONES" className="mb-2">
                                             <Form.Control as="textarea" rows={5} value={data.anotaciones} disabled></Form.Control>
                                         </FloatingLabel>
                                     </Col><hr></hr>
                                     <Col>
-                                        <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">Escrituras</a></Button>                                       
-                                        <Button variant='dark' className="ms-3 shadow"><a className="btn btn-dark" href={cliente.url_cif} target="_blank">CIF</a></Button>
+                                        {data.url_escrituras ? (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">
+                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> Escrituras
+                                                </a>
+                                            </Button>
+                                        ) : (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">
+                                                <i class="bi-exclamation-triangle-fill text-danger"></i>  Escrituras
+                                                </a>
+                                            </Button>
+                                        )}
+                                        {data.url_cif ? (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={cliente.url_cif} target="_blank">
+                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> CIF
+                                                </a>
+                                            </Button>
+                                        ) : (
+                                            <Button variant='dark' className="ms-3 shadow">
+                                                <a className="btn btn-dark" href={cliente.url_cif} target="_blank">
+                                                <i class="bi-exclamation-triangle-fill text-danger"></i>   CIF
+                                                </a>
+                                            </Button>
+                                        )}
                                     </Col>
+
                                 </Row>
                             </Form>
                         </Card.Body>
