@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
-    const { series,  auth } = usePage().props;
+    const { series,  auth, flash } = usePage().props;
     const { delete: destroy } = useForm();
    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
    const [query, setQuery] = useState('');
@@ -34,6 +34,14 @@ const TablaSeries = () => {
     };
     return (
         <Container>
+             <div align="center">
+                    <Col sm={10}>
+                        {flash.error && (
+                            <div class="alert alert-danger" role={"alert"}>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
+                            </div>)}
+                    </Col>
+                </div>
                 <Row className="justify-content-end mt-5">
                     <Col xs="auto">
                         <InputGroup action="/maquinas/buscar" method="get" className=" shadow" role="search">
