@@ -17,7 +17,7 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = Cliente::with('tipo')
-            ->orderBy('tipo_cliente_id', 'asc')
+            ->orderBy('nombre_fiscal', 'asc')
             ->paginate(10);
 
         return Inertia::render('Clientes/Listado', [
@@ -84,7 +84,7 @@ class ClienteController extends Controller
                     ]);
                 });
 
-                $clientes = Cliente::latest()->paginate(10);
+                $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(10);
 
                 Session::flash('success', 'Registro guardado con éxito');
 
@@ -204,7 +204,7 @@ class ClienteController extends Controller
         // $rutaArchivo = trim($path, '/');
         // Storage::disk('public')->delete($rutaArchivo);
         $cliente->delete();
-        $clientes = Cliente::latest()->paginate(10);
+        $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(10);
 
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
 
