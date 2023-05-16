@@ -20,7 +20,7 @@ export default function VerContrato() {
     });
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
-    } 
+    }
     return (
         <Container>
             <Row>
@@ -45,7 +45,7 @@ export default function VerContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
-                                        <FloatingLabel label="DIRECCION CLIENTE" className="mb-2">
+                                        <FloatingLabel label="DIRECCIÓN CLIENTE" className="mb-2">
                                             <Form.Control aria-label="direccion cliente" name="direccion" value={`${direccion_predeterminada.direccion} - ${direccion_predeterminada.cp} - ${direccion_predeterminada.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
@@ -55,7 +55,7 @@ export default function VerContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
-                                        <FloatingLabel label="DIRECCION CONTRATO" className="mb-2">
+                                        <FloatingLabel label="DIRECCIÓN CONTRATO" className="mb-2">
                                             <Form.Control aria-label="direccion contrato" name="direccion" value={`${direccion.direccion} - ${direccion.cp} - ${direccion.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
@@ -65,12 +65,12 @@ export default function VerContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">
-                                        <FloatingLabel label="MAQUINA CONTRATADA" className="mb-2">
+                                        <FloatingLabel label="MÁQUINA CONTRATADA" className="mb-2">
                                             <Form.Control aria-label="maquina contrato" name="maquina" value={maquina.descripcion} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
-                                        <FloatingLabel label="NUMERO DE SERIE" className="mb-2">
+                                        <FloatingLabel label="NÚMERO DE SERIE" className="mb-2">
                                             <Form.Control aria-label="serie contrato" name="serie" value={serie.numero_serie} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
@@ -125,8 +125,9 @@ export default function VerContrato() {
                         </Card.Body>
                         <Card.Footer>
                             {contrato.activo == 1 ? (
-                                <Button variant="btn btn-danger btn-lg m-3" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>                                
+                                <Button variant="btn btn-danger btn-lg m-3" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>
                             ) : ('')}
+                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Generar documento</strong></Button>
                             <Button variant="btn btn-secondary btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>

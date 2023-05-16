@@ -21,7 +21,7 @@ export default function VistaFin() {
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
     }
-    const {  delete:destroy } = useForm();
+    const { delete: destroy } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [idToClose, setIdToClose] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar
@@ -105,21 +105,21 @@ export default function VistaFin() {
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
                                             <Form.Control aria-label="fianza contrato" name="importeFianza" value={`${subfamilia.fianza} €`} disabled readOnly />
-                                            </FloatingLabel>
+                                        </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly/>
-                                            </FloatingLabel>
+                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly />
+                                        </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FINAL" className="mb-2">
-                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`}  disabled readOnly />
+                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
                                 <Row>
-                                <Col xs="12" sm="3" md="12">
+                                    <Col xs="12" sm="3" md="12">
                                         <FloatingLabel label="ESTADO DEL ARTÍCULO - OTRAS OBSERVACIONES" className="mb-2">
                                             <Form.Control size="sm" as="textarea" rows={3} name="notas1" value={data.notas1} onChange={(e) => setData("notas1", e.target.value)}></Form.Control>
                                             {errors.notas1 && (<div className="alert alert-danger">{errors.notas1}</div>)}
@@ -137,31 +137,31 @@ export default function VistaFin() {
                         <Card.Footer>
                             {contrato.activo == 1 ? (
                                 <Button variant="btn btn-danger btn-lg m-5" method="get" onClick={() => handleClick(contrato.id)}><strong>Cerrar contrato</strong></Button>
-                                
-                            ) : ('')}
-                             <ModalConfirmacion show={showConfirmModal}
-                                                onHide={() => {
-                                                    setIdToClose(null);
-                                                    setShowConfirmModal(false);
-                                                }}
-                                                onConfirm={(urlAccion, idRegistro) => {
-                                                    post(
-                                                        `${urlAccion}/${idRegistro}`,
-                                                        {
-                                                            onSuccess: () => {
-                                                                console.log("contrato cerrado");
-                                                            },
-                                                        }
-                                                    );
-                                                }}
-                                                title="¡ADVERTENCIA!"
-                                                message="Se va a proceder al cierre del contrato. ¿Está seguro que desea continuar?"
-                                                urlAccion="/cerrarContrato"
-                                                idRegistro={idToClose} variant={'success'} text={'Aceptar'}
-                                            />
 
+                            ) : ('')}
+                            <ModalConfirmacion show={showConfirmModal}
+                                onHide={() => {
+                                    setIdToClose(null);
+                                    setShowConfirmModal(false);
+                                }}
+                                onConfirm={(urlAccion, idRegistro) => {
+                                    post(
+                                        `${urlAccion}/${idRegistro}`,
+                                        {
+                                            onSuccess: () => {
+                                                console.log("contrato cerrado");
+                                            },
+                                        }
+                                    );
+                                }}
+                                title="¡ADVERTENCIA!"
+                                message="Se va a proceder al cierre del contrato. ¿Está seguro que desea continuar?"
+                                urlAccion="/cerrarContrato"
+                                idRegistro={idToClose} variant={'success'} text={'Aceptar'}
+                            />
+                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Generar documento</strong></Button>
                             <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
-                            </Card.Footer>
+                        </Card.Footer>
                     </Card>
                 </Col>
             </Row>
