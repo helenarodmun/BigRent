@@ -29,9 +29,9 @@ export default function FormNuevaSubFamilia({ children }) {
             <Container className="align-items-center justify-content-center accesibilidad-texto">
                 <div align="center">
                     <Col sm={10}>
-                        {flash.errorCreacion && (
+                        {flash.error && (
                             <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.errorCreacion}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
                             </div>)}
                     </Col>
                 </div>
@@ -67,7 +67,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="PRECIO / DÍA" className="mb-2">
-                                            <Form.Control size="sm" aria-label="precio por día" type="number" name="precio_dia" value={data.precio_dia}
+                                            <Form.Control size="sm" aria-label="precio por día" type="number" min='1' name="precio_dia" value={data.precio_dia}
                                                 onChange={(e) => setData("precio_dia", e.target.value)
                                                 } />
                                             {errors.precio_dia && (<div className="alert alert-danger">{errors.precio_dia}</div>)}
@@ -75,7 +75,7 @@ export default function FormNuevaSubFamilia({ children }) {
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
-                                            <Form.Control size="sm" aria-label="importe fianza" type="number" name="fianza" value={data.fianza}
+                                            <Form.Control size="sm" aria-label="importe fianza" type="number" min='1'  name="fianza" value={data.fianza}
                                                 onChange={(e) => setData("fianza", e.target.value)
                                                 } />
                                             {errors.fianza && (<div className="alert alert-danger"> {errors.fianza}</div>)}

@@ -30,9 +30,9 @@ export default function FormNuevaSubFamilia({ children }) {
             <Container className="align-items-center justify-content-center accesibilidad-texto">
                 <div align="center">
                     <Col sm={10}>
-                        {flash.errorCreacion && (
+                        {flash.error && (
                             <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>{flash.errorCreacion}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>{flash.error}
                             </div>)}
                     </Col>
                 </div>
