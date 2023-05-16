@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Col } from 'react-bootstrap';
 export default function (){
     const [expanded, setExpanded] = useState(false);
     
@@ -69,13 +69,14 @@ export default function (){
       };      
     return (
         <Navbar expand="lg" expanded={expanded} className="flex-column sidebar" variant="dark">
-        <Navbar.Toggle aria-controls="sidebar-nav" onClick={handleToggle} className="mx-2"/>
-        <Navbar.Collapse id="sidebar-nav">
-          <Nav className="flex-column">
+        <Navbar.Toggle aria-controls="sidebar-nav" onClick={handleToggle} className="mx-2 mb-5"/>
+        <Col className="mt-5">
+        <Navbar.Collapse className="mt-5" id="sidebar-nav">
+          <Nav className="flex-column mt-5">
             {items.map((item) => (
               <Nav.Item key={item.label}>
                 {item.subItems ? (
-                  <NavDropdown
+                  <NavDropdown className="mt-5"
                     title={
                       <>
                         <i className={item.icon} /> {item.label}
@@ -90,7 +91,7 @@ export default function (){
                        ))}
                      </NavDropdown>
                    ) : (
-                     <Nav.Link as={Link} href={item.link}>
+                     <Nav.Link className="mt-5" as={Link} href={item.link}>
                        <i className={item.icon} /> {item.label}
                      </Nav.Link>
                    )}
@@ -98,6 +99,7 @@ export default function (){
                ))}
              </Nav>
            </Navbar.Collapse>
+           </Col>
          </Navbar>
        );
      };     
