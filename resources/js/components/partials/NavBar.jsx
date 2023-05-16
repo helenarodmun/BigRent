@@ -2,7 +2,7 @@ import React from "react";
 import { usePage } from "@inertiajs/react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link } from "@inertiajs/react";
-import TituloPortada from '../../../img/titulo_bigrent.jpg'
+import TituloPortada from '../../../img/titulo_bigrent.png'
 
 function NavBar() {
     // Se obtiene la autenticación del usuario de las props de la página
