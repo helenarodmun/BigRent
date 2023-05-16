@@ -196,6 +196,7 @@ class ClienteController extends Controller
 
     public function destroy($id)
     {
+        try {
         $cliente = Cliente::findOrFail($id);
         // $rutaCompleta = $cliente->url_escrituras;
         // // Obtén la ruta relativa desde la URL
@@ -209,5 +210,10 @@ class ClienteController extends Controller
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
 
         return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+    } catch (\Exception $e) {
+        if ($e->getCode() == "23000")
+            Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+        return back();
+    }
     }
 }

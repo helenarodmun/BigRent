@@ -23,17 +23,23 @@ class MarcaController extends Controller
 
     public function create(MarcaForm $request)
     {
-        $request->validated();
+        try {
+            $request->validated();
 
-        $marca = Marca::create($request->all());
-        $marca->save();
+            $marca = Marca::create($request->all());
+            $marca->save();
 
-        $marcas = Marca::orderBy('denominacion', 'asc')->paginate(10);
-        Session::flash('success', 'Se ha creado la familia de forma correcta');
+            $marcas = Marca::orderBy('denominacion', 'asc')->paginate(10);
+            Session::flash('success', 'Se ha creado la familia de forma correcta');
 
-        return Inertia::render('Marcas/Listado', [
-            'marcas' => $marcas,
-        ]);
+            return Inertia::render('Marcas/Listado', [
+                'marcas' => $marcas,
+            ]);
+        } catch (\Exception $e) {
+            if ($e->getCode() == "23000")
+                Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+            return back();
+        }
     }
 
 

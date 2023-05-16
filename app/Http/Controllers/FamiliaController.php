@@ -62,11 +62,17 @@ class FamiliaController extends Controller
 
     public function destroy($id)
     {
-        $familia = Familia::findOrFail($id);
-        $familia->delete();
-        $familias = Familia::orderBy('id', 'asc')->paginate(10);
-        Session::flash('borrado', 'Se ha eliminado la família de froma correcta');
+        try {
+            $familia = Familia::findOrFail($id);
+            $familia->delete();
+            $familias = Familia::orderBy('id', 'asc')->paginate(10);
+            Session::flash('borrado', 'Se ha eliminado la família de froma correcta');
 
-        return Inertia::render('Familias/Listado', ['familias' => $familias]);
+            return Inertia::render('Familias/Listado', ['familias' => $familias]);
+        } catch (\Exception $e) {
+            if ($e->getCode() == "23000")
+                Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+            return back();
+        }
     }
 }

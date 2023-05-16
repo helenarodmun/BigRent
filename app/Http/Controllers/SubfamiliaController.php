@@ -87,15 +87,20 @@ class SubfamiliaController extends Controller
 
     public function destroy($id)
     {
-        $subfamilia = Subfamilia::findOrFail($id);
-        $subfamilia->delete();
+        try {
+            $subfamilia = Subfamilia::findOrFail($id);
+            $subfamilia->delete();
 
-        $subfamilias = Subfamilia::with('familia')
-            ->orderBy('familia_id', 'asc')
-            ->orderBY('descripcion', 'asc')
-            ->paginate(10);
-        Session::flash('borrado', 'Se ha eliminado la subfamilia de forma correcta');
-
-        return Inertia::render('Subfamilias/Listado', ['subfamilias' => $subfamilias]);
+            $subfamilias = Subfamilia::with('familia')
+                ->orderBy('familia_id', 'asc')
+                ->orderBY('descripcion', 'asc')
+                ->paginate(10);
+            Session::flash('borrado', 'Se ha eliminado la subfamilia de forma correcta');
+            return Inertia::render('Subfamilias/Listado', ['subfamilias' => $subfamilias]);
+        } catch (\Exception $e) {
+            if ($e->getCode() == "23000")
+                Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+            return back();
+        }
     }
 }

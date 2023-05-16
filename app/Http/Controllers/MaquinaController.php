@@ -156,18 +156,23 @@ class MaquinaController extends Controller
 
     public function destroy($id)
     {
-        $maquina = Maquina::findOrFail($id);
-        $maquina->delete();
-        //recuperamos todos los registros a mostrar
-        $tienda = Auth::user()->tienda_id;
-        $maquinas = Maquina::with('subfamilia')
-            ->orderBy('descripcion', 'asc')
-            ->paginate(10);
-        $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
-            $query->where('tienda_id', $tienda);
-        }]);
-        Session::flash('success', 'Se ha eliminado la máquina de forma correcta');
-
-        return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
+        try {
+            $maquina = Maquina::findOrFail($id);
+            $maquina->delete();
+            //recuperamos todos los registros a mostrar
+            $tienda = Auth::user()->tienda_id;
+            $maquinas = Maquina::with('subfamilia')
+                ->orderBy('descripcion', 'asc')
+                ->paginate(10);
+            $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
+                $query->where('tienda_id', $tienda);
+            }]);
+            Session::flash('success', 'Se ha eliminado la máquina de forma correcta');
+            return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
+        } catch (\Exception $e) {
+            if ($e->getCode() == "23000")
+                Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+            return back();
+        }
     }
 }

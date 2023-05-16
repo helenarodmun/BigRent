@@ -33,6 +33,14 @@ export default function TablaSubFamilias() {
     const links = query.length >= 3 ? [] : subfamilias.links;
     return (
         <Container>
+            <div align="center">
+                    <Col sm={10}>
+                        {flash.error && (
+                            <div class="alert alert-danger" role={"alert"}>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
+                            </div>)}
+                    </Col>
+                </div>
             <Row className="justify-content-end mt-5">
                 <Col xs="auto">
                     <InputGroup action="/subfamilias/buscar" method="get" className="d-flex shadow" role="search">

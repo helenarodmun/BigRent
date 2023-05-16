@@ -16,20 +16,20 @@ class SerieController extends Controller
 
     public function index()
     {
-        if(Auth::user()->rol == 1){
+        if (Auth::user()->rol == 1) {
             $series = Serie::with('maquina')
-            ->orderBy('maquina_id', 'asc')
-            ->orderBy('numero_serie', 'asc')
-            ->paginate(10);
-        }else{
+                ->orderBy('maquina_id', 'asc')
+                ->orderBy('numero_serie', 'asc')
+                ->paginate(10);
+        } else {
             $tienda = Auth::user()->tienda_id;
             $series = Serie::with('maquina')
-            ->where('tienda_id', $tienda)
-            ->orderBy('maquina_id', 'asc')
-            ->orderBy('numero_serie', 'asc')
-            ->paginate(10);
+                ->where('tienda_id', $tienda)
+                ->orderBy('maquina_id', 'asc')
+                ->orderBy('numero_serie', 'asc')
+                ->paginate(10);
         }
-       
+
 
         return Inertia::render('Series/Listado', [
             'series' => $series,
@@ -100,15 +100,21 @@ class SerieController extends Controller
 
     public function destroy($id)
     {
-        $serie = Serie::findOrFail($id);
-        $serie->delete();
+        try {
+            $serie = Serie::findOrFail($id);
+            $serie->delete();
 
-        $series = Serie::with('maquina')
-            ->orderBy('maquina_id', 'asc')
-            ->orderBY('numero_serie', 'asc')
-            ->paginate(10);
-        Session::flash('borrado', 'Se ha eliminado la serie de forma correcta');
+            $series = Serie::with('maquina')
+                ->orderBy('maquina_id', 'asc')
+                ->orderBY('numero_serie', 'asc')
+                ->paginate(10);
+            Session::flash('borrado', 'Se ha eliminado la serie de forma correcta');
 
-        return Inertia::render('Series/Listado', ['series' => $series]);
+            return Inertia::render('Series/Listado', ['series' => $series]);
+        } catch (\Exception $e) {
+            if ($e->getCode() == "23000")
+                Session::flash('error', 'Imposible eliminar, existen registros relacionados');
+            return back();
+        }
     }
 }
