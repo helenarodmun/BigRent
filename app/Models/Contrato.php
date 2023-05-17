@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class Contrato extends Model
 {
-    
+
     use HasFactory;
     protected $fillable = [
         'fecha_retirada',
@@ -74,7 +74,6 @@ class Contrato extends Model
         $fechaInicio = new DateTime($fechaInicio);
         $fechaFin = new DateTime($fechaFin);
 
-        // Inicializa el contador de días de alquiler en uno ya que se puede alquilar sólo un día.
         $diasDeAlquiler = 0;
 
         // Crea un intervalo de un día para iterar entre las fechas de inicio y fin.
@@ -109,4 +108,32 @@ class Contrato extends Model
         return $diasDeAlquiler;
     }
 
+    public static function recuperarDatosContrato($id)
+    {
+        $contrato = Contrato::findOrFail($id);
+
+        $cliente = $contrato->cliente;
+        $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($cliente->id);
+        $direccion = $contrato->direccion;
+        $telefono = $contrato->telefono;
+        $autorizado = $contrato->autorizado;
+        $serie = $contrato->serie;
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
+        $datos = [
+            'cliente' => $cliente,
+            'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
+        ];
+
+        //Convierte array en un objeto     
+        $datos = json_decode(json_encode($datos, JSON_FORCE_OBJECT));
+        return $datos;
+    }
 }

@@ -136,7 +136,7 @@ export default function VistaFin() {
                         </Card.Body>
                         <Card.Footer>
                             {contrato.activo == 1 ? (
-                                <Button variant="btn btn-danger btn-lg m-5" method="get" onClick={() => handleClick(contrato.id)}><strong>Cerrar contrato</strong></Button>
+                                <Button variant="btn btn-success btn-lg m-5" method="get" onClick={() => handleClick(contrato.id)}><strong>Finalizar Contrato</strong></Button>
 
                             ) : ('')}
                             <ModalConfirmacion show={showConfirmModal}
@@ -159,7 +159,7 @@ export default function VistaFin() {
                                 urlAccion="/cerrarContrato"
                                 idRegistro={idToClose} variant={'success'} text={'Aceptar'}
                             />
-                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Generar documento</strong></Button>
+                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Ver PDF</strong></Button>
                             <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>

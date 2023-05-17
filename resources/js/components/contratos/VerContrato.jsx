@@ -127,8 +127,8 @@ export default function VerContrato() {
                             {contrato.activo == 1 ? (
                                 <Button variant="btn btn-danger btn-lg m-3" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>
                             ) : ('')}
-                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Generar documento</strong></Button>
-                            <Button variant="btn btn-secondary btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
+                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Ver PDF</strong></Button>
+                            <Button variant="btn btn-primary bi bi-arrow-90deg-left btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong> Voler al listado</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

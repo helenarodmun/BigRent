@@ -49,8 +49,8 @@ export default function TablaContratos() {
                 <Row className="justify-content-end mt-5">
                     <Col xs="auto">
                         <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
-                            <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
-                            <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                            <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                            <Form.Control  name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                         </InputGroup>
                     </Col>
                     <Col xs="auto">

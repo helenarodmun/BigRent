@@ -37,9 +37,7 @@ class ContratoController extends Controller
         $data = $request->validated();
 
         $cliente = Cliente::findOrFail($data['cliente_id']);
-        //Obtiene la dirección predeterminada, para añadirla al contrato
-        $direccion_predeterminada = Direccion::where('cliente_id', $data['cliente_id'])
-            ->where('predeterminada', true)->first();
+        $direccion_predeterminada=Direccion::buscaDireccionPredeterminada($data['cliente_id']);
         $direccion = Direccion::findOrFail($data['direccion_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);     
@@ -92,8 +90,12 @@ class ContratoController extends Controller
 
         //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
         $cliente = Cliente::findOrFail($data['cliente_id']);
-        $conf_cliente = $cliente->tipo->confDias;
-
+        $direccion_predeterminada=Direccion::buscaDireccionPredeterminada($data['cliente_id']);
+        $telefono = Telefono::findOrFail($data['telefono_id']);
+        $autorizado = Autorizado::findOrFail($data['autorizado_id']);     
+        $serie = Serie::findOrFail($data['serie_id']);
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
@@ -127,17 +129,19 @@ class ContratoController extends Controller
         ]);
 
         $cliente = Cliente::findOrFail($cliente->id);
-        $contratos = Contrato::where('cliente_id', $cliente->id)
-            ->orderBy('activo', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->with('serie')
-            ->paginate(10);
+      
         Session::flash('success', 'Registro guardado con éxito');
 
-        return Inertia::render('Contratos/Listado', [
-            'contrato' => $contrato,
-            'contratos' => $contratos,
+        return Inertia::render('Contratos/ConfirmarContrato', [
             'cliente' => $cliente,
+            'direccion' => $contrato->direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
         ]);
     }
 
@@ -328,11 +332,5 @@ class ContratoController extends Controller
             'cliente' => $cliente,
             'contratos' => $contratos
         ]);
-    }
-
-    public function contratoPDF($id)
-    {
-        $contrato = Contrato::findOrFail($id);
-        $contrato->generaDocumentoContrato($contrato->id);
     }
 }

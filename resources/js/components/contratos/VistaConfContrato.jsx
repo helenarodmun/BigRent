@@ -134,8 +134,19 @@ export default function VistaConfContrato() {
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
-                            <Button variant="btn btn-secondary btn-lg m-5" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
+                            {contrato.id == null ? (
+                                <>
+ <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
+ <Button variant="btn btn-secondary btn-lg m-5" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
+ </>
+                            ):(
+                                <>
+                                <Button variant="btn btn-success btn-lg m-5" method="get" href={"/contrato-pdf/" + contrato.id}><strong>Imprimir PDF</strong></Button>
+                    <Button variant="btn btn-primary bi bi-arrow-90deg-left  btn-lg m-5" method='get' href={"/verCliente/" + cliente.id}><strong> Ficha cliente</strong></Button>
+                                </>
+                            )}
+                           
+                           
                         </Card.Footer>
                     </Card>
                 </Col>
