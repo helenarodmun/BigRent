@@ -40,4 +40,12 @@ class Direccion extends Model
             return false;
         }
     }
+
+    public static function buscaDireccionPredeterminada($cliente)
+    {
+        $direccion_predeterminada = Direccion::where('cliente_id', $cliente)
+        ->where('predeterminada', true)->first();
+
+        return $direccion_predeterminada;
+    }
 }

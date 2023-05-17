@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ContratoController extends Controller
 {
@@ -331,32 +330,9 @@ class ContratoController extends Controller
         ]);
     }
 
-    public function generaDocumentoContrato($id)
+    public function contratoPDF($id)
     {
         $contrato = Contrato::findOrFail($id);
-
-        $cliente = $contrato->cliente;
-        //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
-        $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
-            ->where('predeterminada', true)->first();
-        $direccion = $contrato->direccion;
-        $telefono = $contrato->telefono;
-        $autorizado = $contrato->autorizado;
-        $serie = $contrato->serie;
-        $maquina = $serie->maquina;
-        $subfamilia = $maquina->subfamilia;
-
-        // $pdf = PDF::loadView('contrato', 
-        return Inertia::render('Contratos/DocumentoContrato', ['cliente' => $cliente,
-        'direccion' => $direccion,
-        'direccion_predeterminada' => $direccion_predeterminada,
-        'telefono' => $telefono,
-        'autorizado' => $autorizado,
-        'contrato' => $contrato,
-        'subfamilia' => $subfamilia,
-        'maquina' => $maquina,
-        'serie' => $serie
-    ]);
-    // return $pdf->stream();
+        $contrato->generaDocumentoContrato($contrato->id);
     }
 }

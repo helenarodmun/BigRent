@@ -8,6 +8,7 @@ use App\Http\Controllers\FamiliaController;
 use App\Http\Controllers\SubfamiliaController;
 use App\Http\Controllers\MaquinaController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\TelefonoController;
 use App\Models\Familia;
@@ -157,7 +158,7 @@ Route::get('/finContrato/{id}', [ContratoController::class, 'finContrato']);
 Route::post('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
 Route::get('/cerrarContrato/{id}', [ContratoController::class, 'verContrato']);
 Route::get('/verContratos', [ContratoController::class, 'index']);
-Route::get('/contrato-pdf/{$id}', [ContratoController::class, 'generaDocumentoContrato']);
+Route::get('/contrato-pdf/{id}', [PdfController::class, 'generaDocumentoContrato']);
 
 ////////////////////////////////////////////////////////////////////////////////////
 });

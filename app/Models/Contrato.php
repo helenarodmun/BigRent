@@ -7,9 +7,12 @@ use DatePeriod;
 use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class Contrato extends Model
 {
+    
     use HasFactory;
     protected $fillable = [
         'fecha_retirada',
@@ -105,4 +108,5 @@ class Contrato extends Model
         // Retorna el número de días de alquiler.
         return $diasDeAlquiler;
     }
+
 }

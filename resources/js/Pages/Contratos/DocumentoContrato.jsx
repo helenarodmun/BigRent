@@ -23,6 +23,7 @@ export default function DocumentoContrato() {
     return (
 <Container>
     <p className="h1">CONTRATO DE ALQUILER</p>
+    <object data={props.pdfData} type="application/pdf" width="100%" height="100%"></object>
     <p>CLIENTE: {cliente.nombre_fiscal}</p>
     <p>NIF CLIENTE: {cliente.nif}</p>
     <p>DIRECCIÓN CLIENTE: {`${direccion_predeterminada.direccion} - ${direccion_predeterminada.cp} - ${direccion_predeterminada.municipio} - ${direccion_predeterminada.provincia}`}</p>
