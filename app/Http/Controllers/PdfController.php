@@ -70,7 +70,7 @@ class PdfController extends Controller
         $nombreArchivo = $cliente->nombrefiscal;
 
         $pdf = \PDF::loadView('fincontrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'autorizado', 'direccion', 'telefono', 'maquina', 'subfamilia', 'serie'));
-        $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
+        // $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
         return $pdf->stream();
     }
 }
