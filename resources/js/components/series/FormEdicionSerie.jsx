@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
-import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, FloatingLabel, Container,  } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormEdicionMaquina({ children }) {
     const { serie, maquina, flash } = usePage().props;
@@ -29,14 +30,7 @@ export default function FormEdicionMaquina({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.errorCreacion && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.errorCreacion}
-                            </div>)}
-                    </Col>
-                </div>
+                <FlashMessage success={flash.success} error={flash.error} />
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>
@@ -97,8 +91,8 @@ export default function FormEdicionMaquina({ children }) {
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button className="m-3 shadow" variant="success" onClick={handleSubmit} aria-label="Guardar registro"> Guardar registro</Button>
-                            <Button className="m-3 shadow" variant="secondary" href={"/series"} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button className="m-3 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Guardar registro"> Guardar registro</Button>
+                            <Button className="m-3 shadow btn-lg" variant="secondary" href={"/series"} aria-label="Volver a la vista anterior">Cancelar</Button>
                         </Card.Footer>
                     </Card>
                 </Col>

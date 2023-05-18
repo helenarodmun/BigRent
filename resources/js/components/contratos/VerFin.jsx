@@ -3,7 +3,7 @@ import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-b
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import { useState } from "react";
 export default function VistaFin() {
-    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, flash } = usePage().props;
     const { data, setData, post, errors } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
@@ -31,7 +31,8 @@ export default function VistaFin() {
         setIdToClose(id); // Se establece la id del registro a eliminar
     };
     return (
-        <Container>
+        <Container>           
+           <FlashMessage success={flash.success} error={flash.error} />
             <Row>
                 <Col>
                     <Card className="shadow rounded">

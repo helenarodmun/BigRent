@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevaMarca({ children }) {
     const { marca, flash } = usePage().props;
@@ -25,14 +26,7 @@ export default function FormNuevaMarca({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.errorCreacion && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.errorCreacion}
-                            </div>)}
-                    </Col>
-                </div>
+                <FlashMessage success={flash.success} error={flash.error} />
                 <Col className="">
                     <Card className="shadow rounded">
                         <Card.Header>

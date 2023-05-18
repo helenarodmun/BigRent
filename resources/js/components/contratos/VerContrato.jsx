@@ -1,9 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 export default function VerContrato() {
-    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, importe_alquiler } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie,flash } = usePage().props;
     const { data, get } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
@@ -23,6 +24,8 @@ export default function VerContrato() {
     }
     return (
         <Container>
+            
+            <FlashMessage success={flash.success} error={flash.error} />
             <Row>
                 <Col>
                     <Card className="shadow rounded">

@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Container, Row, Col, Form, Button, Card, FloatingLabel, } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevoAutorizado() {
     const { cliente, flash } = usePage().props;
@@ -27,14 +28,7 @@ export default function FormNuevoAutorizado() {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-            <div align="center">
-                    <Col sm={10}>
-                        {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
-                            </div>)}
-                    </Col>
-                </div>
+            <FlashMessage success={flash.success} error={flash.error} />
                 <p className="h3 mt-3 ms-3 mb-0">Creación de nuevo autorizado de {cliente.nombre_fiscal}</p>
                 <Row>
                     <Col className="">

@@ -1,7 +1,8 @@
 import { Link, usePage } from "@inertiajs/react";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { Col, Table, Row, Container, Button, Form, InputGroup } from "react-bootstrap";
+import { Col, Table, Row, Container, Button, Form, InputGroup, } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaContratos() {
@@ -38,15 +39,7 @@ export default function TablaContratos() {
     const links = contratos.links;
     return (
         <>
-            <div align="center">
-                <Col sm={10}>
-                    {flash.success && (
-                        <div className="alert alert-info" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.success}
-                        </div>)}
-                </Col>
-            </div>
+        <FlashMessage success={flash.success} error={flash.error} />
             <Container>
                 <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">

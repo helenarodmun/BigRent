@@ -1,9 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Row, Col, Button, Card, Form, FloatingLabel, Container } from "react-bootstrap";
+import { Row, Col, Button, Card, Form, FloatingLabel, Container,  } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevoContrato() {
-    const { cliente, telefonos, correos, series, familias, subfamilias, maquinas, errors } = usePage().props;
+    const { cliente, telefonos, correos, series, familias, subfamilias, maquinas, errors, flash } = usePage().props;
     const { data, setData, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: '',
@@ -30,6 +31,7 @@ export default function FormNuevoContrato() {
     return (
 
         <Container className="mt-5">
+              <FlashMessage success={flash.success} error={flash.error} />
             <Row>
                 <Col>
                     <Card className="shadow rounded">

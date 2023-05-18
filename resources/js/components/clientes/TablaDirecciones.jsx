@@ -1,5 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Col, Table } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function TablaDirecciones({ children }) {
     const { direcciones, clientes, flash } = usePage().props;
@@ -15,15 +16,7 @@ export default function TablaDirecciones({ children }) {
     });
     return (
         <div>
-             <div align="center">
-                <Col sm={10}>
-                    {flash.error && (
-                        <div className="alert alert-success" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.error}
-                        </div>)}
-                </Col>
-            </div>
+              <FlashMessage success={flash.success} error={flash.error} />
             <div>
                 <Col className="pt-3 shadow p-3 rounded">
                     <Table striped bordered hover className="shadow" size="sm" responsive>

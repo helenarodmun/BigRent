@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container, } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevaMaquina({ children }) {
     const { flash, maquinas, familias, subfamilias, tiendas } = usePage().props;
@@ -34,14 +35,7 @@ export default function FormNuevaMaquina({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-            <div align="center">
-                    <Col sm={10}>
-                        {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
-                            </div>)}
-                    </Col>
-                </div>
+            <FlashMessage success={flash.success} error={flash.error} />
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>
@@ -154,8 +148,8 @@ export default function FormNuevaMaquina({ children }) {
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button className="m-3 shadow" variant="success" onClick={handleSubmit} aria-label="Guardar nueva serie">Guardar registro</Button>
-                            <Button className="m-3 shadow" variant="secondary" href={"/series"} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button className="m-3 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Guardar nueva serie">Guardar registro</Button>
+                            <Button className="m-3 shadow btn-lg" variant="secondary" href={"/series"} aria-label="Volver a la vista anterior">Cancelar</Button>
                         </Card.Footer>
                     </Card>
                 </Col>

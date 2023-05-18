@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
 import { Button, Col, Container, Row, Table, InputGroup, Form } from "react-bootstrap";
+import FlashMessage from '../partials/FlashMessage';
 
 const TablaClientes = () => {
     // Se obtienen los datos de clientes y resultado del hook usePage y se almacenan en las variables clientes
@@ -21,20 +22,7 @@ const TablaClientes = () => {
     const links = query.length >= 3 ? [] : clientes.links;
     return (
         <Container >
-            <div align="center">
-                <Col sm={10}>
-                    {flash.success && (
-                        <div className="alert alert-success" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.success}
-                        </div>)}
-                    {flash.error && (
-                        <div className="alert alert-danger" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.error}
-                        </div>)}
-                </Col>
-            </div>
+             <FlashMessage success={flash.success} error={flash.error} />
             <Row className="justify-content-end mt-5">
                 <Col xs="auto">
                     <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">

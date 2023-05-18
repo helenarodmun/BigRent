@@ -1,6 +1,7 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { Col, Container, Table, Button, Row, Form, InputGroup } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
@@ -30,15 +31,8 @@ export default function TablaFamilias() {
     const mostrarResultados = query.length >= 3 ? resultadosBusqueda : familias.data;
     const links = query.length >= 3 ? [] : familias.links;
     return (
-        <Container>
-             <div align="center">
-                    <Col sm={10}>
-                        {flash.error && (
-                            <div className="alert alert-danger" role={"alert"}>
-                                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
-                            </div>)}
-                    </Col>
-                </div>
+        <Container>       
+       <FlashMessage success={flash.success} error={flash.error} />
              <Row className="justify-content-end mt-5">
                     <Col xs="auto">
                 <InputGroup action="/familias/buscar" method="get" className="d-flex shadow" role="search">

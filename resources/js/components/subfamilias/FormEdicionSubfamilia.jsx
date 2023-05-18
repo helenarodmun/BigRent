@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevaSubFamilia({ children }) {
     const { subfamilia, familia, flash } = usePage().props;
@@ -28,14 +29,7 @@ export default function FormNuevaSubFamilia({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>{flash.error}
-                            </div>)}
-                    </Col>
-                </div>
+            <FlashMessage success={flash.success} error={flash.error} />
                 <Col className="">
                     <Card className="shadow">
                         <Card.Header>

@@ -1,7 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-
 import { Button, Card, Col, FloatingLabel, Form, Row, } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function CardCliente({ children }) {
     const { cliente, flash, tipo } = usePage().props;
@@ -19,15 +19,7 @@ export default function CardCliente({ children }) {
     const [clienteId, setClienteId] = useState(null);
     return (
         <div>
-            <div align="center">
-                <Col sm={10}>
-                    {flash.success && (
-                        <div className="alert alert-info" role={"alert"}>
-                            <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {flash.success}
-                        </div>)}
-                </Col>
-            </div>
+           <FlashMessage success={flash.success} error={flash.error} />
             <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
                 <Col>
