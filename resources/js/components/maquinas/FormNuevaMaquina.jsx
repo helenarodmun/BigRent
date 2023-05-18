@@ -144,8 +144,8 @@ export default function FormNuevaMaquina({ children }) {
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button className="m-3 shadow" variant="success" onClick={handleSubmit} aria-label="Guardar nueva maquina">Guardar registro</Button>
-                            <Button className="m-3 shadow" variant="secondary" href={"/maquinas"} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button className="m-3 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Guardar nueva maquina">Guardar registro</Button>
+                            <Button className="m-3 shadow btn-lg" variant="secondary" href={"/maquinas"} aria-label="Volver a la vista anterior">Cancelar</Button>
                         </Card.Footer>
                     </Card>
                 </Col>

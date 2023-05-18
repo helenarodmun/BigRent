@@ -104,7 +104,7 @@ export default function LogIn() {
                   {/* Submit */}
                   <div className="row mb-0">
                     <div className="col-md-8 offset-md-4">
-                      <Button type="submit" className="btn btn-primary">Iniciar sesión</Button>
+                      <Button type="submit" className="btn btn-primary btn-lg">Iniciar sesión</Button>
                       {/* <Link className="btn btn-link" href="/password/reset">Forgot your password?</Link>
                       <div className="pt-3">
                         <span>Don't have an account yet?

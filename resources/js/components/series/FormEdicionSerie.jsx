@@ -62,7 +62,7 @@ export default function FormEdicionMaquina({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
-                                        <FloatingLabel label="HOROMETRO" className="mb-3">
+                                        <FloatingLabel label="HORÓMETRO" className="mb-3">
                                             <Form.Select aria-label="incluye horometro" as="select" name="horometro" value={data.horometro}
                                                 onChange={(e) => setData("horometro", e.target.value)
                                                 }>

@@ -33,19 +33,18 @@ export default function TablaEdicionAutorizados() {
                                 <td>{autorizado.nombre_persona_autorizada}</td>
                                 <td>{autorizado.dni}</td>
                                 <td>{autorizado.notas}</td>
-                                <td>{autorizado.url_dni ? (
-                                            <Button variant='dark' className="ms-3 shadow">
-                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                <td>
+                                    <Button variant='dark' className="ms-3 shadow">
+                                        {autorizado.url_dni ? (
+                                            <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
                                                 <i className="bi bi-file-earmark-pdf-fill text-success"></i> DNI
-                                                </a>
-                                            </Button>
+                                            </a>
                                         ) : (
-                                            <Button variant='dark' className="ms-3 shadow">
-                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                            <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
                                                 <i className="bi-exclamation-triangle-fill text-danger"></i>   DNI
-                                                </a>
-                                            </Button>
-                                        )}</td>
+                                            </a>)}
+                                    </Button>
+                                </td>
                                 <td>
                                     <TipInfo content="Modificar autorizado" direction="left">
                                         <Link method="get" href={"/editarAutorizado/" + autorizado.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />

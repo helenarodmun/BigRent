@@ -98,7 +98,7 @@ export default function FormDirecciones({ children }) {
                                 </Form>
                             </Card.Body>
                             <Card.Footer>
-                                <Button clasName="m-3 shadow" variant="primary" disabled={isSubmitting} onClick={handleSubmit} aria-label="Guardar nueva dirección">
+                                <Button clasName="m-3 shadow btn-lg" variant="primary" disabled={isSubmitting} onClick={handleSubmit} aria-label="Guardar nueva dirección">
                                     {isSubmitting ? "Guardando..." : "Guardar Registro"}
                                 </Button>
                             </Card.Footer>

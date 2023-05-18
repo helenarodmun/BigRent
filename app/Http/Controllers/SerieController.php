@@ -45,6 +45,7 @@ class SerieController extends Controller
             $serie = Serie::create($request->all());
 
             $series = Serie::with('maquina')
+            ->with('tienda')
                 ->orderBy('maquina_id', 'asc')
                 ->orderBy('numero_serie', 'asc')
                 ->paginate(10);
@@ -52,8 +53,7 @@ class SerieController extends Controller
             Session::flash('success', 'Se ha creado la serie de forma correcta');
 
             return Inertia::render('Series/Listado', [
-                'series' => $series,
-                'tiendas' => $tiendas
+                'series' => $series
             ]);
         } else {
             Session::flash('error', 'Ya existe una serie con esa numeración');
@@ -88,6 +88,7 @@ class SerieController extends Controller
         $serie->save();
 
         $series = Serie::with('maquina')
+            ->with('tienda')
             ->orderBy('maquina_id', 'asc')
             ->orderBY('numero_serie', 'asc')
             ->paginate(10);
@@ -106,6 +107,7 @@ class SerieController extends Controller
             $serie->delete();
 
             $series = Serie::with('maquina')
+                ->with('tienda')
                 ->orderBy('maquina_id', 'asc')
                 ->orderBY('numero_serie', 'asc')
                 ->paginate(10);

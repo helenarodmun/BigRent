@@ -62,6 +62,21 @@ export default function FormActualizaAutorizado({ children }) {
                                                 <div className="alert alert-danger"> {errors.notas}</div>)}
                                         </FloatingLabel>
                                     </Col>
+                                    <Row>
+                                        <Col className="mb-3">
+                                        <Button variant='dark' className="ms-3 shadow">
+                                            {autorizado.url_dni ? (
+                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
+                                                    <i className="bi bi-file-earmark-pdf-fill text-success"></i> DNI
+                                                </a>
+                                            ) : (
+                                                <a className="btn btn-dark" >
+                                                    <i className="bi-exclamation-triangle-fill text-danger"></i>    DNI
+                                                </a>
+                                            )}
+                                        </Button>
+                                        </Col>
+                                    </Row>
                                     <Col xs="12" sm="6" md="6">
                                         <Form.Label>Archivo DNI:</Form.Label>
                                         <Form.Control
@@ -77,8 +92,8 @@ export default function FormActualizaAutorizado({ children }) {
                             </Form>
                         </Card.Body>
                         <Card.Footer >
-                            <Button className="m-3 shadow" variant="success" onClick={handleSubmit} aria-label="Guardar nuevo autorizado">Guardar registro</Button>
-                            <Button className="m-3 shadow" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button className="m-3 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Guardar nuevo autorizado">Guardar registro</Button>
+                            <Button className="m-3 shadow btn-lg" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
                         </Card.Footer>
                     </Card>
                 </Col>

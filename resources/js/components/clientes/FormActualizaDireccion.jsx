@@ -102,8 +102,8 @@ export default function FormActualizaDireccion({ children }) {
                             </Form>
                         </Card.Body>
                         <Card.Footer >
-                            <Button className="m-3 shadow" variant="success" onClick={handleSubmit} aria-label="Guardar nueva empresa">Guardar registro</Button>
-                            <Button className="m-3 shadow" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
+                            <Button className="m-3 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Guardar nueva empresa">Guardar registro</Button>
+                            <Button className="m-3 shadow btn-lg" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
                         </Card.Footer>
                     </Card>
                 </Col>

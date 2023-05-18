@@ -11,7 +11,7 @@ const TablaClientes = () => {
     const handleSearch = (event) => {
         const value = event.target.value;
         setQuery(value);
-      };
+    };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = clientes.data.filter((cliente) =>
         cliente.nombre_fiscal.toLowerCase().includes(query.toLowerCase())
@@ -36,12 +36,12 @@ const TablaClientes = () => {
                 </Col>
             </div>
             <Row className="justify-content-end mt-5">
-                    <Col xs="auto">
-            <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">
-                <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
-            </InputGroup>
-            </Col>
+                <Col xs="auto">
+                    <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">
+                        <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                        <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
+                    </InputGroup>
+                </Col>
             </Row>
             <p className="h3 m-3">Listado clientes</p>
             <Row>
@@ -67,29 +67,28 @@ const TablaClientes = () => {
                         ))}
                     </Table>
                     <Row className="justify-content-center">
-        <Col sm={12} md={6} className="text-center">
-          <nav>
-            <ul className="pagination justify-content-center">
-              {links.map((link, index) => (
-                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                  {link.label === '&laquo; Anterior' ? (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  ) : (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Col>
-      </Row>
+                        <Col sm={12} md={6} className="text-center">
+                            <nav>
+                                <ul className="pagination justify-content-center">
+                                    {links.map((link, index) => (
+                                        <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
+                                            {link.label === '&laquo; Anterior' ? (
+                                                <Button variant="link" disabled={link.url === null} href={link.url}>
+                                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                                </Button>
+                                            ) : (
+                                                <Button variant="link" disabled={link.url === null} href={link.url}>
+                                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                                </Button>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
-  
             <div className="d-grid gap-2">
                 <Button variant="btn btn-outline-primary btn-lg m-5" method='get' href="/nuevoCliente"><strong>Nuevo cliente</strong></Button>
             </div>

@@ -102,7 +102,7 @@ export default function FormRegistro() {
                   </Form.Group>
                   {/* Submit */}
                   <div className="col-md-8 offset-md-4">
-                    <Button type="submit" className="btn btn-primary">Registrar</Button>
+                    <Button type="submit" className="btn btn-primary btn-lg">Registrar</Button>
                   </div>
                 </Form>
               </Card.Body>

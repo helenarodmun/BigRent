@@ -24,19 +24,18 @@ export default function TablaAutorizados() {
                                     <td>{autorizado.nombre_persona_autorizada}</td>
                                     <td>{autorizado.dni}</td>
                                     <td>{autorizado.notas}</td>
-                                    <td>{autorizado.url_dni ? (
-                                            <Button variant='dark' className="ms-3 shadow">
+                                    <td>
+                                        <Button variant='dark' className="ms-3 shadow">
+                                            {autorizado.url_dni ? (
                                                 <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
-                                                <i className="bi bi-file-earmark-pdf-fill text-success"></i> DNI
+                                                    <i className="bi bi-file-earmark-pdf-fill text-success"></i> DNI
                                                 </a>
-                                            </Button>
-                                        ) : (
-                                            <Button variant='dark' className="ms-3 shadow">
-                                                <a className="btn btn-dark" href={autorizado.url_dni} target="_blank">
-                                                <i className="bi-exclamation-triangle-fill text-danger"></i>    DNI
+                                            ) : (
+                                                <a className="btn btn-dark" >
+                                                    <i className="bi-exclamation-triangle-fill text-danger"></i>    DNI
                                                 </a>
-                                            </Button>
-                                        )}</td>
+                                            )}
+                                        </Button></td>
                                 </tr>
                             </tbody>
                         ))}

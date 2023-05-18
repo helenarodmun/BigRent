@@ -111,7 +111,7 @@ export default function FormNuevaMaquina({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
-                                        <FloatingLabel label="NUMERO SERIE" className="mb-2">
+                                        <FloatingLabel label="NÚMERO SERIE" className="mb-2">
                                             <Form.Control size="sm" aria-label="descripción numero de serie" type="text" name="numero_serie" value={data.numero_serie}
                                                 onChange={(e) => setData("numero_serie", e.target.value)
                                                 } />
@@ -119,7 +119,7 @@ export default function FormNuevaMaquina({ children }) {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="4">
-                                        <FloatingLabel label="HOROMETRO" className="mb-3">
+                                        <FloatingLabel label="HORÓMETRO" className="mb-3">
                                             <Form.Select aria-label="incluye horometro" as="select" name="horometro" value={data.horometro}
                                                 onChange={(e) => setData("horometro", e.target.value)
                                                 }>

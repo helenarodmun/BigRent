@@ -83,8 +83,8 @@ export default function FormNuevoAutorizado() {
                                 </Form>
                             </Card.Body>
                             <Card.Footer>
-                                <Button size='lg' className="m-3 shadow" variant="primary" onClick={handleSubmit} aria-label="Guardar nuevo autorizado">Guardar registro</Button>
-                                <Button size='lg' className="m-3 shadow" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
+                                <Button size='lg' className="m-3 shadow btn-lg" variant="primary" onClick={handleSubmit} aria-label="Guardar nuevo autorizado">Guardar registro</Button>
+                                <Button size='lg' className="m-3 shadow btn-lg" variant="secondary" href={'/editarCliente/' + cliente.id} aria-label="Volver a la vista anterior">Cancelar</Button>
                             </Card.Footer>
                         </Card>
                     </Col>

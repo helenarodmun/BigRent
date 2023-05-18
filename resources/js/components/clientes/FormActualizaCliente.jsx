@@ -10,8 +10,8 @@ export default function FormActualizaCliente() {
         nombre_fiscal: clientes.nombre_fiscal,
         nif: clientes.nif,
         nombre_comercial: clientes.nombre_comercial,
-        url_escrituras: null,
-        url_cif: null,
+        url_escrituras: clientes.url_escrituras || '',
+        url_cif: clientes.url_cif || '',
         anotaciones: clientes.anotaciones || '',
     });
     console.log(data)
@@ -103,6 +103,28 @@ export default function FormActualizaCliente() {
                                 </Col>
                                 <hr></hr>
                                 <p className="h4 mb-1">Documentación</p>
+                                <Row>
+                                <Col className="mb-3">
+                                        <Button variant='dark' className="ms-3 shadow">
+                                            {data.url_escrituras ? (
+                                                <a className="btn btn-dark" href={data.url_escrituras} target="_blank">
+                                                    <i className="bi bi-file-earmark-pdf-fill text-success"></i> Escrituras</a>
+                                            ) : (
+                                                <a className="btn btn-dark">
+                                                    <i className="bi-exclamation-triangle-fill text-danger"></i>  Escrituras</a>
+                                            )}
+                                        </Button>
+                                        <Button variant='dark' className="ms-3 shadow">
+                                            {data.url_cif ? (
+                                                <a className="btn btn-dark" href={data.url_cif} target="_blank">
+                                                    <i className="bi bi-file-earmark-pdf-fill text-success"></i> CIF</a>
+                                            ) : (
+                                                <a className="btn btn-dark">
+                                                    <i className="bi-exclamation-triangle-fill text-danger"></i>   CIF</a>
+                                            )}
+                                        </Button>
+                                    </Col>
+                                    </Row>
                                 <Col xs="12" sm="12" md="6">
                                     <Form.Label className="mb-1">Escrituras:</Form.Label>
                                     <Form.Control aria-label="url escrituras" type="file" size="sm" name="url_escrituras"

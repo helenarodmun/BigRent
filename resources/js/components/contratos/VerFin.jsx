@@ -136,7 +136,7 @@ export default function VistaFin() {
                         </Card.Body>
                         <Card.Footer>
                             {contrato.activo == 1 ? (
-                                <Button variant="btn btn-success btn-lg m-5" method="get" onClick={() => handleClick(contrato.id)}><strong>Finalizar Contrato</strong></Button>
+                                <Button variant="btn btn-success btn-lg m-3" method="get" onClick={() => handleClick(contrato.id)}><strong>Finalizar Contrato</strong></Button>
 
                             ) : ('')}
                             <ModalConfirmacion show={showConfirmModal}

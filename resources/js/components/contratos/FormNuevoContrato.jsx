@@ -150,10 +150,10 @@ export default function FormNuevoContrato() {
                             </Form>
                         </Card.Body>
                         <Card.Footer>
-                            <Button variant="btn btn-primary btn-lg m-5" method="get" onClick={handleSubmit}>
+                            <Button variant="btn btn-primary btn-lg m-3" method="get" onClick={handleSubmit}>
                                 <strong>Visualizar datos y totales</strong>
                             </Button>
-                            <Button variant="btn btn-secondary btn-lg m-5" method="post" href={"/verCliente/" + cliente.id}><strong>Cancelar</strong></Button>
+                            <Button variant="btn btn-secondary btn-lg m-3" method="post" href={"/verCliente/" + cliente.id}><strong>Cancelar</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>
