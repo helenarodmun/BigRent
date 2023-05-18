@@ -2,6 +2,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import { useState } from "react";
+import FlashMessage from "../partials/FlashMessage";
 export default function VistaFin() {
     const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, flash } = usePage().props;
     const { data, setData, post, errors } = useForm({

@@ -1,7 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
-import { useState } from "react";
-import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
+import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 export default function VerContrato() {
     const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie,flash } = usePage().props;
