@@ -40,7 +40,7 @@ export default function LogIn() {
                   {/* Email */}
                   <Form.Group>
                     <div className="row mb-3">
-                      <label htmlFor="email" className="col-md-4 col-form-label text-md-end"><strong>Usuario</strong></label>
+                      <label htmlFor="username" className="col-md-4 col-form-label text-md-end"><strong>Usuario</strong></label>
                       <div className="col-md-6">
                         <Form.Control
                           className={errors.username ? 'is-invalid' : ''}

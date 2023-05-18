@@ -59,26 +59,26 @@ export default function CardCliente({ children }) {
                                         {data.url_escrituras ? (
                                             <Button variant='dark' className="ms-3 shadow">
                                                 <a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">
-                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> Escrituras
+                                                <i className="bi bi-file-earmark-pdf-fill text-success"></i> Escrituras
                                                 </a>
                                             </Button>
                                         ) : (
                                             <Button variant='dark' className="ms-3 shadow">
                                                 <a className="btn btn-dark" href={cliente.url_escrituras} target="_blank">
-                                                <i class="bi-exclamation-triangle-fill text-danger"></i>  Escrituras
+                                                <i className="bi-exclamation-triangle-fill text-danger"></i>  Escrituras
                                                 </a>
                                             </Button>
                                         )}
                                         {data.url_cif ? (
                                             <Button variant='dark' className="ms-3 shadow">
                                                 <a className="btn btn-dark" href={cliente.url_cif} target="_blank">
-                                                <i class="bi bi-file-earmark-pdf-fill text-success"></i> CIF
+                                                <i className="bi bi-file-earmark-pdf-fill text-success"></i> CIF
                                                 </a>
                                             </Button>
                                         ) : (
                                             <Button variant='dark' className="ms-3 shadow">
                                                 <a className="btn btn-dark" href={cliente.url_cif} target="_blank">
-                                                <i class="bi-exclamation-triangle-fill text-danger"></i>   CIF
+                                                <i className="bi-exclamation-triangle-fill text-danger"></i>   CIF
                                                 </a>
                                             </Button>
                                         )}

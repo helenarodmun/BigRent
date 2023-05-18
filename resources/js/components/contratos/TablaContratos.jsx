@@ -46,7 +46,7 @@ export default function TablaContratos() {
                 </Col>
             </div>
             <Container>
-                <Row className="justify-content-end mt-5">
+                <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">
                         <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
                             <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>

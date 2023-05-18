@@ -13,15 +13,15 @@ export default function FichaCliente() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
-                <Container fluid className="update-container">
+                <Container fluid="true" className="update-container">
           <Row>
             <Col lg={6}>
-                    <div fluid className="form-container">
+                    <div fluid="true" className="form-container">
                         <CardCliente />
                     </div>
                     </Col>
             <Col lg={6}>
-                    <div fluid className="tables-container">
+                    <div fluid="true" className="tables-container">
                         <div className="table-container">
                             <TablaDirecciones></TablaDirecciones>
                         </div>

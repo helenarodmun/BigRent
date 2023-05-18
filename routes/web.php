@@ -27,6 +27,11 @@ Route::get('/', function () {
     $user = Auth::user();
     return Inertia::render('Welcome', ['user' => $user]);
 });
+Route::get('/registro', function () {
+    $user = Auth::user();
+    $tiendas = Tienda::orderBy('id', 'asc')->get();
+    return Inertia::render('Usuario/Registro', ['user' => $user, 'tiendas' => $tiendas]);
+});
 Route::middleware('auth')->group(function () {
 
 //////////////////////////// RUTAS CLIENTES ///////////////////////////////////////

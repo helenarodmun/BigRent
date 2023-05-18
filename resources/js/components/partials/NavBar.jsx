@@ -19,7 +19,7 @@ function NavBar() {
                         <>
                             <Nav.Item>
                                 <Nav.Link
-                                    href="/register"
+                                    href="/registro"
                                     className="mx-2 me-5 bi bi-check-circle"
                                 >
                                     Registro Usuarios

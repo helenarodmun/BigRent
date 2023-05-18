@@ -34,16 +34,16 @@ export default function TablaFamilias() {
              <div align="center">
                     <Col sm={10}>
                         {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
+                            <div className="alert alert-danger" role={"alert"}>
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{flash.error}
                             </div>)}
                     </Col>
                 </div>
              <Row className="justify-content-end mt-5">
                     <Col xs="auto">
                 <InputGroup action="/familias/buscar" method="get" className="d-flex shadow" role="search">
-                    <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
-                    <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                    <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                    <Form.Control  name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                 </InputGroup>
             </Col>
             </Row>

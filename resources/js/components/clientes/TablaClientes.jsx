@@ -38,8 +38,8 @@ const TablaClientes = () => {
             <Row className="justify-content-end mt-5">
                     <Col xs="auto">
             <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">
-                <InputGroup.Text className='bg-success bg-opacity-25'><i class="bi bi-search text-dark"></i></InputGroup.Text>
-                <Form.Control focus name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
+                <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar cliente" />
             </InputGroup>
             </Col>
             </Row>

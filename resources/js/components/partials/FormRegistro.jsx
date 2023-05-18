@@ -45,7 +45,7 @@ export default function FormRegistro() {
                     <div className="row mb-3">
                       <Form.Label htmlFor="username" className="col-md-4 col-form-label text-md-end">Username</Form.Label>
                       <div className="col-md-6">
-                        <Form.Control type="username" name="username" value={values.username} onChange={handleChange} autoComplete="username" autoFocus required placeholder="Usuario"/>
+                        <Form.Control type="text" name="username" value={values.username} onChange={handleChange} autoComplete="username" autoFocus required placeholder="Usuario"/>
                         {errors.username && <span className="text-danger">{errors.username}</span>}
                       </div>
                     </div>

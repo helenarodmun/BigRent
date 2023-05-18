@@ -74,6 +74,7 @@ thead {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border-radius: 0.25rem;
+    
   }
 
   .navbar-nav .nav-item {
@@ -84,6 +85,8 @@ thead {
     text-decoration: none;
     font-size: 1.2em;
     font-weight: bold;
+    
+    min-height: 100%;
   }
   .navbar-nav .dropdown-item {
     padding: 0.5rem 1rem;
