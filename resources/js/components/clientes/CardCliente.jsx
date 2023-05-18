@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Button, Card, Col, FloatingLabel, Form, Row, } from "react-bootstrap";
+import { Button, Card, Col, FloatingLabel, Form, Row, Container } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 
 export default function CardCliente({ children }) {
@@ -18,7 +18,7 @@ export default function CardCliente({ children }) {
     //se guarda en una variable de estado el id del cliente, que se establecer´`a cuando el usuario haga clic en el icono de la papelera
     const [clienteId, setClienteId] = useState(null);
     return (
-        <div>
+       <Container>
            <FlashMessage success={flash.success} error={flash.error} />
             <p className="h3 m-3 mb-0">Ficha cliente</p>
             <Row>
@@ -81,6 +81,6 @@ export default function CardCliente({ children }) {
                     </div>
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }

@@ -60,7 +60,7 @@ thead {
   background-color: rgba(241, 190, 21, 0.5);
 }
 /* Anchura máxima para móviles */
-@media (max-width: 767px) {
+@media (max-width: 767px ) {
   .navbar-nav .nav-link {
     padding-left: 1rem;
     width: 150px;

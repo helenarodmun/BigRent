@@ -15,7 +15,7 @@ export default function FichaCliente() {
                 <NavBar></NavBar>
                 <Container fluid="true" className="update-container">
           <Row>
-            <Col lg={6}>
+            <Col lg={6}  className='mt-4'>
                     <div fluid="true" className="form-container">
                         <CardCliente />
                     </div>

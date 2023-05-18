@@ -15,7 +15,7 @@ function NavBar() {
             <Navbar.Toggle aria-controls="navbarNavDropdown" />
             <Navbar.Collapse id="navbarNavDropdown">
                 <Nav className="ms-auto">
-                {auth.user?.rol == 1 && ( 
+                {/* {auth.user?.rol == 1 && ( 
                         <>
                             <Nav.Item>
                                 <Nav.Link
@@ -26,7 +26,7 @@ function NavBar() {
                                 </Nav.Link>
                             </Nav.Item>
                         </>
-                    )}
+                    )} */}
                     {/* Si el usuario no ha iniciado sesión, se muestra el botón de inicio de sesión y el de registro */}
                     {auth.user == null ? (
                         <>

@@ -92,8 +92,18 @@ export default function FormActualizaDireccion({ children }) {
                                                     setData("predeterminada", e.target.value)
                                                 }>
                                                 <option>Seleccione tipo de dirección...</option>
-                                                <option value="1">Dirección de la empresa </option>
-                                                <option value="0">Dirección del alquiler</option>
+                                                {direccion.predeterminada == 1 ? (
+                                                    <>
+                                                     <option value="1">Dirección de la empresa </option>
+                                                     <option value="0" disabled>Dirección del alquiler</option>
+                                                     </>
+                                                ):(
+                                                    <>
+                                                    <option value="1" disabled>Dirección de la empresa </option>
+                                                    <option value="0">Dirección del alquiler</option>
+                                                    </>
+                                                )}
+                                               
                                             </Form.Select>
                                             {errors.predeterminada && (<div className="alert alert-danger">{errors.predeterminada}</div>)}
                                         </FloatingLabel>

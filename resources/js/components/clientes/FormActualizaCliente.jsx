@@ -54,6 +54,7 @@ export default function FormActualizaCliente() {
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
     return (
+        <Container>
         <Row>
             <Col xs="12" sm="12" md="12">
                 <p className="h1 mt-3">Modificación Cliente</p>
@@ -178,5 +179,6 @@ export default function FormActualizaCliente() {
                 </Card>
             </Col>
         </Row>
+        </Container>
     );
 }
