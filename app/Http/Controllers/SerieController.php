@@ -18,6 +18,8 @@ class SerieController extends Controller
     {
         if (Auth::user()->rol == 1) {
             $series = Serie::with('maquina')
+                ->with('tienda')
+                ->orderBy('tienda_id')
                 ->orderBy('maquina_id', 'asc')
                 ->orderBy('numero_serie', 'asc')
                 ->paginate(10);
@@ -30,9 +32,8 @@ class SerieController extends Controller
                 ->paginate(10);
         }
 
-
         return Inertia::render('Series/Listado', [
-            'series' => $series,
+            'series' => $series
         ]);
     }
 

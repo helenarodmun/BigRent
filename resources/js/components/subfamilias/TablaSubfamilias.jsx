@@ -59,7 +59,9 @@ export default function TablaSubFamilias() {
                             <th>Descripción</th>
                             <th>Precio /día</th>
                             <th>Importe fianza</th>
-                            {/* <th></th> */}
+                            {auth.user.rol == true ? (
+                                    <>
+                                    <th></th></>):('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((subfamilia) => (

@@ -54,6 +54,9 @@ export default function TablaMarcas() {
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
+                            {auth.user.rol == true ? (
+                                    <>
+                                    <th></th></>):('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((marca) => (

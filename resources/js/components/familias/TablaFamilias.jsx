@@ -54,7 +54,9 @@ export default function TablaFamilias() {
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            {/* <th></th> */}
+                            {auth.user.rol == true ? (
+                                    <>
+                                    <th></th></>):('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((familia) => (

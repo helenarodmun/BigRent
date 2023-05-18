@@ -67,7 +67,9 @@ export default function TablaMaquinas() {
                             <th>Referencia</th>
                             <th>Marca</th>
                             <th className="text-center">Disponibles en tienda</th>
-                            <th></th>
+                            {auth.user.rol == true ? (
+                                    <>
+                                    <th></th></>):('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((maquina) => (

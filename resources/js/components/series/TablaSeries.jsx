@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 const TablaSeries = () => {
-    const { series,  auth, flash } = usePage().props;
+    const { series,  auth, tiendas, flash } = usePage().props;
     const { delete: destroy } = useForm();
    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
    const [query, setQuery] = useState('');
@@ -58,9 +58,13 @@ const TablaSeries = () => {
                             <tr>
                                 <th>Máquina</th>
                                 <th>Número serie</th>
-                                <th>Horometro</th>
+                                <th>Horómetro</th>
                                 <th>Hora inicio</th>
                                 <th>Disponible</th>
+                                {auth.user.rol == true ? (
+                                    <>
+                                    <th>Tienda</th>
+                                    <th></th></>):('')}
                             </tr>
                         </thead>
                         {mostrarResultados.map((serie) => (
@@ -89,6 +93,7 @@ const TablaSeries = () => {
                                     )}
                                     {auth.user.rol == true ? (
                                         <>
+                                        <td>{serie.tienda.nombre}</td>
                                             <td>
                                                 <TipInfo content="Modificar serie" direction="left">
                                                     <Link method="get" href={"/editarSerie/" + serie.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
