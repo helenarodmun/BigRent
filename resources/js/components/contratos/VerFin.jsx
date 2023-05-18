@@ -159,8 +159,7 @@ export default function VistaFin() {
                                 urlAccion="/cerrarContrato"
                                 idRegistro={idToClose} variant={'success'} text={'Aceptar'}
                             />
-                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Ver PDF</strong></Button>
-                            <Button variant="btn btn-secondary btn-lg m-5" href={"/listarContratos/" + cliente.id}><strong>Cancelar</strong></Button>
+                             <Button variant="btn btn-primary bi bi-arrow-90deg-left btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong> Volver al listado</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>

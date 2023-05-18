@@ -37,10 +37,10 @@ class ContratoController extends Controller
         $data = $request->validated();
 
         $cliente = Cliente::findOrFail($data['cliente_id']);
-        $direccion_predeterminada=Direccion::buscaDireccionPredeterminada($data['cliente_id']);
+        $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($data['cliente_id']);
         $direccion = Direccion::findOrFail($data['direccion_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
-        $autorizado = Autorizado::findOrFail($data['autorizado_id']);     
+        $autorizado = Autorizado::findOrFail($data['autorizado_id']);
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
@@ -90,9 +90,9 @@ class ContratoController extends Controller
 
         //OBtener el cliente para comprobar el tipo y acceder a la configuración de cálculo de días
         $cliente = Cliente::findOrFail($data['cliente_id']);
-        $direccion_predeterminada=Direccion::buscaDireccionPredeterminada($data['cliente_id']);
+        $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($data['cliente_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
-        $autorizado = Autorizado::findOrFail($data['autorizado_id']);     
+        $autorizado = Autorizado::findOrFail($data['autorizado_id']);
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
@@ -129,7 +129,7 @@ class ContratoController extends Controller
         ]);
 
         $cliente = Cliente::findOrFail($cliente->id);
-      
+
         Session::flash('success', 'Registro guardado con éxito');
 
         return Inertia::render('Contratos/ConfirmarContrato', [
@@ -310,6 +310,10 @@ class ContratoController extends Controller
         $contrato = Contrato::findOrFail($id);
         //Desactiva el contrato
         $contrato->activo = false;
+        //actualiza la fecha y el importe al día de cierre 
+        $contrato->fecha_entrega = $request['fecha_entrega'];
+        $contrato->importe_total = $request['importe_total'];
+        $contrato->dias = $request['dias'];
         //permite introducir cambios en los campos de anotaciones
         $contrato->notas1 = $request['notas1'];
         $contrato->notas2 = $request['notas2'];
@@ -319,18 +323,29 @@ class ContratoController extends Controller
         $contrato->save();
         $serie->save();
 
-        $cliente = Cliente::findOrFail($contrato->cliente_id);
-        $contratos = Contrato::where('cliente_id', $contrato->cliente_id)
-            ->orderBy('activo', 'desc')
-            ->orderBy('created_at', 'asc')
-            ->with('serie')
-            ->paginate(10);
+        $cliente = $contrato->cliente;
+        //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
+        $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
+            ->where('predeterminada', true)->first();
+        $direccion = $contrato->direccion;
+        $telefono = $contrato->telefono;
+        $autorizado = $contrato->autorizado;
+        $serie = $contrato->serie;
+        $maquina = $serie->maquina;
+        $subfamilia = $maquina->subfamilia;
 
         Session::flash('success', 'Se ha cerrado el contrato correctamente');
 
-        return Inertia::render('Contratos/Listado', [
+        return Inertia::render('Contratos/VistaContrato', [
             'cliente' => $cliente,
-            'contratos' => $contratos
+            'direccion' => $direccion,
+            'direccion_predeterminada' => $direccion_predeterminada,
+            'telefono' => $telefono,
+            'autorizado' => $autorizado,
+            'contrato' => $contrato,
+            'subfamilia' => $subfamilia,
+            'maquina' => $maquina,
+            'serie' => $serie
         ]);
     }
 }

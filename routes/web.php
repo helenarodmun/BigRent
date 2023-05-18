@@ -159,6 +159,7 @@ Route::post('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato'
 Route::get('/cerrarContrato/{id}', [ContratoController::class, 'verContrato']);
 Route::get('/verContratos', [ContratoController::class, 'index']);
 Route::get('/contrato-pdf/{id}', [PdfController::class, 'generaDocumentoContrato']);
+Route::get('/fincontrato-pdf/{id}', [PdfController::class, 'generaDocumentoFIN']);
 
 ////////////////////////////////////////////////////////////////////////////////////
 });

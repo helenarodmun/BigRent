@@ -106,16 +106,16 @@ export default function VistaConfContrato() {
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE FIANZA" className="mb-2">
                                             <Form.Control aria-label="fianza contrato" name="importeFianza" value={`${subfamilia.fianza} €`} disabled readOnly />
-                                            </FloatingLabel>
+                                        </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE ALQUILER" className="mb-2">
-                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly/>
-                                            </FloatingLabel>
+                                            <Form.Control aria-label="importe alquiler contrato" name="importeAlquiler" value={`${subfamilia.precio_dia} €/día`} disabled readOnly />
+                                        </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="2">
                                         <FloatingLabel label="IMPORTE TOTAL" className="mb-2">
-                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`}  disabled readOnly />
+                                            <Form.Control aria-label="importe total contrato" name="importeTotal" value={`${contrato.importe_total} €`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
@@ -136,17 +136,15 @@ export default function VistaConfContrato() {
                         <Card.Footer>
                             {contrato.id == null ? (
                                 <>
- <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
- <Button variant="btn btn-secondary btn-lg m-5" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
- </>
-                            ):(
+                                    <Button variant="btn btn-success btn-lg m-5" method="post" onClick={handleSubmit}><strong>Confirmar contrato</strong></Button>
+                                    <Button variant="btn btn-secondary btn-lg m-5" href={"/nuevoContrato/" + cliente.id}><strong>Cancelar contrato</strong></Button>
+                                </>
+                            ) : (
                                 <>
-                                <Button variant="btn btn-success btn-lg m-5" method="get" href={"/contrato-pdf/" + contrato.id}><strong>Imprimir PDF</strong></Button>
-                    <Button variant="btn btn-primary bi bi-arrow-90deg-left  btn-lg m-5" method='get' href={"/verCliente/" + cliente.id}><strong> Ficha cliente</strong></Button>
+                                    <Button variant="btn btn-success btn-lg m-5" method="get" href={"/contrato-pdf/" + contrato.id} target="_blank"><strong>Imprimir PDF</strong></Button>
+                                    <Button variant="btn btn-primary bi bi-arrow-90deg-left  btn-lg m-5" method='get' href={"/verCliente/" + cliente.id}><strong> Ficha cliente</strong></Button>
                                 </>
                             )}
-                           
-                           
                         </Card.Footer>
                     </Card>
                 </Col>

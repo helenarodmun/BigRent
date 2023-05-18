@@ -28,7 +28,10 @@ export default function VerContrato() {
                     <Card className="shadow rounded">
                         <Card.Header className="bg-warning bg-opacity-50">
                             <Card.Title>
-                                <p className="h3 m-1 mb-0">Datos y totales del contrato</p>
+                                {contrato.activo == 1 ? (
+                                    <p className="h3 m-1 mb-0">Datos y totales del contrato</p>
+                                ):(<p className="h3 m-1 mb-0">Contrato finalizado</p>)}
+                                
                             </Card.Title>
                         </Card.Header>
                         <Card.Body>
@@ -126,9 +129,9 @@ export default function VerContrato() {
                         <Card.Footer>
                             {contrato.activo == 1 ? (
                                 <Button variant="btn btn-danger btn-lg m-3" method="get" href={'/finContrato/' + contrato.id}><strong>Cerrar contrato</strong></Button>
-                            ) : ('')}
-                            <Button variant="btn btn-info btn-lg m-3" method="get" href={'/contrato-pdf/' + contrato.id}><strong>Ver PDF</strong></Button>
-                            <Button variant="btn btn-primary bi bi-arrow-90deg-left btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong> Voler al listado</strong></Button>
+                            ) : ( 
+                            <Button variant="btn btn-success btn-lg m-5" method="get" href={"/fincontrato-pdf/" + contrato.id} target="_blank"><strong>Imprimir PDF</strong></Button>)}
+                            <Button variant="btn btn-primary bi bi-arrow-90deg-left btn-lg m-3" href={"/listarContratos/" + cliente.id}><strong> Volver al listado</strong></Button>
                         </Card.Footer>
                     </Card>
                 </Col>
