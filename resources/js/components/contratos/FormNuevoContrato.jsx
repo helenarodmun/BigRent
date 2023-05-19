@@ -1,6 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import { Row, Col, Button, Card, Form, FloatingLabel, Container,  } from "react-bootstrap";
+import { Row, Col, Button, Card, Form, FloatingLabel, Container, } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevoContrato() {
@@ -31,7 +31,7 @@ export default function FormNuevoContrato() {
     return (
 
         <Container className="mt-5">
-              <FlashMessage success={flash.success} error={flash.error} />
+            <FlashMessage success={flash.success} error={flash.error} />
             <Row>
                 <Col>
                     <Card className="shadow rounded">
@@ -70,7 +70,7 @@ export default function FormNuevoContrato() {
                                             {errors.autoizado_id && (<div className="alert alert-danger">{errors.autorizado_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                <Col xs="12" sm="3" md="3">
+                                    <Col xs="12" sm="3" md="3">
                                         <FloatingLabel label="TELÉFONO PERSONA AUTORIZADA" className="mb-2">
                                             <Form.Select name="telefono_id" placeholder="Selecciona un correo" onChange={(e) => setData("telefono_id", e.target.value)}>
                                                 <option>Seleccione teléfono ...</option>
@@ -79,7 +79,7 @@ export default function FormNuevoContrato() {
                                             {errors.telefono_id && (<div className="alert alert-danger">{errors.telefono_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    
+
                                 </Row>
                                 <Row>
                                     <Col xs="12" sm="6" md="3">
@@ -110,44 +110,53 @@ export default function FormNuevoContrato() {
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="3">
-                                        <FloatingLabel label="NUMERO SERIE" className="mb-2">
-                                            <Form.Select size="sm" aria-label="series" as="select" name="serie_id" value={data.serie_id} onChange={(e) => setData("serie_id", e.target.value)}>
-                                                <option>Seleccione la serie...</option>
-                                                {seriesFiltradas.sort((a, b) => a.numero_serie.localeCompare(b.numero_serie)).map((serie) => (<option key={serie.id} value={serie.id}>{serie.numero_serie}</option>))}
-                                            </Form.Select>
-                                            {errors.serie_id && (<div className="alert alert-danger">{errors.serie_id}</div>)}
-                                        </FloatingLabel>
+                                        {selectedMaquinaId && seriesFiltradas.length > 0 ? (
+                                            <FloatingLabel label="NUMERO SERIE" className="mb-2">
+                                                <Form.Select size="sm" aria-label="series" as="select" name="serie_id" value={data.serie_id} onChange={(e) => setData("serie_id", e.target.value)}>
+                                                    <option>Seleccione la serie...</option>
+                                                    {seriesFiltradas
+                                                        .sort((a, b) => a.numero_serie.localeCompare(b.numero_serie))
+                                                        .map((serie) => (
+                                                            <option key={serie.id} value={serie.id}>{serie.numero_serie} </option>
+                                                        ))}
+                                                </Form.Select>
+                                                {errors.serie_id && (<div className="alert alert-danger">{errors.serie_id}</div>)}
+                                            </FloatingLabel>
+                                        ) : (
+                                            selectedMaquinaId && <p className="text-danger"><strong>NO SE HAN ENCONTRADO SERIES DISPONIBLES</strong></p>
+                                        )}
                                     </Col>
+
                                 </Row>
                                 <Row>
-                                <Col xs="12" sm="3" md="6" >
-                                    <Row>
-                                        <Col xs="12" sm="3" md="6">
-                                            <FloatingLabel label="FECHA INICIO ALQUILER" className="mb-2 ">
-                                                <Form.Control type="date" name="date" value={data.fecha_retirada} onChange={(e) => setData("fecha_retirada", e.target.value)} />
-                                                {errors.fecha_retirada && (<div className="alert alert-danger">{errors.fecha_retirada}</div>)}
+                                    <Col xs="12" sm="3" md="6" >
+                                        <Row>
+                                            <Col xs="12" sm="3" md="6">
+                                                <FloatingLabel label="FECHA INICIO ALQUILER" className="mb-2 ">
+                                                    <Form.Control type="date" name="date" value={data.fecha_retirada} onChange={(e) => setData("fecha_retirada", e.target.value)} />
+                                                    {errors.fecha_retirada && (<div className="alert alert-danger">{errors.fecha_retirada}</div>)}
+                                                </FloatingLabel>
+                                            </Col>
+                                            <Col xs="12" sm="3" md="6">
+                                                <FloatingLabel label="FECHA FINALIZACIÓN" className="mb-2">
+                                                    <Form.Control type="date" name="date" value={data.fecha_entrega} onChange={(e) => setData("fecha_entrega", e.target.value)} />
+                                                    {errors.fecha_entrega && (<div className="alert alert-danger">{errors.fecha_entrega}</div>)}
+                                                </FloatingLabel>
+                                            </Col>
+                                        </Row>
+                                        <Col xs="12" sm="3" md="12">
+                                            <FloatingLabel label="ESTADO DEL ARTÍCULO - OTRAS OBSERVACIONES" className="mb-2">
+                                                <Form.Control size="sm" as="textarea" rows={3} name="notas1" value={data.notas1} onChange={(e) => setData("notas1", e.target.value)}></Form.Control>
+                                                {errors.notas1 && (<div className="alert alert-danger">{errors.notas1}</div>)}
                                             </FloatingLabel>
                                         </Col>
-                                        <Col xs="12" sm="3" md="6">
-                                            <FloatingLabel label="FECHA FINALIZACIÓN" className="mb-2">
-                                                <Form.Control type="date" name="date" value={data.fecha_entrega} onChange={(e) => setData("fecha_entrega", e.target.value)} />
-                                                {errors.fecha_entrega && (<div className="alert alert-danger">{errors.fecha_entrega}</div>)}
+                                        <Col xs="12" sm="3" md="12">
+                                            <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
+                                                <Form.Control size="sm" as="textarea" rows={3} name="notas2" value={data.notas2} onChange={(e) => setData("notas2", e.target.value)}></Form.Control>
+                                                {errors.notas2 && (<div className="alert alert-danger">{errors.notas2}</div>)}
                                             </FloatingLabel>
                                         </Col>
-                                    </Row>
-                                    <Col xs="12" sm="3" md="12">
-                                        <FloatingLabel label="ESTADO DEL ARTÍCULO - OTRAS OBSERVACIONES" className="mb-2">
-                                            <Form.Control size="sm" as="textarea" rows={3} name="notas1" value={data.notas1} onChange={(e) => setData("notas1", e.target.value)}></Form.Control>
-                                            {errors.notas1 && (<div className="alert alert-danger">{errors.notas1}</div>)}
-                                        </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="3" md="12">
-                                        <FloatingLabel label="OBSERVACIONES CONTRATO" className="mb-2">
-                                            <Form.Control size="sm" as="textarea" rows={3} name="notas2" value={data.notas2} onChange={(e) => setData("notas2", e.target.value)}></Form.Control>
-                                            {errors.notas2 && (<div className="alert alert-danger">{errors.notas2}</div>)}
-                                        </FloatingLabel>
-                                    </Col>
-                                </Col>
                                 </Row>
                             </Form>
                         </Card.Body>
