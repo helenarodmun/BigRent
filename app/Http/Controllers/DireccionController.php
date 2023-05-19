@@ -16,40 +16,45 @@ class DireccionController extends Controller
     public function create(DireccionForm $request, $id)
     {
         $request->validated();
+if($request['predeterminada'] == null){
+    Session::flash('error', 'debe seleccionjar el tipo de dirección');
 
-        $cliente = Cliente::findOrFail($id);
+}else{
+    $cliente = Cliente::findOrFail($id);
 
-        $direccion = new Direccion;
+    $direccion = new Direccion;
 
-        $direccion->direccion = $request['direccion'];
-        $direccion->cp = $request['cp'];
-        $direccion->localidad = $request['localidad'];
-        $direccion->municipio = $request['municipio'];
-        $direccion->provincia = $request['provincia']; 
-        $direccion->cliente_id = $cliente->id;       
-        $direccion->predeterminada = $request['predeterminada'];
+    $direccion->direccion = $request['direccion'];
+    $direccion->cp = $request['cp'];
+    $direccion->localidad = $request['localidad'];
+    $direccion->municipio = $request['municipio'];
+    $direccion->provincia = $request['provincia']; 
+    $direccion->cliente_id = $cliente->id;       
+    $direccion->predeterminada = $request['predeterminada'];
+  
+    // Guarda el direccion actualizado en la base de datos.
+    $direccion->save();
+
+
+    // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
+    $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
+    //recupera los datos del cliente
+    $cliente = $direccion->cliente;
+    // Recupera todos los telefonos del cliente 
+    $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
+    $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
+    
+    // Redirige al cliente del usuario actualizado.
+    Session::flash('success', 'Se ha creado la dirección de forma correcta');
+
+    return Inertia::render('Clientes/ActualizaCliente', [
+        'direcciones' => $direcciones,
+        'clientes' => $cliente,
+        'telefonos' => $telefonos,
+        'autorizados' => $autorizados
+    ]);
+}
       
-        // Guarda el direccion actualizado en la base de datos.
-        $direccion->save();
- 
-
-        // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
-        $direcciones = Direccion::where('cliente_id', $direccion->cliente_id)->latest()->get();
-        //recupera los datos del cliente
-        $cliente = $direccion->cliente;
-        // Recupera todos los telefonos del cliente 
-        $telefonos = Telefono::where('cliente_id', $direccion->cliente_id)->latest()->get();
-        $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
-        
-        // Redirige al cliente del usuario actualizado.
-        Session::flash('success', 'Se ha creado la dirección de forma correcta');
-
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'direcciones' => $direcciones,
-            'clientes' => $cliente,
-            'telefonos' => $telefonos,
-            'autorizados' => $autorizados
-        ]);
     }
 
 

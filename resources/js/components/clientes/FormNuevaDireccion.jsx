@@ -1,9 +1,10 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevaDireccion({ children }) {
-    const { cliente } = usePage().props;
+    const { cliente, flash } = usePage().props;
     console.log(cliente);
     // useForm es un helper diseñado para formularios
     const { data, setData, post, processing, errors } = useForm({
@@ -29,6 +30,7 @@ export default function FormNuevaDireccion({ children }) {
     }
     return (
         <>
+        <FlashMessage success={flash.success} error={flash.error} />
             <div className="align-items-center justify-content-center accesibilidad-texto">
                 <Col className="">
                     <Card className="shadow rounded">

@@ -2,6 +2,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormActualizaCliente() {
     const { clientes, flash, auth } = usePage().props;
@@ -60,6 +61,7 @@ export default function FormActualizaCliente() {
     };
     return (
         <Container>
+            <FlashMessage success={flash.success} error={flash.error} />
             <Row>
                 <Col xs="12" sm="12" md="12">
                     <p className="h1 mt-3">Modificación Cliente</p>
@@ -156,7 +158,7 @@ export default function FormActualizaCliente() {
                         </Card.Body>
                         <Card.Footer>
                             <Button className="m-2 shadow btn-lg" variant="success" onClick={handleSubmit} aria-label="Modificar los datos del cliente">Guardar registro</Button>
-                            {auth.user.rol === true ? (
+                            {auth.user.rol == true ? (
                                 <>
                                     <Button className="m-3 shadow btn-lg" type="submit" variant="danger" aria-label="Eliminar los datos del cliente" onClick={() => handleDeleteClick(clientes.id)}>Eliminar</Button>
                                     <ModalConfirmacion

@@ -91,15 +91,12 @@ export default function FormActualizaDireccion({ children }) {
                                                 onChange={(e) =>
                                                     setData("predeterminada", e.target.value)
                                                 }>
-                                                <option>Seleccione tipo de dirección...</option>
                                                 {direccion.predeterminada == 1 ? (
                                                     <>
                                                      <option value="1">Dirección de la empresa </option>
-                                                     <option value="0" disabled>Dirección del alquiler</option>
                                                      </>
                                                 ):(
                                                     <>
-                                                    <option value="1" disabled>Dirección de la empresa </option>
                                                     <option value="0">Dirección del alquiler</option>
                                                     </>
                                                 )}
