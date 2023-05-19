@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubfamiliaForm;
-use App\Models\Familia;
 use App\Models\Subfamilia;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
@@ -27,22 +25,16 @@ class SubfamiliaController extends Controller
     public function create(SubfamiliaForm $request)
     {
         $request->validated();
+        
         //manda mensaje de error si los valores son negativos
         if ($request->precio_dia <= 0 || $request->fianza < 0) {
             Session::flash('error', 'debe introducir un número mayor que 0');
             return back();
         }
-        $subfamilia = Subfamilia::create($request->all());
+        Subfamilia::create($request->all());
 
-        $subfamilias = Subfamilia::with('familia')
-            ->orderBy('familia_id', 'asc')
-            ->orderBY('descripcion', 'asc')
-            ->paginate(10);
         Session::flash('success', 'Se ha creado la subfamilia de forma correcta');
-
-        return Inertia::render('Subfamilias/Listado', [
-            'subfamilias' => $subfamilias,
-        ]);
+         return redirect("/subfamilias");
     }
 
 
@@ -61,8 +53,8 @@ class SubfamiliaController extends Controller
     public function update(SubfamiliaForm $request, $id)
     {
         $validatedData = $request->validated();
-
         $subfamilia = Subfamilia::findOrFail($id);
+
         //manda mensaje de error si los valores son negativos
         if ($request->precio_dia <= 0 || $request->fianza < 0) {
             Session::flash('error', 'debe introducir un número mayor que 0');
@@ -73,15 +65,8 @@ class SubfamiliaController extends Controller
         $subfamilia->fianza = $validatedData['fianza'];
         $subfamilia->save();
 
-        $subfamilias = Subfamilia::with('familia')
-            ->orderBy('familia_id', 'asc')
-            ->orderBY('descripcion', 'asc')
-            ->paginate(10);
         Session::flash('success', 'Se ha actualizado la subfamilia de forma correcta');
-
-        return Inertia::render('Subfamilias/Listado', [
-            'subfamilias' => $subfamilias,
-        ]);
+        return redirect("/subfamilias");
     }
 
 
@@ -90,13 +75,8 @@ class SubfamiliaController extends Controller
         try {
             $subfamilia = Subfamilia::findOrFail($id);
             $subfamilia->delete();
-
-            $subfamilias = Subfamilia::with('familia')
-                ->orderBy('familia_id', 'asc')
-                ->orderBY('descripcion', 'asc')
-                ->paginate(10);
             Session::flash('success', 'Se ha eliminado la subfamilia de forma correcta');
-            return Inertia::render('Subfamilias/Listado', ['subfamilias' => $subfamilias]);
+            return redirect("/subfamilias");
         } catch (\Exception $e) {
             if ($e->getCode() == "23000")
                 Session::flash('error', 'Imposible eliminar, existen registros relacionados');

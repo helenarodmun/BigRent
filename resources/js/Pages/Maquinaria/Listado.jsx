@@ -11,36 +11,6 @@ export default function Listado() {
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
-                <div align="center">
-                    <Col sm={10}>
-                        {flash.success && (
-                            <div class="alert alert-success" role={"alert"}>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                {flash.errorEdicion}
-                            </div>
-                        )}
-                        {flash.error && (
-                            <div class="alert alert-danger" role={"alert"}>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    data-dismiss="alert"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                {flash.errorBorrado}
-                            </div>
-                        )}
-                    </Col>
-                </div>
                 <TablaMaquinas></TablaMaquinas>
             </div>
         </div>

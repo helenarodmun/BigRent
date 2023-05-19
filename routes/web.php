@@ -47,7 +47,6 @@ Route::get('/nuevoCliente', function () {
 Route::post('/nuevoCliente', [ClienteController::class, 'create']);
 Route::get('/editarCliente/{id}', [ClienteController::class, 'showClienteEdicion']);
 Route::post('/editarCliente/{id}', [ClienteController::class, 'update']);
-Route::get('/eliminarCliente/{id}', [ClienteController::class, 'index']);
 Route::delete('/eliminarCliente/{id}', [ClienteController::class, 'destroy']);
 Route::get('/clientes/buscar', [ClienteController::class, 'search']);
 
@@ -125,7 +124,6 @@ Route::post('/nuevaMaquina', [MaquinaController::class, 'create']);
 Route::get('/editarMaquina/{id}', [MaquinaController::class, 'verEdicionMaquina']);
 Route::post('/editarMaquina/{id}', [MaquinaController::class, 'update']);
 Route::delete('/eliminarMaquina/{id}', [MaquinaController::class, 'destroy']);
-Route::get('/eliminarMaquina/{id}', [MaquinaController::class, 'index']);
 Route::get('/verFicha/{id}', [MaquinaController::class, 'verDatosMaquina']);
 Route::get('/maquinas/buscar', [MaquinaController::class, 'search']);
 
@@ -148,7 +146,6 @@ Route::get('/editarSerie/{id}', [SerieController::class, 'verEdicionSerie']);
 Route::put('/editarSerie/{id}', [SerieController::class, 'update']);
 Route::delete('/eliminarSerie/{id}', [SerieController::class, 'destroy']);
 Route::get('/series/buscar', [SerieController::class, 'search']);
-Route::get('/eliminarSerie/{id}', [SerieController::class, 'index']);
 
 //////////////////////// RUTAS CONTRATOS /////////////////////////////////////
 Route::get('/nuevoContrato/{id}', [ContratoController::class, 'verFormContrato']);
@@ -162,6 +159,8 @@ Route::get('/finContrato/{id}', [ContratoController::class, 'finContrato']);
 Route::post('/cerrarContrato/{id}', [ContratoController::class, 'cerrarContrato']);
 Route::get('/cerrarContrato/{id}', [ContratoController::class, 'verContrato']);
 Route::get('/verContratos', [ContratoController::class, 'index']);
+
+//////////////////////// RUTAS PDF /////////////////////////////////////
 Route::get('/contrato-pdf/{id}', [PdfController::class, 'generaDocumentoContrato']);
 Route::get('/fincontrato-pdf/{id}', [PdfController::class, 'generaDocumentoFIN']);
 

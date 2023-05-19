@@ -25,16 +25,11 @@ class MarcaController extends Controller
     {
         try {
             $request->validated();
-
             $marca = Marca::create($request->all());
             $marca->save();
-
-            $marcas = Marca::orderBy('denominacion', 'asc')->paginate(10);
+            
             Session::flash('success', 'Se ha creado la familia de forma correcta');
-
-            return Inertia::render('Marcas/Listado', [
-                'marcas' => $marcas,
-            ]);
+            return redirect("/marcas");;
         } catch (\Exception $e) {
             if ($e->getCode() == "23000")
                 Session::flash('error', 'Imposible eliminar, existen registros relacionados');
@@ -56,17 +51,12 @@ class MarcaController extends Controller
     public function update(MarcaForm $request, $id)
     {
         $validatedData = $request->validated();
-
         $marca = marca::findOrFail($id);
         $marca->denominacion = strtoupper($validatedData['denominacion']);
         $marca->save();
 
-        $marcas = Marca::orderBy('id', 'asc')->paginate(10);
         Session::flash('success', 'Se ha actualizado la familia de forma correcta');
-
-        return Inertia::render('Marcas/Listado', [
-            'marcas' => $marcas,
-        ]);
+        return redirect("/marcas");
     }
 
 
@@ -75,9 +65,7 @@ class MarcaController extends Controller
         $marca = Marca::findOrFail($id);
         $marca->delete();
 
-        $marcas = Marca::orderBy('id', 'asc')->paginate(10);
         Session::flash('success', 'Se ha eliminado la família de froma correcta');
-
-        return Inertia::render('Marcas/Listado', ['marcas' => $marcas]);
+        return redirect("/marcas");
     }
 }

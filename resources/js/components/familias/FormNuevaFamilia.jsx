@@ -25,7 +25,7 @@ export default function FormNuevaFamilia({ children }) {
     return (
         <>
             <Container className="align-items-center justify-content-center accesibilidad-texto">
-                <FlashMessagee success={flash.success} error={flash.error} />
+                <FlashMessage success={flash.success} error={flash.error} />
                 <Col className="">
                     <Card className="shadow rounded">
                         <Card.Header>

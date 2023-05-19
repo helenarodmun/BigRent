@@ -61,20 +61,12 @@ class MaquinaController extends Controller
             $maquina->subfamilia_id = $request->subfamilia_id;
             $maquina->marca_id = $request->marca_id;
             $maquina->save();
-            //recuperamos todos los registros a mostrar
-            $tienda = Auth::user()->tienda_id;
-            $maquinas = Maquina::with('subfamilia')
-                ->orderBy('descripcion', 'asc')
-                ->paginate(10);
-            $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
-                $query->where('tienda_id', $tienda);
-            }]);
-            Session::flash('success', 'Se ha creado el registro de forma correcta');
 
-            return Inertia::render('Maquinaria/Listado', [
-                'maquinas' => $maquinas,
-            ]);
+            Session::flash('success', 'Se ha creado el registro de forma correcta');
+            return redirect("/maquinas");
+
         } else {
+            
             Session::flash('error', 'Ya existe una máquina con ese nombre o número de referencia');
             return back();
         }
@@ -120,22 +112,10 @@ class MaquinaController extends Controller
         $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : $maquina->url_manual;
         $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : $maquina->url_ficha;
         $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : $maquina->url_imagen;
-
         $maquina->save();
 
-        //recuperamos todos los registros a mostrar
-        $tienda = Auth::user()->tienda_id;
-        $maquinas = Maquina::with('subfamilia')
-            ->orderBy('descripcion', 'asc')
-            ->paginate(10);
-        $maquinas->load(['subfamilia.maquinas', 'marca.maquinas', 'series' => function ($query) use ($tienda) {
-            $query->where('tienda_id', $tienda);
-        }]);
-
         Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
-        return Inertia::render('Maquinaria/Listado', [
-            'maquinas' => $maquinas,
-        ]);
+        return redirect("/maquinas");
     }
 
 
@@ -159,16 +139,9 @@ class MaquinaController extends Controller
         try {
             $maquina = Maquina::findOrFail($id);
             $maquina->delete();
-            //recuperamos todos los registros a mostrar
-            $tienda = Auth::user()->tienda_id;
-            $maquinas = Maquina::with('subfamilia')
-                ->orderBy('descripcion', 'asc')
-                ->paginate(10);
-            $maquinas->load(['marca.maquinas', 'series' => function ($query) use ($tienda) {
-                $query->where('tienda_id', $tienda);
-            }]);
+            
             Session::flash('success', 'Se ha eliminado la máquina de forma correcta');
-            return Inertia::render('Maquinaria/Listado', ['maquinas' => $maquinas]);
+            return redirect("/maquinas");
         } catch (\Exception $e) {
             if ($e->getCode() == "23000")
                 Session::flash('error', 'Imposible eliminar, existen registros relacionados');
