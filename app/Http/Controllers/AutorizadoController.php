@@ -100,11 +100,13 @@ class AutorizadoController extends Controller
         // Busca el regidtro a actualizar por su ID.
         $autorizado = Autorizado::findOrFail($id);
 
-        // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
+        // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas      
         if ($request->hasFile('url_dni')) {
-            $request->file('url_dni')->store('public/clientes/autorizados/');
+            $autorizado->url_dni = $request->file('url_dni')->store('public/clientes/autorizados/');
+        } else {
+            $autorizado->url_dni = $autorizado->url_dni; // Mantén la ruta existente en la base de datos
         }
-
+        
         // Actualiza los campos del autorizado con los datos validados del formulario.
         $autorizado->nombre_persona_autorizada = $validatedData['nombre_persona_autorizada'];
         $autorizado->dni = $validatedData['dni'];

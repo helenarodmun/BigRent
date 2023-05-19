@@ -15,13 +15,26 @@ export default function FormActualizaAutorizado({ children }) {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        post(
-            `/editarAutorizado/${autorizado.id}`,
-            {
-                onSuccess: () => { console.log(data); },
-            },
-            data
-        );
+        if (data.url_dni instanceof File) {
+            // Si `url_dni` es un archivo, ejecuta la petición con el archivo adjunto
+            post(
+                `/editarAutorizado/${autorizado.id}`,
+                {
+                    onSuccess: () => { console.log(data); },
+                    data: data,
+                }
+            );
+        } else {
+            // Si `url_dni` no es un archivo, elimínalo del objeto de datos antes de enviarlo
+            delete data.url_dni;
+            post(
+                `/editarAutorizado/${autorizado.id}`,
+                {
+                    onSuccess: () => { console.log(data); },
+                    data: data,
+                }
+            );
+        }
     }
     return (
         <>

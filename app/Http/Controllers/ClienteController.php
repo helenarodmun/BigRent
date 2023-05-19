@@ -160,9 +160,13 @@ class ClienteController extends Controller
         //verificar si se ha enviado un archivo antes de intentar guardarlos y asignar las rutas correspondientes al modelo
         if ($request->hasFile('url_escrituras')) {
             $request->file('url_escrituras')->store('public/clientes/escrituras/');
+        } else {
+            $cliente->url_escrituras = $cliente->url_escrituras;
         }
         if ($request->hasFile('url_cif')) {
             $request->file('url_cif')->store('public/clientes/cif/');
+        }else {
+            $cliente->url_cif = $cliente->url_cif;
         }
 
         // Actualiza los campos del cliente con los datos validados del formulario.
