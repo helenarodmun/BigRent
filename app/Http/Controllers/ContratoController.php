@@ -167,8 +167,7 @@ class ContratoController extends Controller
     public function verListadoContratos($id)
     {
         $cliente = Cliente::findOrFail($id);
-        $user = Auth::user();
-        
+        $user = Auth::user();        
         $contratosQuery = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'desc')
@@ -181,8 +180,7 @@ class ContratoController extends Controller
             $contratosQuery->whereHas('serie', function ($query) use ($tiendaId) {
                 $query->where('tienda_id', $tiendaId);
             });
-        }
-    
+        }    
         $contratos = $contratosQuery->paginate(10);
     
         return Inertia::render('Contratos/Listado', [

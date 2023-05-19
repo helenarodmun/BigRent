@@ -209,7 +209,6 @@ class ClienteController extends Controller
         // $rutaArchivo = trim($path, '/');
         // Storage::disk('public')->delete($rutaArchivo);
         $cliente->delete();
-        $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(10);
 
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
         return redirect("/clientes");

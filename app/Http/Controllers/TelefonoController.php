@@ -79,9 +79,17 @@ class TelefonoController extends Controller
     public function destroy($id)
     {
         $telefono = Telefono::findOrFail($id);
-        $telefono->delete();
         $cliente = $telefono->cliente;
-
+    
+        // Verificar si el cliente tiene al menos un teléfono
+        $numTelefonos = Telefono::where('cliente_id', $cliente->id)->count();
+        if ($numTelefonos <= 1) {
+            Session::flash('error', 'Imposible borrar, el cliente debe tener mínimo un dato de contacto');
+            return redirect("/editarCliente/$cliente->id");
+        }
+    
+        $telefono->delete();
+    
         Session::flash('success', 'Se han eliminado los datos');
         return redirect("/editarCliente/$cliente->id");
     }

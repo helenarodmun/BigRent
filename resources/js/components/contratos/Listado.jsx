@@ -6,7 +6,7 @@ import FlashMessage from "../partials/FlashMessage";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaContratos() {
-    
+
     const { contratos, flash } = usePage().props;
     // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
     const [query, setQuery] = useState('');
@@ -39,7 +39,7 @@ export default function TablaContratos() {
     const links = contratos.links;
     return (
         <>
-        <FlashMessage success={flash.success} error={flash.error} />
+            <FlashMessage success={flash.success} error={flash.error} />
             <Container>
                 <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">
@@ -73,32 +73,39 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {resultadosFiltrados.map((contrato) => (
-                                <tbody key={contrato.id} className="">
+                            {resultadosFiltrados.length === 0 ? (
+                                <tbody>
                                     <tr>
-                                        <td>{contrato.id}</td>
-                                        <td>{contrato.cliente.nombre_fiscal}</td>
-                                        <td>{contrato.serie.numero_serie}</td>
-                                        <td>{myDate(contrato.created_at)}</td>
-                                        <td>{contrato.fecha_retirada}</td>
-                                        <td>{contrato.fecha_entrega}</td>
-                                        <td>{`${contrato.importe_total} €`}</td>
-                                        {contrato.activo == 0 ? (
-                                            <td className="text-danger">
-                                                <strong>NO</strong>
-                                            </td>
-                                        ) : (
-                                            <td className="text-success">
-                                                <strong>SÍ</strong>
-                                            </td>
-                                        )}
-                                        <td>
-                                            <TipInfo content="Ver contrato" direction="left">
-                                                <Link href={"/verContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-search text-dark m-1" />
-                                            </TipInfo>
-                                        </td>
+                                        <td colSpan="9" className="text-center text-danger"><strong>NO SE ENCONTRARON CONTRATOS</strong></td>
                                     </tr>
-                                </tbody>))}
+                                </tbody>
+                            ) : (
+                                resultadosFiltrados.map((contrato) => (
+                                    <tbody key={contrato.id} className="">
+                                        <tr>
+                                            <td>{contrato.id}</td>
+                                            <td>{contrato.cliente.nombre_fiscal}</td>
+                                            <td>{contrato.serie.numero_serie}</td>
+                                            <td>{myDate(contrato.created_at)}</td>
+                                            <td>{contrato.fecha_retirada}</td>
+                                            <td>{contrato.fecha_entrega}</td>
+                                            <td>{`${contrato.importe_total} €`}</td>
+                                            {contrato.activo == 0 ? (
+                                                <td className="text-danger">
+                                                    <strong>NO</strong>
+                                                </td>
+                                            ) : (
+                                                <td className="text-success">
+                                                    <strong>SÍ</strong>
+                                                </td>
+                                            )}
+                                            <td>
+                                                <TipInfo content="Ver contrato" direction="left">
+                                                    <Link href={"/verContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-search text-dark m-1" />
+                                                </TipInfo>
+                                            </td>
+                                        </tr>
+                                    </tbody>)))}
                         </Table>
                         <Row className="justify-content-center">
                             <Col sm={12} md={6} className="text-center">

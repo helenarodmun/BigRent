@@ -101,7 +101,7 @@ class AutorizadoController extends Controller
         } else {
             $autorizado->url_dni = $autorizado->url_dni; // Mantén la ruta existente en la base de datos
         }
-        
+
         // Actualiza los campos del autorizado con los datos validados del formulario.
         $autorizado->nombre_persona_autorizada = $validatedData['nombre_persona_autorizada'];
         $autorizado->dni = $validatedData['dni'];
@@ -129,16 +129,16 @@ class AutorizadoController extends Controller
     public function destroy($id)
     {
         $autorizado = Autorizado::findOrFail($id);
+        $cliente = $autorizado->cliente;
 
+        // Verificar si el cliente tiene al menos un autorizado
+        $numAutorizados = Autorizado::where('cliente_id', $cliente->id)->count();
+        if ($numAutorizados <= 1) {
+            Session::flash('error', 'Imposible borrar, el cliente debe tener mínimo un autorizado');
+            return redirect("/editarCliente/$cliente->id");
+        }
         $autorizado->delete();
 
-        $autorizados = Autorizado::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        $cliente = $autorizado->cliente;
-        // Recupera todos las direcciones del cliente 
-        $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        // Recupera todos los telefonos del cliente 
-        $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-        
         Session::flash('success', 'Se ha eliminado el autorizado de forma definitiva');
         return redirect("/editarCliente/$cliente->id");
     }
