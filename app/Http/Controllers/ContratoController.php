@@ -22,15 +22,34 @@ class ContratoController extends Controller
 
     public function index()
     {
-        $contratos = Contrato::orderBy('activo', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->with('cliente')
-            ->with('serie')
-            ->paginate(10);
+        $user = Auth::user();
+        
+        if ($user->rol == 1) {
+            // Usuario con rol 1 (admin) muestra todos los contratos
+            $contratos = Contrato::orderBy('activo', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->with('cliente')
+                ->with('serie')
+                ->paginate(10);
+        } else {
+            // Usuario no admin, muestra los contratos de su tienda
+            $tiendaId = $user->tienda_id;
+            
+            $contratos = Contrato::whereHas('serie', function ($query) use ($tiendaId) {
+                    $query->where('tienda_id', $tiendaId);
+                })
+                ->orderBy('activo', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->with('cliente')
+                ->with('serie')
+                ->paginate(10);
+        }
+    
         return Inertia::render('Contratos/Todos', [
             'contratos' => $contratos
         ]);
     }
+    
 
     public function confirmarContrato(ContratoForm $request)
     {
@@ -145,23 +164,32 @@ class ContratoController extends Controller
         ]);
     }
 
-
     public function verListadoContratos($id)
     {
         $cliente = Cliente::findOrFail($id);
-
-        $contratos = Contrato::where('cliente_id', $id)
+        $user = Auth::user();
+        
+        $contratosQuery = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'desc')
-            ->with('serie')
-            ->paginate(10);
+            ->with('serie');
+            
+        if ($user->rol != 1) {
+            // Usuario no admin, filtra los contratos por las series de su tienda
+            $tiendaId = $user->tienda_id;
+            
+            $contratosQuery->whereHas('serie', function ($query) use ($tiendaId) {
+                $query->where('tienda_id', $tiendaId);
+            });
+        }
+    
+        $contratos = $contratosQuery->paginate(10);
+    
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
             'contratos' => $contratos
         ]);
     }
-
-
     public function verFormContrato($id)
     {
         $cliente_actual = Cliente::findOrFail($id);
