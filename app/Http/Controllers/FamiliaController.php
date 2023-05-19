@@ -27,7 +27,7 @@ class FamiliaController extends Controller
         $familia = Familia::create($request->all());
         $familia->save();
         $familias = Familia::orderBy('id', 'asc')->paginate(10);
-        Session::flash('edicion', 'Se ha creado la familia de forma correcta');
+        Session::flash('success', 'Se ha creado la familia de forma correcta');
 
         return Inertia::render('Familias/Listado', [
             'familias' => $familias,
@@ -52,7 +52,7 @@ class FamiliaController extends Controller
         $familia->nombre = strtoupper($validatedData['nombre']);
         $familia->save();
         $familias = Familia::orderBy('id', 'asc')->paginate(10);
-        Session::flash('creacion', 'Se ha actualizado la familia de forma correcta');
+        Session::flash('success', 'Se ha actualizado la familia de forma correcta');
 
         return Inertia::render('Familias/Listado', [
             'familias' => $familias,
@@ -66,7 +66,7 @@ class FamiliaController extends Controller
             $familia = Familia::findOrFail($id);
             $familia->delete();
             $familias = Familia::orderBy('id', 'asc')->paginate(10);
-            Session::flash('borrado', 'Se ha eliminado la família de froma correcta');
+            Session::flash('success', 'Se ha eliminado la família de froma correcta');
 
             return Inertia::render('Familias/Listado', ['familias' => $familias]);
         } catch (\Exception $e) {

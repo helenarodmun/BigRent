@@ -42,7 +42,7 @@ class DireccionController extends Controller
         $autorizados = Autorizado::where('cliente_id', $direccion->cliente_id)->latest()->get();
         
         // Redirige al cliente del usuario actualizado.
-        Session::flash('edicion', 'Se ha creado la dirección de forma correcta');
+        Session::flash('success', 'Se ha creado la dirección de forma correcta');
 
         return Inertia::render('Clientes/ActualizaCliente', [
             'direcciones' => $direcciones,

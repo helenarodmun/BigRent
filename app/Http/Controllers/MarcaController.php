@@ -62,7 +62,7 @@ class MarcaController extends Controller
         $marca->save();
 
         $marcas = Marca::orderBy('id', 'asc')->paginate(10);
-        Session::flash('update', 'Se ha actualizado la familia de forma correcta');
+        Session::flash('success', 'Se ha actualizado la familia de forma correcta');
 
         return Inertia::render('Marcas/Listado', [
             'marcas' => $marcas,

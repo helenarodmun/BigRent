@@ -132,7 +132,7 @@ class MaquinaController extends Controller
             $query->where('tienda_id', $tienda);
         }]);
 
-        Session::flash('update', 'Se ha actualizado la máquina de forma correcta');
+        Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
         return Inertia::render('Maquinaria/Listado', [
             'maquinas' => $maquinas,
         ]);

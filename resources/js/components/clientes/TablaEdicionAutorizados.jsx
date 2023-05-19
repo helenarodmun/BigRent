@@ -5,7 +5,7 @@ import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 export default function TablaEdicionAutorizados() {
     const { autorizados, clientes, flash } = usePage().props;
-    const { delete: destroy } = useForm();
+    const { delete: destroy, get } = useForm();
     //estado  y una función para actualizarlo llamada que controla la visualización de modal de confirmación.
     const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null); // Nuevo estado para almacenar la id del registro a eliminar

@@ -182,7 +182,7 @@ class ClienteController extends Controller
             ->load('autorizados.cliente')
             ->load('tipo.cliente');
 
-        Session::flash('update', 'Se ha actualizado el registro');
+        Session::flash('success', 'Se ha actualizado el registro');
 
         return Inertia::render('Clientes/FichaCliente', [
             'cliente' => $cliente,

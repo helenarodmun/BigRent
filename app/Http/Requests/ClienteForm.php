@@ -68,8 +68,8 @@ class ClienteForm extends FormRequest
                 'contacto' => 'nullable|string|max:255',
                 'via_comunicacion' => 'nullable|string',
                 'tipo' => 'nullable|string',
-                'nombre_persona_autorizada' => 'required|string',
-                'dni' => 'required|string|max:15',
+                'nombre_persona_autorizada' => 'nullable|string',
+                'dni' => 'nullable|string|max:15',
                 'notas' => 'nullable|string|max:255',
                 'url_dni' => 'nullable|file|mimes:pdf,xlx,csv,jpg,png,jpeg|max:2048',
                 'tipo_cliente_id' => 'nullable'

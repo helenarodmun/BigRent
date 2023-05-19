@@ -111,7 +111,7 @@ class SerieController extends Controller
                 ->orderBy('maquina_id', 'asc')
                 ->orderBY('numero_serie', 'asc')
                 ->paginate(10);
-            Session::flash('borrado', 'Se ha eliminado la serie de forma correcta');
+            Session::flash('success', 'Se ha eliminado la serie de forma correcta');
 
             return Inertia::render('Series/Listado', ['series' => $series]);
         } catch (\Exception $e) {

@@ -23,7 +23,7 @@ class ContratoController extends Controller
     public function index()
     {
         $contratos = Contrato::orderBy('activo', 'desc')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->with('cliente')
             ->with('serie')
             ->paginate(10);
@@ -130,7 +130,7 @@ class ContratoController extends Controller
 
         $cliente = Cliente::findOrFail($cliente->id);
 
-        Session::flash('success', 'Registro guardado con éxito');
+        Session::flash('success', 'Contrato guardado con éxito');
 
         return Inertia::render('Contratos/ConfirmarContrato', [
             'cliente' => $cliente,
@@ -152,7 +152,7 @@ class ContratoController extends Controller
 
         $contratos = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
-            ->orderBy('created_at', 'asc')
+            ->orderBy('created_at', 'desc')
             ->with('serie')
             ->paginate(10);
         return Inertia::render('Contratos/Listado', [

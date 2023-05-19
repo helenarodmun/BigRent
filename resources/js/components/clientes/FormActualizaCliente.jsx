@@ -18,7 +18,7 @@ export default function FormActualizaCliente() {
     // Función que se ejecuta cuando se envía el formulario
     function handleSubmit(e) {
         e.preventDefault();
-        const formData = new FormData();// Crea un objeto FormData para enviar los datos del formulario
+        const formData = new FormData();// Crea un objeto FormData para enviar los datos del formulario, y así poder actualizar un archivo del formulario
         // Agrega los campos correspondientes al formData con el valor de data
         formData.append('nombre_fiscal', data.nombre_fiscal);
         formData.append('nif', data.nif);

@@ -77,7 +77,7 @@ class SubfamiliaController extends Controller
             ->orderBy('familia_id', 'asc')
             ->orderBY('descripcion', 'asc')
             ->paginate(10);
-        Session::flash('creacion', 'Se ha actualizado la subfamilia de forma correcta');
+        Session::flash('success', 'Se ha actualizado la subfamilia de forma correcta');
 
         return Inertia::render('Subfamilias/Listado', [
             'subfamilias' => $subfamilias,
@@ -95,7 +95,7 @@ class SubfamiliaController extends Controller
                 ->orderBy('familia_id', 'asc')
                 ->orderBY('descripcion', 'asc')
                 ->paginate(10);
-            Session::flash('borrado', 'Se ha eliminado la subfamilia de forma correcta');
+            Session::flash('success', 'Se ha eliminado la subfamilia de forma correcta');
             return Inertia::render('Subfamilias/Listado', ['subfamilias' => $subfamilias]);
         } catch (\Exception $e) {
             if ($e->getCode() == "23000")
