@@ -78,7 +78,7 @@ export default function TablaEdicionAutorizados() {
                     ))}
                 </Table>
             </Col>
-            <TipInfo content="Añadir nuevo autorizado" direction="right">
+            <TipInfo content="Añadir nuevo autorizado" direction="left">
                 <Link method="get" href={"/nuevoAutorizado/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </Row>

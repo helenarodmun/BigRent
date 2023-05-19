@@ -74,7 +74,7 @@ export default function TablaEdicionTelefonos() {
                     ))}
                 </Table>
             </Col>
-            <TipInfo content="Añadir nuevo contacto" direction="right">
+            <TipInfo content="Añadir nuevo contacto" direction="left">
                 <Link method="get" href={"/nuevoTelefono/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </TipInfo>
         </Row>

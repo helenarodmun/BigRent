@@ -75,7 +75,7 @@ export default function TablaEdicionDirecciones() {
                     ))}
                 </Table>
             </Col>
-            <Tooltip content="Añadir nueva dirección" direction="right">
+            <Tooltip content="Añadir nueva dirección" direction="left">
                 <Link method="get" href={"/nuevaDireccion/" + clientes.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
             </Tooltip>
         </Row>
