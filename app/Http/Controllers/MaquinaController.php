@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MaquinaForm;
 use App\Models\Maquina;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;

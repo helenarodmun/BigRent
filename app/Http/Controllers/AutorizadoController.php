@@ -7,13 +7,11 @@ use App\Models\Autorizado;
 use App\Models\Cliente;
 use App\Models\Direccion;
 use App\Models\Telefono;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class AutorizadoController extends Controller
 {
-
     public function create(AutorizadoForm $request, $id)
     {
         $request->validated();

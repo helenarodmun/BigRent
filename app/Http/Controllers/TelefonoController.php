@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TelefonoForm;
-use App\Models\Autorizado;
 use App\Models\Cliente;
-use App\Models\Direccion;
 use App\Models\Telefono;
 use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
