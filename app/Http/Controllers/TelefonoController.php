@@ -15,33 +15,24 @@ class TelefonoController extends Controller
     public function create(TelefonoForm $request, $id)
     {
         $request->validated();
+        if ($request['via_comunicacion'] === null || $request['tipo'] === null ) {
+            Session::flash('error', 'Debe seleccionar todos los campos');
+        } else {
         $cliente = Cliente::findOrFail($id);
 
         if(Telefono::noExisteContacto($cliente->id, $request->contacto)){
             $telefono = $cliente->telefonos()->create($request->all());
-
-            // Recupera todos los direcciones del cliente después de guardar el regsitro de direccion actualizado.
-            $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
             //recupera los datos del cliente
             $cliente = $telefono->cliente;
-            // Recupera todos los telefonos del cliente 
-            $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
-            $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
-            
             // Redirige al cliente del usuario actualizado.
             Session::flash('success', 'Se han guardado los datos de forma correcta');
     
-            return Inertia::render('Clientes/ActualizaCliente', [
-                'direcciones' => $direcciones,
-                'clientes' => $cliente,
-                'telefonos' => $telefonos,
-                'autorizados' => $autorizados
-            ]);
+            return redirect("/editarCliente/$cliente->id");
         }else{
             Session::flash('error', 'Ya existe el contacto asociado al cliente');
             return back();
-        }
-       
+        } 
+    }      
     }
 
 
@@ -77,21 +68,11 @@ class TelefonoController extends Controller
         $telefono->via_comunicacion = $validatedData['via_comunicacion'];
         $telefono->tipo = $validatedData['tipo'];
         $telefono->save();
-
-        $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
         $cliente = $telefono->cliente;
-        $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
 
         // Redirige al cliente del usuario actualizado.
         Session::flash('success', 'Se han actualizado los datos de contacto');
-
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'direcciones' => $direcciones,
-            'clientes' => $cliente,
-            'telefonos' => $telefonos,
-            'autorizados' => $autorizados
-        ]);
+        return redirect("/editarCliente/$cliente->id");
     }
 
 
@@ -99,19 +80,9 @@ class TelefonoController extends Controller
     {
         $telefono = Telefono::findOrFail($id);
         $telefono->delete();
-        
-        $telefonos = Telefono::where('cliente_id', $telefono->cliente_id)->latest()->get();
-        $direcciones = Direccion::where('cliente_id', $telefono->cliente_id)->latest()->get();
         $cliente = $telefono->cliente;
-        $autorizados = Autorizado::where('cliente_id', $telefono->cliente_id)->latest()->get();
 
         Session::flash('success', 'Se han eliminado los datos');
-
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'direcciones' => $direcciones,
-            'clientes' => $cliente,
-            'telefonos' => $telefonos,
-            'autorizados' => $autorizados
-        ]);
+        return redirect("/editarCliente/$cliente->id");
     }
 }

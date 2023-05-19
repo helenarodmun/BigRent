@@ -212,8 +212,7 @@ class ClienteController extends Controller
         $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(10);
 
         Session::flash('success', 'Se ha eliminado el cliente de forma definitiva');
-
-        return Inertia::render('Clientes/Listado', ['clientes' => $clientes]);
+        return redirect("/clientes");
     } catch (\Exception $e) {
         if ($e->getCode() == "23000")
             Session::flash('error', 'Imposible eliminar, existen registros relacionados');

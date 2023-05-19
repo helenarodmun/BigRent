@@ -43,12 +43,7 @@ class AutorizadoController extends Controller
 
             Session::flash('success', 'Registro guardado con éxito');
 
-            return Inertia::render('Clientes/ActualizaCliente', [
-                'autorizados' => $autorizados,
-                'clientes' => $cliente,
-                'direcciones' => $direcciones,
-                'telefonos' => $telefonos
-            ]);
+            return redirect("/editarCliente/$cliente->id");
         } else {
             Session::flash('error', 'Este cliente ya tiene un autorizado con estos datos');
             return back();
@@ -127,12 +122,7 @@ class AutorizadoController extends Controller
 
         Session::flash('success', 'Se ha actualizado el registro');
 
-        return Inertia::render('Clientes/ActualizaCliente', [
-            'autorizados' => $autorizados,
-            'clientes' => $cliente,
-            'direcciones' => $direcciones,
-            'telefonos' => $telefonos
-        ]);
+        return redirect("/editarCliente/$cliente->id");
     }
 
 
@@ -148,14 +138,8 @@ class AutorizadoController extends Controller
         $direcciones = Direccion::where('cliente_id', $autorizado->cliente_id)->latest()->get();
         // Recupera todos los telefonos del cliente 
         $telefonos = Telefono::where('cliente_id', $autorizado->cliente_id)->latest()->get();
-
+        
         Session::flash('success', 'Se ha eliminado el autorizado de forma definitiva');
-
-        return Inertia::render("Clientes/ActualizaCliente", [
-            'autorizados' => $autorizados,
-            'clientes' => $cliente,
-            'direcciones' => $direcciones,
-            'telefonos' => $telefonos
-        ]);
+        return redirect("/editarCliente/$cliente->id");
     }
 }

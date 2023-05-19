@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import { Row, Col, Form, Button, Card, FloatingLabel, Container } from "react-bootstrap";
+import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevoTelefono({ children }) {
     const { cliente, flash } = usePage().props;
@@ -25,6 +26,7 @@ export default function FormNuevoTelefono({ children }) {
     }
     return (
         <>
+       <FlashMessage success={flash.success} error={flash.error} />
             <Container className="align-items-center justify-content-center accesibilidad-texto">
                 <Col className="">
                     <Card className="shadow rounded">

@@ -73,7 +73,6 @@ Route::post('/editarAutorizado/{id}', [AutorizadoController::class, 'update']);
 Route::get('/editarAutorizado/{id}', [AutorizadoController::class, 'verEdicionAutorizado']);
 Route::delete('/eliminarAutorizado/{id}', [AutorizadoController::class, 'destroy']);
 
-
 ////////////////////////// RUTAS FAMILIAS //////////////////////////////////////
 Route::get('/familias', [FamiliaController::class, 'index']);
 Route::get('/nuevaFamilia', function () {
