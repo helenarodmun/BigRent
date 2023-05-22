@@ -30,7 +30,8 @@ class ContratoForm extends FormRequest
                 'serie_id' => 'required',
                 'direccion_id' => 'required',
                 'autorizado_id' => 'required',
-                'telefono_id' => 'required'
+                'telefono_id' => 'required',
+                'correo' => 'nullable'
             ],
 
             'PUT' => [
@@ -45,7 +46,8 @@ class ContratoForm extends FormRequest
                 'serie_id' => 'nullable',
                 'direccion_id' => 'nullable',
                 'autorizado_id' => 'nullable',
-                'telefono_id' => 'nullable'
+                'telefono_id' => 'nullable',
+                'correo' => 'nullable'
             ],
 
             'GET' => [
@@ -60,7 +62,8 @@ class ContratoForm extends FormRequest
                 'serie_id' => 'nullable',
                 'direccion_id' => 'nullable',
                 'autorizado_id' => 'nullable',
-                'telefono_id' => 'nullable'
+                'telefono_id' => 'nullable',
+                'correo' => 'nullable'
             ]
         };
     }

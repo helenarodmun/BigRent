@@ -59,10 +59,12 @@ class ContratoController extends Controller
         $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($data['cliente_id']);
         $direccion = Direccion::findOrFail($data['direccion_id']);
         $telefono = Telefono::findOrFail($data['telefono_id']);
+        $correo = Telefono::first()->where('via_comunicacion', 'C');
         $autorizado = Autorizado::findOrFail($data['autorizado_id']);
         $serie = Serie::findOrFail($data['serie_id']);
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
+        $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
 
         // si la máquina se devuelve el mismo día cobrar un día, si no calcular
         if ($data['fecha_retirada'] == $data['fecha_entrega']) {
@@ -88,7 +90,6 @@ class ContratoController extends Controller
             'autorizado_id' => $data['autorizado_id'],
             'telefono_id' => $data['telefono_id']
         ];
-
         return Inertia::render('Contratos/ConfirmarContrato', [
             'cliente' => $cliente,
             'direccion' => $direccion,
@@ -98,7 +99,8 @@ class ContratoController extends Controller
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie
+            'serie' => $serie,
+            'correo' =>$correo
         ]);
     }
 
@@ -146,7 +148,6 @@ class ContratoController extends Controller
             'telefono_id' => $data['telefono_id'],
             'autorizado_id' => $data['autorizado_id']
         ]);
-
         $cliente = Cliente::findOrFail($cliente->id);
 
         Session::flash('success', 'Contrato guardado con éxito');
@@ -160,7 +161,7 @@ class ContratoController extends Controller
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie
+            'serie' => $serie, 
         ]);
     }
 
@@ -227,7 +228,7 @@ class ContratoController extends Controller
             //filtra los resultados para mostrar solo las máquinas que están disponibles para alquilar
             ->where('disponible', true)
             ->get();
-
+            $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
         $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
         $familias = Familia::orderBy('id', 'asc')->get();
         $maquinas = Maquina::orderBy('id', 'asc')->get();
@@ -242,7 +243,8 @@ class ContratoController extends Controller
             'autorizados' => $cliente_actual->autorizados,
             'familias' => $familias,
             'subfamilias' => $subfamilias,
-            'maquinas' => $maquinas
+            'maquinas' => $maquinas,
+            'correo' => $correo
         ]);
     }
 
@@ -255,6 +257,7 @@ class ContratoController extends Controller
         //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
         $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
             ->where('predeterminada', true)->first();
+            $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
         $direccion = $contrato->direccion;
         $telefono = $contrato->telefono;
         $autorizado = $contrato->autorizado;
@@ -271,7 +274,8 @@ class ContratoController extends Controller
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie
+            'serie' => $serie,
+            'correo' => $correo
         ]);
     }
 

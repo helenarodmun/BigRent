@@ -4,7 +4,7 @@ import { Row, Col, Button, Card, Form, FloatingLabel, Container, } from "react-b
 import FlashMessage from "../partials/FlashMessage";
 
 export default function FormNuevoContrato() {
-    const { cliente, telefonos, correos, series, familias, subfamilias, maquinas, errors, flash } = usePage().props;
+    const { cliente, telefonos, correos, series, familias, subfamilias, maquinas, errors, flash, correo } = usePage().props;
     const { data, setData, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: '',
@@ -15,6 +15,7 @@ export default function FormNuevoContrato() {
         fecha_entrega: '',
         notas1: '',
         notas2: '',
+        correo: correo
     })
     const [selectedFamiliaId, setSelectedFamiliaId] = useState(null); // nuevo estado para la familia seleccionada  
     const subfamiliasFiltradas = subfamilias.filter(subfamilia => subfamilia.familia_id === selectedFamiliaId); // subfamilias filtradas por la familia seleccionada
@@ -52,16 +53,12 @@ export default function FormNuevoContrato() {
                                             {errors.direccion_id && (<div className="alert alert-danger">{errors.direccion_id}</div>)}
                                         </FloatingLabel>
                                     </Col>
-                                    <Col xs="12" sm="3" md="3">
-                                        <FloatingLabel label="CORREO ELÉCTRONICO" className="mb-2">
-                                            <Form.Select name="telefono_id" placeholder="Selecciona un correo" onChange={(e) => setData("telefono_id", e.target.value)}>
-                                                <option>Seleccione correo ...</option>
-                                                {correos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
-                                            </Form.Select>
-                                            {errors.telefono_id && (<div className="alert alert-danger">{errors.telefono_id}</div>)}
-                                        </FloatingLabel>
-                                    </Col>
-                                    <Col xs="12" sm="6" md="6">
+                                    <Col xs="12" sm="3" md="6">
+                                                <FloatingLabel label="EMAIL" className="mb-2 ">
+                                                    <Form.Control type="text" name="correo" value={data.correo} disabled />
+                                                </FloatingLabel>
+                                            </Col>
+                                            <Col xs="12" sm="6" md="6">
                                         <FloatingLabel label="AUTORIZADO CONTRATO" className="mb-2">
                                             <Form.Select name="autorizado_id" placeholder="Selecciona un autorizado" onChange={(e) => setData("autorizado_id", e.target.value)}>
                                                 <option>Seleccione autorizado ...</option>
@@ -72,7 +69,7 @@ export default function FormNuevoContrato() {
                                     </Col>
                                     <Col xs="12" sm="3" md="3">
                                         <FloatingLabel label="TELÉFONO PERSONA AUTORIZADA" className="mb-2">
-                                            <Form.Select name="telefono_id" placeholder="Selecciona un correo" onChange={(e) => setData("telefono_id", e.target.value)}>
+                                            <Form.Select name="telefono_id" placeholder="Selecciona un telefono" onChange={(e) => setData("telefono_id", e.target.value)}>
                                                 <option>Seleccione teléfono ...</option>
                                                 {telefonos.map(telefono => (<option key={telefono.id} value={telefono.id}>{telefono.contacto}</option>))}
                                             </Form.Select>

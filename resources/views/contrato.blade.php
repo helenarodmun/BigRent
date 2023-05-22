@@ -7,13 +7,16 @@
     <title>Documento</title>
 </head>
 <body>
-    <p>Fecha del contrato: {{$contrato->fecha_entrega}}
-    <p>ID contrato: {{$contrato->id}}
     <h1>CONTRATO DE ALQUILER</h1>
+    
+    <p>FECHA CONTRATO: {{$contrato->created_at}}
+    <p>ID CONTRATO: {{$contrato->id}}
     <p>CLIENTE: {{$cliente->nombre_fiscal}}</p>
     <p>NIF CLIENTE: {{$cliente->nif}}</p>
     <p>DIRECCIÓN CLIENTE: {{$direccion_predeterminada->direccion ,'-', $direccion_predeterminada->cp ,'-', $direccion_predeterminada->municipio ,'-', $direccion_predeterminada->provincia}}</p>
+    <p>CORREO: {{$correo}}</p>
     <p>PERSONA AUTORIZADA: {{$autorizado->nombre_persona_autorizada}}</p>
+    <p>DNI AUTORIZADO: {{$autorizado->dni}}</p>
     <p>DIRECCIÓN CONTRATO: {{$direccion->direccion ,'-', $direccion->cp ,'-', $direccion->municipio ,'-', $direccion_predeterminada->provincia}}</p>
     <p>CONTACTO: {{$telefono->contacto}}</p>
     <p>MÁQUINA CONTRATADAE: {{$maquina->descripcion}}</p>

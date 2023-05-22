@@ -2,7 +2,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 export default function VistaConfContrato() {
-    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, flash } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie, flash, correo } = usePage().props;
     const { data, post } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
@@ -15,7 +15,8 @@ export default function VistaConfContrato() {
         dias: contrato.dias,
         importe_total: contrato.importe_total,
         notas1: contrato.notas1,
-        notas2: contrato.notas2 || ''
+        notas2: contrato.notas2 || '',
+        correo : correo
     });
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
@@ -59,6 +60,11 @@ export default function VistaConfContrato() {
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCION CLIENTE" className="mb-2">
                                             <Form.Control aria-label="direccion cliente" name="direccion" value={`${direccion_predeterminada.direccion} - ${direccion_predeterminada.cp} - ${direccion_predeterminada.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="7">
+                                        <FloatingLabel label="EMAIL" className="mb-2">
+                                            <Form.Control aria-label="email contrato" name="nif" value={correo} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">

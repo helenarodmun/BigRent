@@ -3,7 +3,7 @@ import FlashMessage from "../partials/FlashMessage";
 import { Button, Card, Col, Container, FloatingLabel, Form, Row, } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 export default function VerContrato() {
-    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie,flash } = usePage().props;
+    const { cliente, direccion, direccion_predeterminada, telefono, autorizado, contrato, subfamilia, maquina, serie,flash, correo } = usePage().props;
     const { data, get } = useForm({
         cliente_id: cliente.id,
         direccion_id: direccion.id,
@@ -16,7 +16,8 @@ export default function VerContrato() {
         dias: contrato.dias,
         importe_total: contrato.importe_total,
         notas1: contrato.notas1,
-        notas2: contrato.notas2 || ''
+        notas2: contrato.notas2 || '',
+        correo : correo || ''
     });
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY");
@@ -52,6 +53,11 @@ export default function VerContrato() {
                                     <Col xs="12" sm="6" md="7">
                                         <FloatingLabel label="DIRECCIÓN CLIENTE" className="mb-2">
                                             <Form.Control aria-label="direccion cliente" name="direccion" value={`${direccion_predeterminada.direccion} - ${direccion_predeterminada.cp} - ${direccion_predeterminada.municipio} - ${direccion_predeterminada.provincia}`} disabled readOnly />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col xs="12" sm="6" md="7">
+                                        <FloatingLabel label="EMAIL" className="mb-2">
+                                            <Form.Control aria-label="correo cliente" name="correo" value={`${correo}`} disabled readOnly />
                                         </FloatingLabel>
                                     </Col>
                                     <Col xs="12" sm="6" md="7">

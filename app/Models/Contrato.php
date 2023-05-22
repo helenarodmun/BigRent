@@ -129,7 +129,7 @@ class Contrato extends Model
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie
+            'serie' => $serie,
         ];
 
         //Convierte array en un objeto     
