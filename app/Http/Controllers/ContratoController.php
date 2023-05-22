@@ -164,30 +164,48 @@ class ContratoController extends Controller
         ]);
     }
 
-    public function verListadoContratos($id)
+    public function verListadoContratos($id, Request $request)
     {
         $cliente = Cliente::findOrFail($id);
-        $user = Auth::user();        
+        $user = Auth::user();
         $contratosQuery = Contrato::where('cliente_id', $id)
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'desc')
             ->with('serie');
-            
+    
         if ($user->rol != 1) {
             // Usuario no admin, filtra los contratos por las series de su tienda
             $tiendaId = $user->tienda_id;
-            
+    
             $contratosQuery->whereHas('serie', function ($query) use ($tiendaId) {
                 $query->where('tienda_id', $tiendaId);
             });
-        }    
-        $contratos = $contratosQuery->paginate(10);
+        }
+    
+        // Aplicar búsqueda
+        $queryParam = $request->input('query');
+        if (strlen($queryParam) >= 3) {
+            $contratosQuery->whereHas('serie', function ($query) use ($queryParam) {
+                $query->where('numero_serie', 'like', '%' . $queryParam . '%');
+            });
+        }
+    
+        // Aplicar filtrado por activo
+        $activoFilter = $request->input('activoFilter');
+        if ($activoFilter === '1' || $activoFilter === '0') {
+            $contratosQuery->where('activo', $activoFilter);
+        }
+    
+        $perPage = 10;
+        $contratos = $contratosQuery->paginate($perPage);
     
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
-            'contratos' => $contratos
+            'contratos' => $contratos->withQueryString(),
         ]);
     }
+    
+    
     public function verFormContrato($id)
     {
         $cliente_actual = Cliente::findOrFail($id);

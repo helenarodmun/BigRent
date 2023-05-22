@@ -7,6 +7,8 @@
     <title>Documento</title>
 </head>
 <body>
+    <p>Fecha del contrato: {{$contrato->fecha_entrega}}
+    <p>ID contrato: {{$contrato->id}}
     <h1>CONTRATO DE ALQUILER</h1>
     <p>CLIENTE: {{$cliente->nombre_fiscal}}</p>
     <p>NIF CLIENTE: {{$cliente->nif}}</p>

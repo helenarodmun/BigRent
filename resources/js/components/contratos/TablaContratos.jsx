@@ -1,63 +1,55 @@
-import { Link, usePage } from "@inertiajs/react";
-import { useState } from "react";
-import { Col, Table, Row, Container, Button, Form, InputGroup, ToastContainer, Toast } from "react-bootstrap";
+import { Link, useForm, usePage } from "@inertiajs/react";
+import { useState } from 'react';
+import { Col, Table, Row, Container, Button, Form, InputGroup, Pagination } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaContratos() {
     const { contratos, cliente, flash } = usePage().props;
-    console.log(contratos)
-    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const {get} = useForm();
     const [query, setQuery] = useState('');
-    //Inicializa el estado del filtrado con el valor '2' para mostrar todos los contratos
-    const [activoFilter, setActivoFilter] = useState(2);
+    const [activoFilter, setActivoFilter] = useState('');
+
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
-    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+
     const handleSearch = (event) => {
-        const value = event.target.value;
-        setQuery(value);
-    };
-    const handleActivoFilter = (value) => {
-        setActivoFilter(value);
-    };
-    let resultadosFiltrados = contratos.data;
-    if (query.length >= 3) {
-        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
-            contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase())
-        );
-    }
+        const searchQuery = event.target.value;
+        setQuery(searchQuery);
 
-    if (activoFilter !== 2) {
-        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
-            contrato.activo === activoFilter
-        );
-    }
+        get(`/listarContratos/${cliente.id}?query=${searchQuery}`);
+        
+    };
 
-    const links = contratos.links;
+    const handleFilterChange = (event) => {
+        const filterValue = event.target.value;
+        setActivoFilter(filterValue);
+        window.location.href = `/listarContratos/${cliente.id}?activoFilter=${filterValue}`;
+    };
+
     return (
         <>
             <FlashMessage success={flash.success} error={flash.error} />
             <Container>
                 <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">
-                        <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
+                        <InputGroup className="d-flex shadow" role="search">
                             <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                            <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                            <Form.Control name="query" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                         </InputGroup>
                     </Col>
                     <Col xs="auto">
-                        <Form.Select onChange={(e) => handleActivoFilter(parseInt(e.target.value))}>
-                            <option value={2}>Todos</option>
-                            <option value={1}>Activos</option>
-                            <option value={0}>No activos</option>
+                        <Form.Select value={activoFilter} onChange={handleFilterChange}>
+                            <option value="">Todos</option>
+                            <option value="1">Activos</option>
+                            <option value="0">No activos</option>
                         </Form.Select>
                     </Col>
                 </Row>
                 <Row className="mt-2">
                     <Col className="shadow rounded">
-                        <h1 className="m-3">Contratos  {cliente.nombre_fiscal}</h1>
+                        <h1 className="m-3">Contratos {cliente.nombre_fiscal}</h1>
                         <Table striped bordered hover className="shadow" size="sm" responsive>
                             <thead>
                                 <tr>
@@ -71,14 +63,14 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {resultadosFiltrados.length === 0 ? (
+                            {contratos.data.length === 0 ? (
                                 <tbody>
                                     <tr>
                                         <td colSpan="9" className="text-center text-danger"><strong>NO SE ENCONTRARON CONTRATOS</strong></td>
                                     </tr>
                                 </tbody>
                             ) : (
-                                resultadosFiltrados.map((contrato) => (
+                                contratos.data.map((contrato) => (
                                     <tbody key={contrato.id} className="">
                                         <tr>
                                             <td>{contrato.id}</td>
@@ -98,7 +90,7 @@ export default function TablaContratos() {
                                             )}
                                             <td>
                                                 <TipInfo content="Ver contrato" direction="left">
-                                                    <Link href={"/verContrato/" + contrato.id} as="button" className="h5 border-0 bi bi-search text-dark m-1" />
+                                                    <Link href={"/verContrato/" + contrato.id} className="h5 border-0 bi bi-search text-dark m-1" />
                                                 </TipInfo>
                                             </td>
                                         </tr>
@@ -106,29 +98,27 @@ export default function TablaContratos() {
                         </Table>
                         <Row className="justify-content-center">
                             <Col sm={12} md={6} className="text-center">
-                                <nav>
-                                    <ul className="pagination justify-content-center">
-                                        {links.map((link, index) => (
-                                            <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                                                {link.label === '&laquo; Anterior' ? (
-                                                    <Button variant="link" disabled={!link.url} href={link.url}>
-                                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                    </Button>
-                                                ) : (
-                                                    <Button variant="link" disabled={!link.url} href={link.url}>
-                                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                    </Button>
-                                                )}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </nav>
+                                <Pagination>
+                                    {contratos.links.map((link) => (
+                                        <Link
+                                            key={link.id}
+                                            href={link.url}
+                                            className={`page-link${link.active ? ' active' : ''}`}
+                                        >
+                                            {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                        </Link>
+                                    ))}
+                                </Pagination>
                             </Col>
                         </Row>
                     </Col>
-                    <TipInfo content="Añadir nuevo contrato" direction="right">
-                        <Link method="get" href={"/nuevoContrato/" + cliente.id} as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
-                    </TipInfo>
+                </Row>
+                <Row>
+                    <Col sm={12} className="d-flex justify-content-start">
+                        <TipInfo content="Añadir nuevo contrato" direction="right">
+                            <Link href={"/nuevoContrato/" + cliente.id} className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />
+                        </TipInfo>
+                    </Col>
                 </Row>
                 <div className="d-grid gap-2">
                     <Button variant="btn bi bi-arrow-90deg-left btn-outline-primary btn-lg m-5" method='get' href={"/verCliente/" + cliente.id}><strong> Ficha cliente</strong></Button>

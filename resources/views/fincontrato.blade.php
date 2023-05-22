@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>FINALIZACIÓN CONTRATO - DEVOLUCIÓN MAQUINARIA</h1>
+    <p>ID Contrato: {{$contrato->id}}
     <p>CLIENTE: {{$cliente->nombre_fiscal}}</p>
     <p>NIF CLIENTE: {{$cliente->nif}}</p>
     <p>DIRECCIÓN CLIENTE: {{$direccion_predeterminada->direccion ,'-', $direccion_predeterminada->cp ,'-', $direccion_predeterminada->municipio ,'-', $direccion_predeterminada->provincia}}</p>
