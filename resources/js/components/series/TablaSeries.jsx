@@ -1,21 +1,21 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Row, Button, Form, InputGroup, } from "react-bootstrap";
+import { Col, Container, Table, Row, Button, Form, InputGroup, Pagination } from "react-bootstrap";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 import FlashMessage from "../partials/FlashMessage";
 
 
 const TablaSeries = () => {
-    const { series,  auth, tiendas, flash } = usePage().props;
+    const { series, auth, tiendas, flash } = usePage().props;
     const { delete: destroy } = useForm();
-   // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
-   const [query, setQuery] = useState('');
-   // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-   const handleSearch = (event) => {
-    const value = event.target.value;
-    setQuery(value);
-  };
+    // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
+    const [query, setQuery] = useState('');
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+    const handleSearch = (event) => {
+        const value = event.target.value;
+        setQuery(value);
+    };
     // variable resultadosBusqueda que filtra las series según su número de serie, o descripcioón del artículoy los almacena en un array
     const resultadosBusqueda = series.data.filter(
         (serie) =>
@@ -36,15 +36,15 @@ const TablaSeries = () => {
     };
     return (
         <Container>
-          <FlashMessage success={flash.success} error={flash.error} />
-                <Row className="justify-content-end mt-5">
-                    <Col xs="auto">
-                        <InputGroup action="/maquinas/buscar" method="get" className=" shadow" role="search">
-                            <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                            <Form.Control  name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
-                        </InputGroup>
-                    </Col>
-                </Row>
+            <FlashMessage success={flash.success} error={flash.error} />
+            <Row className="justify-content-end mt-5">
+                <Col xs="auto">
+                    <InputGroup action="/maquinas/buscar" method="get" className=" shadow" role="search">
+                        <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                        <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                    </InputGroup>
+                </Col>
+            </Row>
             <p className="h3 m-3">Listado series</p>
             <Row>
                 <Col className="shadow">
@@ -58,8 +58,8 @@ const TablaSeries = () => {
                                 <th>Disponible</th>
                                 {auth.user.rol == true ? (
                                     <>
-                                    <th>Tienda</th>
-                                    <th></th></>):('')}
+                                        <th>Tienda</th>
+                                        <th></th></>) : ('')}
                             </tr>
                         </thead>
                         {mostrarResultados.map((serie) => (
@@ -88,7 +88,7 @@ const TablaSeries = () => {
                                     )}
                                     {auth.user.rol == true ? (
                                         <>
-                                        <td>{serie.tienda.nombre}</td>
+                                            <td>{serie.tienda.nombre}</td>
                                             <td>
                                                 <TipInfo content="Modificar serie" direction="left">
                                                     <Link method="get" href={"/editarSerie/" + serie.id} as="button" className="h5 border-0 bi bi-pencil-square text-primary m-1" />
@@ -132,26 +132,20 @@ const TablaSeries = () => {
                         ))}
                     </Table>
                     <Row className="justify-content-center">
-        <Col sm={12} md={6} className="text-center">
-          <nav>
-            <ul className="pagination justify-content-center">
-              {links.map((link, index) => (
-                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                  {link.label === '&laquo; Anterior' ? (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  ) : (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Col>
-      </Row>
+                        <Col sm={12} md={6} className="text-center">
+                            <Pagination>
+                                {links.map((link) => (
+                                    <Link
+                                        key={link.id}
+                                        href={link.url}
+                                        className={`page-link${link.active ? ' active' : ''}`}
+                                    >
+                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                    </Link>
+                                ))}
+                            </Pagination>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
             <TipInfo content="Añadir nueva serie" direction="right">

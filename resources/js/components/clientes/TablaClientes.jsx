@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { usePage } from '@inertiajs/react';
-import { Button, Col, Container, Row, Table, InputGroup, Form } from "react-bootstrap";
+import { Link, usePage } from '@inertiajs/react';
+import { Button, Col, Container, Row, Table, InputGroup, Form, Pagination } from "react-bootstrap";
 import FlashMessage from '../partials/FlashMessage';
 
 const TablaClientes = () => {
@@ -22,7 +22,7 @@ const TablaClientes = () => {
     const links = query.length >= 3 ? [] : clientes.links;
     return (
         <Container >
-             <FlashMessage success={flash.success} error={flash.error} />
+            <FlashMessage success={flash.success} error={flash.error} />
             <Row className="justify-content-end mt-5">
                 <Col xs="auto">
                     <InputGroup action="/clientes/buscar" method="get" className="d-flex shadow" role="search">
@@ -56,23 +56,17 @@ const TablaClientes = () => {
                     </Table>
                     <Row className="justify-content-center">
                         <Col sm={12} md={6} className="text-center">
-                            <nav>
-                                <ul className="pagination justify-content-center">
-                                    {links.map((link, index) => (
-                                        <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                                            {link.label === '&laquo; Anterior' ? (
-                                                <Button variant="link" disabled={link.url === null} href={link.url}>
-                                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                </Button>
-                                            ) : (
-                                                <Button variant="link" disabled={link.url === null} href={link.url}>
-                                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                </Button>
-                                            )}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </nav>
+                            <Pagination>
+                                {links.map((link) => (
+                                    <Link
+                                        key={link.id}
+                                        href={link.url}
+                                        className={`page-link${link.active ? ' active' : ''}`}
+                                    >
+                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                    </Link>
+                                ))}
+                            </Pagination>
                         </Col>
                     </Row>
                 </Col>

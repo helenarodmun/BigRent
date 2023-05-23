@@ -1,6 +1,6 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Button, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Table, Button, Form, InputGroup, Row, Pagination } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
@@ -23,7 +23,7 @@ export default function TablaSubFamilias() {
     const handleSearch = (event) => {
         const value = event.target.value;
         setQuery(value);
-      };
+    };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = subfamilias.data.filter(
         (subfamilia) =>
@@ -34,12 +34,12 @@ export default function TablaSubFamilias() {
     const links = query.length >= 3 ? [] : subfamilias.links;
     return (
         <Container>
-           <FlashMessage success={flash.success} error={flash.error} />
+            <FlashMessage success={flash.success} error={flash.error} />
             <Row className="justify-content-end mt-5">
                 <Col xs="auto">
                     <InputGroup action="/subfamilias/buscar" method="get" className="d-flex shadow" role="search">
                         <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                        <Form.Control  name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                        <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                     </InputGroup>
                 </Col>
             </Row>
@@ -54,8 +54,8 @@ export default function TablaSubFamilias() {
                             <th>Precio /día</th>
                             <th>Importe fianza</th>
                             {auth.user.rol == true ? (
-                                    <>
-                                    <th></th></>):('')}
+                                <>
+                                    <th></th></>) : ('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((subfamilia) => (
@@ -104,26 +104,20 @@ export default function TablaSubFamilias() {
                     ))}
                 </Table>
                 <Row className="justify-content-center">
-        <Col sm={12} md={6} className="text-center">
-          <nav>
-            <ul className="pagination justify-content-center">
-              {links.map((link, index) => (
-                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                  {link.label === '&laquo; Anterior' ? (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  ) : (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Col>
-      </Row>
+                    <Col sm={12} md={6} className="text-center">
+                        <Pagination>
+                            {links.map((link) => (
+                                <Link
+                                    key={link.id}
+                                    href={link.url}
+                                    className={`page-link${link.active ? ' active' : ''}`}
+                                >
+                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                </Link>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
             </Col>
             <TipInfo content='Añadir nueva subfamilia' direction='right'>
                 <Link method="get" href="/nuevaSubfamilia" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

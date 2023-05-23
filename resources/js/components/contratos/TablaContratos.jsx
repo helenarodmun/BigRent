@@ -6,44 +6,51 @@ import TipInfo from "../partials/TipInfo";
 
 export default function TablaContratos() {
     const { contratos, cliente, flash } = usePage().props;
-    const {get} = useForm();
+    console.log(contratos)
     const [query, setQuery] = useState('');
-    const [activoFilter, setActivoFilter] = useState('');
+    //Inicializa el estado del filtrado con el valor '2' para mostrar todos los contratos
+    const [activoFilter, setActivoFilter] = useState(2);
 
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
 
     const handleSearch = (event) => {
-        const searchQuery = event.target.value;
-        setQuery(searchQuery);
-
-        get(`/listarContratos/${cliente.id}?query=${searchQuery}`);
-        
+        const value = event.target.value;
+        setQuery(value);
     };
-
-    const handleFilterChange = (event) => {
-        const filterValue = event.target.value;
-        setActivoFilter(filterValue);
-        window.location.href = `/listarContratos/${cliente.id}?activoFilter=${filterValue}`;
+    const handleActivoFilter = (value) => {
+        setActivoFilter(value);
     };
+    let resultadosFiltrados = contratos.data;
+    if (query.length >= 3) {
+        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
+            contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase())
+        );
+    }
 
+    if (activoFilter !== 2) {
+        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
+            contrato.activo === activoFilter
+        );
+    } 
     return (
         <>
             <FlashMessage success={flash.success} error={flash.error} />
             <Container>
                 <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">
-                        <InputGroup className="d-flex shadow" role="search">
+                        <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
                             <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                            <Form.Control name="query" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                            <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                         </InputGroup>
                     </Col>
                     <Col xs="auto">
-                        <Form.Select value={activoFilter} onChange={handleFilterChange}>
-                            <option value="">Todos</option>
-                            <option value="1">Activos</option>
-                            <option value="0">No activos</option>
+                        <Form.Select onChange={(e) => handleActivoFilter(parseInt(e.target.value))}>
+                            <option value={2}>Todos</option>
+                            <option value={1}>Activos</option>
+                            <option value={0}>No activos</option>
                         </Form.Select>
                     </Col>
                 </Row>
@@ -63,14 +70,14 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {contratos.data.length === 0 ? (
+                            {resultadosFiltrados.length === 0 ? (
                                 <tbody>
                                     <tr>
                                         <td colSpan="9" className="text-center text-danger"><strong>NO SE ENCONTRARON CONTRATOS</strong></td>
                                     </tr>
                                 </tbody>
                             ) : (
-                                contratos.data.map((contrato) => (
+                                resultadosFiltrados.map((contrato) => (
                                     <tbody key={contrato.id} className="">
                                         <tr>
                                             <td>{contrato.id}</td>

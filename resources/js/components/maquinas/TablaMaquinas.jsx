@@ -1,12 +1,12 @@
 import { Link, useForm, usePage } from "@inertiajs/react";
 import { useState } from "react";
-import { Col, Container, Table, Button, Form, InputGroup, Row } from "react-bootstrap";
+import { Col, Container, Table, Button, Form, InputGroup, Row, Pagination } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 import ModalConfirmacion from "../partials/ModalConfirmacion";
 import TipInfo from "../partials/TipInfo";
 
 export default function TablaMaquinas() {
-    const { maquinas,  flash, auth } = usePage().props;
+    const { maquinas, flash, auth } = usePage().props;
     // se crea el estado query utilizando la función useState y se establece su valor inicial como  una cadena vacía 
     const [query, setQuery] = useState('');
     const { delete: destroy } = useForm();
@@ -18,11 +18,11 @@ export default function TablaMaquinas() {
         setShowConfirmDeleteModal(true);
         setIdToDelete(id); // Se establece la id del registro a eliminar
     };
-   // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-   const handleSearch = (event) => {
-    const value = event.target.value;
-    setQuery(value);
-  };
+    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
+    const handleSearch = (event) => {
+        const value = event.target.value;
+        setQuery(value);
+    };
     // variable resultadosBusqueda que filtra los clientes según su nombre fiscal, cif o nombre de administrador y los almacena en un array
     const resultadosBusqueda = maquinas.data.filter(
         (maquina) =>
@@ -33,15 +33,15 @@ export default function TablaMaquinas() {
     const mostrarResultados = query.length >= 3 ? resultadosBusqueda : maquinas.data;
     const links = query.length >= 3 ? [] : maquinas.links;
     return (
-        <Container>              
+        <Container>
             <FlashMessage success={flash.success} error={flash.error} />
             <Row className="justify-content-end mt-5">
-                    <Col xs="auto">
-                <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
-                    <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                    <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
-                </InputGroup>
-            </Col>
+                <Col xs="auto">
+                    <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
+                        <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
+                        <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                    </InputGroup>
+                </Col>
             </Row>
             <p className="h3 m-3">Listado máquinas</p>
             <Col className="shadow rounded">
@@ -54,8 +54,8 @@ export default function TablaMaquinas() {
                             <th>Marca</th>
                             <th className="text-center">Disponibles en tienda</th>
                             {auth.user.rol == true ? (
-                                    <>
-                                    <th></th></>):('')}
+                                <>
+                                    <th></th></>) : ('')}
                         </tr>
                     </thead>
                     {mostrarResultados.map((maquina) => (
@@ -106,26 +106,20 @@ export default function TablaMaquinas() {
                     ))}
                 </Table>
                 <Row className="justify-content-center">
-        <Col sm={12} md={6} className="text-center">
-          <nav>
-            <ul className="pagination justify-content-center">
-              {links.map((link, index) => (
-                <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                  {link.label === '&laquo; Anterior' ? (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  ) : (
-                    <Button variant="link" disabled={link.url === null} href={link.url}>
-                       {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                    </Button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </Col>
-      </Row>
+                    <Col sm={12} md={6} className="text-center">
+                        <Pagination>
+                            {links.map((link) => (
+                                <Link
+                                    key={link.id}
+                                    href={link.url}
+                                    className={`page-link${link.active ? ' active' : ''}`}
+                                >
+                                    {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                </Link>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
             </Col>
             <TipInfo content='Añadir nueva máquina' direction='left'>
                 <Link method="get" href="/nuevaMaquina" as="button" className="iconoSuma h3 border-0 bi bi-plus-square text-success m-1" />

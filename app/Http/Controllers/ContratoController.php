@@ -23,7 +23,7 @@ class ContratoController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         if ($user->rol == 1) {
             // Usuario con rol 1 (admin) muestra todos los contratos
             $contratos = Contrato::orderBy('activo', 'desc')
@@ -34,22 +34,22 @@ class ContratoController extends Controller
         } else {
             // Usuario no admin, muestra los contratos de su tienda
             $tiendaId = $user->tienda_id;
-            
+
             $contratos = Contrato::whereHas('serie', function ($query) use ($tiendaId) {
-                    $query->where('tienda_id', $tiendaId);
-                })
+                $query->where('tienda_id', $tiendaId);
+            })
                 ->orderBy('activo', 'desc')
                 ->orderBy('created_at', 'desc')
                 ->with('cliente')
                 ->with('serie')
                 ->paginate(10);
         }
-    
+
         return Inertia::render('Contratos/Todos', [
             'contratos' => $contratos
         ]);
     }
-    
+
 
     public function confirmarContrato(ContratoForm $request)
     {
@@ -100,7 +100,7 @@ class ContratoController extends Controller
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
             'serie' => $serie,
-            'correo' =>$correo
+            'correo' => $correo
         ]);
     }
 
@@ -161,7 +161,7 @@ class ContratoController extends Controller
             'contrato' => $contrato,
             'subfamilia' => $subfamilia,
             'maquina' => $maquina,
-            'serie' => $serie, 
+            'serie' => $serie,
         ]);
     }
 
@@ -173,40 +173,26 @@ class ContratoController extends Controller
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'desc')
             ->with('serie');
-    
+
         if ($user->rol != 1) {
             // Usuario no admin, filtra los contratos por las series de su tienda
             $tiendaId = $user->tienda_id;
-    
+
             $contratosQuery->whereHas('serie', function ($query) use ($tiendaId) {
                 $query->where('tienda_id', $tiendaId);
             });
         }
-    
-        // Aplicar búsqueda
-        $queryParam = $request->input('query');
-        if (strlen($queryParam) >= 3) {
-            $contratosQuery->whereHas('serie', function ($query) use ($queryParam) {
-                $query->where('numero_serie', 'like', '%' . $queryParam . '%');
-            });
-        }
-    
-        // Aplicar filtrado por activo
-        $activoFilter = $request->input('activoFilter');
-        if ($activoFilter === '1' || $activoFilter === '0') {
-            $contratosQuery->where('activo', $activoFilter);
-        }
-    
+
         $perPage = 10;
         $contratos = $contratosQuery->paginate($perPage);
-    
+
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
-            'contratos' => $contratos->withQueryString(),
+            'contratos' => $contratos,
         ]);
     }
-    
-    
+
+
     public function verFormContrato($id)
     {
         $cliente_actual = Cliente::findOrFail($id);
@@ -228,7 +214,7 @@ class ContratoController extends Controller
             //filtra los resultados para mostrar solo las máquinas que están disponibles para alquilar
             ->where('disponible', true)
             ->get();
-            $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
+        $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
         $subfamilias = Subfamilia::orderBy('id', 'asc')->get();
         $familias = Familia::orderBy('id', 'asc')->get();
         $maquinas = Maquina::orderBy('id', 'asc')->get();
@@ -257,7 +243,7 @@ class ContratoController extends Controller
         //busca la dirección predeterminada d ela empresa para mostrarla en el contrato
         $direccion_predeterminada = Direccion::where('cliente_id', $cliente->id)
             ->where('predeterminada', true)->first();
-            $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
+        $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
         $direccion = $contrato->direccion;
         $telefono = $contrato->telefono;
         $autorizado = $contrato->autorizado;

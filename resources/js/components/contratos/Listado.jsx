@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { Col, Table, Row, Container, Button, Form, InputGroup, } from "react-bootstrap";
+import { Col, Table, Row, Container, Button, Form, InputGroup, Pagination } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 import TipInfo from "../partials/TipInfo";
 
@@ -109,23 +109,17 @@ export default function TablaContratos() {
                         </Table>
                         <Row className="justify-content-center">
                             <Col sm={12} md={6} className="text-center">
-                                <nav>
-                                    <ul className="pagination justify-content-center">
-                                        {links.map((link, index) => (
-                                            <li key={index} className={`page-item ${link.active ? 'active' : ''}`}>
-                                                {link.label === '&laquo; Anterior' ? (
-                                                    <Button variant="link" disabled={!link.url} href={link.url}>
-                                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                    </Button>
-                                                ) : (
-                                                    <Button variant="link" disabled={!link.url} href={link.url}>
-                                                        {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                                    </Button>
-                                                )}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </nav>
+                                <Pagination>
+                                    {contratos.links.map((link) => (
+                                        <Link
+                                            key={link.id}
+                                            href={link.url}
+                                            className={`page-link${link.active ? ' active' : ''}`}
+                                        >
+                                            {link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                        </Link>
+                                    ))}
+                                </Pagination>
                             </Col>
                         </Row>
                     </Col>
