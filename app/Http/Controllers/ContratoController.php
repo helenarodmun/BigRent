@@ -30,7 +30,7 @@ class ContratoController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->with('cliente')
                 ->with('serie')
-                ->paginate(10);
+                ->paginate(15);
         } else {
             // Usuario no admin, muestra los contratos de su tienda
             $tiendaId = $user->tienda_id;
@@ -42,7 +42,7 @@ class ContratoController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->with('cliente')
                 ->with('serie')
-                ->paginate(10);
+                ->paginate(15);
         }
 
         return Inertia::render('Contratos/Todos', [
@@ -173,7 +173,6 @@ class ContratoController extends Controller
             ->orderBy('activo', 'desc')
             ->orderBy('created_at', 'desc')
             ->with('serie');
-
         if ($user->rol != 1) {
             // Usuario no admin, filtra los contratos por las series de su tienda
             $tiendaId = $user->tienda_id;
@@ -182,15 +181,26 @@ class ContratoController extends Controller
                 $query->where('tienda_id', $tiendaId);
             });
         }
-
-        $perPage = 10;
-        $contratos = $contratosQuery->paginate($perPage);
+        // Aplicar filtros de búsqueda si están presentes
+        $consulta = $request->input('query');
+        $activoFilter = $request->input('activoFilter');
+        if ($consulta) {
+            $contratosQuery->whereHas('serie', function ($query) use ($consulta) {
+                $query->where('numero_serie', 'like', '%' . $consulta . '%');
+            });
+        }
+        if ($activoFilter !== null && $activoFilter !== '2') {
+            $contratosQuery->where('activo', $activoFilter);
+        }
+        $contratos = $contratosQuery;
 
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
-            'contratos' => $contratos,
+            'contratos' => $contratos->paginate(15),
         ]);
     }
+
+
 
 
     public function verFormContrato($id)

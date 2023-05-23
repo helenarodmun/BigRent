@@ -17,7 +17,7 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::with('tipo')
             ->orderBy('nombre_fiscal', 'asc')
-            ->paginate(10);
+            ->paginate(15);
 
         return Inertia::render('Clientes/Listado', [
             'clientes' => $clientes,
@@ -83,7 +83,7 @@ class ClienteController extends Controller
                     ]);
                 });
 
-                $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(10);
+                $clientes = Cliente::orderBy('nombre_fiscal', 'asc')->paginate(15);
 
                 Session::flash('success', 'Registro guardado con éxito');
 
@@ -94,7 +94,7 @@ class ClienteController extends Controller
                 return back();
             }
         } else {
-            $clientes = Cliente::latest()->paginate(10);
+            $clientes = Cliente::latest()->paginate(15);
             Session::flash('error', 'El cif o el nombre fiscal ya existen en la base de datos');
             return back();
         }

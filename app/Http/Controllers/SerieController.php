@@ -19,14 +19,14 @@ class SerieController extends Controller
                 ->orderBy('tienda_id')
                 ->orderBy('maquina_id', 'asc')
                 ->orderBy('numero_serie', 'asc')
-                ->paginate(10);
+                ->paginate(15);
         } else {
             $tienda = Auth::user()->tienda_id;
             $series = Serie::with('maquina')
                 ->where('tienda_id', $tienda)
                 ->orderBy('maquina_id', 'asc')
                 ->orderBy('numero_serie', 'asc')
-                ->paginate(10);
+                ->paginate(15);
         }
 
         return Inertia::render('Series/Listado', [

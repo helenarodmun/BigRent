@@ -7,47 +7,52 @@ import TipInfo from "../partials/TipInfo";
 export default function TablaContratos() {
     const { contratos, cliente, flash } = usePage().props;
     console.log(contratos)
-    const [query, setQuery] = useState('');
-    //Inicializa el estado del filtrado con el valor '2' para mostrar todos los contratos
-    const [activoFilter, setActivoFilter] = useState(2);
-
+    // Estados para el valor de búsqueda y filtro
+    const [consulta, setConsulta] = useState('');
+    const [activoFilter, setActivoFilter] = useState('2');
+     // Manejador de cambios en el campo de búsqueda
+    const handleSearch = (event) => {
+        setConsulta(event.target.value);
+    };
+    // Manejador de cambios en el filtro
+    const handleFilterChange = (event) => {
+        setActivoFilter(event.target.value);
+    };
+ // Función para formatear la fecha
     function myDate(fechaHora) {
         return dayjs(fechaHora).locale("es").format("DD MMMM YYYY -  HH:mm:ss");
     }
-    // función handleSearch que establece el valor del estado query como el valor del campo de búsqueda
-
-    const handleSearch = (event) => {
-        const value = event.target.value;
-        setQuery(value);
-    };
-    const handleActivoFilter = (value) => {
-        setActivoFilter(value);
-    };
-    let resultadosFiltrados = contratos.data;
-    if (query.length >= 3) {
-        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
-            contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase())
-        );
-    }
-
-    if (activoFilter !== 2) {
-        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
-            contrato.activo === activoFilter
-        );
-    } 
+    // Filtrar contratos basado en la búsqueda y el filtro
+    const contratosFiltrados = contratos.data.filter((contrato) => {
+        if (
+            (activoFilter === '2' || contrato.activo == activoFilter) &&  // Comprobar si el contrato coincide con el filtro de activo
+            contrato.serie.numero_serie.toLowerCase().includes(consulta.toLowerCase())  // Comprobar si el número de serie del contrato contiene la consulta de búsqueda (ignorando mayúsculas y minúsculas)
+            ) {
+              return contrato; // Retornar el contrato si cumple con los criterios de búsqueda y filtro
+        }
+        return null; // Retornar null si el contrato no cumple con los criterios de búsqueda y filtro
+    });
     return (
         <>
             <FlashMessage success={flash.success} error={flash.error} />
             <Container>
                 <Row className="justify-content-end mt-5 mb-5">
                     <Col xs="auto">
-                        <InputGroup action="/maquinas/buscar" method="get" className="d-flex shadow" role="search">
+                        <InputGroup action={`/listarContratos/${cliente.id}?query=${consulta}`} // Agregar consulta en la URL de acción 
+                            method="get" className="d-flex shadow" role="search" onChange={handleSearch}>
                             <InputGroup.Text className='bg-success bg-opacity-25'><i className="bi bi-search text-dark"></i></InputGroup.Text>
-                            <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
+                            <Form.Control
+                                name="query"
+                                className="form-control"
+                                type="search"
+                                placeholder="Buscar"
+                                aria-label="Buscar contrato"
+                            />
                         </InputGroup>
                     </Col>
                     <Col xs="auto">
-                        <Form.Select onChange={(e) => handleActivoFilter(parseInt(e.target.value))}>
+                        <Form.Select action={`/listarContratos/${cliente.id}?activoFilter=${activoFilter}`} // Agregar filtro en la URL de acción
+                            method="get" onChange={handleFilterChange}>
                             <option value={2}>Todos</option>
                             <option value={1}>Activos</option>
                             <option value={0}>No activos</option>
@@ -70,14 +75,14 @@ export default function TablaContratos() {
                                     <th></th>
                                 </tr>
                             </thead>
-                            {resultadosFiltrados.length === 0 ? (
+                            {contratosFiltrados.length === 0 ? (
                                 <tbody>
                                     <tr>
                                         <td colSpan="9" className="text-center text-danger"><strong>NO SE ENCONTRARON CONTRATOS</strong></td>
                                     </tr>
                                 </tbody>
                             ) : (
-                                resultadosFiltrados.map((contrato) => (
+                                contratosFiltrados.map((contrato) => (
                                     <tbody key={contrato.id} className="">
                                         <tr>
                                             <td>{contrato.id}</td>

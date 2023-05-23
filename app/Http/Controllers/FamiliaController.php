@@ -12,7 +12,7 @@ class FamiliaController extends Controller
 
     public function index()
     {
-        $familias = Familia::orderBy('nombre', 'asc')->paginate(10);
+        $familias = Familia::orderBy('nombre', 'asc')->paginate(15);
 
         return Inertia::render('Familias/Listado', [
             'familias' => $familias,

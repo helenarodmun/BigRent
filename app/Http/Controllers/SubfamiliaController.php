@@ -15,7 +15,7 @@ class SubfamiliaController extends Controller
         $subfamilias = Subfamilia::with('familia')
             ->orderBy('familia_id', 'asc')
             ->orderBy('descripcion', 'asc')
-            ->paginate(10);
+            ->paginate(15);
 
         return Inertia::render('Subfamilias/Listado', [
             'subfamilias' => $subfamilias,
