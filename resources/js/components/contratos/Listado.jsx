@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { Col, Table, Row, Container, Button, Form, InputGroup, Pagination } from "react-bootstrap";
+import { Col, Table, Row, Container, Form, InputGroup, Pagination } from "react-bootstrap";
 import FlashMessage from "../partials/FlashMessage";
 import TipInfo from "../partials/TipInfo";
 
@@ -19,9 +19,7 @@ export default function TablaContratos() {
         const value = event.target.value;
         setQuery(value);
     };
-    const handleActivoFilter = (value) => {
-        setActivoFilter(value);
-    };
+
     let resultadosFiltrados = contratos.data;
     if (query.length >= 3) {
         resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
@@ -29,12 +27,15 @@ export default function TablaContratos() {
             contrato.serie.numero_serie.toLowerCase().includes(query.toLowerCase())
         );
     }
-
-    if (activoFilter !== 2) {
-        resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
-            contrato.activo === activoFilter
-        );
-    }
+    //Funciones de filtrado de contratos están comentados hasta reparar bug de la paginación
+    // const handleActivoFilter = (value) => {
+    //     setActivoFilter(value);
+    // };
+    // if (activoFilter !== 2) {
+    //     resultadosFiltrados = resultadosFiltrados.filter((contrato) =>
+    //         contrato.activo === activoFilter
+    //     );
+    // }
 
     const links = contratos.links;
     return (
@@ -48,13 +49,13 @@ export default function TablaContratos() {
                             <Form.Control name="consulta" value={query} onChange={handleSearch} className="form-control" type="search" placeholder="Buscar" aria-label="Buscar subfamilia" />
                         </InputGroup>
                     </Col>
-                    <Col xs="auto">
+                    {/* <Col xs="auto">
                         <Form.Select onChange={(e) => handleActivoFilter(parseInt(e.target.value))}>
                             <option value={2}>Todos</option>
                             <option value={1}>Activos</option>
                             <option value={0}>No activos</option>
                         </Form.Select>
-                    </Col>
+                    </Col> */}
                 </Row>
                 <Row className="mt-2">
                     <Col className="shadow rounded">

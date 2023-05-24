@@ -181,22 +181,22 @@ class ContratoController extends Controller
                 $query->where('tienda_id', $tiendaId);
             });
         }
-        // Aplicar filtros de búsqueda si están presentes
-        $consulta = $request->input('query');
-        $activoFilter = $request->input('activoFilter');
-        if ($consulta) {
-            $contratosQuery->whereHas('serie', function ($query) use ($consulta) {
-                $query->where('numero_serie', 'like', '%' . $consulta . '%');
-            });
-        }
-        if ($activoFilter !== null && $activoFilter !== '2') {
-            $contratosQuery->where('activo', $activoFilter);
-        }
-        $contratos = $contratosQuery;
+        // // Aplicar filtros de búsqueda si están presentes
+        // $consulta = $request->input('query');
+        // $activoFilter = $request->input('activoFilter');
+        // if ($consulta) {
+        //     $contratosQuery->whereHas('serie', function ($query) use ($consulta) {
+        //         $query->where('numero_serie', 'like', '%' . $consulta . '%');
+        //     });
+        // }
+        // if ($activoFilter !== null && $activoFilter !== '2') {
+        //     $contratosQuery->where('activo', $activoFilter);
+        // }
+        $contratos = $contratosQuery->paginate(10);
 
         return Inertia::render('Contratos/Listado', [
             'cliente' => $cliente,
-            'contratos' => $contratos->paginate(15),
+            'contratos' => $contratos
         ]);
     }
 
