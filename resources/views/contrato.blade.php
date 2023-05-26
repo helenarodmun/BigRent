@@ -387,42 +387,16 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 					<?= e($contrato->notas2 || '') ?> &nbsp; 
 				</div>
 				<div class="div_barras_maquina" style="background-color: <?= $verde_claro ?>;">
-					<div class="d_50 display_inline" align="center">
-						
-<img src="{{ route('generar-codigo-barras') }}" alt="Código de Barras">
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
+					<div class="d_50 display_inline" align="center">	
+
+						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoReferencia) }}" alt="Código de Barras">						
 						
 						
 					</div>
 					<div class="d_50 display_inline" align="center">
-						codigo de barras
+
+						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoNumSerie) }}" alt="Código de Barras">	
+						
 					</div>
 				</div>
 			</div>
@@ -488,7 +462,7 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 	<div class="barras display_inline" style=" vertical-align: top">
 		<div>
 			<span class="titulo_barras">FIANZA</span><br>
-			CODIGO_BARRAS_FIANZA
+			<img src="data:image/svg+xml;base64,{{ base64_encode($codigoFianza) }}" alt="Código de Barras">
 		</div>
 		<div>
 			<span class="titulo_barras">SEMANA</span><br>

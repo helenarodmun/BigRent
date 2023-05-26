@@ -32,9 +32,14 @@ class PdfController extends Controller
         $nombreArchivo = $cliente->nombrefiscal;
 		
         $barcodeGenerator = new BarcodeGeneratorSVG();
-        $codigoBarras = $barcodeGenerator->getBarcode($referencia, $barcodeGenerator::TYPE_CODE_128);
+        $codigoReferencia = $barcodeGenerator->getBarcode($referencia, $barcodeGenerator::TYPE_CODE_128);
 
-        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo', 'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie', 'codigoBarras'));
+        $codigoNumSerie = $barcodeGenerator->getBarcode($maquina, $barcodeGenerator::TYPE_CODE_128);
+
+        $codigoFianza = $barcodeGenerator->getBarcode($subfamilia->fianza, $barcodeGenerator::TYPE_CODE_128);
+
+        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo',
+         'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie', 'codigoReferencia', 'codigoNumSerie','codigoFianza'));
 
         return $pdf->stream();
     }
