@@ -6,11 +6,14 @@ use App\Models\Contrato;
 use App\Models\Direccion;
 use App\Models\Telefono;
 use PDF;
+use Picqer\Barcode\BarcodeGeneratorSVG;
+
+
 
 class PdfController extends Controller
 {
-
-    public static function generaDocumentoContrato($id)
+	
+	public static function generaDocumentoContrato($id)
     {
 
         $contrato = Contrato::findOrFail($id);
@@ -27,8 +30,11 @@ class PdfController extends Controller
         $referencia = $maquina->referencia;
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
+		
+        $barcodeGenerator = new BarcodeGeneratorSVG();
+        $codigoBarras = $barcodeGenerator->getBarcode($referencia, $barcodeGenerator::TYPE_CODE_128);
 
-        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo', 'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie'));
+        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo', 'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie', 'codigoBarras'));
 
         return $pdf->stream();
     }
@@ -50,8 +56,9 @@ class PdfController extends Controller
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
         $referencia = $maquina->referencia;
+        $barcodeData = $maquina->referencia;
 
-        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'autorizado', 'direccion', 'telefono', 'maquina','referencia', 'subfamilia', 'serie'));
+        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'autorizado', 'direccion', 'telefono', 'maquina','referencia', 'subfamilia', 'serie', 'barcodeData'));
         return $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
     }
 

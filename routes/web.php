@@ -165,5 +165,7 @@ Route::get('/contrato-pdf/{id}', [PdfController::class, 'generaDocumentoContrato
 Route::get('/fincontrato-pdf/{id}', [PdfController::class, 'generaDocumentoFIN']);
 
 ////////////////////////////////////////////////////////////////////////////////////
+
+	
 });
 
