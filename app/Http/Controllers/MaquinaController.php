@@ -43,19 +43,19 @@ class MaquinaController extends Controller
 
             // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
             if ($request->hasFile('url_manual')) {
-                $request->file('url_manual')->store('public/manuales');
+                $request->file('url_manual')->store("public/maquinas/$request->referencia/manual");
             }
             if ($request->hasFile('url_ficha')) {
-                $request->file('url_ficha')->store('public/fichas');
+                $request->file('url_ficha')->store("public/maquinas/$request->referencia/ficha");
             }
             if ($request->hasFile('url_imagen')) {
-                $request->file('url_imagen')->store('public/imagenes');
+                $request->file('url_imagen')->store("public/maquinas/$request->referencia/imagen");
             }
 
             // Asigna las rutas de los archivos almacenados a los atributos correspondientes del modelo si no recibe valos para este campo lo deja en null
-            $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : null;
-            $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : null;
-            $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : null;
+            $maquina->url_manual = $request->hasFile('url_manual') ? asset("storage/maquinas/$request->referencia/manual/" . $request->file('url_manual')->hashName()) : null;
+            $maquina->url_ficha = $request->hasFile('url_ficha') ? asset("storage/maquinas/$request->referencia/ficha/" . $request->file('url_ficha')->hashName()) : null;
+            $maquina->url_imagen = $request->hasFile('url_imagen') ? asset("storage/maquinas/$request->referencia/imagen/" . $request->file('url_imagen')->hashName()) : null;
 
             $maquina->subfamilia_id = $request->subfamilia_id;
             $maquina->marca_id = $request->marca_id;
@@ -95,22 +95,22 @@ class MaquinaController extends Controller
 
         // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
         if ($request->hasFile('url_manual')) {
-            $request->file('url_manual')->store('public/manuales');
+            $request->file('url_manual')->store("public/maquinas/$request->referencia/manual");
         }
         if ($request->hasFile('url_ficha')) {
-            $request->file('url_ficha')->store('public/fichas');
+            $request->file('url_ficha')->store("public/maquinas/$request->referencia/ficha");
         }
         if ($request->hasFile('url_imagen')) {
-            $request->file('url_imagen')->store('public/imagenes');
+            $request->file('url_imagen')->store("public/maquinas/$request->referencia/imagen");
         }
 
         $maquina->descripcion = $validatedData['descripcion'];
         $maquina->referencia = $validatedData['referencia'];
 
         //si se ha enviado el archivo se almacena, si no se almacena el campo existente
-        $maquina->url_manual = $request->hasFile('url_manual') ? asset('storage/manuales/' . $request->file('url_manual')->hashName()) : $maquina->url_manual;
-        $maquina->url_ficha = $request->hasFile('url_ficha') ? asset('storage/fichas/' . $request->file('url_ficha')->hashName()) : $maquina->url_ficha;
-        $maquina->url_imagen = $request->hasFile('url_imagen') ? asset('storage/imagenes/' . $request->file('url_imagen')->hashName()) : $maquina->url_imagen;
+        $maquina->url_manual = $request->hasFile('url_manual') ? asset("storage/maquinas/$request->referencia/manual/" . $request->file('url_manual')->hashName()) : $maquina->url_manual;
+        $maquina->url_ficha = $request->hasFile('url_ficha') ? asset("storage/maquinas/$request->referencia/ficha/" . $request->file('url_ficha')->hashName()) : $maquina->url_ficha;
+        $maquina->url_imagen = $request->hasFile('url_imagen') ? asset("storage/maquinas/$request->referencia/imagen/" . $request->file('url_imagen')->hashName()) : $maquina->url_imagen;
         $maquina->save();
 
         Session::flash('success', 'Se ha actualizado la máquina de forma correcta');
