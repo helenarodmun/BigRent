@@ -29,5 +29,6 @@
     <p>TOTAL ALQUILER: {{$contrato->importe_total}} €</p>
     <p>ESTADO ARTÍCULO - OBSERVACIONES: {{$contrato->notas1}}</p>
     <p>OBSERVACIONES CONTRATO: {{$contrato->notas2 || ''}}</p>
+    <p>REFERENCIA: {{$maquina->referencia}}</p>
 </body>
 </html>

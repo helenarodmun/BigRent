@@ -24,10 +24,11 @@ class PdfController extends Controller
         $autorizado = $contrato->autorizado;
         $serie = $contrato->serie;
         $maquina = $serie->maquina;
+        $referencia = $maquina->referencia;
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
 
-        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo', 'autorizado', 'direccion', 'telefono', 'maquina', 'subfamilia', 'serie'));
+        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo', 'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie'));
 
         return $pdf->stream();
     }
@@ -48,8 +49,9 @@ class PdfController extends Controller
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
+        $referencia = $maquina->referencia;
 
-        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'autorizado', 'direccion', 'telefono', 'maquina', 'subfamilia', 'serie'));
+        $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'autorizado', 'direccion', 'telefono', 'maquina','referencia', 'subfamilia', 'serie'));
         return $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
     }
 
@@ -69,8 +71,9 @@ class PdfController extends Controller
         $maquina = $serie->maquina;
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
+        $referencia = $maquina->referencia;
 
-        $pdf = \PDF::loadView('fincontrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo','autorizado', 'direccion', 'telefono', 'maquina', 'subfamilia', 'serie'));
+        $pdf = \PDF::loadView('fincontrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo','autorizado', 'direccion', 'telefono', 'maquina', 'referencia', 'subfamilia', 'serie'));
         // $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
         return $pdf->stream();
     }
