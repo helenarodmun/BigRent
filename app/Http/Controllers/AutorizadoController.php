@@ -27,9 +27,9 @@ class AutorizadoController extends Controller
             $autorizado->notas = $request->notas;
             // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas
             if ($request->hasFile('url_dni')) {
-                $request->file('url_dni')->store('public/clientes/autorizados/');
+                $request->file('url_dni')->store("public/clientes/$cliente->nombre_fiscal/autorizados/");
             }
-            $autorizado->url_dni =  $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
+            $autorizado->url_dni =  $request->hasFile('url_dni') ? asset("storage/clientes/$cliente->nombre_fiscal/autorizados/" . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
             $autorizado->cliente_id = $cliente->id;
 
             $autorizado->save();
@@ -92,10 +92,11 @@ class AutorizadoController extends Controller
 
         // Busca el regidtro a actualizar por su ID.
         $autorizado = Autorizado::findOrFail($id);
+        $cliente = Cliente::findOrFail($autorizado->cliente_id);
 
         // verificar si se ha enviado un archivo antes de guardar los archivos y obtener las rutas      
         if ($request->hasFile('url_dni')) {
-            $autorizado->url_dni = $request->file('url_dni')->store('public/clientes/autorizados/');
+            $autorizado->url_dni = $request->file('url_dni')->store("public/clientes/$cliente->nombre_fiscal/autorizados/");
         } else {
             $autorizado->url_dni = $autorizado->url_dni; // Mantén la ruta existente en la base de datos
         }
@@ -104,7 +105,7 @@ class AutorizadoController extends Controller
         $autorizado->nombre_persona_autorizada = $validatedData['nombre_persona_autorizada'];
         $autorizado->dni = $validatedData['dni'];
         $autorizado->notas = $validatedData['notas'];
-        $autorizado->url_dni =  $request->hasFile('url_dni') ? asset('storage/clientes/autorizados/' . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
+        $autorizado->url_dni =  $request->hasFile('url_dni') ? asset("storage/clientes/$cliente->nombre_fiscal/autorizados/" . $request->file('url_dni')->hashName()) : $autorizado->url_dni;
 
         // Guarda el autorizado actualizado en la base de datos.
         $autorizado->save();
