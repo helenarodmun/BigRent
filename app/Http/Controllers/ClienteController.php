@@ -54,7 +54,8 @@ class ClienteController extends Controller
                         'nombre_comercial' => $request->nombre_comercial,
                         'tipo_cliente_id' => $request->tipo_cliente_id,
                         //proporciona la ruta del archivo de escrituras si se ha enviado un archivo en la solicitud ($request->hasFile('url_escrituras'))
-                        // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
+                        // en caso contrario, asigna null. La ruta del archivo se construye utilizando el método asset() para generar la URL completa a partir
+                        // del nombre de archivo obtenido mediante $request->file('url_escrituras')->hashName()
                         'url_escrituras' => $request->hasFile('url_escrituras') ? asset("storage/clientes/$request->nombre_fiscal/escrituras/" . $request->file('url_escrituras')->hashName()) : null,                       
                         'url_cif' => $request->hasFile('url_cif') ? asset("storage/clientes/$request->nombre_fiscal/cif/" . $request->file('url_cif')->hashName()) : null,
                         'anotaciones' => $request->anotaciones

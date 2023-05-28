@@ -11,7 +11,7 @@ import Sidebar from "../../components/partials/Sidebar";
 export default function ActualizaCliente() {
     const { flash } = usePage().props;
     return (
-        <div style={{ display: "flex", height: "100vh" }}>
+      <div style={{ display: "flex" }}>
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>              
