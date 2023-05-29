@@ -5,7 +5,7 @@ import Sidebar from "../../components/partials/Sidebar";
 
 export default function NuevoCliente() {
     return (
-        <div style={{ display: "flex", height: "110vh" }}>
+        <div style={{ display: "flex"}}>
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>

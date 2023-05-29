@@ -59,6 +59,9 @@ label {
 thead {
   background-color: rgba(241, 190, 21, 0.5);
 }
+.sidebar {
+  min-height: 100vh;
+}
 /* Anchura máxima para móviles */
 @media (max-width: 767px ) {
   .navbar-nav .nav-link {

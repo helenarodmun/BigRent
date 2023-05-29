@@ -5,7 +5,7 @@ import FormRegistro from '../../components/partials/FormRegistro'
 export default function Registro() {
     const { auth } = usePage().props;
     return (
-        <div style={{ display: 'flex', height: '100vh' }}>
+        <div style={{ display: 'flex' }}>
             <Sidebar />
             <div style={{ flex: 1 }}>
                 <NavBar></NavBar>
