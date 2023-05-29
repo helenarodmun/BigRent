@@ -27,14 +27,17 @@ class PdfController extends Controller
         $autorizado = $contrato->autorizado;
         $serie = $contrato->serie;
         $maquina = $serie->maquina;
+        $numero_serie = str_replace(' ', '', $serie->numero_serie);
+		
         $referencia = $maquina->referencia;
         $subfamilia = $maquina->subfamilia;
         $nombreArchivo = $cliente->nombrefiscal;
+		error_log("maquina==".$maquina);
 		
         $barcodeGenerator = new BarcodeGeneratorSVG();
         $codigoReferencia = $barcodeGenerator->getBarcode($referencia, $barcodeGenerator::TYPE_CODE_128);
 
-        $codigoNumSerie = $barcodeGenerator->getBarcode($maquina, $barcodeGenerator::TYPE_CODE_128);
+        $codigoNumSerie = $barcodeGenerator->getBarcode($numero_serie, $barcodeGenerator::TYPE_CODE_128);
 
         $codigoFianza = $barcodeGenerator->getBarcode($subfamilia->fianza, $barcodeGenerator::TYPE_CODE_128);
 

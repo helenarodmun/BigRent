@@ -388,10 +388,7 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 				</div>
 				<div class="div_barras_maquina" style="background-color: <?= $verde_claro ?>;">
 					<div class="d_50 display_inline" align="center">	
-
-						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoReferencia) }}" alt="Código de Barras">						
-						
-						
+						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoReferencia) }}">										
 					</div>
 					<div class="d_50 display_inline" align="center">
 
