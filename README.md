@@ -85,7 +85,7 @@ Esto creará las tablas necesarias en la base de datos y llenará los datos de p
 
 + Accede a la aplicación en tu navegador web utilizando la URL:
 
-<span style="font-family: Arial;">(http://localhost:8000)</span>
+<span style="font-family: Arial;">http://localhost:8000</span>
 Ahora deberías poder ver y utilizar la aplicación.
 
 Ten en cuenta que estos pasos son generales y pueden variar según las especificidades de tu proyecto. Asegúrate de consultar la documentación o los archivos de configuración proporcionados en el repositorio para obtener instrucciones más detalladas si es necesario.
@@ -101,7 +101,7 @@ Si deseas instalar Laravel como parte de tu proyecto, aquí tienes algunos pasos
 ### Opción 1: Laravel Sail
 Laravel Sail es una opción recomendada por el equipo de desarrollo de Laravel. Proporciona un entorno de desarrollo basado en contenedores Docker. Si has decidido utilizar Sail, sigue estos pasos:
 
-+ Asegúrate de tener Docker instalado en tu máquina. Puedes descargar e instalar Docker desde su sitio web oficial: <span style="font-family: Arial;">(https://www.docker.com/)</span>
++ Asegúrate de tener Docker instalado en tu máquina. Puedes descargar e instalar Docker desde su sitio web oficial: <span style="font-family: Arial;">https://www.docker.com/</span>
 
 + Crea un nuevo proyecto de Laravel utilizando el comando sail:
 
@@ -119,7 +119,7 @@ Esto iniciará los contenedores Docker necesarios para ejecutar Laravel.
 
 + Accede a la página por defecto de Laravel en tu navegador web:
 
-<span style="font-family: Arial;">(http://localhost)</span>
+<span style="font-family: Arial;">http://localhost</span>
 
 Deberías poder ver la página por defecto de Laravel.
 
@@ -128,7 +128,7 @@ Recuerda que la instalación y configuración de Sail puede llevar tiempo la pri
 ### Opción 2: Laragon
 Laragon es otra opción para configurar el entorno de desarrollo de Laravel, especialmente para usuarios de Windows. Si has decidido utilizar Laragon, sigue estos pasos:
 
-+ Asegúrate de tener Laragon instalado en tu máquina. Puedes descargar Laragon desde su sitio web oficial: <span style="font-family: Arial;">(https://laragon.org/)</span>
++ Asegúrate de tener Laragon instalado en tu máquina. Puedes descargar Laragon desde su sitio web oficial: <span style="font-family: Arial;">https://laragon.org/</span>
 
 + Abre Laragon y crea un nuevo proyecto de Laravel utilizando el comando laravel new:
 
@@ -139,7 +139,7 @@ Esto creará un nuevo proyecto de Laravel en la carpeta especificada.
 
 + Accede a la página por defecto de Laravel en tu navegador web utilizando el host virtual creado por Laragon:
 
-<span style="font-family: Arial;">(http://nombre_proyecto.test)</span>
+<span style="font-family: Arial;">http://nombre_proyecto.test</span>
 
 Deberías poder ver la página por defecto de Laravel.
 
@@ -196,6 +196,6 @@ Si deseas enviar una contribución al código fuente, te invito a seguir los sig
 Al realizar contribuciones, por favor, asegúrate de seguir un código de conducta y buenas prácticas.
 
 # Licencia
-Este trabajo se encuentra bajo la licencia Creative Commons Reconocimiento-NoComercial 4.0 Internacional License. Para ver una copia de esta licencia, visita <span style="font-family: Arial;">(http://creativecommons.org/licenses/by-nc/4.0/)</span>.
+Este trabajo se encuentra bajo la licencia Creative Commons Reconocimiento-NoComercial 4.0 Internacional License. Para ver una copia de esta licencia, visita <span style="font-family: Arial;">http://creativecommons.org/licenses/by-nc/4.0/</span>.
 
 Esta licencia permite a otros copiar, redistribuir, adaptar y construir sobre tu trabajo, siempre y cuando se reconozca tu autoría y no se utilice con fines comerciales.
