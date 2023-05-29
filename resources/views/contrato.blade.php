@@ -462,12 +462,8 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 			<img src="data:image/svg+xml;base64,{{ base64_encode($codigoFianza) }}" alt="Código de Barras">
 		</div>
 		<div>
-			<span class="titulo_barras">SEMANA</span><br>
-			CODIGO_BARRAS_SEMANA
-		</div>
-		<div>
 			<span class="titulo_barras">DIA</span><br>
-			CODIGO_BARRAS_DIA
+			<img src="data:image/svg+xml;base64,{{ base64_encode($codigoAlquilerDias) }}" alt="Código de Barras">
 		</div>
 	</div>
 	
