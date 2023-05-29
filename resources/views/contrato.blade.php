@@ -1,10 +1,3 @@
-<?php
-
-	
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +42,7 @@ $verde_claro	= "#DCF2C2";
 		.div_logo .rectangulo {
 			border: 0px solid #000;
 			height: 7px;
-			width: 300px;
+			width: 310px;
 			background: #fff;
 			display: inline-block;
 			vertical-align: top;
@@ -102,7 +95,7 @@ $verde_claro	= "#DCF2C2";
 	}
 	.d_1 {
 		border: 0px solid rgba(255,0,0,0.2);
-		padding: 15px 0px;
+		padding: 12px 0px 5px;
 	}
 	.fecha_titulo {
 		color: <?= $naranja ?>;
@@ -163,7 +156,7 @@ $verde_claro	= "#DCF2C2";
 	
 	.cuadro_final {
 		border: 0px solid #f00;
-		margin-top: 10px;
+		margin-top: 20px;
 		font-size: 0.8rem;
 	}
 	
@@ -171,10 +164,11 @@ $verde_claro	= "#DCF2C2";
 		font-size: 0.6rem;
 	}
 	.cuadro_final .barras{
-		border: 0px solid #f00;
+		border: 0px solid #f0f;
 	}
 	.cuadro_final .total{
 		border: 0px solid #f00;
+		vertical-align: top;
 	}
 	.precio_1 {
 		font-size: 1rem;
@@ -191,7 +185,7 @@ $verde_claro	= "#DCF2C2";
 	}
 	
 	.condiciones_legales {
-		margin-top: 200px;
+		margin-top: 30px;
 		font-size: 0.7rem;
 		text-align: justify
 	}
@@ -364,12 +358,12 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 			<div class="linea_datos">
 				<div class="titulo display_inline">FIANZA:</div>
 				<div class="valor display_inline" style="width: 132px; background-color: <?= $verde_claro ?>;">
-					25,00 € &nbsp;
+					<?= str_replace('.', ',', $subfamilia->fianza) ?> € &nbsp;
 				</div>
 				
 				<div class="titulo display_inline">PRECIO POR DÍA:</div>
 				<div class="valor display_inline" style="width: 132px; background-color: <?= $verde_claro ?>;">
-					10,00 €  &nbsp;
+					<?= str_replace('.', ',', $subfamilia->precio_dia) ?> €  &nbsp;
 				</div>
 				
 				<div class="titulo display_inline">PRECIO HORA EX.:</div>
@@ -379,19 +373,18 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 				
 			</div>
 
-			<div class="linea_datos">
+			<div class="linea_datos" style="padding-bottom: 0px;">
 				<div class="titulo display_inline">NOTAS/OBSERVACIONES:</div>
 			</div>
 			<div class="linea_datos">
 				<div class="valor display_inline" style="width: 688px; height: 80px; background-color: <?= $verde_claro ?>;">
-					<?= e($contrato->notas2 || '') ?> &nbsp; 
+					<?= e($contrato->notas1) . ' | '.e($contrato->notas2) ?> &nbsp; 
 				</div>
 				<div class="div_barras_maquina" style="background-color: <?= $verde_claro ?>;">
 					<div class="d_50 display_inline" align="center">	
 						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoReferencia) }}">										
 					</div>
 					<div class="d_50 display_inline" align="center">
-
 						<img src="data:image/svg+xml;base64,{{ base64_encode($codigoNumSerie) }}" alt="Código de Barras">	
 						
 					</div>
@@ -443,7 +436,7 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 				FIRMA BIGMAT
 			</div>
 			<div align="left" class="datos_firma" style="background: <?= $rojo ?>">
-				<div class="display_inline" align="left">Vendedor</div>
+				<div class="display_inline" align="left"><?= ucfirst(e($usuario->username)) ?> &nbsp;</div>
 				<div class="display_inline" align="right" style="float: right">&nbsp;</div>
 
 			</div>
@@ -467,12 +460,7 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 		</div>
 	</div>
 	
-	<div class="total display_inline" style="float: right; vertical-align: bottom; margin-top: 50px;">
-		<div align="right" style="vertical-align: top">
-			<div class="display_inline" style="vertical-align: middle">PRECIO ESTIMADO POR FECHAS SELECIONAS:</div>
-			<div class="precio_1 display_inline" style="background: <?= $azul ?>"><?= number_format(e($contrato->importe_total), 2) ?> €</div>
-		</div>
-	
+	<div class="total display_inline" style="float: right; vertical-align: bottom; margin-top: 25px;">
 		<?php
 			$precio_fianza = number_format(e($subfamilia->fianza), 2); //number_format(e($subfamilia->fianza), 2)
 			$euros = floor($precio_fianza); // Obtiene la parte entera (euros)
@@ -483,6 +471,13 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 				
 				
 		?>
+
+		
+		<div align="right" style="vertical-align: top">
+			<div class="display_inline" style="vertical-align: middle">PRECIO ESTIMADO POR FECHAS SELECIONAS:</div>
+			<div class="precio_1 display_inline" style="background: <?= $azul ?>"><?= number_format(e($contrato->importe_total), 2) ?> €</div>
+		</div>
+	
 		<div align="right" style="vertical-align: top">
 			<div class="display_inline" style="vertical-align: middle">PRECIO FIANZA:</div>
 			<div class="precio_2 display_inline" style="background: <?= $rojo ?>"><?= $euros ?>,<span class="centimos"><?= $centimos ?></span> €</div>
@@ -491,44 +486,6 @@ $fecha_contrato = $dias[$dia_semana].", ".$dia." de ".$meses[$mes_ano-1]. " de "
 	</div>
 	
 </div>	
-	
-	<br>
-	<br>
-
-
-	
-	
-    <h1>CONTRATO DE ALQUILER</h1>
-    
-    <p>FECHA CONTRATO: {{$contrato->created_at}}
-    <p>ID CONTRATO: {{$contrato->id}}
-    <p>CLIENTE: {{$cliente->nombre_fiscal}}</p>
-    <p>NIF CLIENTE: {{$cliente->nif}}</p>
-    <p>DIRECCIÓN CLIENTE: {{$direccion_predeterminada->direccion ,'-', $direccion_predeterminada->cp ,'-', $direccion_predeterminada->municipio ,'-', $direccion_predeterminada->provincia}}</p>
-    <p>CORREO: {{$correo}}</p>
-    <p>PERSONA AUTORIZADA: {{$autorizado->nombre_persona_autorizada}}</p>
-    <p>DNI AUTORIZADO: {{$autorizado->dni}}</p>
-    <p>DIRECCIÓN CONTRATO: {{$direccion->direccion ,'-', $direccion->cp ,'-', $direccion->municipio ,'-', $direccion_predeterminada->provincia}}</p>
-    <p>CONTACTO: {{$telefono->contacto}}</p>
-    <p>MÁQUINA CONTRATADAE: {{$maquina->descripcion}}</p>
-    <p>NÚMERO DE SERIE: {{$serie->numero_serie}}</p>
-    <p>FECHA INICIO: {{$contrato->fecha_retirada}}</p>
-    <p>FECHA FIN: {{$contrato->fecha_entrega}}</p>
-    <p>NÚMERO DIAS: {{$contrato->dias}}</p>
-    <p>IMPORTE FIANZA: {{$subfamilia->fianza}} €</p>
-    <p>IMPORTE ALQUILER: {{$subfamilia->precio_dia}} €/día</p>
-    <p>TOTAL ALQUILER: {{$contrato->importe_total}} €</p>
-    <p>ESTADO ARTÍCULO - OBSERVACIONES: {{$contrato->notas1}}</p>
-    <p>OBSERVACIONES CONTRATO: {{$contrato->notas2 || ''}}</p>
-    <p>REFERENCIA: {{$maquina->referencia}}</p>
-
-
-
-
-
-
-
-
 <div class="condiciones_legales">
 <p><strong>CONDICIONES  DE ALQUILER (BIGRENT)</strong><br>
   <strong>1. Objeto del contrato e intervinientes. </strong>El presente  contrato de naturaleza mercantil, tiene por objeto la cesión por el arrendador,  en régimen de arrendamiento, de la maquinaria identificada en las condiciones  particulares. El arrendador, legítimo titular de los bienes objeto del presente  contrato, cede su uso y disfrute en correcto estado de funcionamiento y con  todos sus accesorios al arrendatario, que los recibe con entera conformidad y  se compromete a no realizar actos de cesión, traspaso o subrogación salvo con  previo consentimiento por escrito del arrendador, corriendo por cuenta del  arrendatario cuantos gastos se originen como consecuencia del incumplimiento de  dichos compromisos <br>

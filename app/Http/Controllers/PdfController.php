@@ -7,7 +7,7 @@ use App\Models\Direccion;
 use App\Models\Telefono;
 use PDF;
 use Picqer\Barcode\BarcodeGeneratorSVG;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class PdfController extends Controller
@@ -15,11 +15,11 @@ class PdfController extends Controller
 	
 	public static function generaDocumentoContrato($id)
     {
+        $usuario = Auth::user();
 
         $contrato = Contrato::findOrFail($id);
 
         $cliente = $contrato->cliente;
-
         $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($cliente->id);
         $correo = Telefono::where('via_comunicacion', 'C')->first()->contacto;
         $direccion = $contrato->direccion;
@@ -43,7 +43,7 @@ class PdfController extends Controller
         $codigoAlquilerDias = $barcodeGenerator->getBarcode($subfamilia->precio_dia, $barcodeGenerator::TYPE_CODE_128);
 
         $pdf = \PDF::loadView('contrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo',
-         'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie', 'codigoReferencia', 'codigoNumSerie','codigoFianza', 'codigoAlquilerDias'));
+         'autorizado', 'direccion', 'telefono', 'maquina', 'referencia','subfamilia', 'serie', 'codigoReferencia', 'codigoNumSerie','codigoFianza', 'codigoAlquilerDias', 'usuario'));
 
         return $pdf->stream();
     }
@@ -55,7 +55,7 @@ class PdfController extends Controller
         $contrato = Contrato::findOrFail($id);
 
         $cliente = $contrato->cliente;
-
+        $nombreUsuario = $user->username; 
         $direccion_predeterminada = Direccion::buscaDireccionPredeterminada($cliente->id);
         $direccion = $contrato->direccion;
         $telefono = $contrato->telefono;
@@ -74,6 +74,7 @@ class PdfController extends Controller
     public function generaDocumentoFIN($id)
     {
 
+        $usuario = Auth::user();
         $contrato = Contrato::findOrFail($id);
 
         $cliente = $contrato->cliente;
@@ -89,7 +90,13 @@ class PdfController extends Controller
         $nombreArchivo = $cliente->nombrefiscal;
         $referencia = $maquina->referencia;
 
-        $pdf = \PDF::loadView('fincontrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo','autorizado', 'direccion', 'telefono', 'maquina', 'referencia', 'subfamilia', 'serie'));
+        $barcodeGenerator = new BarcodeGeneratorSVG();
+        $codigoReferencia = $barcodeGenerator->getBarcode($referencia, $barcodeGenerator::TYPE_CODE_128);
+        $codigoFianza = $barcodeGenerator->getBarcode($subfamilia->fianza, $barcodeGenerator::TYPE_CODE_128);
+        $codigoAlquilerDias = $barcodeGenerator->getBarcode($subfamilia->precio_dia, $barcodeGenerator::TYPE_CODE_128);
+		
+		
+        $pdf = \PDF::loadView('fincontrato', compact('contrato', 'cliente', 'direccion_predeterminada', 'correo','autorizado', 'direccion', 'telefono', 'maquina', 'referencia', 'subfamilia', 'serie', 'usuario', 'codigoReferencia','codigoFianza', 'codigoAlquilerDias'));
         // $pdf->save("contratos/$cliente->nombre_fiscal-$contrato->id.pdf");
         return $pdf->stream();
     }
